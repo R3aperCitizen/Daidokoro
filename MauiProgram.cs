@@ -1,4 +1,5 @@
 ﻿using Microsoft.Extensions.Logging;
+using Daidokoro.View;
 
 namespace Daidokoro
 {
@@ -18,6 +19,8 @@ namespace Daidokoro
 #if DEBUG
     		builder.Logging.AddDebug();
 #endif
+
+            builder.Services.AddTransient<HomePage>();
 
             return builder.Build();
         }

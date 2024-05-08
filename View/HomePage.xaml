@@ -1,0 +1,46 @@
+﻿<?xml version="1.0" encoding="utf-8" ?>
+<ContentPage xmlns="http://schemas.microsoft.com/dotnet/2021/maui"
+             xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml"
+             x:Class="Daidokoro.View.HomePage"
+             xmlns:model="clr-namespace:Daidokoro.Model">
+
+    <VerticalStackLayout>
+        <HorizontalStackLayout HeightRequest="75" BackgroundColor="#B7652B">
+            <HorizontalStackLayout HorizontalOptions="Center" Spacing="105" Padding="25,15,25,15">
+                <ImageButton Source="user.png" />
+                <ImageButton Source="user.png" />
+                <ImageButton Source="user.png" />
+            </HorizontalStackLayout>
+        </HorizontalStackLayout>
+        <ScrollView>
+            <VerticalStackLayout HeightRequest="725" BackgroundColor="#FAD77F" Padding="15,25,15,25" Spacing="25">
+                <CollectionView x:Name="SuggestedList">
+                    <CollectionView.ItemTemplate>
+                        <DataTemplate x:DataType="model:Ricetta">
+                            <Border StrokeShape="RoundRectangle 10" StrokeThickness="0">
+                                <VerticalStackLayout HeightRequest="200" BackgroundColor="#D98142">
+                                    <Label x:Name="IdRicetta" VerticalOptions="Center" FontAutoScalingEnabled="False">
+                                        <Label.Text>
+                                            <Binding Path="IdRicetta" />
+                                        </Label.Text>
+                                    </Label>
+                                    <Label FontAutoScalingEnabled="False">
+                                        <Label.Text>
+                                            <Binding Path="Nome" />
+                                        </Label.Text>
+                                    </Label>
+                                    <Label FontAutoScalingEnabled="False">
+                                        <Label.Text>
+                                            <Binding Path="Descrizione" />
+                                        </Label.Text>
+                                    </Label>
+                                </VerticalStackLayout>
+                            </Border>
+                        </DataTemplate>
+                    </CollectionView.ItemTemplate>
+                </CollectionView>
+            </VerticalStackLayout>
+        </ScrollView>
+    </VerticalStackLayout>
+
+</ContentPage>
