@@ -12,29 +12,33 @@
                 <ImageButton Source="user.png" />
             </HorizontalStackLayout>
         </HorizontalStackLayout>
+        <Button Clicked="Button_Clicked" />
         <ScrollView>
             <VerticalStackLayout HeightRequest="725" BackgroundColor="#FAD77F" Padding="15,25,15,25" Spacing="25">
                 <CollectionView x:Name="SuggestedList">
                     <CollectionView.ItemTemplate>
                         <DataTemplate x:DataType="model:Ricetta">
-                            <Border StrokeShape="RoundRectangle 10" StrokeThickness="0">
-                                <VerticalStackLayout HeightRequest="200" BackgroundColor="#D98142">
-                                    <Label x:Name="IdRicetta" VerticalOptions="Center" FontAutoScalingEnabled="False">
-                                        <Label.Text>
-                                            <Binding Path="IdRicetta" />
-                                        </Label.Text>
-                                    </Label>
-                                    <Label FontAutoScalingEnabled="False">
-                                        <Label.Text>
-                                            <Binding Path="Nome" />
-                                        </Label.Text>
-                                    </Label>
-                                    <Label FontAutoScalingEnabled="False">
-                                        <Label.Text>
-                                            <Binding Path="Descrizione" />
-                                        </Label.Text>
-                                    </Label>
-                                </VerticalStackLayout>
+                            <Border StrokeShape="RoundRectangle 10" StrokeThickness="0" Margin="0,15,0,0">
+                                <HorizontalStackLayout HeightRequest="200" BackgroundColor="#D98142" Spacing="25">
+                                    <Image Source="daidokoro.png" WidthRequest="100" HeightRequest="100" />
+                                    <VerticalStackLayout>
+                                        <Label FontAutoScalingEnabled="False" HorizontalTextAlignment="Center" FontSize="30" Padding="10">
+                                            <Label.Text>
+                                                <Binding Path="Nome" />
+                                            </Label.Text>
+                                        </Label>
+                                        <Label FontAutoScalingEnabled="False" HorizontalTextAlignment="Center" FontSize="15" Padding="10">
+                                            <Label.Text>
+                                                <Binding Path="Descrizione" />
+                                            </Label.Text>
+                                        </Label>
+                                        <Label FontAutoScalingEnabled="False" HorizontalTextAlignment="Center" FontSize="15" Padding="10">
+                                            <Label.Text>
+                                                <Binding Path="Difficolta" />
+                                            </Label.Text>
+                                        </Label>
+                                    </VerticalStackLayout>
+                                </HorizontalStackLayout>
                             </Border>
                         </DataTemplate>
                     </CollectionView.ItemTemplate>

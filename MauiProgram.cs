@@ -1,5 +1,6 @@
 ﻿using Microsoft.Extensions.Logging;
 using Daidokoro.View;
+using Daidokoro.ViewModel;
 
 namespace Daidokoro
 {
@@ -20,6 +21,7 @@ namespace Daidokoro
     		builder.Logging.AddDebug();
 #endif
 
+            builder.Services.AddSingleton<IMainViewModel, MainViewModel>();
             builder.Services.AddTransient<HomePage>();
 
             return builder.Build();
