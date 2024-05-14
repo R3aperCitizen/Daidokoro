@@ -12,7 +12,7 @@ namespace Daidokoro.View
             InitializeComponent();
             _globals = globals;
 
-            bool connection = _globals.InitDBSettings("192.168.1.236", "daidokoro", "root", "root");
+            bool connection = _globals.InitDBSettings("192.168.167.7", "daidokoro", "root", "root");
 
             List<Model.Ricetta> ricette = _globals.GetRicette();
 
