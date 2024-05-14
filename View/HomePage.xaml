@@ -12,7 +12,6 @@
                 <ImageButton Source="user.png" />
             </HorizontalStackLayout>
         </HorizontalStackLayout>
-        <Button Clicked="Button_Clicked" />
         <ScrollView>
             <VerticalStackLayout HeightRequest="725" BackgroundColor="#FAD77F" Padding="15,25,15,25" Spacing="25">
                 <CollectionView x:Name="SuggestedList">

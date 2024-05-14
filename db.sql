@@ -66,6 +66,7 @@ CREATE TABLE IF NOT EXISTS ricetta(
     Nome VARCHAR(50) NOT NULL,
     Descrizione VARCHAR(255) NOT NULL,
     Passaggi JSON NOT NULL,
+    Foto MEDIUMBLOB NOT NULL,
     Difficolta INT NOT NULL,
     DataCreazione DATE NOT NULL,
     IdUtente INT NOT NULL,
