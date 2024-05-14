@@ -1,6 +1,8 @@
 ﻿using Microsoft.Extensions.Logging;
 using Daidokoro.View;
 using Daidokoro.ViewModel;
+using System.Reflection;
+using Microsoft.Extensions.Configuration;
 
 namespace Daidokoro
 {
@@ -9,6 +11,18 @@ namespace Daidokoro
         public static MauiApp CreateMauiApp()
         {
             var builder = MauiApp.CreateBuilder();
+
+            var a = Assembly.GetExecutingAssembly();
+            using var stream = a.GetManifestResourceStream("Daidokoro.appsettings.json");
+            if (stream != null)
+            {
+                var config = new ConfigurationBuilder()
+                            .AddJsonStream(stream)
+                            .Build();
+
+                builder.Configuration.AddConfiguration(config);
+            }
+
             builder
                 .UseMauiApp<App>()
                 .ConfigureFonts(fonts =>

@@ -1,4 +1,5 @@
 ﻿using Daidokoro.ViewModel;
+using Microsoft.Extensions.Configuration;
 
 namespace Daidokoro.View
 {
@@ -6,13 +7,20 @@ namespace Daidokoro.View
     {
         // Global app variables
         private readonly IMainViewModel _globals;
+        // Appsettings configuration
+        private readonly IConfiguration _configuration;
 
-        public HomePage(IMainViewModel globals)
+        public HomePage(IConfiguration configuration, IMainViewModel globals)
         {
             InitializeComponent();
+            _configuration = configuration;
             _globals = globals;
 
-            bool connection = _globals.InitDBSettings("192.168.1.236", "daidokoro", "root", "root");
+            if (globals.dbService.dbCredentials.Server == string.Empty)
+            {
+                Model.DBCredentials dbs = _configuration.GetRequiredSection("DBCredentials").Get<Model.DBCredentials>()!;
+                bool connection = _globals.InitDBSettings(dbs);
+            }
 
             List<Model.Ricetta> ricette = _globals.GetRicette();
 

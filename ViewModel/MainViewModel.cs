@@ -8,9 +8,15 @@ namespace Daidokoro.ViewModel
 
         public DBService dbService { get { return _dbService; } }
 
-        public bool InitDBSettings(string _Server, string _Database, string _User, string _Password)
+        public bool InitDBSettings(DBCredentials dbs)
         {
-            DBService.DBCredentials dbc = new(_Server, _Database, _User, _Password);
+            DBCredentials dbc = new()
+            {
+                Server = dbs.Server,
+                Database = dbs.Database,
+                User = dbs.User,
+                Password = dbs.Password
+            };
             return _dbService.TryConnection(dbc);
         }
 

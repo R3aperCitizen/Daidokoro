@@ -6,9 +6,7 @@ namespace Daidokoro.Model
 {
     public class DBService
     {
-        public record DBCredentials(string Server, string Database, string User, string Password);
-
-        public DBCredentials dbCredentials = null!;
+        public DBCredentials dbCredentials = new();
         private string connectionString = string.Empty;
 
         public bool TryConnection(DBCredentials dbc)

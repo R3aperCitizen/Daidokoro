@@ -6,7 +6,7 @@ namespace Daidokoro.ViewModel
     {
         DBService dbService { get; }
 
-        bool InitDBSettings(string _Server, string _Name, string _User, string _Password);
+        bool InitDBSettings(DBCredentials dbs);
 
         List<Ricetta> GetRicette();
     }
