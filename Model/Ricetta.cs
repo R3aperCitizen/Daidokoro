@@ -1,6 +1,4 @@
-﻿using System.Text.Json.Nodes;
-
-namespace Daidokoro.Model
+﻿namespace Daidokoro.Model
 {
     public class Ricetta
     {

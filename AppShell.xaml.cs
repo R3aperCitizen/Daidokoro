@@ -13,6 +13,7 @@ namespace Daidokoro
             _globals = new MainViewModel();
 
             Routing.RegisterRoute(nameof(HomePage), typeof(HomePage));
+            Routing.RegisterRoute(nameof(UserPage), typeof(UserPage));
         }
     }
 }

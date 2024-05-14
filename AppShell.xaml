@@ -15,4 +15,11 @@
         Shell.NavBarIsVisible="False"
         Shell.FlyoutBehavior="Disabled"/>
 
+    <ShellContent
+        Title="UserPage"
+        ContentTemplate="{DataTemplate view:UserPage}"
+        Route="UserPage"
+        Shell.NavBarIsVisible="False"
+        Shell.FlyoutBehavior="Disabled"/>
+
 </Shell>

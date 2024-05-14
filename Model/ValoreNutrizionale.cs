@@ -1,12 +1,6 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
-
-namespace Daidokoro.Model
+﻿namespace Daidokoro.Model
 {
-    public class Valore_nutrizionale
+    public class ValoreNutrizionale
     {
         public int IdValoreNutrizionale { get; set; }
         public float Calorie { get; set; }

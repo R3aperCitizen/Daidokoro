@@ -77,13 +77,15 @@
 	</ItemGroup>
 
 	<ItemGroup>
-	  <Folder Include="View\" />
-	</ItemGroup>
-
-	<ItemGroup>
 	  <Compile Update="View\HomePage.xaml.cs">
 	    <DependentUpon>HomePage.xaml</DependentUpon>
 	  </Compile>
+	</ItemGroup>
+
+	<ItemGroup>
+	  <MauiXaml Update="View\UserPage.xaml">
+	    <Generator>MSBuild:Compile</Generator>
+	  </MauiXaml>
 	</ItemGroup>
 
 	<ProjectExtensions><VisualStudio><UserProperties XamarinHotReloadDebuggerTimeoutExceptionDaidokoroHideInfoBar="True" /></VisualStudio></ProjectExtensions>

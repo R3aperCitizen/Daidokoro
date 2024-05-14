@@ -37,6 +37,7 @@ namespace Daidokoro
 
             builder.Services.AddSingleton<IMainViewModel, MainViewModel>();
             builder.Services.AddTransient<HomePage>();
+            builder.Services.AddTransient<UserPage>();
 
             return builder.Build();
         }

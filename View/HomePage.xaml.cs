@@ -27,6 +27,21 @@ namespace Daidokoro.View
             SuggestedList.ItemsSource = ricette;
         }
 
+        private async void GoToUserPage(object sender, EventArgs e)
+        {
+            await Shell.Current.GoToAsync($"//{nameof(UserPage)}");
+        }
+
+        private void GoToSearchPage(object sender, EventArgs e)
+        {
+
+        }
+
+        private void GoToHomePage(object sender, EventArgs e)
+        {
+
+        }
+
         protected override void OnNavigatedTo(NavigatedToEventArgs args)
         {
             
