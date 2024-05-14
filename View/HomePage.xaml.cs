@@ -19,7 +19,7 @@ namespace Daidokoro.View
             SuggestedList.ItemsSource = ricette;
         }
 
-        protected async override void OnNavigatedTo(NavigatedToEventArgs args)
+        protected override void OnNavigatedTo(NavigatedToEventArgs args)
         {
             
         }
