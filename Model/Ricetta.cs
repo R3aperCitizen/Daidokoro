@@ -7,6 +7,8 @@ namespace Daidokoro.Model
         public int IdRicetta { get; set; }
         public string Nome { get; set; } = string.Empty;
         public string Descrizione {  get; set; } = string.Empty;
+        public string Passaggi { get; set; } = string.Empty;
+        public byte[] Foto { get; set; } = null!;
         public int Difficolta { get; set; }
         public DateTime DataCreazione { get; set; }
         public int IdUtente { get; set; }
