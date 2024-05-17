@@ -32,9 +32,9 @@ namespace Daidokoro.View
             await Shell.Current.GoToAsync($"//{nameof(UserPage)}");
         }
 
-        private void GoToSearchPage(object sender, EventArgs e)
+        private async void GoToSearchPage(object sender, EventArgs e)
         {
-
+            await Shell.Current.GoToAsync($"//{nameof(BrowsePage)}");
         }
 
         private void GoToHomePage(object sender, EventArgs e)

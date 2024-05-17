@@ -21,5 +21,12 @@
         Route="UserPage"
         Shell.NavBarIsVisible="False"
         Shell.FlyoutBehavior="Disabled"/>
+    
+    <ShellContent
+     Title="BrowsePage"
+     ContentTemplate="{DataTemplate view:BrowsePage}"
+     Route="BrowsePage"
+     Shell.NavBarIsVisible="False"
+     Shell.FlyoutBehavior="Disabled"/>
 
 </Shell>
