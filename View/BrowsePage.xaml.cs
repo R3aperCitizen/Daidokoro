@@ -28,7 +28,7 @@ public partial class BrowsePage : ContentPage
 
     private async void GoToHomePage(object sender, EventArgs e)
     {
-        await Shell.Current.GoToAsync($"//{nameof(UserPage)}");
+        await Shell.Current.GoToAsync($"//{nameof(HomePage)}");
     }
 
 }

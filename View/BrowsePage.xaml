@@ -16,21 +16,21 @@
             <VerticalStackLayout Padding="15" Spacing="30" Margin="0,15,0,0">
                 <Border StrokeShape="RoundRectangle 10" StrokeThickness="0">
                     <Grid HeightRequest="200">
-                        <ImageButton Source="ricette_section.jpg" HeightRequest="250" WidthRequest="450" />
+                        <ImageButton Source="ricette_section.jpg" HeightRequest="250" WidthRequest="500" />
                         <StackLayout BackgroundColor="#77000000" />
                         <Label Text="Ricette" FontSize="50" VerticalTextAlignment="Center" HorizontalTextAlignment="Center" />
                     </Grid>
                 </Border>
                 <Border StrokeShape="RoundRectangle 10" StrokeThickness="0">
                     <Grid HeightRequest="200">
-                        <ImageButton Source="collection_section.jpg" HeightRequest="250" WidthRequest="450" />
+                        <ImageButton Source="collection_section.jpg" HeightRequest="250" WidthRequest="500" />
                         <StackLayout BackgroundColor="#77000000" />
                         <Label Text="Collezioni" FontSize="50" VerticalTextAlignment="Center" HorizontalTextAlignment="Center" />
                     </Grid>
                 </Border>
                 <Border StrokeShape="RoundRectangle 10" StrokeThickness="0">
                     <Grid HeightRequest="200">
-                        <ImageButton Source="diet_section.jpg" HeightRequest="250" WidthRequest="450" />
+                        <ImageButton Source="diet_section.jpg" HeightRequest="250" WidthRequest="500" />
                         <StackLayout BackgroundColor="#77000000" />
                         <Label Text="Diete" FontSize="50" VerticalTextAlignment="Center" HorizontalTextAlignment="Center" />
                     </Grid>
