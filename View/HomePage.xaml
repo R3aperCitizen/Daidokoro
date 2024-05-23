@@ -13,7 +13,11 @@
             </HorizontalStackLayout>
         </HorizontalStackLayout>
         <ScrollView>
-            
+            <VerticalStackLayout Padding="20" Spacing="20">
+                <Button HeightRequest="200" BackgroundColor="#B7652B" TextColor="#FAD77F" FontSize="Large" Text="Ricetta del mese" />
+                <Button HeightRequest="200" BackgroundColor="#B7652B" TextColor="#FAD77F" FontSize="Large" Text="Dieta del mese" />
+                <Button HeightRequest="200" BackgroundColor="#B7652B" TextColor="#FAD77F" FontSize="Large" Text="Collezione del mese" />
+            </VerticalStackLayout>
         </ScrollView>
     </VerticalStackLayout>
 
