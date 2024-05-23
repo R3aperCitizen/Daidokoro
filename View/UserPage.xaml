@@ -4,11 +4,11 @@
              x:Class="Daidokoro.View.UserPage"
              xmlns:model="clr-namespace:Daidokoro.Model"
              Title="UserPage">
-    <VerticalStackLayout>
+    <VerticalStackLayout BackgroundColor="#FAD77F">
         <HorizontalStackLayout HeightRequest="75" BackgroundColor="#B7652B">
             <HorizontalStackLayout HorizontalOptions="Center" Spacing="105" Padding="25,15,25,15">
-                <ImageButton Source="user.png" Clicked="GoToHomePage" />
-                <ImageButton Source="user.png" Clicked="GoToSearchPage" />
+                <ImageButton Source="home.png" Clicked="GoToHomePage" />
+                <ImageButton Source="browse.png" Clicked="GoToBrowsePage" />
                 <ImageButton Source="user.png" Clicked="GoToUserPage" />
             </HorizontalStackLayout>
         </HorizontalStackLayout>

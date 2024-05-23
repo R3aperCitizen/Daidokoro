@@ -21,10 +21,6 @@ namespace Daidokoro.View
                 Model.DBCredentials dbs = _configuration.GetRequiredSection("DBCredentials").Get<Model.DBCredentials>()!;
                 bool connection = _globals.InitDBSettings(dbs);
             }
-
-            List<Model.Ricetta> ricette = _globals.GetRicette();
-
-            SuggestedList.ItemsSource = ricette;
         }
 
         private async void GoToUserPage(object sender, EventArgs e)
@@ -32,14 +28,14 @@ namespace Daidokoro.View
             await Shell.Current.GoToAsync($"//{nameof(UserPage)}");
         }
 
-        private async void GoToSearchPage(object sender, EventArgs e)
+        private async void GoToBrowsePage(object sender, EventArgs e)
         {
             await Shell.Current.GoToAsync($"//{nameof(BrowsePage)}");
         }
 
-        private void GoToHomePage(object sender, EventArgs e)
+        private async void GoToHomePage(object sender, EventArgs e)
         {
-
+            await Shell.Current.GoToAsync($"//{nameof(HomePage)}");
         }
 
         protected override void OnNavigatedTo(NavigatedToEventArgs args)

@@ -1,10 +1,16 @@
+using Daidokoro.ViewModel;
+
 namespace Daidokoro.View;
 
 public partial class UserPage : ContentPage
 {
-	public UserPage()
+    // Global app variables
+    private readonly IMainViewModel _globals;
+
+    public UserPage(IMainViewModel globals)
 	{
 		InitializeComponent();
+        _globals = globals;
 	}
         
     private async void GoToUserPage(object sender, EventArgs e)
@@ -12,9 +18,9 @@ public partial class UserPage : ContentPage
         await Shell.Current.GoToAsync($"//{nameof(UserPage)}");
     }
 
-    private void GoToSearchPage(object sender, EventArgs e)
+    private async void GoToBrowsePage(object sender, EventArgs e)
     {
-
+        await Shell.Current.GoToAsync($"//{nameof(BrowsePage)}");
     }
 
     private async void GoToHomePage(object sender, EventArgs e)
