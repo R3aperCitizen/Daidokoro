@@ -7,7 +7,7 @@
     <VerticalStackLayout BackgroundColor="{StaticResource Background}">
         <HorizontalStackLayout HeightRequest="75" BackgroundColor="{StaticResource NavBar}">
             <HorizontalStackLayout HorizontalOptions="Center" Spacing="105" Padding="25,15,25,15">
-                <ImageButton Source="home.png" Clicked="GoToRicettaPage" />
+                <ImageButton Source="home.png" Clicked="GoToHomePage" />
                 <ImageButton Source="browse.png" Clicked="GoToBrowsePage" />
                 <ImageButton Source="user.png" Clicked="GoToUserPage" />
             </HorizontalStackLayout>
