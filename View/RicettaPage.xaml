@@ -1,0 +1,29 @@
+<?xml version="1.0" encoding="utf-8" ?>
+<ContentPage xmlns="http://schemas.microsoft.com/dotnet/2021/maui"
+             xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml"
+             x:Class="Daidokoro.View.RicettaPage"
+             Title="RicettaPage">
+    <VerticalStackLayout Padding="30" BackgroundColor="Gray">
+        <Border StrokeShape="RoundRectangle 20" StrokeThickness="0">
+            <VerticalStackLayout HeightRequest="770" BackgroundColor="White">
+                <Label x:Name="Titolo" Text="Susasorella" FontSize="30" FontAttributes="Bold" Padding="30"/>
+                <HorizontalStackLayout Padding="30" HorizontalOptions="Center">
+                    <Image Source="image/daidokoro.png" HeightRequest="200"></Image>
+                </HorizontalStackLayout>
+                <HorizontalStackLayout Padding="30">
+                    <Label x:Name="Tags" Text="Tag,tag,tag" FontSize="15" FontAttributes="Bold"></Label>
+                </HorizontalStackLayout>
+                <HorizontalStackLayout Padding="30">
+                    <Label x:Name="Descrizione" Text="Descrizione" FontSize="25" FontAttributes="Bold"></Label>
+                </HorizontalStackLayout>
+                <HorizontalStackLayout Padding="30">
+                    <Label x:Name="Ingredienti" Text="Ingredienti" FontSize="25" FontAttributes="Bold"></Label>
+                </HorizontalStackLayout>
+                <HorizontalStackLayout Padding="30">
+                    <Label x:Name="Passaggi" Text="Passaggi" FontSize="25" FontAttributes="Bold"></Label>
+                </HorizontalStackLayout>
+
+            </VerticalStackLayout>
+        </Border>
+    </VerticalStackLayout>
+</ContentPage>

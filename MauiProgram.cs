@@ -39,6 +39,7 @@ namespace Daidokoro
             builder.Services.AddTransient<HomePage>();
             builder.Services.AddTransient<UserPage>();
             builder.Services.AddTransient<BrowsePage>();
+            builder.Services.AddTransient<RicettaPage>();
 
             return builder.Build();
         }

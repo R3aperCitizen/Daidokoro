@@ -29,4 +29,11 @@
      Shell.NavBarIsVisible="False"
      Shell.FlyoutBehavior="Disabled"/>
 
+    <ShellContent
+     Title="RicettaPage"
+     ContentTemplate="{DataTemplate view:RicettaPage}"
+     Route="RicettaPage"
+     Shell.NavBarIsVisible="False"
+     Shell.FlyoutBehavior="Disabled"/>
+
 </Shell>
