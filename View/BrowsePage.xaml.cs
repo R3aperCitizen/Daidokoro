@@ -12,9 +12,9 @@ public partial class BrowsePage : ContentPage
 		InitializeComponent();
         _globals = globals;
 
-        List<Model.Ricetta> ricette = _globals.GetRicette();
+        //List<Model.Ricetta> ricette = _globals.GetRicette();
 
-        SuggestedList.ItemsSource = ricette;
+        //SuggestedList.ItemsSource = ricette;
     }
     private async void GoToUserPage(object sender, EventArgs e)
     {

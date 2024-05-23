@@ -4,8 +4,8 @@
              x:Class="Daidokoro.View.BrowsePage"
              xmlns:model="clr-namespace:Daidokoro.Model"
              Title="UserPage">
-    <VerticalStackLayout BackgroundColor="#FAD77F">
-        <HorizontalStackLayout HeightRequest="75" BackgroundColor="#B7652B">
+    <VerticalStackLayout BackgroundColor="{StaticResource Background}">
+        <HorizontalStackLayout HeightRequest="75" BackgroundColor="{StaticResource NavBar}">
             <HorizontalStackLayout HorizontalOptions="Center" Spacing="105" Padding="25,15,25,15">
                 <ImageButton Source="home.png" Clicked="GoToHomePage" />
                 <ImageButton Source="browse.png" Clicked="GoToBrowsePage" />
@@ -13,35 +13,28 @@
             </HorizontalStackLayout>
         </HorizontalStackLayout>
         <ScrollView>
-            <VerticalStackLayout Padding="15,25,15,25" Spacing="25">
-                <CollectionView x:Name="SuggestedList">
-                    <CollectionView.ItemTemplate>
-                        <DataTemplate x:DataType="model:Ricetta">
-                            <Border StrokeShape="RoundRectangle 10" StrokeThickness="0" Margin="0,15,0,0">
-                                <HorizontalStackLayout HeightRequest="200" BackgroundColor="#D98142" Spacing="25">
-                                    <Image Source="daidokoro.png" WidthRequest="100" HeightRequest="100" />
-                                    <VerticalStackLayout>
-                                        <Label FontAutoScalingEnabled="False" HorizontalTextAlignment="Center" FontSize="30" Padding="10">
-                                            <Label.Text>
-                                                <Binding Path="Nome" />
-                                            </Label.Text>
-                                        </Label>
-                                        <Label FontAutoScalingEnabled="False" HorizontalTextAlignment="Center" FontSize="15" Padding="10">
-                                            <Label.Text>
-                                                <Binding Path="Descrizione" />
-                                            </Label.Text>
-                                        </Label>
-                                        <Label FontAutoScalingEnabled="False" HorizontalTextAlignment="Center" FontSize="15" Padding="10">
-                                            <Label.Text>
-                                                <Binding Path="Difficolta" />
-                                            </Label.Text>
-                                        </Label>
-                                    </VerticalStackLayout>
-                                </HorizontalStackLayout>
-                            </Border>
-                        </DataTemplate>
-                    </CollectionView.ItemTemplate>
-                </CollectionView>
+            <VerticalStackLayout Padding="15" Spacing="30" Margin="0,15,0,0">
+                <Border StrokeShape="RoundRectangle 10" StrokeThickness="0">
+                    <Grid HeightRequest="200">
+                        <ImageButton Source="ricette_section.jpg" HeightRequest="250" WidthRequest="450" />
+                        <StackLayout BackgroundColor="#77000000" />
+                        <Label Text="Ricette" FontSize="50" VerticalTextAlignment="Center" HorizontalTextAlignment="Center" />
+                    </Grid>
+                </Border>
+                <Border StrokeShape="RoundRectangle 10" StrokeThickness="0">
+                    <Grid HeightRequest="200">
+                        <ImageButton Source="collection_section.jpg" HeightRequest="250" WidthRequest="450" />
+                        <StackLayout BackgroundColor="#77000000" />
+                        <Label Text="Collezioni" FontSize="50" VerticalTextAlignment="Center" HorizontalTextAlignment="Center" />
+                    </Grid>
+                </Border>
+                <Border StrokeShape="RoundRectangle 10" StrokeThickness="0">
+                    <Grid HeightRequest="200">
+                        <ImageButton Source="diet_section.jpg" HeightRequest="250" WidthRequest="450" />
+                        <StackLayout BackgroundColor="#77000000" />
+                        <Label Text="Diete" FontSize="50" VerticalTextAlignment="Center" HorizontalTextAlignment="Center" />
+                    </Grid>
+                </Border>
             </VerticalStackLayout>
         </ScrollView>
     </VerticalStackLayout>
