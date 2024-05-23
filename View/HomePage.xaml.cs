@@ -38,6 +38,11 @@ namespace Daidokoro.View
             await Shell.Current.GoToAsync($"//{nameof(HomePage)}");
         }
 
+        private async void GoToRicettaPage(object sender, EventArgs e)
+        {
+            await Shell.Current.GoToAsync($"//{nameof(RicettaPage)}");
+        }
+
         protected override void OnNavigatedTo(NavigatedToEventArgs args)
         {
             
