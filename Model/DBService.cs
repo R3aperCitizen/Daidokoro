@@ -71,5 +71,37 @@ namespace Daidokoro.Model
 
             return results;
         }
+
+        public List<T> GetData<T>(string tableName, string condition) where T : new()
+        {
+            List<T> results = [];
+
+            using (MySqlConnection connection = new MySqlConnection(connectionString))
+            using (MySqlCommand command = new MySqlCommand($"SELECT * FROM {tableName} " + condition, connection))
+            {
+                connection.Open();
+
+                using (MySqlDataReader reader = command.ExecuteReader())
+                {
+                    while (reader.Read())
+                    {
+                        // Create an instance of the type T
+                        T item = new();
+
+                        // Map each column value to the corresponding property of T
+                        for (int i = 0; i < reader.FieldCount; i++)
+                        {
+                            PropertyInfo property = item.GetType().GetProperty(reader.GetName(i))!;
+                            property?.SetValue(item, reader.GetValue(i));
+                        }
+
+                        results.Add(item);
+                    }
+                }
+                connection.Close();
+            }
+
+            return results;
+        }
     }
 }
