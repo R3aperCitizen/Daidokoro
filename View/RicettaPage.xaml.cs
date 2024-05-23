@@ -13,8 +13,10 @@ public partial class RicettaPage : ContentPage
         _globals = globals;
         InitializeComponent();
 
-        ricetta = 
-	}
+        ricetta = _globals.dbService.GetData<Ricetta>("ricetta", "WHERE IdRicetta = 1")[0];
+        Titolo.Text = ricetta.Nome;
+
+    }
 
     protected override void OnNavigatedTo(NavigatedToEventArgs args)
     {
