@@ -12,8 +12,17 @@
     <Color x:Key="Secondary">#DFD8F7</Color>
     <Color x:Key="SecondaryDarkText">#9880e5</Color>
     <Color x:Key="Tertiary">#2B0B98</Color>
-    <Color x:Key="Background">#edc832</Color>
-    <Color x:Key="NavBar">#111111</Color>
+
+    <Color x:Key="Palette1">#586ba4</Color>
+    <Color x:Key="Palette2">#324376</Color>
+    <Color x:Key="Palette3">#f5dd90</Color>
+    <Color x:Key="Palette4">#f68e5f</Color>
+    <Color x:Key="Palette5">#f76c5e</Color>
+
+    <SolidColorBrush x:Key="NavBar" Color="{StaticResource Palette5}" />
+    <SolidColorBrush x:Key="Background" Color="{StaticResource Palette3}" />
+    <SolidColorBrush x:Key="Buttons" Color="{StaticResource Palette1}" />
+    <SolidColorBrush x:Key="Text" Color="{StaticResource Palette3}" />
 
     <Color x:Key="White">White</Color>
     <Color x:Key="Black">Black</Color>
