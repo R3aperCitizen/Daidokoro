@@ -1,21 +1,22 @@
+using Daidokoro.Model;
 using Daidokoro.ViewModel;
 
 namespace Daidokoro.View;
 
-public partial class BrowsePage : ContentPage
+public partial class RecipesListPage : ContentPage
 {
     // Global app variables
     private readonly IMainViewModel _globals;
 
-    public BrowsePage(IMainViewModel globals)
-	{
-		InitializeComponent();
+    public RecipesListPage(IMainViewModel globals)
+    {
+        InitializeComponent();
         _globals = globals;
 
-        //List<Model.Ricetta> ricette = _globals.GetRicette();
-
-        //SuggestedList.ItemsSource = ricette;
+        List<Ricetta> ricette = _globals.GetRicette();
+        RecipesList.ItemsSource = ricette;
     }
+
     private async void GoToUserPage(object sender, EventArgs e)
     {
         await Shell.Current.GoToAsync($"//{nameof(UserPage)}");
@@ -31,9 +32,8 @@ public partial class BrowsePage : ContentPage
         await Shell.Current.GoToAsync($"//{nameof(HomePage)}");
     }
 
-    private async void GoToRecipesList(object sender, EventArgs e)
+    private async void GoToRecipePage(object sender, EventArgs e)
     {
-        await Shell.Current.GoToAsync($"//{nameof(RecipesListPage)}");
+        await Shell.Current.GoToAsync($"//{nameof(RicettaPage)}");
     }
-
 }

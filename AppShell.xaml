@@ -23,17 +23,24 @@
         Shell.FlyoutBehavior="Disabled"/>
     
     <ShellContent
-     Title="BrowsePage"
-     ContentTemplate="{DataTemplate view:BrowsePage}"
-     Route="BrowsePage"
-     Shell.NavBarIsVisible="False"
-     Shell.FlyoutBehavior="Disabled"/>
+         Title="BrowsePage"
+         ContentTemplate="{DataTemplate view:BrowsePage}"
+         Route="BrowsePage"
+         Shell.NavBarIsVisible="False"
+         Shell.FlyoutBehavior="Disabled"/>
 
     <ShellContent
-     Title="RicettaPage"
-     ContentTemplate="{DataTemplate view:RicettaPage}"
-     Route="RicettaPage"
-     Shell.NavBarIsVisible="False"
-     Shell.FlyoutBehavior="Disabled"/>
+         Title="RicettaPage"
+         ContentTemplate="{DataTemplate view:RicettaPage}"
+         Route="RicettaPage"
+         Shell.NavBarIsVisible="False"
+         Shell.FlyoutBehavior="Disabled"/>
+    
+    <ShellContent
+         Title="RecipesListPage"
+         ContentTemplate="{DataTemplate view:RecipesListPage}"
+         Route="RecipesListPage"
+         Shell.NavBarIsVisible="False"
+         Shell.FlyoutBehavior="Disabled"/>
 
 </Shell>

@@ -17,28 +17,6 @@
                 <Button HeightRequest="200" BackgroundColor="{StaticResource Buttons}" TextColor="{StaticResource Text}" FontSize="Large" Text="Ricetta del mese" Clicked="GoToRicettaPage"/>
                 <Button HeightRequest="200" BackgroundColor="{StaticResource Buttons}" TextColor="{StaticResource Text}" FontSize="Large" Text="Dieta del mese" />
                 <Button HeightRequest="200" BackgroundColor="{StaticResource Buttons}" TextColor="{StaticResource Text}" FontSize="Large" Text="Collezione del mese" />
-                
-                <!-- Template ricetta -->
-                <Border StrokeShape="RoundRectangle 10" StrokeThickness="0">
-                    <HorizontalStackLayout HeightRequest="100" BackgroundColor="{StaticResource Buttons}">
-                        <Image Source="example_recipe.jpeg"/>
-                        <VerticalStackLayout Padding="10" Spacing="10">
-                            <Label FontSize="25" WidthRequest="200" TextColor="{StaticResource Text}" Text="Ratatouille"/>
-                            <HorizontalStackLayout WidthRequest="200" Spacing="20">
-                                <VerticalStackLayout>
-                                    <Label FontSize="10" TextColor="{StaticResource Text}" Text="Difficoltà:"/>
-                                    <Label FontSize="15" TextColor="{StaticResource Text}" Text="Estrema"/>
-                                </VerticalStackLayout>
-                                <VerticalStackLayout>
-                                    <Label FontSize="10" TextColor="{StaticResource Text}" Text="Tempo:"/>
-                                    <Label FontSize="15" TextColor="{StaticResource Text}" Text="8 ore"/>
-                                </VerticalStackLayout>
-                            </HorizontalStackLayout>
-                        </VerticalStackLayout>
-                    </HorizontalStackLayout>
-                </Border>
-                <!-- Fine template ricetta -->
-                
             </VerticalStackLayout>
         </ScrollView>
     </VerticalStackLayout>
