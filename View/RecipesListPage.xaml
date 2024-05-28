@@ -28,7 +28,11 @@
                                     <HorizontalStackLayout HeightRequest="100" BackgroundColor="{StaticResource Buttons}">
                                         <Image Source="example_recipe.jpeg"/>
                                         <VerticalStackLayout Padding="10" Spacing="10">
-                                            <Label FontSize="25" WidthRequest="150" TextColor="{StaticResource Text}" Text="Ratatouille"/>
+                                            <Label FontSize="25" WidthRequest="150" TextColor="{StaticResource Text}">
+                                                <Label.Text>
+                                                    <Binding Path="Nome" />
+                                                </Label.Text>
+                                            </Label>
                                             <HorizontalStackLayout WidthRequest="150" Spacing="20">
                                                 <VerticalStackLayout>
                                                     <Label FontSize="10" TextColor="{StaticResource Text}" Text="Difficoltà:" />
