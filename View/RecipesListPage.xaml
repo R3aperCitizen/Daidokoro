@@ -24,7 +24,7 @@
                             <!-- Template ricetta -->
                             <Border StrokeShape="RoundRectangle 10" StrokeThickness="0">
                                 <Grid>
-                                    <Button BackgroundColor="Transparent" Text="" Clicked="GoToRecipePage" />
+                                    <Button AutomationId="{Binding Path=IdRicetta}" x:Name="RecipeId" BackgroundColor="Transparent" Clicked="GoToRecipePage" />
                                     <HorizontalStackLayout HeightRequest="100" BackgroundColor="{StaticResource Buttons}">
                                         <Image Source="example_recipe.jpeg"/>
                                         <VerticalStackLayout Padding="10" Spacing="10">

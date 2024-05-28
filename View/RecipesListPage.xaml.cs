@@ -34,6 +34,8 @@ public partial class RecipesListPage : ContentPage
 
     private async void GoToRecipePage(object sender, EventArgs e)
     {
-        await Shell.Current.GoToAsync($"//{nameof(RicettaPage)}");
+        Button button = (Button)sender;
+        string Id = button.AutomationId;
+        await Shell.Current.GoToAsync($"//{nameof(RicettaPage)}", new Dictionary<string, object>() { { "Id", Id} });
     }
 }
