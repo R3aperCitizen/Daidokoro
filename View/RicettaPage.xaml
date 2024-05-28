@@ -14,11 +14,11 @@
         <ScrollView HeightRequest="770">
             <VerticalStackLayout Padding="30" HorizontalOptions="Center">
                 <Label x:Name="Titolo" Text="Susasorella" FontSize="30" FontAttributes="Bold" Padding="10" />
-                <Image Source="image/daidokoro.png" HeightRequest="200" Margin="40,0,0,0" ></Image>
-                <Label x:Name="Tags" Text="Tag,tag,tag" FontSize="15" FontAttributes="Bold" Padding="10"></Label>
-                <Label x:Name="Descrizione" Text="Descrizione" FontSize="25" FontAttributes="Bold" Padding="10"></Label>
-                <Label x:Name="Ingredienti" Text="Ingredienti" FontSize="25" FontAttributes="Bold" Padding="10"></Label>
-                <Label x:Name="Passaggi" Text="Passaggi" FontSize="25" FontAttributes="Bold" Padding="10" ></Label>
+                <Image Source="example_recipe.png" HeightRequest="200" Margin="40,0,0,0" />
+                <Label x:Name="Tags" Text="Tag,tag,tag" FontSize="15" FontAttributes="Bold" Padding="10" />
+                <Label x:Name="Descrizione" Text="Descrizione" FontSize="25" FontAttributes="Bold" Padding="10" />
+                <Label x:Name="Ingredienti" Text="Ingredienti" FontSize="25" FontAttributes="Bold" Padding="10" />
+                <Label x:Name="Passaggi" Text="Passaggi" FontSize="25" FontAttributes="Bold" Padding="10" />
             </VerticalStackLayout>
         </ScrollView>
         </VerticalStackLayout>
