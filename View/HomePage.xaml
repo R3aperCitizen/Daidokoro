@@ -19,7 +19,7 @@
                 <Button HeightRequest="200" BackgroundColor="{StaticResource Buttons}" TextColor="{StaticResource Text}" FontSize="Large" Text="Collezione del mese" />
                 <Border StrokeShape="RoundRectangle 10" StrokeThickness="0">
                     <HorizontalStackLayout Padding="20" HeightRequest="200" BackgroundColor="{StaticResource Buttons}">
-                        <ImageButton Source="browse.png" Clicked="GoToBrowsePage" />
+                        <ImageButton Source="browse.png" Clicked="GoToRicettaPage" />
                         <Label Padding="10" FontSize="Large" VerticalTextAlignment="Center" Text="Template ricetta"/>
                     </HorizontalStackLayout>
                 </Border>
