@@ -15,11 +15,34 @@ public partial class RicettaPage : ContentPage
 
         ricetta = _globals.dbService.GetData<Ricetta>("ricetta", "WHERE IdRicetta = 1")[0];
         Titolo.Text = ricetta.Nome;
+        Descrizione.Text = ricetta.Descrizione;
+        Ingredienti.Text = "per ora pochi";
+        Passaggi.Text = ricetta.Passaggi;
 
     }
 
     protected override void OnNavigatedTo(NavigatedToEventArgs args)
     {
         
+    }
+
+    private async void GoToUserPage(object sender, EventArgs e)
+    {
+        await Shell.Current.GoToAsync($"//{nameof(UserPage)}");
+    }
+
+    private async void GoToBrowsePage(object sender, EventArgs e)
+    {
+        await Shell.Current.GoToAsync($"//{nameof(BrowsePage)}");
+    }
+
+    private async void GoToHomePage(object sender, EventArgs e)
+    {
+        await Shell.Current.GoToAsync($"//{nameof(HomePage)}");
+    }
+
+    private async void GoToRicettaPage(object sender, EventArgs e)
+    {
+        await Shell.Current.GoToAsync($"//{nameof(RicettaPage)}");
     }
 }
