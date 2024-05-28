@@ -11,7 +11,7 @@
                 <ImageButton Source="user.png" Clicked="GoToUserPage" />
             </HorizontalStackLayout>
         </HorizontalStackLayout>
-        <ScrollView HeightRequest="770"  >
+        <ScrollView HeightRequest="770">
             <VerticalStackLayout Padding="30" HorizontalOptions="Center">
                 <Label x:Name="Titolo" Text="Susasorella" FontSize="30" FontAttributes="Bold" Padding="10" />
                 <Image Source="image/daidokoro.png" HeightRequest="200" Margin="40,0,0,0" ></Image>

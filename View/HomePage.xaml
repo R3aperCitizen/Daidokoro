@@ -14,9 +14,11 @@
         </HorizontalStackLayout>
         <ScrollView HeightRequest="834">
             <VerticalStackLayout Padding="20" Spacing="20">
-                <Button HeightRequest="200" BackgroundColor="{StaticResource Buttons}" TextColor="{StaticResource Text}" FontSize="Large" Text="Ricetta del mese" Clicked="GoToRicettaPage"/>
+                <Button HeightRequest="200" BackgroundColor="{StaticResource Buttons}" TextColor="{StaticResource Text}" FontSize="Large" Text="Ricetta del mese"/>
                 <Button HeightRequest="200" BackgroundColor="{StaticResource Buttons}" TextColor="{StaticResource Text}" FontSize="Large" Text="Dieta del mese" />
                 <Button HeightRequest="200" BackgroundColor="{StaticResource Buttons}" TextColor="{StaticResource Text}" FontSize="Large" Text="Collezione del mese" />
+                
+                
             </VerticalStackLayout>
         </ScrollView>
     </VerticalStackLayout>

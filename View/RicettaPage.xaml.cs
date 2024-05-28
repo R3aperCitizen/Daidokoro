@@ -16,11 +16,25 @@ public partial class RicettaPage : ContentPage
         ricetta = _globals.dbService.GetData<Ricetta>("ricetta", "WHERE IdRicetta = 1")[0];
         Titolo.Text = ricetta.Nome;
         Descrizione.Text = ricetta.Descrizione;
-        Ingredienti.Text = "per ora pochi";
+        Ingredienti.Text = getIngredienti("1");
         Passaggi.Text = ricetta.Passaggi;
 
     }
 
+    private  string getIngredienti(string Idricetta)
+    {
+        string listIngr = "";
+        var Ingr = _globals.dbService.GetData<Ingrediente>("ingrediente",
+            "JOIN ingrediente_ricetta ON ingrediente.IdIngrediente = ingrediente_ricetta.IdIngrediente "  
+            + " WHERE ingrediente_ricetta.IdRicetta = " + Idricetta);
+        Console.WriteLine(Ingr.Count);
+        foreach ( var item in Ingr )
+        {
+            listIngr += item.Nome + ", ";
+        }
+
+        return listIngr;
+    }
     protected override void OnNavigatedTo(NavigatedToEventArgs args)
     {
         
@@ -39,10 +53,5 @@ public partial class RicettaPage : ContentPage
     private async void GoToHomePage(object sender, EventArgs e)
     {
         await Shell.Current.GoToAsync($"//{nameof(HomePage)}");
-    }
-
-    private async void GoToRicettaPage(object sender, EventArgs e)
-    {
-        await Shell.Current.GoToAsync($"//{nameof(RicettaPage)}");
     }
 }
