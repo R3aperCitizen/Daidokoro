@@ -40,6 +40,7 @@ namespace Daidokoro
             builder.Services.AddTransient<UserPage>();
             builder.Services.AddTransient<BrowsePage>();
             builder.Services.AddTransient<RicettaPage>();
+            builder.Services.AddTransient<RecipesListPage>();
 
             return builder.Build();
         }

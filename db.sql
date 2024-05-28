@@ -68,6 +68,7 @@ CREATE TABLE IF NOT EXISTS ricetta(
     Passaggi JSON NOT NULL,
     Foto MEDIUMBLOB NOT NULL,
     Difficolta INT NOT NULL,
+    Tempo INT NOT NULL,
     DataCreazione DATE NOT NULL,
     IdUtente INT NOT NULL,
     PRIMARY KEY (IdRicetta),
