@@ -35,7 +35,9 @@ namespace Daidokoro
     		builder.Logging.AddDebug();
 #endif
 
+            builder.Services.AddSingleton<IConnectivity>((e) => Connectivity.Current);
             builder.Services.AddSingleton<IMainViewModel, MainViewModel>();
+            builder.Services.AddTransient<RicettaPageViewModel>();
             builder.Services.AddTransient<HomePage>();
             builder.Services.AddTransient<UserPage>();
             builder.Services.AddTransient<BrowsePage>();

@@ -7,13 +7,14 @@ public partial class RecipesListPage : ContentPage
 {
     // Global app variables
     private readonly IMainViewModel _globals;
+    private readonly List<Ricetta> ricette;
 
     public RecipesListPage(IMainViewModel globals)
     {
         InitializeComponent();
         _globals = globals;
 
-        List<Ricetta> ricette = _globals.GetRicette();
+        ricette = _globals.GetRicette();
         RecipesList.ItemsSource = ricette;
     }
 
@@ -35,7 +36,6 @@ public partial class RecipesListPage : ContentPage
     private async void GoToRecipePage(object sender, EventArgs e)
     {
         Button button = (Button)sender;
-        string Id = button.AutomationId;
-        await Shell.Current.GoToAsync($"//{nameof(RicettaPage)}", new Dictionary<string, object>() { { "Id", Id} });
+        await Shell.Current.GoToAsync($"//{nameof(RicettaPage)}?IdRicetta={button.AutomationId}");
     }
 }

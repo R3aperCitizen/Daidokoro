@@ -1,43 +1,53 @@
 using Daidokoro.Model;
 using Daidokoro.ViewModel;
+using System.ComponentModel;
 
 namespace Daidokoro.View;
 
 public partial class RicettaPage : ContentPage
 {
-    private Ricetta ricetta;
     // Global app variables
     private readonly IMainViewModel _globals;
-    public RicettaPage(IMainViewModel globals)
+
+    private Ricetta ricetta;
+
+    public RicettaPage(IMainViewModel globals, RicettaPageViewModel vm)
 	{
-        _globals = globals;
         InitializeComponent();
-
-        ricetta = _globals.dbService.GetData<Ricetta>("ricetta", "WHERE IdRicetta = 1")[0];
-        Titolo.Text = ricetta.Nome;
-        Descrizione.Text = ricetta.Descrizione;
-        Ingredienti.Text = getIngredienti("1");
-        Passaggi.Text = ricetta.Passaggi;
-
+        BindingContext = vm;
+        vm.PropertyChanged += OnPropertyChanged;
+        _globals = globals;
+        ricetta = new Ricetta();
     }
 
-    private  string getIngredienti(string Idricetta)
+    private void OnPropertyChanged(object? sender, PropertyChangedEventArgs e)
+    {
+        setRicetta(((RicettaPageViewModel)BindingContext).IdRicetta);
+    }
+
+    private void setRicetta(string Id)
+    {
+        int IdRicetta = int.Parse(Id);
+        ricetta = _globals.dbService.GetData<Ricetta>("ricetta", "WHERE IdRicetta = " + IdRicetta)[0];
+        Nome.Text = ricetta.Nome;
+        Descrizione.Text = ricetta.Descrizione;
+        Ingredienti.Text = getIngredienti(IdRicetta);
+        Passaggi.Text = ricetta.Passaggi;
+    }
+
+    private string getIngredienti(int IdRicetta)
     {
         string listIngr = "";
         var Ingr = _globals.dbService.GetData<Ingrediente>("ingrediente",
+            "ingrediente.*",
             "JOIN ingrediente_ricetta ON ingrediente.IdIngrediente = ingrediente_ricetta.IdIngrediente "  
-            + " WHERE ingrediente_ricetta.IdRicetta = " + Idricetta);
-        Console.WriteLine(Ingr.Count);
+            + "WHERE ingrediente_ricetta.IdRicetta = " + IdRicetta);
         foreach ( var item in Ingr )
         {
-            listIngr += item.Nome + ", ";
+            listIngr += item.Nome + "\n";
         }
 
         return listIngr;
-    }
-    protected override void OnNavigatedTo(NavigatedToEventArgs args)
-    {
-        
     }
 
     private async void GoToUserPage(object sender, EventArgs e)
