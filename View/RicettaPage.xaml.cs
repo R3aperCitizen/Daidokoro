@@ -14,9 +14,10 @@ public partial class RicettaPage : ContentPage
     public RicettaPage(IMainViewModel globals, RicettaPageViewModel vm)
 	{
         InitializeComponent();
+        _globals = globals;
+
         BindingContext = vm;
         vm.PropertyChanged += OnPropertyChanged;
-        _globals = globals;
         ricetta = new Ricetta();
     }
 
@@ -28,7 +29,7 @@ public partial class RicettaPage : ContentPage
     private void setRicetta(string Id)
     {
         int IdRicetta = int.Parse(Id);
-        ricetta = _globals.dbService.GetData<Ricetta>("ricetta", "WHERE IdRicetta = " + IdRicetta)[0];
+        ricetta = _globals.dbService.GetData<Ricetta>("ricetta", $"WHERE IdRicetta = {Id};")[0];
         Nome.Text = ricetta.Nome;
         Descrizione.Text = ricetta.Descrizione;
         Ingredienti.Text = getIngredienti(IdRicetta);
@@ -41,27 +42,26 @@ public partial class RicettaPage : ContentPage
         string listIngr = "";
         var Ingr = _globals.dbService.GetData<Ingrediente>("ingrediente",
             "ingrediente.*",
-            "JOIN ingrediente_ricetta ON ingrediente.IdIngrediente = ingrediente_ricetta.IdIngrediente "  
-            + "WHERE ingrediente_ricetta.IdRicetta = " + IdRicetta);
-        foreach ( var item in Ingr )
-        {
-            listIngr += item.Nome + "\n";
-        }
+            "JOIN ingrediente_ricetta ON ingrediente.IdIngrediente = ingrediente_ricetta.IdIngrediente\r\n" +  
+            $"WHERE ingrediente_ricetta.IdRicetta = {IdRicetta};");
+
+        foreach ( var item in Ingr ) { listIngr += item.Nome + "\n"; }
 
         return listIngr;
     }
 
-    private string getCategorieNutrizionali(int idRicetta)
+    private string getCategorieNutrizionali(int IdRicetta)
     {
-        string ingredient = "";
-        var categories = _globals.dbService.GetData<Categorianutrizionale>("categorianutrizionale", "Distinct categorianutrizionale.*",
-          "JOIN ingrediente ON categorianutrizionale.IdCategoria = ingrediente.IdCategoria\r\n" +
+        string categorie = "";
+        var categories = _globals.dbService.GetData<CategoriaNutrizionale>("categoria_nutrizionale", 
+          "DISTINCT categoria_nutrizionale.*",
+          "JOIN ingrediente ON categoria_nutrizionale.IdCategoria = ingrediente.IdCategoria\r\n" +
           "JOIN ingrediente_ricetta ON ingrediente_ricetta.IdIngrediente = ingrediente.IdIngrediente\r\n" +
-          "WHERE ingrediente_ricetta.IdRicetta = 1\r\n\r\n");
+          $"WHERE ingrediente_ricetta.IdRicetta = {IdRicetta};");
 
-        foreach ( var item in categories ) { ingredient += item.Nome + " "; }
+        foreach ( var item in categories ) { categorie += item.Nome + " "; }
 
-        return ingredient;
+        return categorie;
     }
 
     private async void GoToUserPage(object sender, EventArgs e)
