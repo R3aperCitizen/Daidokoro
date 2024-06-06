@@ -92,6 +92,9 @@
 	  <MauiXaml Update="View\BrowsePage.xaml">
 	    <Generator>MSBuild:Compile</Generator>
 	  </MauiXaml>
+	  <MauiXaml Update="View\CollectionDietPage.xaml">
+	    <Generator>MSBuild:Compile</Generator>
+	  </MauiXaml>
 	  <MauiXaml Update="View\CollectionsListPage.xaml">
 	    <Generator>MSBuild:Compile</Generator>
 	  </MauiXaml>
@@ -109,6 +112,6 @@
 	  </MauiXaml>
 	</ItemGroup>
 
-	<ProjectExtensions><VisualStudio><UserProperties XamarinHotReloadDebuggerTimeoutExceptionDaidokoroHideInfoBar="True" /></VisualStudio></ProjectExtensions>
+	<ProjectExtensions><VisualStudio><UserProperties XamarinHotReloadDebuggerTimeoutExceptionDaidokoroHideInfoBar="True" XamarinHotReloadUnhandledDeviceExceptionDaidokoroHideInfoBar="True" /></VisualStudio></ProjectExtensions>
 
 </Project>

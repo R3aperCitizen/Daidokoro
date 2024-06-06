@@ -1,4 +1,5 @@
 using Daidokoro.ViewModel;
+using System.Diagnostics;
 
 namespace Daidokoro.View;
 
@@ -12,8 +13,13 @@ public partial class CollectionsListPage : ContentPage
 	{
 		InitializeComponent();
         _globals = globals;
+        collezioni = new();
+    }
 
-        collezioni = _globals.GetCollezioni();
+    protected override void OnNavigatedTo(NavigatedToEventArgs args)
+    {
+        collezioni.Clear();
+        collezioni.AddRange(_globals.GetCollezioni());
         CollectionsList.ItemsSource = collezioni;
     }
 
@@ -32,9 +38,9 @@ public partial class CollectionsListPage : ContentPage
         await Shell.Current.GoToAsync($"//{nameof(HomePage)}");
     }
 
-    private async void GoToCollectionPage(object sender, EventArgs e)
+    private async void GoToCollectionDietPage(object sender, EventArgs e)
     {
         Button button = (Button)sender;
-        await Shell.Current.GoToAsync($"//{nameof(RicettaPage)}?IdCollezione={button.AutomationId}");
+        await Shell.Current.GoToAsync($"//{nameof(CollectionDietPage)}?IdCollezione={button.AutomationId}");
     }
 }
