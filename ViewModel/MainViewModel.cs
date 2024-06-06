@@ -24,5 +24,12 @@ namespace Daidokoro.ViewModel
         {
             return _dbService.GetData<Ricetta>("ricetta");
         }
+
+        public List<Collezione> GetCollezioni()
+        {
+            return _dbService.GetData<Collezione>("collezione", 
+                "collezione.*, categoria_nutrizionale.Nome AS NomeCategoria", 
+                "JOIN categoria_nutrizionale ON categoria_nutrizionale.IdCategoria=collezione.IdCategoria WHERE Dieta = 0");
+        }
     }
 }

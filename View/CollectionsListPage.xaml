@@ -1,9 +1,9 @@
 <?xml version="1.0" encoding="utf-8" ?>
 <ContentPage xmlns="http://schemas.microsoft.com/dotnet/2021/maui"
              xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml"
-             x:Class="Daidokoro.View.RecipesListPage"
+             x:Class="Daidokoro.View.CollectionsListPage"
              xmlns:model="clr-namespace:Daidokoro.Model"
-             Title="RecipesListPage">
+             Title="CollectionsListPage">
     <VerticalStackLayout BackgroundColor="{StaticResource Background}">
         <HorizontalStackLayout HeightRequest="75" BackgroundColor="{StaticResource NavBar}">
             <HorizontalStackLayout HorizontalOptions="Center" Spacing="105" Padding="25,15,25,15">
@@ -12,19 +12,20 @@
                 <ImageButton Source="user.png" Clicked="GoToUserPage" />
             </HorizontalStackLayout>
         </HorizontalStackLayout>
-        
+
         <ScrollView>
             <VerticalStackLayout Padding="15,25,15,25" Spacing="25">
                 <Border StrokeShape="RoundRectangle 10" StrokeThickness="0">
-                    <SearchBar x:Name="SearchBar" Placeholder="Cerca Ricette..." BackgroundColor="{StaticResource NavBar}" PlaceholderColor="White" />
+                    <SearchBar x:Name="SearchBar" Placeholder="Cerca Collezioni..." BackgroundColor="{StaticResource NavBar}" PlaceholderColor="White" />
                 </Border>
-                <CollectionView x:Name="RecipesList">
+                
+                <CollectionView x:Name="CollectionsList">
                     <CollectionView.ItemTemplate>
-                        <DataTemplate x:DataType="model:Ricetta">
-                            <!-- Template ricetta -->
+                        <DataTemplate x:DataType="model:Collezione">
+                            <!-- Template collezione -->
                             <Border StrokeShape="RoundRectangle 10" StrokeThickness="0" Margin="0,15,0,15">
                                 <Grid>
-                                    <Button AutomationId="{Binding Path=IdRicetta}" x:Name="RecipeId" BackgroundColor="Transparent" Clicked="GoToRecipePage" />
+                                    <Button AutomationId="{Binding Path=IdCollezione}" x:Name="CollectionId" BackgroundColor="Transparent" Clicked="GoToCollectionPage" />
                                     <HorizontalStackLayout HeightRequest="100" BackgroundColor="{StaticResource Buttons}">
                                         <Image Source="example_recipe.jpeg"/>
                                         <VerticalStackLayout Margin="10" Spacing="10">
@@ -35,18 +36,10 @@
                                             </Label>
                                             <HorizontalStackLayout WidthRequest="150" Spacing="20">
                                                 <VerticalStackLayout>
-                                                    <Label FontSize="10" TextColor="{StaticResource Text}" Text="Difficoltà:" />
+                                                    <Label FontSize="10" TextColor="{StaticResource Text}" Text="Categoria:" />
                                                     <Label FontSize="15" TextColor="{StaticResource Text}">
                                                         <Label.Text>
-                                                            <Binding Path="Difficolta" />
-                                                        </Label.Text>
-                                                    </Label>
-                                                </VerticalStackLayout>
-                                                <VerticalStackLayout>
-                                                    <Label FontSize="10" TextColor="{StaticResource Text}" Text="Minuti:"/>
-                                                    <Label FontSize="15" TextColor="{StaticResource Text}">
-                                                        <Label.Text>
-                                                            <Binding Path="Tempo" />
+                                                            <Binding Path="NomeCategoria" />
                                                         </Label.Text>
                                                     </Label>
                                                 </VerticalStackLayout>
@@ -55,7 +48,7 @@
                                     </HorizontalStackLayout>
                                 </Grid>
                             </Border>
-                            <!-- Fine template ricetta -->
+                            <!-- Fine template collezione -->
                         </DataTemplate>
                     </CollectionView.ItemTemplate>
                 </CollectionView>

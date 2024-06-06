@@ -77,7 +77,7 @@ namespace Daidokoro.Model
             List<T> results = [];
 
             using (MySqlConnection connection = new MySqlConnection(connectionString))
-            using (MySqlCommand command = new MySqlCommand($"SELECT * FROM {tableName} " + condition, connection))
+            using (MySqlCommand command = new MySqlCommand($"SELECT * FROM {tableName} {condition}", connection))
             {
                 connection.Open();
 
