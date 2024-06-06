@@ -33,6 +33,7 @@ public partial class RicettaPage : ContentPage
         Descrizione.Text = ricetta.Descrizione;
         Ingredienti.Text = getIngredienti(IdRicetta);
         Passaggi.Text = ricetta.Passaggi;
+        Tags.Text = getCategorieNutrizionali(IdRicetta);
     }
 
     private string getIngredienti(int IdRicetta)
@@ -48,6 +49,19 @@ public partial class RicettaPage : ContentPage
         }
 
         return listIngr;
+    }
+
+    private string getCategorieNutrizionali(int idRicetta)
+    {
+        string ingredient = "";
+        var categories = _globals.dbService.GetData<Categorianutrizionale>("categorianutrizionale", "Distinct categorianutrizionale.*",
+          "JOIN ingrediente ON categorianutrizionale.IdCategoria = ingrediente.IdCategoria\r\n" +
+          "JOIN ingrediente_ricetta ON ingrediente_ricetta.IdIngrediente = ingrediente.IdIngrediente\r\n" +
+          "WHERE ingrediente_ricetta.IdRicetta = 1\r\n\r\n");
+
+        foreach ( var item in categories ) { ingredient += item.Nome + " "; }
+
+        return ingredient;
     }
 
     private async void GoToUserPage(object sender, EventArgs e)
