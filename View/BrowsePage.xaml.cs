@@ -40,4 +40,9 @@ public partial class BrowsePage : ContentPage
     {
         await Shell.Current.GoToAsync($"//{nameof(CollectionsListPage)}");
     }
+
+    private async void GoToDietsList(object sender, EventArgs e)
+    {
+        await Shell.Current.GoToAsync($"//{nameof(DietsListPage)}");
+    }
 }

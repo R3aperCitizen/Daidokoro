@@ -18,6 +18,7 @@ namespace Daidokoro
             Routing.RegisterRoute(nameof(RicettaPage), typeof(RicettaPage));
             Routing.RegisterRoute(nameof(RecipesListPage), typeof(RecipesListPage));
             Routing.RegisterRoute(nameof(CollectionsListPage), typeof(CollectionsListPage));
+            Routing.RegisterRoute(nameof(DietsListPage), typeof(DietsListPage));
         }
     }
 }

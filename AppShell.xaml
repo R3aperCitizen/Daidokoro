@@ -50,4 +50,11 @@
          Shell.NavBarIsVisible="False"
          Shell.FlyoutBehavior="Disabled"/>
 
+    <ShellContent
+         Title="DietsListPage"
+         ContentTemplate="{DataTemplate view:DietsListPage}"
+         Route="DietsListPage"
+         Shell.NavBarIsVisible="False"
+         Shell.FlyoutBehavior="Disabled"/>
+
 </Shell>

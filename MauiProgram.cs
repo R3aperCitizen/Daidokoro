@@ -44,6 +44,7 @@ namespace Daidokoro
             builder.Services.AddTransient<RicettaPage>();
             builder.Services.AddTransient<RecipesListPage>();
             builder.Services.AddTransient<CollectionsListPage>();
+            builder.Services.AddTransient<DietsListPage>();
 
             return builder.Build();
         }

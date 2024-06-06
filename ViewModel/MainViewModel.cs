@@ -31,5 +31,12 @@ namespace Daidokoro.ViewModel
                 "collezione.*, categoria_nutrizionale.Nome AS NomeCategoria", 
                 "JOIN categoria_nutrizionale ON categoria_nutrizionale.IdCategoria=collezione.IdCategoria WHERE Dieta = 0");
         }
+
+        public List<Collezione> GetDiete()
+        {
+            return _dbService.GetData<Collezione>("collezione",
+                "collezione.*, categoria_nutrizionale.Nome AS NomeCategoria",
+                "JOIN categoria_nutrizionale ON categoria_nutrizionale.IdCategoria=collezione.IdCategoria WHERE Dieta = 1");
+        }
     }
 }

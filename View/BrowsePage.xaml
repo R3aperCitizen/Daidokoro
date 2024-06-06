@@ -30,7 +30,7 @@
                 </Border>
                 <Border StrokeShape="RoundRectangle 10" StrokeThickness="0">
                     <Grid HeightRequest="200">
-                        <ImageButton Source="diet_section.jpg" HeightRequest="300" WidthRequest="500" />
+                        <ImageButton Source="diet_section.jpg" HeightRequest="300" WidthRequest="500" Clicked="GoToDietsList" />
                         <StackLayout BackgroundColor="#77000000" />
                         <Label Text="Diete" FontSize="50" TextColor="White" VerticalTextAlignment="Center" HorizontalTextAlignment="Center" />
                     </Grid>

@@ -10,5 +10,6 @@ namespace Daidokoro.ViewModel
 
         List<Ricetta> GetRicette();
         List<Collezione> GetCollezioni();
+        List<Collezione> GetDiete();
     }
 }
