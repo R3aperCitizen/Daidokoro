@@ -3,6 +3,7 @@ using Daidokoro.View;
 using Daidokoro.ViewModel;
 using System.Reflection;
 using Microsoft.Extensions.Configuration;
+using CommunityToolkit.Maui;
 
 namespace Daidokoro
 {
@@ -25,6 +26,7 @@ namespace Daidokoro
 
             builder
                 .UseMauiApp<App>()
+                .UseMauiCommunityToolkit()
                 .ConfigureFonts(fonts =>
                 {
                     fonts.AddFont("OpenSans-Regular.ttf", "OpenSansRegular");
