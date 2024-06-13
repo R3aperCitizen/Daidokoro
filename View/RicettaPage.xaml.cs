@@ -19,6 +19,7 @@ public partial class RicettaPage : ContentPage
         BindingContext = vm;
         vm.PropertyChanged += OnPropertyChanged;
         ricetta = new Ricetta();
+        ricetta.IdRicetta = 0;
     }
 
     private void OnPropertyChanged(object? sender, PropertyChangedEventArgs e)
@@ -26,14 +27,20 @@ public partial class RicettaPage : ContentPage
         setRicetta(((RicettaPageViewModel)BindingContext).IdRicetta);
     }
 
+    protected override void OnNavigatedTo(NavigatedToEventArgs args)
+    {
+        if (ricetta.IdRicetta != 0)
+        {
+            setRicetta(((RicettaPageViewModel)BindingContext).IdRicetta);
+        }
+    }
+
     private void setRicetta(string Id)
     {
         int IdRicetta = int.Parse(Id);
         ricetta = _globals.dbService.GetData<Ricetta>("ricetta", $"WHERE IdRicetta = {Id};")[0];
-        Nome.Text = ricetta.Nome;
-        Descrizione.Text = ricetta.Descrizione;
+        Recipe.ItemsSource = new List<Ricetta>() { ricetta };
         Ingredienti.Text = getIngredienti(IdRicetta);
-        Passaggi.Text = ricetta.Passaggi;
         Tags.Text = getCategorieNutrizionali(IdRicetta);
     }
 
