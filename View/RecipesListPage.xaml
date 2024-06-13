@@ -16,7 +16,7 @@
         <ScrollView>
             <VerticalStackLayout Padding="15,25,15,25" Spacing="25">
                 <Border StrokeShape="RoundRectangle 10" StrokeThickness="0">
-                    <SearchBar x:Name="SearchBar" Placeholder="Cerca Ricette..." BackgroundColor="{StaticResource NavBar}" PlaceholderColor="White" />
+                    <SearchBar x:Name="SearchBar" Placeholder="Cerca Ricette..." BackgroundColor="{StaticResource NavBar}" PlaceholderColor="White" TextChanged="SearchBar_TextChanged" />
                 </Border>
                 <CollectionView x:Name="RecipesList">
                     <CollectionView.ItemTemplate>
