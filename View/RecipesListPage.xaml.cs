@@ -15,8 +15,12 @@ public partial class RecipesListPage : ContentPage
         InitializeComponent();
         _globals = globals;
 
-        ricette = _globals.GetRicette().ToHashSet();
-        Refresh();
+        RefreshAll();
+    }
+
+    protected override void OnNavigatedTo(NavigatedToEventArgs args)
+    {
+        RefreshAll();
     }
 
     private async void GoToUserPage(object sender, EventArgs e)
@@ -77,10 +81,16 @@ public partial class RecipesListPage : ContentPage
             ricette.UnionWith(_globals.dbService.GetData<Ricetta>("ricetta","ricetta.*",$"WHERE ricetta.Nome LIKE \"%{text}%\" ")
                     .ToHashSet());
         }
-        Refresh();
+        RefreshRecipes();
         return;
     }
-    private void Refresh()
+    private void RefreshAll()
+    {
+        ricette = _globals.GetRicette().ToHashSet();
+        RefreshRecipes();
+    }
+
+    private void RefreshRecipes()
     {
         RecipesList.ItemsSource = ricette;
     }

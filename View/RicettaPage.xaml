@@ -29,8 +29,8 @@
                         <DataTemplate x:DataType="model:Ricetta">
                             <VerticalStackLayout Spacing="25" HorizontalOptions="Center">
                                 <Label x:Name="Nome" Text="{Binding Nome}" FontSize="30" FontAttributes="Bold" TextColor="{StaticResource Palette2}" />
-                                <Border StrokeShape="RoundRectangle 10" StrokeThickness="0">
-                                    <Image Source="{Binding Foto, Converter={StaticResource ByteArrayToImageSourceConverter}}" />
+                                <Border StrokeShape="RoundRectangle 10" StrokeThickness="0" HeightRequest="200" WidthRequest="325">
+                                    <Image BackgroundColor="{StaticResource Palette2}" Aspect="AspectFill" Source="{Binding Foto, Converter={StaticResource ByteArrayToImageSourceConverter}}" />
                                 </Border>
                                 <Label x:Name="Descrizione" Text="{Binding Descrizione}" FontSize="25" FontAttributes="Bold" TextColor="{StaticResource Palette2}" />
                                 <Label x:Name="Passaggi" Text="{Binding Passaggi}" FontSize="25" FontAttributes="Bold" TextColor="{StaticResource Palette2}" />

@@ -19,11 +19,20 @@ public partial class RicettaPage : ContentPage
         BindingContext = vm;
         vm.PropertyChanged += OnPropertyChanged;
         ricetta = new Ricetta();
+        ricetta.IdRicetta = 0;
     }
 
     private void OnPropertyChanged(object? sender, PropertyChangedEventArgs e)
     {
         setRicetta(((RicettaPageViewModel)BindingContext).IdRicetta);
+    }
+
+    protected override void OnNavigatedTo(NavigatedToEventArgs args)
+    {
+        if (ricetta.IdRicetta != 0)
+        {
+            setRicetta(((RicettaPageViewModel)BindingContext).IdRicetta);
+        }
     }
 
     private void setRicetta(string Id)
