@@ -12,14 +12,26 @@
                 <ImageButton Source="user.png" Clicked="GoToUserPage" />
             </HorizontalStackLayout>
         </HorizontalStackLayout>
-        <VerticalStackLayout>
-            <HorizontalStackLayout VerticalOptions="Center" Margin="20">
-                <Border HeightRequest="70" WidthRequest="70" StrokeShape="Ellipse"  StrokeThickness="2" Padding="10">
-                    <Image Source="user.png"/>
+        <VerticalStackLayout Padding="50">
+            <VerticalStackLayout Spacing="20">
+                <Border HeightRequest="150" WidthRequest="150" StrokeShape="Ellipse" StrokeThickness="0">
+                    <Image Aspect="AspectFill" Source="user.png" BackgroundColor="{StaticResource Palette1}"/>
                 </Border>
-                <VerticalStackLayout Margin="10,0,0,0" HeightRequest="70" VerticalOptions="Center">
-                    <Label FontSize="20" Text="Nome"/>
-                    <Label FontSize="20" Text="Cognome"/>
+                <Label TextColor="{StaticResource Palette2}" FontSize="30" HorizontalTextAlignment="Center" Text="Franco Callegati"/>
+            </VerticalStackLayout>
+            <BoxView Margin="15" HeightRequest="2" Color="{StaticResource White}"/>
+            <HorizontalStackLayout HorizontalOptions="Center" Spacing="20">
+                <VerticalStackLayout>
+                    <Label TextColor="{StaticResource Palette2}" HorizontalTextAlignment="Center" FontSize="20" Text="Likes"/>
+                    <Label TextColor="{StaticResource Palette2}" HorizontalTextAlignment="Center" FontSize="30" Text="20"/>
+                </VerticalStackLayout>
+                <VerticalStackLayout>
+                    <Label TextColor="{StaticResource Palette2}" HorizontalTextAlignment="Center" FontSize="20" Text="Ricette"/>
+                    <Label TextColor="{StaticResource Palette2}" HorizontalTextAlignment="Center" FontSize="30" Text="20"/>
+                </VerticalStackLayout>
+                <VerticalStackLayout>
+                    <Label TextColor="{StaticResource Palette2}" HorizontalTextAlignment="Center" FontSize="20" Text="Recensioni"/>
+                    <Label TextColor="{StaticResource Palette2}" HorizontalTextAlignment="Center" FontSize="30" Text="20"/>
                 </VerticalStackLayout>
             </HorizontalStackLayout>
         </VerticalStackLayout>
