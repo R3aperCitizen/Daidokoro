@@ -12,8 +12,13 @@ public partial class DietsListPage : ContentPage
     {
         InitializeComponent();
         _globals = globals;
+        diete = new();
+    }
 
-        diete = _globals.GetDiete();
+    protected override void OnNavigatedTo(NavigatedToEventArgs args)
+    {
+        diete.Clear();
+        diete.AddRange(_globals.GetDiete());
         DietsList.ItemsSource = diete;
     }
 
@@ -32,9 +37,9 @@ public partial class DietsListPage : ContentPage
         await Shell.Current.GoToAsync($"//{nameof(HomePage)}");
     }
 
-    private async void GoToDietPage(object sender, EventArgs e)
+    private async void GoToCollectionDietPage(object sender, EventArgs e)
     {
         Button button = (Button)sender;
-        await Shell.Current.GoToAsync($"//{nameof(RicettaPage)}?IdCollezione={button.AutomationId}");
+        await Shell.Current.GoToAsync($"//{nameof(CollectionDietPage)}?IdCollezione={button.AutomationId}");
     }
 }

@@ -9,7 +9,9 @@ namespace Daidokoro.ViewModel
         bool InitDBSettings(DBCredentials dbs);
 
         List<Ricetta> GetRicette();
+        List<Ricetta> GetRicette(int IdCollezione);
         List<Collezione> GetCollezioni();
+        Collezione GetCollezione(int IdCollezione);
         List<Collezione> GetDiete();
     }
 }

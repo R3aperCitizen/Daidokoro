@@ -16,9 +16,9 @@
     <!-- Palette -->
     
     <Color x:Key="Palette1">#586ba4</Color>
-    <Color x:Key="Buttons">#586ba4</Color>
     
     <Color x:Key="Palette2">#324376</Color>
+    <Color x:Key="Buttons">#324376</Color>
     
     <Color x:Key="Palette3">#f5dd90</Color>
     <Color x:Key="Background">#f5dd90</Color>

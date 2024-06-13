@@ -1,9 +1,11 @@
 <?xml version="1.0" encoding="utf-8" ?>
 <ContentPage xmlns="http://schemas.microsoft.com/dotnet/2021/maui"
              xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml"
-             x:Class="Daidokoro.View.CollectionsListPage"
+             x:Class="Daidokoro.View.CollectionDietPage"
              xmlns:model="clr-namespace:Daidokoro.Model"
-             Title="CollectionsListPage">
+             xmlns:viewmodel="clr-namespace:Daidokoro.ViewModel"
+             x:DataType="viewmodel:CollectionDietPageViewModel"
+             Title="CollectionDietPage">
     <VerticalStackLayout BackgroundColor="{StaticResource Background}">
         <HorizontalStackLayout HeightRequest="75" BackgroundColor="{StaticResource NavBar}">
             <HorizontalStackLayout HorizontalOptions="Center" Spacing="105" Padding="25,15,25,15">
@@ -15,17 +17,23 @@
 
         <ScrollView>
             <VerticalStackLayout Padding="15,25,15,25" Spacing="25">
-                <Border StrokeShape="RoundRectangle 10" StrokeThickness="0">
-                    <SearchBar x:Name="SearchBar" Placeholder="Cerca Collezioni..." BackgroundColor="{StaticResource NavBar}" PlaceholderColor="White" />
+                <Border StrokeShape="RoundRectangle 10" HeightRequest="200" StrokeThickness="0" BackgroundColor="{StaticResource Buttons}">
+                    <ScrollView HeightRequest="200">
+                        <VerticalStackLayout x:Name="Collection" WidthRequest="350" Padding="10,20,10,20" Spacing="10">
+                            <Label x:Name="CollectionName" FontSize="25" FontAttributes="Bold" TextColor="{StaticResource Background}" Text="Nome Collezione" />
+                            <Label x:Name="CollectionDescription" FontSize="15" TextColor="{StaticResource Background}" Text="Descrizione Collezione" />
+                            <Label x:Name="CollectionCategory" FontSize="15" TextColor="{StaticResource Background}" Text="Categoria Collezione" />
+                            <Label x:Name="CollectionDate" FontSize="15" TextColor="{StaticResource Background}" Text="Data Collezione" />
+                        </VerticalStackLayout>
+                    </ScrollView>
                 </Border>
-                
-                <CollectionView x:Name="CollectionsList">
+                <CollectionView x:Name="RecipesList">
                     <CollectionView.ItemTemplate>
-                        <DataTemplate x:DataType="model:Collezione">
-                            <!-- Template collezione -->
+                        <DataTemplate x:DataType="model:Ricetta">
+                            <!-- Template ricetta -->
                             <Border StrokeShape="RoundRectangle 10" StrokeThickness="0" Margin="0,15,0,15">
                                 <Grid>
-                                    <Button AutomationId="{Binding Path=IdCollezione}" x:Name="CollectionId" BackgroundColor="Transparent" Clicked="GoToCollectionDietPage" />
+                                    <Button AutomationId="{Binding Path=IdRicetta}" x:Name="RecipeId" BackgroundColor="Transparent" Clicked="GoToRecipePage" />
                                     <HorizontalStackLayout HeightRequest="100" BackgroundColor="{StaticResource Buttons}">
                                         <Image Source="example_recipe.jpeg"/>
                                         <VerticalStackLayout Margin="10" Spacing="10">
@@ -36,10 +44,18 @@
                                             </Label>
                                             <HorizontalStackLayout WidthRequest="150" Spacing="20">
                                                 <VerticalStackLayout>
-                                                    <Label FontSize="10" TextColor="{StaticResource Text}" Text="Categoria:" />
+                                                    <Label FontSize="10" TextColor="{StaticResource Text}" Text="Difficoltà:" />
                                                     <Label FontSize="15" TextColor="{StaticResource Text}">
                                                         <Label.Text>
-                                                            <Binding Path="NomeCategoria" />
+                                                            <Binding Path="Difficolta" />
+                                                        </Label.Text>
+                                                    </Label>
+                                                </VerticalStackLayout>
+                                                <VerticalStackLayout>
+                                                    <Label FontSize="10" TextColor="{StaticResource Text}" Text="Minuti:"/>
+                                                    <Label FontSize="15" TextColor="{StaticResource Text}">
+                                                        <Label.Text>
+                                                            <Binding Path="Tempo" />
                                                         </Label.Text>
                                                     </Label>
                                                 </VerticalStackLayout>
@@ -48,7 +64,7 @@
                                     </HorizontalStackLayout>
                                 </Grid>
                             </Border>
-                            <!-- Fine template collezione -->
+                            <!-- Fine template ricetta -->
                         </DataTemplate>
                     </CollectionView.ItemTemplate>
                 </CollectionView>

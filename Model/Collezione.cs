@@ -7,9 +7,18 @@
         public string Descrizione { get; set; } = string.Empty;
         public bool Dieta { get; set; }
         public DateTime DataCreazione { get; set; }
-
         public int IdUtente { get; set; }
         public int IdCategoria { get; set; }
         public string NomeCategoria { get; set; } = string.Empty;
+
+        public string DataCreazioneString
+        {
+            get
+            {
+                return DataCreazione.Day.ToString() + "/" + 
+                    DataCreazione.Month.ToString() + "/" + 
+                    DataCreazione.Year.ToString();
+            }
+        }
     }
 }

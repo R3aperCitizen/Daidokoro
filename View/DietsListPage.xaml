@@ -16,7 +16,7 @@
         <ScrollView>
             <VerticalStackLayout Padding="15,25,15,25" Spacing="25">
                 <Border StrokeShape="RoundRectangle 10" StrokeThickness="0">
-                    <SearchBar x:Name="SearchBar" Placeholder="Cerca Collezioni..." BackgroundColor="{StaticResource NavBar}" PlaceholderColor="White" />
+                    <SearchBar x:Name="SearchBar" Placeholder="Cerca Diete..." BackgroundColor="{StaticResource NavBar}" PlaceholderColor="White" />
                 </Border>
 
                 <CollectionView x:Name="DietsList">
@@ -25,7 +25,7 @@
                             <!-- Template diete -->
                             <Border StrokeShape="RoundRectangle 10" StrokeThickness="0" Margin="0,15,0,15">
                                 <Grid>
-                                    <Button AutomationId="{Binding Path=IdCollezione}" x:Name="CollectionId" BackgroundColor="Transparent" Clicked="GoToDietPage" />
+                                    <Button AutomationId="{Binding Path=IdCollezione}" x:Name="CollectionId" BackgroundColor="Transparent" Clicked="GoToCollectionDietPage" />
                                     <HorizontalStackLayout HeightRequest="100" BackgroundColor="{StaticResource Buttons}">
                                         <Image Source="example_recipe.jpeg"/>
                                         <VerticalStackLayout Margin="10" Spacing="10">
