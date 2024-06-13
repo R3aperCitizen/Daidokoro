@@ -12,6 +12,16 @@
                 <ImageButton Source="user.png" Clicked="GoToUserPage" />
             </HorizontalStackLayout>
         </HorizontalStackLayout>
-        <Label Text="Lepre Morta"></Label>
+        <VerticalStackLayout>
+            <HorizontalStackLayout VerticalOptions="Center" Margin="20">
+                <Border HeightRequest="70" WidthRequest="70" StrokeShape="Ellipse"  StrokeThickness="2" Padding="10">
+                    <Image Source="user.png"/>
+                </Border>
+                <VerticalStackLayout Margin="10,0,0,0" HeightRequest="70" VerticalOptions="Center">
+                    <Label FontSize="20" Text="Nome"/>
+                    <Label FontSize="20" Text="Cognome"/>
+                </VerticalStackLayout>
+            </HorizontalStackLayout>
+        </VerticalStackLayout>
     </VerticalStackLayout>
 </ContentPage>
