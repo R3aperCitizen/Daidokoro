@@ -30,10 +30,8 @@ public partial class RicettaPage : ContentPage
     {
         int IdRicetta = int.Parse(Id);
         ricetta = _globals.dbService.GetData<Ricetta>("ricetta", $"WHERE IdRicetta = {Id};")[0];
-        Nome.Text = ricetta.Nome;
-        Descrizione.Text = ricetta.Descrizione;
+        Recipe.ItemsSource = new List<Ricetta>() { ricetta };
         Ingredienti.Text = getIngredienti(IdRicetta);
-        Passaggi.Text = ricetta.Passaggi;
         Tags.Text = getCategorieNutrizionali(IdRicetta);
     }
 
