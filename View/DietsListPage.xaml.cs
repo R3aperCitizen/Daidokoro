@@ -6,20 +6,19 @@ public partial class DietsListPage : ContentPage
 {
     // Global app variables
     private readonly IMainViewModel _globals;
-    private readonly List<Model.Collezione> diete;
+    private List<Model.Collezione> diete;
 
     public DietsListPage(IMainViewModel globals)
     {
         InitializeComponent();
         _globals = globals;
-        diete = new();
+
+        RefreshAll();
     }
 
     protected override void OnNavigatedTo(NavigatedToEventArgs args)
     {
-        diete.Clear();
-        diete.AddRange(_globals.GetDiete());
-        DietsList.ItemsSource = diete;
+        RefreshAll();
     }
 
     private async void GoToUserPage(object sender, EventArgs e)
@@ -41,5 +40,11 @@ public partial class DietsListPage : ContentPage
     {
         Button button = (Button)sender;
         await Shell.Current.GoToAsync($"//{nameof(CollectionDietPage)}?IdCollezione={button.AutomationId}");
+    }
+
+    private void RefreshAll()
+    {
+        diete = _globals.GetDiete();
+        DietsList.ItemsSource = diete;
     }
 }

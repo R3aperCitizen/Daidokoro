@@ -22,8 +22,13 @@ namespace Daidokoro.ViewModel
 
         public List<Ricetta> GetRicette()
         {
-            return _dbService.GetData<Ricetta>("ricetta");
+            return _dbService.GetData<Ricetta>("ricetta", "DISTINCT ricetta.*",
+                $"JOIN ingrediente_ricetta ON ingrediente_ricetta.IdRicetta = " +
+                $"ricetta.IdRicetta\r\nJOIN ingrediente ON ingrediente_ricetta.IdIngrediente = " +
+                $"ingrediente.IdIngrediente\r\nJOIN categoria_nutrizionale ON ingrediente.IdCategoria = " +
+                $"categoria_nutrizionale.IdCategoria LIMIT 10");
         }
+
         public List<Ricetta> GetRicette(int IdCollezione)
         {
             return _dbService.GetData<Ricetta>("ricetta", 
@@ -41,15 +46,31 @@ namespace Daidokoro.ViewModel
         public List<Collezione> GetCollezioni()
         {
             return _dbService.GetData<Collezione>("collezione", 
-                "collezione.*, categoria_nutrizionale.Nome AS NomeCategoria", 
-                "JOIN categoria_nutrizionale ON categoria_nutrizionale.IdCategoria=collezione.IdCategoria WHERE Dieta = 0");
+                "c1.*, categoria_nutrizionale.Nome AS NomeCategoria, ricetta.Foto AS FotoRicetta ",
+                "AS c1 " +
+                "JOIN categoria_nutrizionale ON categoria_nutrizionale.IdCategoria = c1.IdCategoria " +
+                "JOIN ricetta_collezione ON ricetta_collezione.IdCollezione = c1.IdCollezione " +
+                "JOIN ricetta ON ricetta.IdRicetta = ricetta_collezione.IdRicetta " +
+                "WHERE Dieta = 0 AND ricetta.IdRicetta = (" +
+                "SELECT MIN(ricetta.IdRicetta) " +
+                "FROM ricetta " +
+                "JOIN ricetta_collezione ON ricetta_collezione.IdRicetta = ricetta.IdRicetta " +
+                "WHERE ricetta_collezione.IdCollezione = c1.IdCollezione)");
         }
 
         public List<Collezione> GetDiete()
         {
             return _dbService.GetData<Collezione>("collezione",
-                "collezione.*, categoria_nutrizionale.Nome AS NomeCategoria",
-                "JOIN categoria_nutrizionale ON categoria_nutrizionale.IdCategoria=collezione.IdCategoria WHERE Dieta = 1");
+                "c1.*, categoria_nutrizionale.Nome AS NomeCategoria, ricetta.Foto AS FotoRicetta ",
+                "AS c1 " +
+                "JOIN categoria_nutrizionale ON categoria_nutrizionale.IdCategoria = c1.IdCategoria " +
+                "JOIN ricetta_collezione ON ricetta_collezione.IdCollezione = c1.IdCollezione " +
+                "JOIN ricetta ON ricetta.IdRicetta = ricetta_collezione.IdRicetta " +
+                "WHERE Dieta = 1 AND ricetta.IdRicetta = (" +
+                "SELECT MIN(ricetta.IdRicetta) " +
+                "FROM ricetta " +
+                "JOIN ricetta_collezione ON ricetta_collezione.IdRicetta = ricetta.IdRicetta " +
+                "WHERE ricetta_collezione.IdCollezione = c1.IdCollezione)");
         }
 
         public List<Utente> GetUtente(int id)

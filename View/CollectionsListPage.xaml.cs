@@ -1,5 +1,5 @@
 using Daidokoro.ViewModel;
-using System.Diagnostics;
+using static System.Runtime.InteropServices.JavaScript.JSType;
 
 namespace Daidokoro.View;
 
@@ -7,20 +7,19 @@ public partial class CollectionsListPage : ContentPage
 {
     // Global app variables
     private readonly IMainViewModel _globals;
-    private readonly List<Model.Collezione> collezioni;
+    private List<Model.Collezione> collezioni;
 
     public CollectionsListPage(IMainViewModel globals)
 	{
 		InitializeComponent();
         _globals = globals;
-        collezioni = new();
+
+        RefreshAll();
     }
 
     protected override void OnNavigatedTo(NavigatedToEventArgs args)
     {
-        collezioni.Clear();
-        collezioni.AddRange(_globals.GetCollezioni());
-        CollectionsList.ItemsSource = collezioni;
+        RefreshAll();
     }
 
     private async void GoToUserPage(object sender, EventArgs e)
@@ -42,5 +41,11 @@ public partial class CollectionsListPage : ContentPage
     {
         Button button = (Button)sender;
         await Shell.Current.GoToAsync($"//{nameof(CollectionDietPage)}?IdCollezione={button.AutomationId}");
+    }
+
+    private void RefreshAll()
+    {
+        collezioni = _globals.GetCollezioni();
+        CollectionsList.ItemsSource = collezioni;
     }
 }
