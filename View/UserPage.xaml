@@ -15,9 +15,9 @@
         <VerticalStackLayout Padding="50">
             <VerticalStackLayout Spacing="20">
                 <Border HeightRequest="150" WidthRequest="150" StrokeShape="Ellipse" StrokeThickness="0">
-                    <Image Aspect="AspectFill" Source="faker.jpg" BackgroundColor="{StaticResource Palette1}"/>
+                    <Image Aspect="AspectFill" Source="pp.jpeg" BackgroundColor="{StaticResource Palette1}"/>
                 </Border>
-                <Label TextColor="{StaticResource Palette2}" FontSize="30" HorizontalTextAlignment="Center" Text="Faker"/>
+                <Label TextColor="{StaticResource Palette2}" FontSize="30" HorizontalTextAlignment="Center" Text="Piroddi"/>
             </VerticalStackLayout>
             <BoxView Margin="15" HeightRequest="2" Color="{StaticResource White}"/>
             <HorizontalStackLayout HorizontalOptions="Center" Spacing="20">
@@ -26,11 +26,11 @@
                     <Label TextColor="{StaticResource Palette2}" HorizontalTextAlignment="Center" FontSize="30" Text="20"/>
                 </VerticalStackLayout>
                 <VerticalStackLayout>
-                    <Label TextColor="{StaticResource Palette2}" HorizontalTextAlignment="Center" FontSize="20" Text="Ricette"/>
+                    <Label TextColor="{StaticResource Palette2}" HorizontalTextAlignment="Center" FontSize="20" Text="Recensioni"/>
                     <Label TextColor="{StaticResource Palette2}" HorizontalTextAlignment="Center" FontSize="30" Text="20"/>
                 </VerticalStackLayout>
                 <VerticalStackLayout>
-                    <Label TextColor="{StaticResource Palette2}" HorizontalTextAlignment="Center" FontSize="20" Text="Recensioni"/>
+                    <Label TextColor="{StaticResource Palette2}" HorizontalTextAlignment="Center" FontSize="20" Text="Ricette"/>
                     <Label TextColor="{StaticResource Palette2}" HorizontalTextAlignment="Center" FontSize="30" Text="20"/>
                 </VerticalStackLayout>
             </HorizontalStackLayout>

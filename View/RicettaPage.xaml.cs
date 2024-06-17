@@ -24,27 +24,27 @@ public partial class RicettaPage : ContentPage
 
     private void OnPropertyChanged(object? sender, PropertyChangedEventArgs e)
     {
-        setRicetta(((RicettaPageViewModel)BindingContext).IdRicetta);
+        SetRicetta(((RicettaPageViewModel)BindingContext).IdRicetta);
     }
 
     protected override void OnNavigatedTo(NavigatedToEventArgs args)
     {
         if (ricetta.IdRicetta != 0)
         {
-            setRicetta(((RicettaPageViewModel)BindingContext).IdRicetta);
+            SetRicetta(((RicettaPageViewModel)BindingContext).IdRicetta);
         }
     }
 
-    private void setRicetta(string Id)
+    private void SetRicetta(string Id)
     {
         int IdRicetta = int.Parse(Id);
         ricetta = _globals.dbService.GetData<Ricetta>("ricetta", $"WHERE IdRicetta = {Id};")[0];
         Recipe.ItemsSource = new List<Ricetta>() { ricetta };
-        Ingredienti.Text = getIngredienti(IdRicetta);
-        Tags.Text = getCategorieNutrizionali(IdRicetta);
+        Ingredienti.Text = GetIngredienti(IdRicetta);
+        Tags.Text = GetCategorieNutrizionali(IdRicetta);
     }
 
-    private string getIngredienti(int IdRicetta)
+    private string GetIngredienti(int IdRicetta)
     {
         string listIngr = "";
         var Ingr = _globals.dbService.GetData<Ingrediente>("ingrediente",
@@ -57,7 +57,7 @@ public partial class RicettaPage : ContentPage
         return listIngr;
     }
 
-    private string getCategorieNutrizionali(int IdRicetta)
+    private string GetCategorieNutrizionali(int IdRicetta)
     {
         string categorie = "";
         var categories = _globals.dbService.GetData<CategoriaNutrizionale>("categoria_nutrizionale", 

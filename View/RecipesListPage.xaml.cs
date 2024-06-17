@@ -1,6 +1,5 @@
 using Daidokoro.Model;
 using Daidokoro.ViewModel;
-using System.Numerics;
 
 namespace Daidokoro.View;
 
@@ -84,6 +83,7 @@ public partial class RecipesListPage : ContentPage
         RefreshRecipes();
         return;
     }
+
     private void RefreshAll()
     {
         ricette = _globals.GetRicette().ToHashSet();

@@ -4,8 +4,16 @@
              x:Class="Daidokoro.View.CollectionDietPage"
              xmlns:model="clr-namespace:Daidokoro.Model"
              xmlns:viewmodel="clr-namespace:Daidokoro.ViewModel"
+             xmlns:toolkit="http://schemas.microsoft.com/dotnet/2022/maui/toolkit"
              x:DataType="viewmodel:CollectionDietPageViewModel"
              Title="CollectionDietPage">
+
+    <ContentPage.Resources>
+        <ResourceDictionary>
+            <toolkit:ByteArrayToImageSourceConverter x:Key="ByteArrayToImageSourceConverter" />
+        </ResourceDictionary>
+    </ContentPage.Resources>
+    
     <VerticalStackLayout BackgroundColor="{StaticResource Background}">
         <HorizontalStackLayout HeightRequest="75" BackgroundColor="{StaticResource NavBar}">
             <HorizontalStackLayout HorizontalOptions="Center" Spacing="105" Padding="25,15,25,15">
@@ -35,7 +43,7 @@
                                 <Grid>
                                     <Button AutomationId="{Binding Path=IdRicetta}" x:Name="RecipeId" BackgroundColor="Transparent" Clicked="GoToRecipePage" />
                                     <HorizontalStackLayout HeightRequest="100" BackgroundColor="{StaticResource Buttons}">
-                                        <Image Source="example_recipe.jpeg"/>
+                                        <Image BackgroundColor="{StaticResource Palette1}" WidthRequest="125" Aspect="AspectFill" Source="{Binding Foto, Converter={StaticResource ByteArrayToImageSourceConverter}}" />
                                         <VerticalStackLayout Margin="10" Spacing="10">
                                             <Label FontSize="25" WidthRequest="150" TextColor="{StaticResource Text}">
                                                 <Label.Text>
