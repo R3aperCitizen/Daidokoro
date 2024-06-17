@@ -34,6 +34,7 @@
                     <Label TextColor="{StaticResource Palette2}" HorizontalTextAlignment="Center" FontSize="30" Text="20"/>
                 </VerticalStackLayout>
             </HorizontalStackLayout>
+            <BoxView Margin="15" HeightRequest="2" Color="{StaticResource White}"/>
         </VerticalStackLayout>
     </VerticalStackLayout>
 </ContentPage>
