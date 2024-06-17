@@ -46,18 +46,31 @@ namespace Daidokoro.ViewModel
         public List<Collezione> GetCollezioni()
         {
             return _dbService.GetData<Collezione>("collezione", 
-                "DISTINCT collezione.*, categoria_nutrizionale.Nome AS NomeCategoria, ricetta.Foto AS FotoRicetta ", 
-                "JOIN categoria_nutrizionale ON categoria_nutrizionale.IdCategoria=collezione.IdCategoria " +
-                "JOIN ricetta_collezione ON ricetta_collezione.IdCollezione=collezione.IdCollezione " +
-                "JOIN ricetta ON ricetta.IdRicetta=ricetta_collezione.IdRicetta " +
-                "WHERE Dieta = 0");
+                "DISTINCT collezione.*, categoria_nutrizionale.Nome AS NomeCategoria, ricetta.Foto AS FotoRicetta ",
+                "FROM collezione " +
+                "JOIN categoria_nutrizionale ON categoria_nutrizionale.IdCategoria = collezione.IdCategoria " +
+                "JOIN ricetta_collezione ON ricetta_collezione.IdCollezione = collezione.IdCollezione " +
+                "JOIN ricetta ON ricetta.IdRicetta = ricetta_collezione.IdRicetta " +
+                "WHERE Dieta = 0 AND ricetta.IdRicetta = (" +
+                "SELECT MIN(ricetta.IdRicetta) " +
+                "FROM ricetta " +
+                "JOIN ricetta_collezione ON ricetta_collezione.IdRicetta = ricetta.IdRicetta " +
+                "JOIN collezione ON ricetta_collezione.IdCollezione = collezione.IdCollezione)");
         }
 
         public List<Collezione> GetDiete()
         {
             return _dbService.GetData<Collezione>("collezione",
-                "collezione.*, categoria_nutrizionale.Nome AS NomeCategoria",
-                "JOIN categoria_nutrizionale ON categoria_nutrizionale.IdCategoria=collezione.IdCategoria WHERE Dieta = 1");
+                "DISTINCT collezione.*, categoria_nutrizionale.Nome AS NomeCategoria, ricetta.Foto AS FotoRicetta ",
+                "FROM collezione " +
+                "JOIN categoria_nutrizionale ON categoria_nutrizionale.IdCategoria = collezione.IdCategoria " +
+                "JOIN ricetta_collezione ON ricetta_collezione.IdCollezione = collezione.IdCollezione " +
+                "JOIN ricetta ON ricetta.IdRicetta = ricetta_collezione.IdRicetta " +
+                "WHERE Dieta = 1 AND ricetta.IdRicetta = (" +
+                "SELECT MIN(ricetta.IdRicetta) " +
+                "FROM ricetta " +
+                "JOIN ricetta_collezione ON ricetta_collezione.IdRicetta = ricetta.IdRicetta " +
+                "JOIN collezione ON ricetta_collezione.IdCollezione = collezione.IdCollezione)");
         }
     }
 }
