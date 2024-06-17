@@ -8,7 +8,7 @@ public partial class RecipesListPage : ContentPage
 {
     // Global app variables
     private readonly IMainViewModel _globals;
-    private HashSet<Ricetta> ricette;
+    private List<Ricetta> ricette;
 
     public RecipesListPage(IMainViewModel globals)
     {
@@ -52,41 +52,35 @@ public partial class RecipesListPage : ContentPage
         {
             if (value < 6) 
             {
-                ricette = _globals.dbService.GetData<Ricetta>("ricetta", $"WHERE ricetta.Difficolta = {value}")
-                    .ToHashSet();            
+                ricette = _globals.dbService.GetData<Ricetta>("ricetta", $"WHERE ricetta.Difficolta = {value}");
+                         
             }
             else
             {
-                ricette = _globals.dbService.GetData<Ricetta>("ricetta", $"WHERE ricetta.Tempo = {value}")
-                    .ToHashSet();
+                ricette = _globals.dbService.GetData<Ricetta>("ricetta", $"WHERE ricetta.Tempo = {value}");
+                    
             }
            
+        } else if(text == null)
+        {
+            RefreshAll();
         }
-        else
+        else 
         {
             //query categoria nutrizionale
-            ricette = _globals.dbService.GetData<Ricetta>("ricetta", "ricetta.*",
+            ricette = _globals.dbService.GetData<Ricetta>("ricetta", "DISTINCT ricetta.*",
                 $"JOIN ingrediente_ricetta ON ingrediente_ricetta.IdRicetta = " +
                 $"ricetta.IdRicetta\r\nJOIN ingrediente ON ingrediente_ricetta.IdIngrediente = " +
                 $"ingrediente.IdIngrediente\r\nJOIN categoria_nutrizionale ON ingrediente.IdCategoria = " +
-                $"categoria_nutrizionale.IdCategoria\r\nWHERE categoria_nutrizionale.Nome LIKE \"%{text}%\"")
-                    .ToHashSet();
-            //query ingredienti
-            ricette.UnionWith(_globals.dbService.GetData<Ricetta>("ricetta", "ricetta.*", $"JOIN ingrediente_ricetta " +
-                $"ON ingrediente_ricetta.IdRicetta = ricetta.IdRicetta\r\n" +
-                $"JOIN ingrediente ON ingrediente_ricetta.IdIngrediente = ingrediente.IdIngrediente\r\n" +
-                $"WHERE ingrediente.Nome LIKE \"%{text}%\"").ToHashSet());
-
-            //query nome ricetta
-            ricette.UnionWith(_globals.dbService.GetData<Ricetta>("ricetta","ricetta.*",$"WHERE ricetta.Nome LIKE \"%{text}%\" ")
-                    .ToHashSet());
+                $"categoria_nutrizionale.IdCategoria\r\nWHERE categoria_nutrizionale.Nome LIKE \"%{text}%\" " +
+                $"OR ingrediente.Nome LIKE \"%{text}%\" OR ricetta.Nome LIKE \"%{text}%\" ");
         }
         RefreshRecipes();
-        return;
+    
     }
     private void RefreshAll()
     {
-        ricette = _globals.GetRicette().ToHashSet();
+        ricette = _globals.GetRicette();
         RefreshRecipes();
     }
 
