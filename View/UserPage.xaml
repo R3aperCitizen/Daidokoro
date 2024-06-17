@@ -3,6 +3,7 @@
              xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml"
              x:Class="Daidokoro.View.UserPage"
              xmlns:model="clr-namespace:Daidokoro.Model"
+             xmlns:toolkit="http://schemas.microsoft.com/dotnet/2022/maui/toolkit"
              Title="UserPage">
 
     <ContentPage.Resources>
@@ -19,29 +20,35 @@
                 <ImageButton Source="user.png" Clicked="GoToUserPage" />
             </HorizontalStackLayout>
         </HorizontalStackLayout>
-        <VerticalStackLayout Padding="50">
-            <VerticalStackLayout Spacing="20">
-                <Border HeightRequest="150" WidthRequest="150" StrokeShape="Ellipse" StrokeThickness="0">
-                    <Image Aspect="AspectFill" Source="pp.jpeg" BackgroundColor="{StaticResource Palette1}"/>
-                </Border>
-                <Label TextColor="{StaticResource Palette2}" FontSize="30" HorizontalTextAlignment="Center" Text="Piroddi"/>
-            </VerticalStackLayout>
-            <BoxView Margin="15" HeightRequest="2" Color="{StaticResource White}"/>
-            <HorizontalStackLayout HorizontalOptions="Center" Spacing="20">
-                <VerticalStackLayout>
-                    <Label TextColor="{StaticResource Palette2}" HorizontalTextAlignment="Center" FontSize="20" Text="Likes"/>
-                    <Label TextColor="{StaticResource Palette2}" HorizontalTextAlignment="Center" FontSize="30" Text="20"/>
-                </VerticalStackLayout>
-                <VerticalStackLayout>
-                    <Label TextColor="{StaticResource Palette2}" HorizontalTextAlignment="Center" FontSize="20" Text="Recensioni"/>
-                    <Label TextColor="{StaticResource Palette2}" HorizontalTextAlignment="Center" FontSize="30" Text="20"/>
-                </VerticalStackLayout>
-                <VerticalStackLayout>
-                    <Label TextColor="{StaticResource Palette2}" HorizontalTextAlignment="Center" FontSize="20" Text="Ricette"/>
-                    <Label TextColor="{StaticResource Palette2}" HorizontalTextAlignment="Center" FontSize="30" Text="20"/>
-                </VerticalStackLayout>
-            </HorizontalStackLayout>
-            <BoxView Margin="15" HeightRequest="2" Color="{StaticResource White}"/>
-        </VerticalStackLayout>
+        <CollectionView x:Name="UserInfo">
+            <CollectionView.ItemTemplate>
+                <DataTemplate x:DataType="model:Utente">
+                    <VerticalStackLayout Padding="50">
+                        <VerticalStackLayout Spacing="20">
+                            <Border HeightRequest="150" WidthRequest="150" StrokeShape="Ellipse" StrokeThickness="0">
+                                <Image Aspect="AspectFill" BackgroundColor="{StaticResource Palette1}" Source="{Binding Foto, Converter={StaticResource ByteArrayToImageSourceConverter}}"/>
+                            </Border>
+                            <Label TextColor="{StaticResource Palette2}" FontSize="30" HorizontalTextAlignment="Center" Text="{Binding Username}"/>
+                        </VerticalStackLayout>
+                        <BoxView Margin="15" HeightRequest="2" Color="{StaticResource White}"/>
+                        <HorizontalStackLayout HorizontalOptions="Center" Spacing="20">
+                            <VerticalStackLayout>
+                                <Label TextColor="{StaticResource Palette2}" HorizontalTextAlignment="Center" FontSize="20" Text="Likes"/>
+                                <Label TextColor="{StaticResource Palette2}" HorizontalTextAlignment="Center" FontSize="30" Text="{Binding Likes}"/>
+                            </VerticalStackLayout>
+                            <VerticalStackLayout>
+                                <Label TextColor="{StaticResource Palette2}" HorizontalTextAlignment="Center" FontSize="20" Text="Recensioni"/>
+                                <Label TextColor="{StaticResource Palette2}" HorizontalTextAlignment="Center" FontSize="30" Text="{Binding ReviewCount}"/>
+                            </VerticalStackLayout>
+                            <VerticalStackLayout>
+                                <Label TextColor="{StaticResource Palette2}" HorizontalTextAlignment="Center" FontSize="20" Text="Ricette"/>
+                                <Label TextColor="{StaticResource Palette2}" HorizontalTextAlignment="Center" FontSize="30" Text="{Binding RecipeCount}"/>
+                            </VerticalStackLayout>
+                        </HorizontalStackLayout>
+                        <BoxView Margin="15" HeightRequest="2" Color="{StaticResource White}"/>
+                    </VerticalStackLayout>
+                </DataTemplate>    
+            </CollectionView.ItemTemplate>
+        </CollectionView>
     </VerticalStackLayout>
 </ContentPage>

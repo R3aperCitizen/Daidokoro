@@ -1,3 +1,4 @@
+using Daidokoro.Model;
 using Daidokoro.ViewModel;
 
 namespace Daidokoro.View;
@@ -12,7 +13,12 @@ public partial class UserPage : ContentPage
 		InitializeComponent();
         _globals = globals;
 	}
-        
+
+    protected override void OnAppearing()
+    {
+        UserInfo.ItemsSource = _globals.GetUtente(2);
+    }
+
     private async void GoToUserPage(object sender, EventArgs e)
     {
         await Shell.Current.GoToAsync($"//{nameof(UserPage)}");

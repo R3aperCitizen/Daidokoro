@@ -13,5 +13,6 @@ namespace Daidokoro.ViewModel
         List<Collezione> GetCollezioni();
         Collezione GetCollezione(int IdCollezione);
         List<Collezione> GetDiete();
+        List<Utente> GetUtente(int id);
     }
 }

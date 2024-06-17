@@ -9,5 +9,9 @@
         public string Email { get; set; } = string.Empty;
         public int Esperienza {  get; set; }
         public int Livello { get; set; }
+        
+        public long Likes { get; set; }
+        public long ReviewCount {  get; set; }
+        public long RecipeCount {  get; set; }
     }
 }
