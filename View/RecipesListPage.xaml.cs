@@ -46,36 +46,34 @@ public partial class RecipesListPage : ContentPage
     
     private void SearchBar_TextChanged(object sender, TextChangedEventArgs e)
     {
-        String text = SearchBar.Text; 
-        if (int.TryParse(text,out int value))
+        string text = SearchBar.Text.ToLower();
+        if (text == null || text == string.Empty)
         {
-            if (value < 6) 
+            RefreshAll();
+        }
+        else if (int.TryParse(text, out int value))
+        {
+            if (value < 6)
             {
                 ricette = _globals.dbService.GetData<Ricetta>("ricetta", $"WHERE ricetta.Difficolta = {value}");
-                         
             }
             else
             {
                 ricette = _globals.dbService.GetData<Ricetta>("ricetta", $"WHERE ricetta.Tempo = {value}");
-                    
             }
-           
-        } else if(text == null)
-        {
-            RefreshAll();
         }
-        else 
+        else
         {
             //query categoria nutrizionale
             ricette = _globals.dbService.GetData<Ricetta>("ricetta", "DISTINCT ricetta.*",
                 $"JOIN ingrediente_ricetta ON ingrediente_ricetta.IdRicetta = " +
                 $"ricetta.IdRicetta\r\nJOIN ingrediente ON ingrediente_ricetta.IdIngrediente = " +
                 $"ingrediente.IdIngrediente\r\nJOIN categoria_nutrizionale ON ingrediente.IdCategoria = " +
-                $"categoria_nutrizionale.IdCategoria\r\nWHERE categoria_nutrizionale.Nome LIKE \"%{text}%\" " +
-                $"OR ingrediente.Nome LIKE \"%{text}%\" OR ricetta.Nome LIKE \"%{text}%\" ");
+                $"categoria_nutrizionale.IdCategoria\r\nWHERE LOWER(categoria_nutrizionale.Nome) LIKE \"%{text}%\" " +
+                $"OR LOWER(ingrediente.Nome) LIKE \"%{text}%\" OR LOWER(ricetta.Nome) LIKE \"%{text}%\" LIMIT 10");
         }
+
         RefreshRecipes();
-    
     }
 
     private void RefreshAll()
