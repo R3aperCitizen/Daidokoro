@@ -4,11 +4,11 @@ USE daidokoro;
 CREATE TABLE IF NOT EXISTS utente(
     IdUtente INT NOT NULL AUTO_INCREMENT,
     Username VARCHAR(20) NOT NULL,
+    Foto MEDIUMBLOB NOT NULL,
     Pwd VARCHAR(30) NOT NULL,
     Email VARCHAR(30) NOT NULL,
     Esperienza INT DEFAULT 0,
     Livello INT DEFAULT 1,
-    FotoProfilo VARCHAR(10) NOT NULL,
     PRIMARY KEY (IdUtente)
 )AUTO_INCREMENT=1;
 
@@ -74,6 +74,15 @@ CREATE TABLE IF NOT EXISTS ricetta(
     PRIMARY KEY (IdRicetta),
     FOREIGN KEY (IdUtente) REFERENCES utente(IdUtente)
 )AUTO_INCREMENT=1;
+
+CREATE TABLE IF NOT EXISTS likes (
+	Data DATE NOT NULL,
+	IdUtente INT NOT NULL,
+	IdRicetta INT NOT NULL,
+	FOREIGN KEY (IdUtente) REFERENCES utente(IdUtente),
+	FOREIGN KEY (IdRicetta) REFERENCES ricetta(IdRicetta),
+	PRIMARY KEY (IdUtente, IdRicetta)
+);
 
 CREATE TABLE IF NOT EXISTS ingrediente_ricetta(
     IdIngrediente INT NOT NULL,
