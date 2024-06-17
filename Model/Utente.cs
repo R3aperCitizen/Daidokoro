@@ -9,6 +9,5 @@
         public string Email { get; set; } = string.Empty;
         public int Esperienza {  get; set; }
         public int Livello { get; set; }
-        public string FotoProfilo { get; set; } = string.Empty;
     }
 }

@@ -4,6 +4,13 @@
              x:Class="Daidokoro.View.UserPage"
              xmlns:model="clr-namespace:Daidokoro.Model"
              Title="UserPage">
+
+    <ContentPage.Resources>
+        <ResourceDictionary>
+            <toolkit:ByteArrayToImageSourceConverter x:Key="ByteArrayToImageSourceConverter" />
+        </ResourceDictionary>
+    </ContentPage.Resources>
+
     <VerticalStackLayout BackgroundColor="{StaticResource Background}">
         <HorizontalStackLayout HeightRequest="75" BackgroundColor="{StaticResource NavBar}">
             <HorizontalStackLayout HorizontalOptions="Center" Spacing="105" Padding="25,15,25,15">

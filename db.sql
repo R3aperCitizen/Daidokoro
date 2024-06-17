@@ -9,7 +9,6 @@ CREATE TABLE IF NOT EXISTS utente(
     Email VARCHAR(30) NOT NULL,
     Esperienza INT DEFAULT 0,
     Livello INT DEFAULT 1,
-    FotoProfilo VARCHAR(10) NOT NULL,
     PRIMARY KEY (IdUtente)
 )AUTO_INCREMENT=1;
 
