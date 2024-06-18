@@ -1,3 +1,4 @@
+using Daidokoro.Model;
 using Daidokoro.ViewModel;
 using static System.Runtime.InteropServices.JavaScript.JSType;
 
@@ -47,5 +48,24 @@ public partial class CollectionsListPage : ContentPage
     {
         collezioni = _globals.GetCollezioni();
         CollectionsList.ItemsSource = collezioni;
+    }
+
+    private void Refresh(List<Collezione> items)
+    {
+        CollectionsList.ItemsSource = items;
+    }
+
+    private void SearchBar_TextChanged(object sender, TextChangedEventArgs e)
+    {
+        string text = SearchBar.Text;
+
+        if(text == null) { RefreshAll(); }
+        else
+        {
+            Refresh(_globals.dbService.GetData<Collezione>
+               ($"SELECT Distinct collezione.* \r\nFROM collezione\r\nJOIN categoria_nutrizionale ON categoria_nutrizionale.IdCategoria = " +
+               $"collezione.IdCategoria\r\nJOIN ricetta_collezione ON collezione.IdCollezione = ricetta_collezione.IdCollezione\r\nJOIN ricetta ON ricetta.IdRicetta = ricetta_collezione.IdRicetta\r\nWHERE collezione.nome like \"%{text}%\"" +
+               $" OR categoria_nutrizionale.Nome like \"%{text}%\" OR ricetta.Nome like \"%{text}%\"\r\n\r\n\r\n\r\n\r\n\r\n"));
+        }
     }
 }
