@@ -2,11 +2,9 @@
 <ContentView xmlns="http://schemas.microsoft.com/dotnet/2021/maui"
              xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml"
              x:Class="Daidokoro.View.Components.NavigationBar">
-    <HorizontalStackLayout HeightRequest="75" BackgroundColor="{StaticResource NavBar}">
-        <HorizontalStackLayout HorizontalOptions="Center" Spacing="105" Padding="25,15,25,15">
-            <ImageButton Source="home.png" Clicked="GoToHomePage" />
-            <ImageButton Source="browse.png" Clicked="GoToBrowsePage" />
-            <ImageButton Source="user.png" Clicked="GoToUserPage" />
-        </HorizontalStackLayout>
+    <HorizontalStackLayout x:Name="NavBar" HeightRequest="75" Padding="15" BackgroundColor="{StaticResource NavBar}">
+        <ImageButton Source="home.png" Clicked="GoToHomePage" />
+        <ImageButton Source="browse.png" Clicked="GoToBrowsePage" />
+        <ImageButton Source="user.png" Clicked="GoToUserPage" />
     </HorizontalStackLayout>
 </ContentView>
