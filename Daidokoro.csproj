@@ -81,6 +81,12 @@
 	</ItemGroup>
 
 	<ItemGroup>
+	  <Compile Update="View\Components\NavigationBar.xaml.cs">
+	    <DependentUpon>NavigationBar.xaml</DependentUpon>
+	  </Compile>
+	  <Compile Update="View\Components\CollectionMinimal.xaml.cs">
+	    <DependentUpon>CollectionMinimal.xaml</DependentUpon>
+	  </Compile>
 	  <Compile Update="View\Components\RecipeMinimal.xaml.cs">
 	    <DependentUpon>RecipeMinimal.xaml</DependentUpon>
 	  </Compile>
@@ -103,6 +109,12 @@
 	    <Generator>MSBuild:Compile</Generator>
 	  </MauiXaml>
 	  <MauiXaml Update="View\CollectionsListPage.xaml">
+	    <Generator>MSBuild:Compile</Generator>
+	  </MauiXaml>
+	  <MauiXaml Update="View\Components\NavigationBar.xaml">
+	    <Generator>MSBuild:Compile</Generator>
+	  </MauiXaml>
+	  <MauiXaml Update="View\Components\CollectionMinimal.xaml">
 	    <Generator>MSBuild:Compile</Generator>
 	  </MauiXaml>
 	  <MauiXaml Update="View\Components\RecipeMinimal.xaml">

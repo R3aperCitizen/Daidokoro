@@ -1,25 +1,12 @@
 ﻿<?xml version="1.0" encoding="utf-8" ?>
 <ContentPage xmlns="http://schemas.microsoft.com/dotnet/2021/maui"
              xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml"
-             xmlns:toolkit="http://schemas.microsoft.com/dotnet/2022/maui/toolkit"
              x:Class="Daidokoro.View.HomePage"
              xmlns:model="clr-namespace:Daidokoro.Model"
              xmlns:controls="clr-namespace:Daidokoro.View.Components">
 
-    <ContentPage.Resources>
-        <ResourceDictionary>
-            <toolkit:ByteArrayToImageSourceConverter x:Key="ByteArrayToImageSourceConverter" />
-        </ResourceDictionary>
-    </ContentPage.Resources>
-
     <VerticalStackLayout BackgroundColor="{StaticResource Background}">
-        <HorizontalStackLayout HeightRequest="75" BackgroundColor="{StaticResource NavBar}">
-            <HorizontalStackLayout HorizontalOptions="Center" Spacing="105" Padding="25,15,25,15">
-                <ImageButton Source="home.png" Clicked="GoToHomePage" />
-                <ImageButton Source="browse.png" Clicked="GoToBrowsePage" />
-                <ImageButton Source="user.png" Clicked="GoToUserPage" />
-            </HorizontalStackLayout>
-        </HorizontalStackLayout>
+        <controls:NavigationBar />
         <Border StrokeShape="RoundRectangle 10" StrokeThickness="0" BackgroundColor="{StaticResource Palette2}" Margin="15,10,15,10">
             <Label Text="Ricette più popolari!" FontAttributes="Bold" FontSize="35" HorizontalTextAlignment="Center" TextColor="{StaticResource Palette3}" Padding="15" />
         </Border>

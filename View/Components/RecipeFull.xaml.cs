@@ -6,4 +6,10 @@ public partial class RecipeFull : ContentView
 	{
 		InitializeComponent();
 	}
+
+    private async void GoToRecipePage(object sender, EventArgs e)
+    {
+        Button button = (Button)sender;
+        await Shell.Current.GoToAsync($"//{nameof(RicettaPage)}?IdRicetta={button.AutomationId}");
+    }
 }

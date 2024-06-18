@@ -17,19 +17,4 @@ public partial class UserPage : ContentPage
     {
         UserInfo.ItemsSource = _globals.GetUtente(1);
     }
-
-    private async void GoToUserPage(object sender, EventArgs e)
-    {
-        await Shell.Current.GoToAsync($"//{nameof(UserPage)}");
-    }
-
-    private async void GoToBrowsePage(object sender, EventArgs e)
-    {
-        await Shell.Current.GoToAsync($"//{nameof(BrowsePage)}");
-    }
-
-    private async void GoToHomePage(object sender, EventArgs e)
-    {
-        await Shell.Current.GoToAsync($"//{nameof(HomePage)}");
-    }
 }

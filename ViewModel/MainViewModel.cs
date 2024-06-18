@@ -1,7 +1,4 @@
 ﻿using Daidokoro.Model;
-using Microsoft.Maui.Controls;
-using System.Collections.Generic;
-using System.Text.RegularExpressions;
 
 namespace Daidokoro.ViewModel
 {

@@ -1,26 +1,13 @@
 <?xml version="1.0" encoding="utf-8" ?>
 <ContentPage xmlns="http://schemas.microsoft.com/dotnet/2021/maui"
              xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml"
-             xmlns:toolkit="http://schemas.microsoft.com/dotnet/2022/maui/toolkit"
              x:Class="Daidokoro.View.DietsListPage"
              xmlns:model="clr-namespace:Daidokoro.Model"
+             xmlns:controls="clr-namespace:Daidokoro.View.Components"
              Title="DietsListPage">
     
-    <ContentPage.Resources>
-        <ResourceDictionary>
-            <toolkit:ByteArrayToImageSourceConverter x:Key="ByteArrayToImageSourceConverter" />
-        </ResourceDictionary>
-    </ContentPage.Resources>
-    
     <VerticalStackLayout BackgroundColor="{StaticResource Background}">
-        <HorizontalStackLayout HeightRequest="75" BackgroundColor="{StaticResource NavBar}">
-            <HorizontalStackLayout HorizontalOptions="Center" Spacing="105" Padding="25,15,25,15">
-                <ImageButton Source="home.png" Clicked="GoToHomePage" />
-                <ImageButton Source="browse.png" Clicked="GoToBrowsePage" />
-                <ImageButton Source="user.png" Clicked="GoToUserPage" />
-            </HorizontalStackLayout>
-        </HorizontalStackLayout>
-
+        <controls:NavigationBar />
         <ScrollView>
             <VerticalStackLayout Padding="15,25,15,25" Spacing="25">
                 <Border StrokeShape="RoundRectangle 10" StrokeThickness="0">
@@ -30,33 +17,7 @@
                 <CollectionView x:Name="DietsList">
                     <CollectionView.ItemTemplate>
                         <DataTemplate x:DataType="model:Collezione">
-                            <!-- Template diete -->
-                            <Border StrokeShape="RoundRectangle 10" StrokeThickness="0" Margin="0,15,0,15">
-                                <Grid>
-                                    <Button AutomationId="{Binding Path=IdCollezione}" x:Name="CollectionId" BackgroundColor="Transparent" Clicked="GoToCollectionDietPage" />
-                                    <HorizontalStackLayout HeightRequest="100" BackgroundColor="{StaticResource Buttons}">
-                                        <Image BackgroundColor="{StaticResource Palette1}" WidthRequest="125" Aspect="AspectFill" Source="{Binding FotoRicetta, Converter={StaticResource ByteArrayToImageSourceConverter}}"/>
-                                        <VerticalStackLayout Margin="10" Spacing="10">
-                                            <Label FontSize="25" WidthRequest="150" TextColor="{StaticResource Text}">
-                                                <Label.Text>
-                                                    <Binding Path="Nome" />
-                                                </Label.Text>
-                                            </Label>
-                                            <HorizontalStackLayout WidthRequest="150" Spacing="20">
-                                                <VerticalStackLayout>
-                                                    <Label FontSize="10" TextColor="{StaticResource Text}" Text="Categoria:" />
-                                                    <Label FontSize="15" TextColor="{StaticResource Text}">
-                                                        <Label.Text>
-                                                            <Binding Path="NomeCategoria" />
-                                                        </Label.Text>
-                                                    </Label>
-                                                </VerticalStackLayout>
-                                            </HorizontalStackLayout>
-                                        </VerticalStackLayout>
-                                    </HorizontalStackLayout>
-                                </Grid>
-                            </Border>
-                            <!-- Fine template dieta -->
+                            <controls:CollectionMinimal/>
                         </DataTemplate>
                     </CollectionView.ItemTemplate>
                 </CollectionView>

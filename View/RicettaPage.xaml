@@ -5,6 +5,7 @@
              xmlns:toolkit="http://schemas.microsoft.com/dotnet/2022/maui/toolkit"
              xmlns:viewmodel="clr-namespace:Daidokoro.ViewModel"
              xmlns:model="clr-namespace:Daidokoro.Model"
+             xmlns:controls="clr-namespace:Daidokoro.View.Components"
              x:DataType="viewmodel:RicettaPageViewModel"
              Title="RicettaPage">
 
@@ -15,13 +16,7 @@
     </ContentPage.Resources>
 
     <VerticalStackLayout  BackgroundColor="{StaticResource Background}">
-        <HorizontalStackLayout HeightRequest="75" BackgroundColor="{StaticResource NavBar}">
-            <HorizontalStackLayout HorizontalOptions="Center" Spacing="105" Padding="25,15,25,15">
-                <ImageButton Source="home.png" Clicked="GoToHomePage" />
-                <ImageButton Source="browse.png" Clicked="GoToBrowsePage" />
-                <ImageButton Source="user.png" Clicked="GoToUserPage" />
-            </HorizontalStackLayout>
-        </HorizontalStackLayout>
+        <controls:NavigationBar />
         <ScrollView HeightRequest="770">
             <VerticalStackLayout Padding="30">
                 <CollectionView x:Name="Recipe">
