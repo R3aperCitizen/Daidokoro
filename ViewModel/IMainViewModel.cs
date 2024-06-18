@@ -8,12 +8,16 @@ namespace Daidokoro.ViewModel
 
         bool InitDBSettings(DBCredentials dbs);
 
+        List<Ingrediente> GetIngredienti(int IdRicetta);
         List<Ricetta> GetRicette();
         List<Ricetta> GetRicette(int IdCollezione);
+        Ricetta GetRicetta(int IdRicetta);
         List<Collezione> GetCollezioni();
         Collezione GetCollezione(int IdCollezione);
         List<Collezione> GetDiete();
         List<Utente> GetUtente(int id);
-        List<Ricetta> GetMonthRecipe();
+        List<Ricetta> GetMonthRecipes();
+        List<Collezione> GetCollectionsSearched(int dieta, string text);
+        List<CategoriaNutrizionale> GetCategorieNutrizionali(int IdRicetta);
     }
 }

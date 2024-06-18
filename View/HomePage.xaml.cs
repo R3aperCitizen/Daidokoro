@@ -35,7 +35,7 @@ namespace Daidokoro.View
 
         private void SetMonthRecipes()
         {
-            monthRecipes = _globals.GetMonthRecipe();
+            monthRecipes = _globals.GetMonthRecipes();
             MonthRecipe.ItemsSource = monthRecipes;
         }
 

@@ -47,4 +47,25 @@ public partial class DietsListPage : ContentPage
         diete = _globals.GetDiete();
         DietsList.ItemsSource = diete;
     }
+
+    private void Refresh()
+    {
+        DietsList.ItemsSource = diete;
+    }
+
+    private void SearchBar_TextChanged(object sender, TextChangedEventArgs e)
+    {
+        string text = SearchBar.Text;
+
+        if (text == null)
+        {
+            RefreshAll();
+        }
+        else
+        {
+            diete = _globals.GetCollectionsSearched(1, text);
+
+            Refresh();
+        }
+    }
 }
