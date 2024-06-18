@@ -33,30 +33,56 @@ namespace Daidokoro.ViewModel
         public List<Ricetta> GetRicette()
         {
             return _dbService.GetData<Ricetta>(
-                $"SELECT DISTINCT ricetta.*, COUNT(likes.IdRicetta) AS NumeroLike\r\n" +
+                $"CREATE VIEW r1 AS\r\n" +
+                $"SELECT ricetta.*, COUNT(likes.IdRicetta) AS NumeroLike\r\n" +
                 $"FROM ricetta\r\n" +
-                $"JOIN ingrediente_ricetta ON ingrediente_ricetta.IdRicetta=ricetta.IdRicetta\r\n" +
-                $"JOIN ingrediente ON ingrediente_ricetta.IdIngrediente=ingrediente.IdIngrediente\r\n" +
-                $"JOIN categoria_nutrizionale ON ingrediente.IdCategoria=categoria_nutrizionale.IdCategoria\r\n" +
                 $"LEFT JOIN likes ON likes.IdRicetta = ricetta.IdRicetta\r\n" +
                 $"GROUP BY ricetta.IdRicetta\r\n" +
-                $"LIMIT 10;"
+                $"ORDER BY NumeroLike DESC\r\n" +
+                $"LIMIT 10;\r\n" +
+                $"SELECT DISTINCT r1.*\r\n" +
+                $"FROM r1\r\n" +
+                $"JOIN ingrediente_ricetta ON ingrediente_ricetta.IdRicetta = r1.IdRicetta\r\n" +
+                $"JOIN ingrediente ON ingrediente_ricetta.IdIngrediente = ingrediente.IdIngrediente;\r\n" +
+                $"DROP VIEW r1;"
            );
         }
 
-        public List<Ricetta> GetRicette(int IdCollezione)
+        public List<Ricetta> GetRicetteByCollection(int IdCollezione)
         {
             return _dbService.GetData<Ricetta>(
-                $"SELECT DISTINCT ricetta.*, COUNT(likes.IdRicetta) AS NumeroLike\r\n" +
+                $"CREATE VIEW r1 AS\r\n" +
+                $"SELECT ricetta.*, COUNT(likes.IdRicetta) AS NumeroLike\r\n" +
                 $"FROM ricetta\r\n" +
-                $"JOIN ingrediente_ricetta ON ingrediente_ricetta.IdRicetta=ricetta.IdRicetta\r\n" +
-                $"JOIN ingrediente ON ingrediente_ricetta.IdIngrediente=ingrediente.IdIngrediente\r\n" +
-                $"JOIN categoria_nutrizionale ON ingrediente.IdCategoria=categoria_nutrizionale.IdCategoria\r\n" +
                 $"LEFT JOIN likes ON likes.IdRicetta = ricetta.IdRicetta\r\n" +
                 $"JOIN ricetta_collezione ON ricetta_collezione.IdRicetta=ricetta.IdRicetta\r\n" +
                 $"WHERE ricetta_collezione.IdCollezione = {IdCollezione}\r\n" +
                 $"GROUP BY ricetta.IdRicetta\r\n" +
-                $"LIMIT 10;"
+                $"ORDER BY NumeroLike DESC\r\n" +
+                $"LIMIT 10;\r\n" +
+                $"SELECT DISTINCT r1.*\r\n" +
+                $"FROM r1\r\n" +
+                $"JOIN ingrediente_ricetta ON ingrediente_ricetta.IdRicetta = r1.IdRicetta\r\n" +
+                $"JOIN ingrediente ON ingrediente_ricetta.IdIngrediente = ingrediente.IdIngrediente;\r\n" +
+                $"DROP VIEW r1;"
+            );
+        }
+
+        public List<Ricetta> GetRicetteByDifficulty(int Difficolta)
+        {
+            return _dbService.GetData<Ricetta>(
+                $"SELECT *\r\n" +
+                $"FROM ricetta\r\n" +
+                $"WHERE ricetta.Difficolta = {Difficolta}"
+            );
+        }
+
+        public List<Ricetta> GetRicetteByTime(int Tempo)
+        {
+            return _dbService.GetData<Ricetta>(
+                $"SELECT *\r\n" +
+                $"FROM ricetta\r\n" +
+                $"WHERE ricetta.Tempo = {Tempo}"
             );
         }
 
@@ -129,14 +155,40 @@ namespace Daidokoro.ViewModel
         public List<Ricetta> GetMonthRecipes()
         {
             return _dbService.GetData<Ricetta>(
+                $"CREATE VIEW r1 AS\r\n" +
                 $"SELECT ricetta.*, COUNT(likes.IdRicetta) AS NumeroLike\r\n" +
                 $"FROM ricetta\r\n" +
-                $"JOIN likes ON likes.IdRicetta = ricetta.IdRicetta\r\n" +
-                $"JOIN ingrediente_ricetta ON ingrediente_ricetta.IdRicetta=ricetta.IdRicetta\r\n" +
-                $"JOIN ingrediente ON ingrediente_ricetta.IdIngrediente=ingrediente.IdIngrediente\r\n" +
-                $"GROUP BY ricetta.IdRicetta\r\n" +
+                $"LEFT JOIN likes ON likes.IdRicetta = ricetta.IdRicetta\r\n" +
+                $"GROUP BY ricetta.IdRicetta;\r\n" +
+                $"SELECT DISTINCT r1.*\r\n" +
+                $"FROM r1\r\n" +
+                $"JOIN ingrediente_ricetta ON ingrediente_ricetta.IdRicetta = r1.IdRicetta\r\n" +
+                $"JOIN ingrediente ON ingrediente_ricetta.IdIngrediente = ingrediente.IdIngrediente\r\n" +
                 $"ORDER BY NumeroLike DESC\r\n" +
-                $"LIMIT 3;"
+                $"LIMIT 3;\r\n" +
+                $"DROP VIEW r1;"
+            );
+        }
+
+        public List<Ricetta> GetRicetteSearched(string text)
+        {
+            return _dbService.GetData<Ricetta>(
+                $"CREATE VIEW r1 AS\r\n" +
+                $"SELECT ricetta.*, COUNT(likes.IdRicetta) AS NumeroLike\r\n" +
+                $"FROM ricetta\r\n" +
+                $"LEFT JOIN likes ON likes.IdRicetta = ricetta.IdRicetta\r\n" +
+                $"GROUP BY ricetta.IdRicetta;\r\n" +
+                $"SELECT DISTINCT r1.*\r\n" +
+                $"FROM r1\r\n" +
+                $"JOIN ingrediente_ricetta ON ingrediente_ricetta.IdRicetta = r1.IdRicetta\r\n" +
+                $"JOIN ingrediente ON ingrediente_ricetta.IdIngrediente = ingrediente.IdIngrediente\r\n" +
+                $"JOIN categoria_nutrizionale ON ingrediente.IdCategoria=categoria_nutrizionale.IdCategoria\r\n" + 
+                $"WHERE LOWER(categoria_nutrizionale.Nome) LIKE \"%{text}%\"\r\n" +
+                $"OR LOWER(ingrediente.Nome) LIKE \"%{text}%\"\r\n" +
+                $"OR LOWER(r1.Nome) LIKE \"%{text}%\"\r\n" +
+                $"ORDER BY NumeroLike DESC\r\n" +
+                $"LIMIT 10;\r\n" +
+                $"DROP VIEW r1;"
             );
         }
 

@@ -1,7 +1,6 @@
 <?xml version="1.0" encoding="utf-8" ?>
 <ContentView xmlns="http://schemas.microsoft.com/dotnet/2021/maui"
              xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml"
-             xmlns:controls="clr-namespace:Daidokoro.View.Components"
              xmlns:toolkit="http://schemas.microsoft.com/dotnet/2022/maui/toolkit"
              x:Class="Daidokoro.View.Components.RecipeMinimal">
 
@@ -18,19 +17,16 @@
                 <Image BackgroundColor="{StaticResource Palette1}" WidthRequest="125" Aspect="AspectFill" Source="{Binding Foto, Converter={StaticResource ByteArrayToImageSourceConverter}}"/>
                 <VerticalStackLayout Padding="10" Spacing="10">
                     <Label FontSize="25" TextColor="{StaticResource Text}" Text="{Binding Nome, FallbackValue='null'}" HorizontalTextAlignment="Center" />
-                    <HorizontalStackLayout Spacing="25">
+                    <HorizontalStackLayout Spacing="20">
                         <VerticalStackLayout>
-                            <Label FontSize="10" TextColor="{StaticResource Text}" Text="Minuti:" HorizontalTextAlignment="Center" />
-                            <Label FontSize="15" TextColor="{StaticResource Text}" Text="{Binding Tempo, FallbackValue='null'}" HorizontalTextAlignment="Center" />
+                            <Label FontSize="10" TextColor="{StaticResource Text}" Text="Tempo:" HorizontalTextAlignment="Center" />
+                            <Label FontSize="15" TextColor="{StaticResource Text}" Text="{Binding Tempo, FallbackValue='null', StringFormat='{0} min'}" HorizontalTextAlignment="Center" />
                         </VerticalStackLayout>
                         <VerticalStackLayout>
                             <Label FontSize="10" TextColor="{StaticResource Text}" Text="Difficoltà:" HorizontalTextAlignment="Center" />
                             <Label FontSize="15" WidthRequest="100" TextColor="{StaticResource Text}" Text="{Binding DifficoltaStella, FallbackValue='null'}" HorizontalTextAlignment="Center" />
                         </VerticalStackLayout>
-                        <VerticalStackLayout>
-                            <Label FontSize="10" TextColor="{StaticResource Text}" Text="Like:" HorizontalTextAlignment="Center" />
-                            <Label FontSize="15" TextColor="{StaticResource Text}" Text="{Binding NumeroLike, FallbackValue='null'}" HorizontalTextAlignment="Center" />
-                        </VerticalStackLayout>
+                        <Label FontSize="15" TextColor="{StaticResource Text}" Text="{Binding NumeroLike, FallbackValue='null', StringFormat='{0} ❤️'}" HorizontalTextAlignment="Center" VerticalOptions="Center" />
                     </HorizontalStackLayout>
                 </VerticalStackLayout>
             </HorizontalStackLayout>
