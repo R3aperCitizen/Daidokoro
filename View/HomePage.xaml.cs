@@ -1,5 +1,4 @@
-﻿using Daidokoro.Model;
-using Daidokoro.ViewModel;
+﻿using Daidokoro.ViewModel;
 using Microsoft.Extensions.Configuration;
 
 namespace Daidokoro.View
@@ -11,7 +10,7 @@ namespace Daidokoro.View
         // Appsettings configuration
         private readonly IConfiguration _configuration;
 
-        private List<Ricetta> monthRecipes;
+        private List<Model.Ricetta> monthRecipes;
 
         public HomePage(IConfiguration configuration, IMainViewModel globals)
         {

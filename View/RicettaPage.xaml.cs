@@ -1,4 +1,3 @@
-using Daidokoro.Model;
 using Daidokoro.ViewModel;
 using System.ComponentModel;
 
@@ -9,7 +8,7 @@ public partial class RicettaPage : ContentPage
     // Global app variables
     private readonly IMainViewModel _globals;
 
-    private Ricetta ricetta;
+    private Model.Ricetta ricetta;
 
     public RicettaPage(IMainViewModel globals, RicettaPageViewModel vm)
 	{
@@ -18,7 +17,7 @@ public partial class RicettaPage : ContentPage
 
         BindingContext = vm;
         vm.PropertyChanged += OnPropertyChanged;
-        ricetta = new Ricetta();
+        ricetta = new Model.Ricetta();
         ricetta.IdRicetta = 0;
     }
 
@@ -39,7 +38,7 @@ public partial class RicettaPage : ContentPage
     {
         int IdRicetta = int.Parse(Id);
         ricetta = _globals.GetRicetta(IdRicetta);
-        Recipe.ItemsSource = new List<Ricetta>() { ricetta };
+        Recipe.ItemsSource = new List<Model.Ricetta>() { ricetta };
         Ingredienti.Text = GetIngredienti(IdRicetta);
         Tags.Text = GetCategorieNutrizionali(IdRicetta);
     }
