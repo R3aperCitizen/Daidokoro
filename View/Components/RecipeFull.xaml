@@ -10,14 +10,14 @@
         </ResourceDictionary>
     </ContentView.Resources>
     
-    <Border StrokeShape="RoundRectangle 10" StrokeThickness="0" Margin="15,10,15,10" HeightRequest="200">
+    <Border StrokeShape="RoundRectangle 10" StrokeThickness="0" Margin="15,5,15,5" HeightRequest="300">
         <Grid>
             <Button AutomationId="{Binding IdRicetta, FallbackValue=0}" x:Name="RecipeId" BackgroundColor="Transparent" Clicked="GoToRecipePage" />
             <Image BackgroundColor="{StaticResource Palette1}" Aspect="AspectFill" Source="{Binding Foto, Converter={StaticResource ByteArrayToImageSourceConverter}}" />
-            <StackLayout BackgroundColor="#55000000" />
-            <VerticalStackLayout HorizontalOptions="Center" Padding="20" Spacing="50">
+            <StackLayout BackgroundColor="#77000000" />
+            <VerticalStackLayout HorizontalOptions="Center" Padding="20" Spacing="150">
                 <Label Text="{Binding Nome, FallbackValue='null'}" FontAttributes="Bold" FontSize="40" HorizontalTextAlignment="Center" />
-                <HorizontalStackLayout HorizontalOptions="Center" Padding="10" Spacing="50">
+                <HorizontalStackLayout HorizontalOptions="Center" Spacing="50">
                     <VerticalStackLayout>
                         <Label Text="Minuti: " FontAttributes="Bold" FontSize="15" HorizontalTextAlignment="Center" />
                         <Label Text="{Binding Tempo, FallbackValue='null'}" TextColor="{StaticResource Palette4}" FontAttributes="Bold" FontSize="20" HorizontalTextAlignment="Center" />
@@ -26,10 +26,7 @@
                         <Label Text="Difficoltà: " FontAttributes="Bold" FontSize="15" HorizontalTextAlignment="Center" />
                         <Label Text="{Binding DifficoltaStella, FallbackValue='null'}" FontSize="20" HorizontalTextAlignment="Center" />
                     </VerticalStackLayout>
-                    <VerticalStackLayout>
-                        <Label Text="Like: " FontAttributes="Bold" FontSize="15" HorizontalTextAlignment="Center" />
-                        <Label Text="{Binding NumeroLike, FallbackValue='null'}" TextColor="{StaticResource Palette4}" FontAttributes="Bold" FontSize="20" HorizontalTextAlignment="Center" />
-                    </VerticalStackLayout>
+                    <Label TextColor="{StaticResource Palette4}" FontAttributes="Bold" FontSize="20" Text="{Binding NumeroLike, FallbackValue='null', StringFormat='{0} ❤️'}" HorizontalTextAlignment="Center" VerticalOptions="Center" />
                 </HorizontalStackLayout>
             </VerticalStackLayout>
         </Grid>
