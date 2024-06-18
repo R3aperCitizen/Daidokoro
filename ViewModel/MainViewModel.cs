@@ -23,6 +23,16 @@ namespace Daidokoro.ViewModel
             return _dbService.TryConnection(dbc);
         }
 
+        public List<Ingrediente> GetIngredienti(int IdRicetta)
+        {
+            return _dbService.GetData<Ingrediente>(
+                $"SELECT ingrediente.*\r\n" +
+                $"FROM ingrediente\r\n" +
+                $"JOIN ingrediente_ricetta ON ingrediente.IdIngrediente = ingrediente_ricetta.IdIngrediente\r\n" +
+                $"WHERE ingrediente_ricetta.IdRicetta = {IdRicetta};"
+            );
+        }
+
         public List<Ricetta> GetRicette()
         {
             return _dbService.GetData<Ricetta>(
@@ -51,6 +61,15 @@ namespace Daidokoro.ViewModel
                 $"GROUP BY ricetta.IdRicetta\r\n" +
                 $"LIMIT 10;"
             );
+        }
+
+        public Ricetta GetRicetta(int IdRicetta)
+        {
+            return _dbService.GetData<Ricetta>(
+                $"SELECT *\r\n" +
+                $"FROM ricetta\r\n" +
+                $"WHERE IdRicetta = {IdRicetta};"
+            )[0];
         }
 
         public Collezione GetCollezione(int IdCollezione)
@@ -110,15 +129,52 @@ namespace Daidokoro.ViewModel
             );
         }
 
-        public List<Ricetta> GetMonthRecipe()
+        public List<Ricetta> GetMonthRecipes()
         {
             return _dbService.GetData<Ricetta>(
                 $"SELECT ricetta.*, COUNT(likes.IdRicetta) AS NumeroLike\r\n" +
                 $"FROM ricetta\r\n" +
                 $"JOIN likes ON likes.IdRicetta = ricetta.IdRicetta\r\n" +
+                $"JOIN ingrediente_ricetta ON ingrediente_ricetta.IdRicetta=ricetta.IdRicetta\r\n" +
+                $"JOIN ingrediente ON ingrediente_ricetta.IdIngrediente=ingrediente.IdIngrediente\r\n" +
                 $"GROUP BY ricetta.IdRicetta\r\n" +
                 $"ORDER BY NumeroLike DESC\r\n" +
                 $"LIMIT 3;"
+            );
+        }
+
+        public List<Collezione> GetCollectionsSearched(int dieta, string text)
+        {
+            return _dbService.GetData<Collezione>(
+                $"CREATE VIEW c1_temp AS\r\n" +
+                $"SELECT c1.*, categoria_nutrizionale.Nome AS NomeCategoria, ricetta.Foto AS FotoRicetta\r\n" +
+                $"FROM collezione AS c1\r\n" +
+                $"JOIN categoria_nutrizionale ON categoria_nutrizionale.IdCategoria = c1.IdCategoria\r\n" +
+                $"JOIN ricetta_collezione ON ricetta_collezione.IdCollezione = c1.IdCollezione\r\n" +
+                $"JOIN ricetta ON ricetta.IdRicetta = ricetta_collezione.IdRicetta\r\n" +
+                $"WHERE Dieta = {dieta} AND ricetta.IdRicetta = (\r\n" +
+                $"SELECT MIN(ricetta.IdRicetta)\r\n" +
+                $"FROM ricetta\r\n" +
+                $"JOIN ricetta_collezione ON ricetta_collezione.IdRicetta = ricetta.IdRicetta\r\n" +
+                $"WHERE ricetta_collezione.IdCollezione = c1.IdCollezione);\r\n" +
+                $"SELECT DISTINCT c1_temp.*\r\n" +
+                $"FROM c1_temp\r\n" +
+                $"JOIN categoria_nutrizionale ON categoria_nutrizionale.IdCategoria = c1_temp.IdCategoria\r\n" +
+                $"JOIN ricetta_collezione ON c1_temp.IdCollezione = ricetta_collezione.IdCollezione\r\n" +
+                $"JOIN ricetta ON ricetta.IdRicetta = ricetta_collezione.IdRicetta\r\n" +
+                $"WHERE c1_temp.nome LIKE \"%{text}%\" OR categoria_nutrizionale.Nome LIKE \"%{text}%\" OR ricetta.Nome LIKE \"%{text}%\";\r\n" +
+                $"DROP VIEW c1_temp;"
+            );
+        }
+
+        public List<CategoriaNutrizionale> GetCategorieNutrizionali(int IdRicetta)
+        {
+            return _dbService.GetData<CategoriaNutrizionale>(
+                $"SELECT DISTINCT categoria_nutrizionale.*\r\n" +
+                $"FROM categoria_nutrizionale\r\n" +
+                $"JOIN ingrediente ON categoria_nutrizionale.IdCategoria = ingrediente.IdCategoria\r\n" +
+                $"JOIN ingrediente_ricetta ON ingrediente_ricetta.IdIngrediente = ingrediente.IdIngrediente\r\n" +
+                $"WHERE ingrediente_ricetta.IdRicetta = {IdRicetta};"
             );
         }
     }

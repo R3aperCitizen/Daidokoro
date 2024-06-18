@@ -20,10 +20,10 @@
                 string star = string.Empty;
                 for (int i = 0; i<Difficolta; i++)
                 {
-                    star += "⭐";
+                    star += "🌶️";
                 }
                 return star;
-            } 
+            }
         }
     }
 }

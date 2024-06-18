@@ -19,25 +19,33 @@
                 <ImageButton Source="user.png" Clicked="GoToUserPage" />
             </HorizontalStackLayout>
         </HorizontalStackLayout>
-        <Label Text="Ricette del mese!" FontSize="35" HorizontalTextAlignment="Center" TextColor="{StaticResource Palette2}" Padding="10" />
+        <Border StrokeShape="RoundRectangle 10" StrokeThickness="0" BackgroundColor="{StaticResource Palette2}" Margin="15,10,15,10">
+            <Label Text="Ricette più popolari!" FontAttributes="Bold" FontSize="35" HorizontalTextAlignment="Center" TextColor="{StaticResource Palette3}" Padding="15" />
+        </Border>
         <ScrollView HeightRequest="834">
             <CollectionView x:Name="MonthRecipe">
                 <CollectionView.ItemTemplate>
                     <DataTemplate x:DataType="model:Ricetta">
-                        <Border StrokeShape="RoundRectangle 10" StrokeThickness="0" Margin="15,15,15,15"  HeightRequest="200">
+                        <Border StrokeShape="RoundRectangle 10" StrokeThickness="0" Margin="15,10,15,10" HeightRequest="200">
                             <Grid>
                                 <Button AutomationId="{Binding Path=IdRicetta}" x:Name="RecipeId" BackgroundColor="Transparent"  />
                                 <Image BackgroundColor="{StaticResource Palette1}" Aspect="AspectFill" Source="{Binding Foto, Converter={StaticResource ByteArrayToImageSourceConverter}}" />
-                                <StackLayout BackgroundColor="#33000000" />
-                                <VerticalStackLayout HorizontalOptions="Center" Padding="20" Spacing="10">
-                                    <Label Text="{Binding Nome}" FontSize="40" HorizontalTextAlignment="Center" />
-                                    <HorizontalStackLayout HorizontalOptions="Center">
-                                        <Label Text="Difficoltà: " FontSize="15" VerticalTextAlignment="Center" />
-                                        <Label Text="{Binding DifficoltaStella}" FontSize="20" VerticalTextAlignment="Center" />
-                                    </HorizontalStackLayout>
-                                    <HorizontalStackLayout HorizontalOptions="Center">
-                                        <Label Text="Minuti: " FontSize="15" VerticalTextAlignment="Center" />
-                                        <Label Text="{Binding Tempo}" FontSize="20" VerticalTextAlignment="Center" />
+                                <StackLayout BackgroundColor="#55000000" />
+                                <VerticalStackLayout HorizontalOptions="Center" Padding="20" Spacing="50">
+                                    <Label Text="{Binding Nome}" FontAttributes="Bold" FontSize="40" HorizontalTextAlignment="Center" />
+                                    <HorizontalStackLayout HorizontalOptions="Center" Padding="10" Spacing="50">
+                                        <VerticalStackLayout>
+                                            <Label Text="Minuti: " FontAttributes="Bold" FontSize="15" HorizontalTextAlignment="Center" />
+                                            <Label Text="{Binding Tempo}" TextColor="{StaticResource Palette4}" FontAttributes="Bold" FontSize="20" HorizontalTextAlignment="Center" />
+                                        </VerticalStackLayout>
+                                        <VerticalStackLayout>
+                                            <Label Text="Difficoltà: " FontAttributes="Bold" FontSize="15" HorizontalTextAlignment="Center" />
+                                            <Label Text="{Binding DifficoltaStella}" FontSize="20" HorizontalTextAlignment="Center" />
+                                        </VerticalStackLayout>
+                                        <VerticalStackLayout>
+                                            <Label Text="Like: " FontAttributes="Bold" FontSize="15" HorizontalTextAlignment="Center" />
+                                            <Label Text="{Binding NumeroLike}" TextColor="{StaticResource Palette4}" FontAttributes="Bold" FontSize="20" HorizontalTextAlignment="Center" />
+                                        </VerticalStackLayout>
                                     </HorizontalStackLayout>
                                 </VerticalStackLayout>
                             </Grid>
@@ -46,8 +54,6 @@
                 </CollectionView.ItemTemplate>
             </CollectionView>
         </ScrollView>
-        <!--Button HeightRequest="200" BackgroundColor="{StaticResource Buttons}" TextColor="{StaticResource Text}" FontSize="Large" Text="Dieta del mese" />
-        <Button HeightRequest="200" BackgroundColor="{StaticResource Buttons}" TextColor="{StaticResource Text}" FontSize="Large" Text="Collezione del mese"/ -->
     </VerticalStackLayout>
 
 </ContentPage>

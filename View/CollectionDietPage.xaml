@@ -44,24 +44,20 @@
                                     <Button AutomationId="{Binding Path=IdRicetta}" x:Name="RecipeId" BackgroundColor="Transparent" Clicked="GoToRecipePage" />
                                     <HorizontalStackLayout HeightRequest="100" BackgroundColor="{StaticResource Buttons}">
                                         <Image BackgroundColor="{StaticResource Palette1}" WidthRequest="125" Aspect="AspectFill" Source="{Binding Foto, Converter={StaticResource ByteArrayToImageSourceConverter}}" />
-                                        <VerticalStackLayout Margin="10" Spacing="10">
-                                            <Label FontSize="25" WidthRequest="150" TextColor="{StaticResource Text}">
-                                                <Label.Text>
-                                                    <Binding Path="Nome" />
-                                                </Label.Text>
-                                            </Label>
-                                            <HorizontalStackLayout WidthRequest="150" Spacing="20">
+                                        <VerticalStackLayout Padding="10" Spacing="10">
+                                            <Label FontSize="25" TextColor="{StaticResource Text}" Text="{Binding Nome}" HorizontalTextAlignment="Center" />
+                                            <HorizontalStackLayout Spacing="25">
                                                 <VerticalStackLayout>
-                                                    <Label FontSize="10" TextColor="{StaticResource Text}" Text="Difficoltà:" />
-                                                    <Label FontSize="15" TextColor="{StaticResource Text}" Text="{Binding DifficoltaStella}" />
+                                                    <Label FontSize="10" TextColor="{StaticResource Text}" Text="Minuti:" HorizontalTextAlignment="Center" />
+                                                    <Label FontSize="15" TextColor="{StaticResource Text}" Text="{Binding Tempo}" HorizontalTextAlignment="Center" />
                                                 </VerticalStackLayout>
                                                 <VerticalStackLayout>
-                                                    <Label FontSize="10" TextColor="{StaticResource Text}" Text="Minuti:"/>
-                                                    <Label FontSize="15" TextColor="{StaticResource Text}" Text="{Binding Tempo}" />
+                                                    <Label FontSize="10" TextColor="{StaticResource Text}" Text="Difficoltà:" HorizontalTextAlignment="Center" />
+                                                    <Label FontSize="15" WidthRequest="100" TextColor="{StaticResource Text}" Text="{Binding DifficoltaStella}" HorizontalTextAlignment="Center" />
                                                 </VerticalStackLayout>
                                                 <VerticalStackLayout>
-                                                    <Label FontSize="10" TextColor="{StaticResource Text}" Text="Like:"/>
-                                                    <Label FontSize="15" TextColor="{StaticResource Text}" Text="{Binding NumeroLike}" />
+                                                    <Label FontSize="10" TextColor="{StaticResource Text}" Text="Like:" HorizontalTextAlignment="Center" />
+                                                    <Label FontSize="15" TextColor="{StaticResource Text}" Text="{Binding NumeroLike}" HorizontalTextAlignment="Center" />
                                                 </VerticalStackLayout>
                                             </HorizontalStackLayout>
                                         </VerticalStackLayout>
