@@ -16,14 +16,14 @@
             <Image BackgroundColor="{StaticResource Palette1}" Aspect="AspectFill" Source="{Binding Foto, Converter={StaticResource ByteArrayToImageSourceConverter}}" />
             <StackLayout BackgroundColor="#77000000" />
             <VerticalStackLayout HorizontalOptions="Center" Padding="20" Spacing="150">
-                <Label Text="{Binding Nome, FallbackValue='null'}" FontAttributes="Bold" FontSize="40" HorizontalTextAlignment="Center" />
+                <Label Text="{Binding Nome, FallbackValue='null'}" TextColor="White" FontAttributes="Bold" FontSize="40" HorizontalTextAlignment="Center" />
                 <HorizontalStackLayout HorizontalOptions="Center" Spacing="50">
                     <VerticalStackLayout>
-                        <Label Text="Minuti: " FontAttributes="Bold" FontSize="15" HorizontalTextAlignment="Center" />
+                        <Label Text="Minuti: " TextColor="White" FontAttributes="Bold" FontSize="15" HorizontalTextAlignment="Center" />
                         <Label Text="{Binding Tempo, FallbackValue='null'}" TextColor="{StaticResource Palette4}" FontAttributes="Bold" FontSize="20" HorizontalTextAlignment="Center" />
                     </VerticalStackLayout>
                     <VerticalStackLayout>
-                        <Label Text="Difficoltà: " FontAttributes="Bold" FontSize="15" HorizontalTextAlignment="Center" />
+                        <Label Text="Difficoltà: " TextColor="White" FontAttributes="Bold" FontSize="15" HorizontalTextAlignment="Center" />
                         <Label Text="{Binding DifficoltaStella, FallbackValue='null'}" FontSize="20" HorizontalTextAlignment="Center" />
                     </VerticalStackLayout>
                     <Label TextColor="{StaticResource Palette4}" FontAttributes="Bold" FontSize="20" Text="{Binding NumeroLike, FallbackValue='null', StringFormat='{0} ❤️'}" HorizontalTextAlignment="Center" VerticalOptions="Center" />
