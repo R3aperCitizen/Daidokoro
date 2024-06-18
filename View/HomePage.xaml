@@ -1,8 +1,15 @@
 ﻿<?xml version="1.0" encoding="utf-8" ?>
 <ContentPage xmlns="http://schemas.microsoft.com/dotnet/2021/maui"
              xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml"
+             xmlns:toolkit="http://schemas.microsoft.com/dotnet/2022/maui/toolkit"
              x:Class="Daidokoro.View.HomePage"
              xmlns:model="clr-namespace:Daidokoro.Model">
+
+    <ContentPage.Resources>
+        <ResourceDictionary>
+            <toolkit:ByteArrayToImageSourceConverter x:Key="ByteArrayToImageSourceConverter" />
+        </ResourceDictionary>
+    </ContentPage.Resources>
 
     <VerticalStackLayout BackgroundColor="{StaticResource Background}">
         <HorizontalStackLayout HeightRequest="75" BackgroundColor="{StaticResource NavBar}">
@@ -12,13 +19,35 @@
                 <ImageButton Source="user.png" Clicked="GoToUserPage" />
             </HorizontalStackLayout>
         </HorizontalStackLayout>
+        <Label Text="Ricette del mese!" FontSize="35" HorizontalTextAlignment="Center" TextColor="{StaticResource Palette2}" Padding="10" />
         <ScrollView HeightRequest="834">
-            <VerticalStackLayout Padding="20" Spacing="20">
-                <Button HeightRequest="200" BackgroundColor="{StaticResource Buttons}" TextColor="{StaticResource Text}" FontSize="Large" Text="Ricetta del mese"/>
-                <Button HeightRequest="200" BackgroundColor="{StaticResource Buttons}" TextColor="{StaticResource Text}" FontSize="Large" Text="Dieta del mese" />
-                <Button HeightRequest="200" BackgroundColor="{StaticResource Buttons}" TextColor="{StaticResource Text}" FontSize="Large" Text="Collezione del mese" />
-            </VerticalStackLayout>
+            <CollectionView x:Name="MonthRecipe">
+                <CollectionView.ItemTemplate>
+                    <DataTemplate x:DataType="model:Ricetta">
+                        <Border StrokeShape="RoundRectangle 10" StrokeThickness="0" Margin="15,15,15,15"  HeightRequest="200">
+                            <Grid>
+                                <Button AutomationId="{Binding Path=IdRicetta}" x:Name="RecipeId" BackgroundColor="Transparent"  />
+                                <Image BackgroundColor="{StaticResource Palette1}" Aspect="AspectFill" Source="{Binding Foto, Converter={StaticResource ByteArrayToImageSourceConverter}}" />
+                                <StackLayout BackgroundColor="#33000000" />
+                                <VerticalStackLayout HorizontalOptions="Center" Padding="20" Spacing="10">
+                                    <Label Text="{Binding Nome}" FontSize="40" HorizontalTextAlignment="Center" />
+                                    <HorizontalStackLayout HorizontalOptions="Center">
+                                        <Label Text="Difficoltà: " FontSize="15" VerticalTextAlignment="Center" />
+                                        <Label Text="{Binding DifficoltaStella}" FontSize="20" VerticalTextAlignment="Center" />
+                                    </HorizontalStackLayout>
+                                    <HorizontalStackLayout HorizontalOptions="Center">
+                                        <Label Text="Minuti: " FontSize="15" VerticalTextAlignment="Center" />
+                                        <Label Text="{Binding Tempo}" FontSize="20" VerticalTextAlignment="Center" />
+                                    </HorizontalStackLayout>
+                                </VerticalStackLayout>
+                            </Grid>
+                        </Border>
+                    </DataTemplate>
+                </CollectionView.ItemTemplate>
+            </CollectionView>
         </ScrollView>
+        <!--Button HeightRequest="200" BackgroundColor="{StaticResource Buttons}" TextColor="{StaticResource Text}" FontSize="Large" Text="Dieta del mese" />
+        <Button HeightRequest="200" BackgroundColor="{StaticResource Buttons}" TextColor="{StaticResource Text}" FontSize="Large" Text="Collezione del mese"/ -->
     </VerticalStackLayout>
 
 </ContentPage>

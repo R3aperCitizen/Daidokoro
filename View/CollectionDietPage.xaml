@@ -53,19 +53,15 @@
                                             <HorizontalStackLayout WidthRequest="150" Spacing="20">
                                                 <VerticalStackLayout>
                                                     <Label FontSize="10" TextColor="{StaticResource Text}" Text="Difficoltà:" />
-                                                    <Label FontSize="15" TextColor="{StaticResource Text}">
-                                                        <Label.Text>
-                                                            <Binding Path="Difficolta" />
-                                                        </Label.Text>
-                                                    </Label>
+                                                    <Label FontSize="15" TextColor="{StaticResource Text}" Text="{Binding DifficoltaStella}" />
                                                 </VerticalStackLayout>
                                                 <VerticalStackLayout>
                                                     <Label FontSize="10" TextColor="{StaticResource Text}" Text="Minuti:"/>
-                                                    <Label FontSize="15" TextColor="{StaticResource Text}">
-                                                        <Label.Text>
-                                                            <Binding Path="Tempo" />
-                                                        </Label.Text>
-                                                    </Label>
+                                                    <Label FontSize="15" TextColor="{StaticResource Text}" Text="{Binding Tempo}" />
+                                                </VerticalStackLayout>
+                                                <VerticalStackLayout>
+                                                    <Label FontSize="10" TextColor="{StaticResource Text}" Text="Like:"/>
+                                                    <Label FontSize="15" TextColor="{StaticResource Text}" Text="{Binding NumeroLike}" />
                                                 </VerticalStackLayout>
                                             </HorizontalStackLayout>
                                         </VerticalStackLayout>

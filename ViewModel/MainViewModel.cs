@@ -1,4 +1,7 @@
 ﻿using Daidokoro.Model;
+using Microsoft.Maui.Controls;
+using System.Collections.Generic;
+using System.Text.RegularExpressions;
 
 namespace Daidokoro.ViewModel
 {
@@ -23,11 +26,13 @@ namespace Daidokoro.ViewModel
         public List<Ricetta> GetRicette()
         {
             return _dbService.GetData<Ricetta>(
-                $"SELECT DISTINCT ricetta.*\r\n" +
+                $"SELECT DISTINCT ricetta.*, COUNT(likes.IdRicetta) AS NumeroLike\r\n" +
                 $"FROM ricetta\r\n" +
                 $"JOIN ingrediente_ricetta ON ingrediente_ricetta.IdRicetta=ricetta.IdRicetta\r\n" +
                 $"JOIN ingrediente ON ingrediente_ricetta.IdIngrediente=ingrediente.IdIngrediente\r\n" +
                 $"JOIN categoria_nutrizionale ON ingrediente.IdCategoria=categoria_nutrizionale.IdCategoria\r\n" +
+                $"LEFT JOIN likes ON likes.IdRicetta = ricetta.IdRicetta\r\n" +
+                $"GROUP BY ricetta.IdRicetta\r\n" +
                 $"LIMIT 10;"
            );
         }
@@ -35,10 +40,16 @@ namespace Daidokoro.ViewModel
         public List<Ricetta> GetRicette(int IdCollezione)
         {
             return _dbService.GetData<Ricetta>(
-                $"SELECT ricetta.*\r\n" +
+                $"SELECT DISTINCT ricetta.*, COUNT(likes.IdRicetta) AS NumeroLike\r\n" +
                 $"FROM ricetta\r\n" +
+                $"JOIN ingrediente_ricetta ON ingrediente_ricetta.IdRicetta=ricetta.IdRicetta\r\n" +
+                $"JOIN ingrediente ON ingrediente_ricetta.IdIngrediente=ingrediente.IdIngrediente\r\n" +
+                $"JOIN categoria_nutrizionale ON ingrediente.IdCategoria=categoria_nutrizionale.IdCategoria\r\n" +
+                $"LEFT JOIN likes ON likes.IdRicetta = ricetta.IdRicetta\r\n" +
                 $"JOIN ricetta_collezione ON ricetta_collezione.IdRicetta=ricetta.IdRicetta\r\n" +
-                $"WHERE IdCollezione = {IdCollezione};"
+                $"WHERE ricetta_collezione.IdCollezione = {IdCollezione}\r\n" +
+                $"GROUP BY ricetta.IdRicetta\r\n" +
+                $"LIMIT 10;"
             );
         }
 
@@ -99,19 +110,16 @@ namespace Daidokoro.ViewModel
             );
         }
 
-        public Ricetta GetMonthRecipe()
+        public List<Ricetta> GetMonthRecipe()
         {
             return _dbService.GetData<Ricetta>(
-                $"CREATE VIEW temp AS\r\n" +
                 $"SELECT ricetta.*, COUNT(likes.IdRicetta) AS NumeroLike\r\n" +
                 $"FROM ricetta\r\n" +
-                $"JOIN likes ON likes.IdRicetta=ricetta.IdRicetta\r\n" +
-                $"GROUP BY ricetta.IdRicetta;\r\n" +
-                $"SELECT *\r\n" +
-                $"FROM temp\r\n" +
-                $"WHERE NumeroLike = (SELECT MAX(NumeroLike) FROM temp);\r\n" +
-                $"DROP VIEW temp;"
-            )[0];
+                $"JOIN likes ON likes.IdRicetta = ricetta.IdRicetta\r\n" +
+                $"GROUP BY ricetta.IdRicetta\r\n" +
+                $"ORDER BY NumeroLike DESC\r\n" +
+                $"LIMIT 3;"
+            );
         }
     }
 }

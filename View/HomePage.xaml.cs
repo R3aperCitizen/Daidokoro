@@ -11,7 +11,7 @@ namespace Daidokoro.View
         // Appsettings configuration
         private readonly IConfiguration _configuration;
 
-        private Ricetta MonthRecipe;
+        private List<Ricetta> monthRecipes;
 
         public HomePage(IConfiguration configuration, IMainViewModel globals)
         {
@@ -24,11 +24,19 @@ namespace Daidokoro.View
                 Model.DBCredentials dbs = _configuration.GetRequiredSection("DBCredentials").Get<Model.DBCredentials>()!;
                 bool connection = _globals.InitDBSettings(dbs);
             }
+
+            SetMonthRecipes();
         }
 
-        private void SetMonthRecipe()
+        protected override void OnNavigatedTo(NavigatedToEventArgs args)
         {
-            MonthRecipe = _globals.GetMonthRecipe();
+            SetMonthRecipes();
+        }
+
+        private void SetMonthRecipes()
+        {
+            monthRecipes = _globals.GetMonthRecipe();
+            MonthRecipe.ItemsSource = monthRecipes;
         }
 
         private async void GoToUserPage(object sender, EventArgs e)
@@ -49,11 +57,6 @@ namespace Daidokoro.View
         private async void GoToRicettaPage(object sender, EventArgs e)
         {
             await Shell.Current.GoToAsync($"//{nameof(RicettaPage)}");
-        }
-
-        protected override void OnNavigatedTo(NavigatedToEventArgs args)
-        {
-            
         }
     }
 

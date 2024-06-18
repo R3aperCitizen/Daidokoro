@@ -11,5 +11,19 @@
         public int Tempo { get; set; }
         public DateTime DataCreazione { get; set; }
         public int IdUtente { get; set; }
+        public long NumeroLike { get; set; }
+
+        public string DifficoltaStella 
+        { 
+            get 
+            {
+                string star = string.Empty;
+                for (int i = 0; i<Difficolta; i++)
+                {
+                    star += "⭐";
+                }
+                return star;
+            } 
+        }
     }
 }
