@@ -15,9 +15,9 @@
             <Button AutomationId="{Binding IdRicetta, FallbackValue=0}" x:Name="RecipeId" BackgroundColor="Transparent" Clicked="GoToRecipePage" />
             <Image BackgroundColor="{StaticResource Palette1}" Aspect="AspectFill" Source="{Binding Foto, Converter={StaticResource ByteArrayToImageSourceConverter}}" />
             <StackLayout BackgroundColor="#55000000" />
-            <VerticalStackLayout HorizontalOptions="Center" Padding="20" Spacing="50">
+            <VerticalStackLayout HorizontalOptions="Center" Padding="20" Spacing="150">
                 <Label Text="{Binding Nome, FallbackValue='null'}" FontAttributes="Bold" FontSize="40" HorizontalTextAlignment="Center" />
-                <HorizontalStackLayout HorizontalOptions="Center" Padding="10" Spacing="50">
+                <HorizontalStackLayout HorizontalOptions="Center" Spacing="50">
                     <VerticalStackLayout>
                         <Label Text="Minuti: " TextColor="White" FontAttributes="Bold" FontSize="15" HorizontalTextAlignment="Center" />
                         <Label Text="{Binding Tempo, FallbackValue='null'}" TextColor="{StaticResource Palette4}" FontAttributes="Bold" FontSize="20" HorizontalTextAlignment="Center" />
