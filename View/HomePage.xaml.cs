@@ -1,4 +1,5 @@
-﻿using Daidokoro.ViewModel;
+﻿using Daidokoro.Model;
+using Daidokoro.ViewModel;
 using Microsoft.Extensions.Configuration;
 
 namespace Daidokoro.View
@@ -9,6 +10,8 @@ namespace Daidokoro.View
         private readonly IMainViewModel _globals;
         // Appsettings configuration
         private readonly IConfiguration _configuration;
+
+        private Ricetta MonthRecipe;
 
         public HomePage(IConfiguration configuration, IMainViewModel globals)
         {
@@ -21,6 +24,11 @@ namespace Daidokoro.View
                 Model.DBCredentials dbs = _configuration.GetRequiredSection("DBCredentials").Get<Model.DBCredentials>()!;
                 bool connection = _globals.InitDBSettings(dbs);
             }
+        }
+
+        private void SetMonthRecipe()
+        {
+            MonthRecipe = _globals.GetMonthRecipe();
         }
 
         private async void GoToUserPage(object sender, EventArgs e)

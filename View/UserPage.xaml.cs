@@ -1,4 +1,3 @@
-using Daidokoro.Model;
 using Daidokoro.ViewModel;
 
 namespace Daidokoro.View;

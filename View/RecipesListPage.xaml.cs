@@ -55,22 +55,27 @@ public partial class RecipesListPage : ContentPage
         {
             if (value < 6)
             {
-                ricette = _globals.dbService.GetData<Ricetta>("ricetta", $"WHERE ricetta.Difficolta = {value}");
+                ricette = _globals.dbService.GetData<Ricetta>($"SELECT * FROM ricetta WHERE ricetta.Difficolta = {value}");
             }
             else
             {
-                ricette = _globals.dbService.GetData<Ricetta>("ricetta", $"WHERE ricetta.Tempo = {value}");
+                ricette = _globals.dbService.GetData<Ricetta>($"SELECT * FROM ricetta WHERE ricetta.Tempo = {value}");
             }
         }
         else
         {
             //query categoria nutrizionale
-            ricette = _globals.dbService.GetData<Ricetta>("ricetta", "DISTINCT ricetta.*",
-                $"JOIN ingrediente_ricetta ON ingrediente_ricetta.IdRicetta = " +
-                $"ricetta.IdRicetta\r\nJOIN ingrediente ON ingrediente_ricetta.IdIngrediente = " +
-                $"ingrediente.IdIngrediente\r\nJOIN categoria_nutrizionale ON ingrediente.IdCategoria = " +
-                $"categoria_nutrizionale.IdCategoria\r\nWHERE LOWER(categoria_nutrizionale.Nome) LIKE \"%{text}%\" " +
-                $"OR LOWER(ingrediente.Nome) LIKE \"%{text}%\" OR LOWER(ricetta.Nome) LIKE \"%{text}%\" LIMIT 10");
+            ricette = _globals.dbService.GetData<Ricetta>( 
+                $"SELECT DISTINCT ricetta.*\r\n" +
+                $"FROM ricetta\r\n" +
+                $"JOIN ingrediente_ricetta ON ingrediente_ricetta.IdRicetta=ricetta.IdRicetta\r\n" +
+                $"JOIN ingrediente ON ingrediente_ricetta.IdIngrediente=ingrediente.IdIngrediente\r\n" +
+                $"JOIN categoria_nutrizionale ON ingrediente.IdCategoria=categoria_nutrizionale.IdCategoria\r\n" +
+                $"WHERE LOWER(categoria_nutrizionale.Nome) LIKE \"%{text}%\"\r\n" +
+                $"OR LOWER(ingrediente.Nome) LIKE \"%{text}%\"\r\n" +
+                $"OR LOWER(ricetta.Nome) LIKE \"%{text}%\"\r\n" +
+                $"LIMIT 10;"
+            );
         }
 
         RefreshRecipes();

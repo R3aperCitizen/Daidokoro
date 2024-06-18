@@ -38,7 +38,7 @@ public partial class RicettaPage : ContentPage
     private void SetRicetta(string Id)
     {
         int IdRicetta = int.Parse(Id);
-        ricetta = _globals.dbService.GetData<Ricetta>("ricetta", $"WHERE IdRicetta = {Id};")[0];
+        ricetta = _globals.dbService.GetData<Ricetta>($"SELECT * FROM ricetta WHERE IdRicetta = {Id};")[0];
         Recipe.ItemsSource = new List<Ricetta>() { ricetta };
         Ingredienti.Text = GetIngredienti(IdRicetta);
         Tags.Text = GetCategorieNutrizionali(IdRicetta);
@@ -47,10 +47,12 @@ public partial class RicettaPage : ContentPage
     private string GetIngredienti(int IdRicetta)
     {
         string listIngr = "";
-        var Ingr = _globals.dbService.GetData<Ingrediente>("ingrediente",
-            "ingrediente.*",
-            "JOIN ingrediente_ricetta ON ingrediente.IdIngrediente = ingrediente_ricetta.IdIngrediente\r\n" +  
-            $"WHERE ingrediente_ricetta.IdRicetta = {IdRicetta};");
+        var Ingr = _globals.dbService.GetData<Ingrediente>(
+            $"SELECT ingrediente.*\r\n" +
+            $"FROM ingrediente\r\n" +
+            $"JOIN ingrediente_ricetta ON ingrediente.IdIngrediente = ingrediente_ricetta.IdIngrediente\r\n" +  
+            $"WHERE ingrediente_ricetta.IdRicetta = {IdRicetta};"
+        );
 
         foreach ( var item in Ingr ) { listIngr += item.Nome + "\n"; }
 
@@ -60,11 +62,13 @@ public partial class RicettaPage : ContentPage
     private string GetCategorieNutrizionali(int IdRicetta)
     {
         string categorie = "";
-        var categories = _globals.dbService.GetData<CategoriaNutrizionale>("categoria_nutrizionale", 
-          "DISTINCT categoria_nutrizionale.*",
-          "JOIN ingrediente ON categoria_nutrizionale.IdCategoria = ingrediente.IdCategoria\r\n" +
-          "JOIN ingrediente_ricetta ON ingrediente_ricetta.IdIngrediente = ingrediente.IdIngrediente\r\n" +
-          $"WHERE ingrediente_ricetta.IdRicetta = {IdRicetta};");
+        var categories = _globals.dbService.GetData<CategoriaNutrizionale>(
+            $"SELECT DISTINCT categoria_nutrizionale.*\r\n" +
+            $"FROM categoria_nutrizionale\r\n" +
+            $"JOIN ingrediente ON categoria_nutrizionale.IdCategoria = ingrediente.IdCategoria\r\n" +
+            $"JOIN ingrediente_ricetta ON ingrediente_ricetta.IdIngrediente = ingrediente.IdIngrediente\r\n" +
+            $"WHERE ingrediente_ricetta.IdRicetta = {IdRicetta};"
+        );
 
         foreach ( var item in categories ) { categorie += item.Nome + " "; }
 

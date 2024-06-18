@@ -14,5 +14,6 @@ namespace Daidokoro.ViewModel
         Collezione GetCollezione(int IdCollezione);
         List<Collezione> GetDiete();
         List<Utente> GetUtente(int id);
+        Ricetta GetMonthRecipe();
     }
 }
