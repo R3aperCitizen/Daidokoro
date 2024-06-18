@@ -3,7 +3,8 @@
              xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml"
              xmlns:toolkit="http://schemas.microsoft.com/dotnet/2022/maui/toolkit"
              x:Class="Daidokoro.View.HomePage"
-             xmlns:model="clr-namespace:Daidokoro.Model">
+             xmlns:model="clr-namespace:Daidokoro.Model"
+             xmlns:controls="clr-namespace:Daidokoro.View.Components">
 
     <ContentPage.Resources>
         <ResourceDictionary>
@@ -26,30 +27,7 @@
             <CollectionView x:Name="MonthRecipe">
                 <CollectionView.ItemTemplate>
                     <DataTemplate x:DataType="model:Ricetta">
-                        <Border StrokeShape="RoundRectangle 10" StrokeThickness="0" Margin="15,10,15,10" HeightRequest="200">
-                            <Grid>
-                                <Button AutomationId="{Binding Path=IdRicetta}" x:Name="RecipeId" BackgroundColor="Transparent"  />
-                                <Image BackgroundColor="{StaticResource Palette1}" Aspect="AspectFill" Source="{Binding Foto, Converter={StaticResource ByteArrayToImageSourceConverter}}" />
-                                <StackLayout BackgroundColor="#55000000" />
-                                <VerticalStackLayout HorizontalOptions="Center" Padding="20" Spacing="50">
-                                    <Label Text="{Binding Nome}" FontAttributes="Bold" FontSize="40" HorizontalTextAlignment="Center" />
-                                    <HorizontalStackLayout HorizontalOptions="Center" Padding="10" Spacing="50">
-                                        <VerticalStackLayout>
-                                            <Label Text="Minuti: " FontAttributes="Bold" FontSize="15" HorizontalTextAlignment="Center" />
-                                            <Label Text="{Binding Tempo}" TextColor="{StaticResource Palette4}" FontAttributes="Bold" FontSize="20" HorizontalTextAlignment="Center" />
-                                        </VerticalStackLayout>
-                                        <VerticalStackLayout>
-                                            <Label Text="Difficoltà: " FontAttributes="Bold" FontSize="15" HorizontalTextAlignment="Center" />
-                                            <Label Text="{Binding DifficoltaStella}" FontSize="20" HorizontalTextAlignment="Center" />
-                                        </VerticalStackLayout>
-                                        <VerticalStackLayout>
-                                            <Label Text="Like: " FontAttributes="Bold" FontSize="15" HorizontalTextAlignment="Center" />
-                                            <Label Text="{Binding NumeroLike}" TextColor="{StaticResource Palette4}" FontAttributes="Bold" FontSize="20" HorizontalTextAlignment="Center" />
-                                        </VerticalStackLayout>
-                                    </HorizontalStackLayout>
-                                </VerticalStackLayout>
-                            </Grid>
-                        </Border>
+                        <controls:RecipeFull />
                     </DataTemplate>
                 </CollectionView.ItemTemplate>
             </CollectionView>

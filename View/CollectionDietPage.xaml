@@ -5,6 +5,7 @@
              xmlns:model="clr-namespace:Daidokoro.Model"
              xmlns:viewmodel="clr-namespace:Daidokoro.ViewModel"
              xmlns:toolkit="http://schemas.microsoft.com/dotnet/2022/maui/toolkit"
+             xmlns:controls="clr-namespace:Daidokoro.View.Components"
              x:DataType="viewmodel:CollectionDietPageViewModel"
              Title="CollectionDietPage">
 
@@ -38,33 +39,7 @@
                 <CollectionView x:Name="RecipesList">
                     <CollectionView.ItemTemplate>
                         <DataTemplate x:DataType="model:Ricetta">
-                            <!-- Template ricetta -->
-                            <Border StrokeShape="RoundRectangle 10" StrokeThickness="0" Margin="0,15,0,15">
-                                <Grid>
-                                    <Button AutomationId="{Binding Path=IdRicetta}" x:Name="RecipeId" BackgroundColor="Transparent" Clicked="GoToRecipePage" />
-                                    <HorizontalStackLayout HeightRequest="100" BackgroundColor="{StaticResource Buttons}">
-                                        <Image BackgroundColor="{StaticResource Palette1}" WidthRequest="125" Aspect="AspectFill" Source="{Binding Foto, Converter={StaticResource ByteArrayToImageSourceConverter}}" />
-                                        <VerticalStackLayout Padding="10" Spacing="10">
-                                            <Label FontSize="25" TextColor="{StaticResource Text}" Text="{Binding Nome}" HorizontalTextAlignment="Center" />
-                                            <HorizontalStackLayout Spacing="25">
-                                                <VerticalStackLayout>
-                                                    <Label FontSize="10" TextColor="{StaticResource Text}" Text="Minuti:" HorizontalTextAlignment="Center" />
-                                                    <Label FontSize="15" TextColor="{StaticResource Text}" Text="{Binding Tempo}" HorizontalTextAlignment="Center" />
-                                                </VerticalStackLayout>
-                                                <VerticalStackLayout>
-                                                    <Label FontSize="10" TextColor="{StaticResource Text}" Text="Difficoltà:" HorizontalTextAlignment="Center" />
-                                                    <Label FontSize="15" WidthRequest="100" TextColor="{StaticResource Text}" Text="{Binding DifficoltaStella}" HorizontalTextAlignment="Center" />
-                                                </VerticalStackLayout>
-                                                <VerticalStackLayout>
-                                                    <Label FontSize="10" TextColor="{StaticResource Text}" Text="Like:" HorizontalTextAlignment="Center" />
-                                                    <Label FontSize="15" TextColor="{StaticResource Text}" Text="{Binding NumeroLike}" HorizontalTextAlignment="Center" />
-                                                </VerticalStackLayout>
-                                            </HorizontalStackLayout>
-                                        </VerticalStackLayout>
-                                    </HorizontalStackLayout>
-                                </Grid>
-                            </Border>
-                            <!-- Fine template ricetta -->
+                            <controls:RecipeMinimal />
                         </DataTemplate>
                     </CollectionView.ItemTemplate>
                 </CollectionView>

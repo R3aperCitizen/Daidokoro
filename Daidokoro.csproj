@@ -81,11 +81,11 @@
 	</ItemGroup>
 
 	<ItemGroup>
-	  <Compile Update="View\Components\RecipeListElement.xaml.cs">
-	    <DependentUpon>RecipeListElement.xaml</DependentUpon>
+	  <Compile Update="View\Components\RecipeMinimal.xaml.cs">
+	    <DependentUpon>RecipeMinimal.xaml</DependentUpon>
 	  </Compile>
-	  <Compile Update="View\Components\RecipeOverview.xaml.cs">
-	    <DependentUpon>RecipeOverview.xaml</DependentUpon>
+	  <Compile Update="View\Components\RecipeFull.xaml.cs">
+	    <DependentUpon>RecipeFull.xaml</DependentUpon>
 	  </Compile>
 	  <Compile Update="View\HomePage.xaml.cs">
 	    <DependentUpon>HomePage.xaml</DependentUpon>
@@ -105,10 +105,10 @@
 	  <MauiXaml Update="View\CollectionsListPage.xaml">
 	    <Generator>MSBuild:Compile</Generator>
 	  </MauiXaml>
-	  <MauiXaml Update="View\Components\RecipeListElement.xaml">
+	  <MauiXaml Update="View\Components\RecipeMinimal.xaml">
 	    <Generator>MSBuild:Compile</Generator>
 	  </MauiXaml>
-	  <MauiXaml Update="View\Components\RecipeOverview.xaml">
+	  <MauiXaml Update="View\Components\RecipeFull.xaml">
 	    <Generator>MSBuild:Compile</Generator>
 	  </MauiXaml>
 	  <MauiXaml Update="View\DietsListPage.xaml">

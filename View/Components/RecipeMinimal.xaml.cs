@@ -1,8 +1,8 @@
 namespace Daidokoro.View.Components;
 
-public partial class InlineRecipe : ContentView
+public partial class RecipeMinimal : ContentView
 {
-	public InlineRecipe()
+	public RecipeMinimal()
 	{
 		InitializeComponent();
 	}
