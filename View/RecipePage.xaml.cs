@@ -37,19 +37,9 @@ public partial class RecipePage : ContentPage
     {
         int IdRicetta = int.Parse(Id);
         ricetta = _globals.GetRecipeById(IdRicetta);
+        ricetta.Ingredienti = _globals.GetIngredients(IdRicetta);
+        ricetta.Tags = GetCategorieNutrizionali(IdRicetta);
         Recipe.ItemsSource = new List<Model.Ricetta>() { ricetta };
-        Ingredienti.Text = GetIngredienti(IdRicetta);
-        Tags.Text = GetCategorieNutrizionali(IdRicetta);
-    }
-
-    private string GetIngredienti(int IdRicetta)
-    {
-        string listIngr = "";
-        var Ingr = _globals.GetIngredients(IdRicetta);
-
-        foreach ( var item in Ingr ) { listIngr += item.Nome + "\n"; }
-
-        return listIngr;
     }
 
     private string GetCategorieNutrizionali(int IdRicetta)
@@ -57,7 +47,7 @@ public partial class RecipePage : ContentPage
         string categorie = "";
         var categories = _globals.GetNutritionalCategory(IdRicetta);
 
-        foreach ( var item in categories ) { categorie += item.Nome + " "; }
+        foreach ( var item in categories ) { categorie += item.Nome + "; "; }
 
         return categorie;
     }

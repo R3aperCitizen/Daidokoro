@@ -45,12 +45,6 @@ public partial class CollectionDietPage : ContentPage
         RecipesList.ItemsSource = ricette;
     }
 
-    private async void GoToRecipePage(object sender, EventArgs e)
-    {
-        Button button = (Button)sender;
-        await Shell.Current.GoToAsync($"//{nameof(RecipePage)}?IdRicetta={button.AutomationId}");
-    }
-
     private void RefreshAll()
     {
         ricette = new();

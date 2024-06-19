@@ -17,24 +17,54 @@
 
     <VerticalStackLayout  BackgroundColor="{StaticResource Background}">
         <controls:NavigationBar />
-        <ScrollView HeightRequest="770">
-            <VerticalStackLayout Padding="30">
+        <ScrollView HeightRequest="700">
+            <VerticalStackLayout Padding="20">
                 <CollectionView x:Name="Recipe">
                     <CollectionView.ItemTemplate>
                         <DataTemplate x:DataType="model:Ricetta">
-                            <VerticalStackLayout Spacing="25" HorizontalOptions="Center">
-                                <Label x:Name="Nome" Text="{Binding Nome}" FontSize="30" FontAttributes="Bold" TextColor="{StaticResource Palette2}" />
-                                <Border StrokeShape="RoundRectangle 10" StrokeThickness="0" HeightRequest="300" WidthRequest="325">
+                            <VerticalStackLayout Spacing="15" HorizontalOptions="Center">
+                                <Label Text="{Binding Nome}" FontSize="30" TextColor="{StaticResource Palette2}" />
+                                <Border StrokeShape="RoundRectangle 10" StrokeThickness="0" HeightRequest="250">
                                     <Image BackgroundColor="{StaticResource Palette2}" Aspect="AspectFill" Source="{Binding Foto, Converter={StaticResource ByteArrayToImageSourceConverter}}"/>
                                 </Border>
-                                <Label x:Name="Descrizione" Text="{Binding Descrizione}" FontSize="25" FontAttributes="Bold" TextColor="{StaticResource Palette2}" />
-                                <Label x:Name="Passaggi" Text="{Binding Passaggi}" FontSize="25" FontAttributes="Bold" TextColor="{StaticResource Palette2}" />
+                                <HorizontalStackLayout>
+                                    <Label Text="Categorie: " FontSize="15" TextColor="{StaticResource Palette2}" />
+                                    <Label Text="{Binding Tags}" FontSize="15" FontAttributes="Bold" TextColor="{StaticResource Palette2}" />
+                                </HorizontalStackLayout>
+                                <Border StrokeShape="RoundRectangle 10" StrokeThickness="0" BackgroundColor="{StaticResource Palette2}">
+                                    <HorizontalStackLayout Padding="15" Spacing="30">
+                                        <HorizontalStackLayout>
+                                            <Label Text="Tempo: " FontSize="15" TextColor="{StaticResource Palette3}" />
+                                            <Label Text="{Binding Tempo, StringFormat='{0} min.'}" FontSize="15" FontAttributes="Bold" TextColor="{StaticResource Palette3}" />
+                                        </HorizontalStackLayout>
+                                        <HorizontalStackLayout>
+                                            <Label Text="Difficoltà: " FontSize="15" TextColor="{StaticResource Palette3}" />
+                                            <Label Text="{Binding DifficoltaStella}" FontSize="15" FontAttributes="Bold" TextColor="{StaticResource Palette3}" />
+                                        </HorizontalStackLayout>
+                                    </HorizontalStackLayout>
+                                </Border>
+                                <Border StrokeShape="RoundRectangle 10" StrokeThickness="0" BackgroundColor="{StaticResource Palette2}">
+                                    <VerticalStackLayout Padding="15" Spacing="10">
+                                        <Label Text="Descrizione: " FontSize="15" TextColor="{StaticResource Palette3}" />
+                                        <Label Text="{Binding Descrizione}" FontSize="15" FontAttributes="Bold" TextColor="{StaticResource Palette3}" />
+                                    </VerticalStackLayout>
+                                </Border>
+                                <Border StrokeShape="RoundRectangle 10" StrokeThickness="0" BackgroundColor="{StaticResource Palette2}">
+                                    <VerticalStackLayout Padding="15" Spacing="10">
+                                        <Label Text="Ingredienti: " FontSize="15" TextColor="{StaticResource Palette3}" />
+                                        <Label Text="{Binding IngredientiToString}" FontSize="15" FontAttributes="Bold" TextColor="{StaticResource Palette3}" />
+                                    </VerticalStackLayout>
+                                </Border>
+                                <Border StrokeShape="RoundRectangle 10" StrokeThickness="0" BackgroundColor="{StaticResource Palette2}">
+                                    <VerticalStackLayout Padding="15" Spacing="10">
+                                        <Label Text="Passaggi: " FontSize="15" TextColor="{StaticResource Palette3}" />
+                                        <Label Text="{Binding Passaggi}" FontSize="20" FontAttributes="Bold" TextColor="{StaticResource Palette3}" />
+                                    </VerticalStackLayout>
+                                </Border>
                             </VerticalStackLayout>
                         </DataTemplate>
                     </CollectionView.ItemTemplate>
                 </CollectionView>
-                <Label x:Name="Ingredienti" Text="Ingredienti" FontSize="25" FontAttributes="Bold" TextColor="{StaticResource Palette2}" />
-                <Label x:Name="Tags" Text="Tag,tag,tag" FontSize="15" FontAttributes="Bold" TextColor="{StaticResource Palette2}" />
             </VerticalStackLayout>
         </ScrollView>
     </VerticalStackLayout>

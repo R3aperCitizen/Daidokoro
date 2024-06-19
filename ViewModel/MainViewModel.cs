@@ -23,7 +23,7 @@ namespace Daidokoro.ViewModel
         public List<Ingrediente> GetIngredients(int IdRicetta)
         {
             return _dbService.GetData<Ingrediente>(
-                $"SELECT ingrediente.*\r\n" +
+                $"SELECT ingrediente.*, ingrediente_ricetta.PesoInGrammi AS Peso\r\n" +
                 $"FROM ingrediente\r\n" +
                 $"JOIN ingrediente_ricetta ON ingrediente.IdIngrediente = ingrediente_ricetta.IdIngrediente\r\n" +
                 $"WHERE ingrediente_ricetta.IdRicetta = {IdRicetta};"
