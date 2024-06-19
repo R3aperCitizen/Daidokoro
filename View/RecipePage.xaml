@@ -24,7 +24,7 @@
                         <DataTemplate x:DataType="model:Ricetta">
                             <VerticalStackLayout Spacing="15" HorizontalOptions="Center">
                                 <Label Text="{Binding Nome}" FontSize="30" TextColor="{StaticResource Palette2}" />
-                                <Border StrokeShape="RoundRectangle 10" StrokeThickness="0" HeightRequest="250">
+                                <Border StrokeShape="RoundRectangle 10" StrokeThickness="0" HeightRequest="250" WidthRequest="350">
                                     <Image BackgroundColor="{StaticResource Palette2}" Aspect="AspectFill" Source="{Binding Foto, Converter={StaticResource ByteArrayToImageSourceConverter}}"/>
                                 </Border>
                                 <HorizontalStackLayout>
