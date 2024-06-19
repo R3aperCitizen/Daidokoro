@@ -99,6 +99,9 @@
 	  <Compile Update="View\BrowsePage.xaml.cs">
 	    <DependentUpon>BrowsePage.xaml</DependentUpon>
 	  </Compile>
+	  <Compile Update="View\RecipePage.xaml.cs">
+	    <DependentUpon>RecipePage.xaml</DependentUpon>
+	  </Compile>
 	</ItemGroup>
 
 	<ItemGroup>
@@ -129,7 +132,7 @@
 	  <MauiXaml Update="View\RecipesListPage.xaml">
 	    <Generator>MSBuild:Compile</Generator>
 	  </MauiXaml>
-	  <MauiXaml Update="View\RicettaPage.xaml">
+	  <MauiXaml Update="View\RecipePage.xaml">
 	    <Generator>MSBuild:Compile</Generator>
 	  </MauiXaml>
 	  <MauiXaml Update="View\UserPage.xaml">

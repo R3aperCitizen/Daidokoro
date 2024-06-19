@@ -30,9 +30,9 @@
          Shell.FlyoutBehavior="Disabled"/>
 
     <ShellContent
-         Title="RicettaPage"
-         ContentTemplate="{DataTemplate view:RicettaPage}"
-         Route="RicettaPage"
+         Title="RecipePage"
+         ContentTemplate="{DataTemplate view:RecipePage}"
+         Route="RecipePage"
          Shell.NavBarIsVisible="False"
          Shell.FlyoutBehavior="Disabled"/>
     

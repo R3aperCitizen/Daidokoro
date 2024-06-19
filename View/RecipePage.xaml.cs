@@ -3,41 +3,40 @@ using System.ComponentModel;
 
 namespace Daidokoro.View;
 
-public partial class RicettaPage : ContentPage
+public partial class RecipePage : ContentPage
 {
     // Global app variables
     private readonly IMainViewModel _globals;
 
     private Model.Ricetta ricetta;
 
-    public RicettaPage(IMainViewModel globals, RicettaPageViewModel vm)
+    public RecipePage(IMainViewModel globals, RecipePageViewModel vm)
 	{
         InitializeComponent();
         _globals = globals;
 
         BindingContext = vm;
         vm.PropertyChanged += OnPropertyChanged;
-        ricetta = new Model.Ricetta();
-        ricetta.IdRicetta = 0;
+        ricetta = new();
     }
 
     private void OnPropertyChanged(object? sender, PropertyChangedEventArgs e)
     {
-        SetRicetta(((RicettaPageViewModel)BindingContext).IdRicetta);
+        RefreshAll();
     }
 
     protected override void OnNavigatedTo(NavigatedToEventArgs args)
     {
         if (ricetta.IdRicetta != 0)
         {
-            SetRicetta(((RicettaPageViewModel)BindingContext).IdRicetta);
+            RefreshAll();
         }
     }
 
     private void SetRicetta(string Id)
     {
         int IdRicetta = int.Parse(Id);
-        ricetta = _globals.GetRicetta(IdRicetta);
+        ricetta = _globals.GetRecipeById(IdRicetta);
         Recipe.ItemsSource = new List<Model.Ricetta>() { ricetta };
         Ingredienti.Text = GetIngredienti(IdRicetta);
         Tags.Text = GetCategorieNutrizionali(IdRicetta);
@@ -46,7 +45,7 @@ public partial class RicettaPage : ContentPage
     private string GetIngredienti(int IdRicetta)
     {
         string listIngr = "";
-        var Ingr = _globals.GetIngredienti(IdRicetta);
+        var Ingr = _globals.GetIngredients(IdRicetta);
 
         foreach ( var item in Ingr ) { listIngr += item.Nome + "\n"; }
 
@@ -56,10 +55,16 @@ public partial class RicettaPage : ContentPage
     private string GetCategorieNutrizionali(int IdRicetta)
     {
         string categorie = "";
-        var categories = _globals.GetCategorieNutrizionali(IdRicetta);
+        var categories = _globals.GetNutritionalCategory(IdRicetta);
 
         foreach ( var item in categories ) { categorie += item.Nome + " "; }
 
         return categorie;
+    }
+
+    private void RefreshAll()
+    {
+        ricetta = new();
+        SetRicetta(((RecipePageViewModel)BindingContext).IdRicetta);
     }
 }

@@ -32,17 +32,17 @@ public partial class RecipesListPage : ContentPage
         {
             if (value < 6)
             {
-                ricette = _globals.GetRicetteByDifficulty(value);
+                ricette = _globals.GetRecipesByDifficulty(value);
             }
             else
             {
-                ricette = _globals.GetRicetteByTime(value);
+                ricette = _globals.GetRecipesByTime(value);
             }
         }
         else
         {
             //query categoria nutrizionale
-            ricette = _globals.GetRicetteSearched(text);
+            ricette = _globals.GetSearchedRecipes(text);
         }
 
         Refresh();
@@ -50,7 +50,7 @@ public partial class RecipesListPage : ContentPage
 
     private void RefreshAll()
     {
-        ricette = _globals.GetRicette();
+        ricette = _globals.GetRecipes();
         Refresh();
     }
 

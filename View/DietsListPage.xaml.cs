@@ -23,7 +23,7 @@ public partial class DietsListPage : ContentPage
 
     private void RefreshAll()
     {
-        diete = _globals.GetDiete();
+        diete = _globals.GetDiets();
         DietsList.ItemsSource = diete;
     }
 
@@ -42,7 +42,7 @@ public partial class DietsListPage : ContentPage
         }
         else
         {
-            diete = _globals.GetCollectionsSearched(1, text);
+            diete = _globals.GetSearchedCollections(1, text);
 
             Refresh();
         }

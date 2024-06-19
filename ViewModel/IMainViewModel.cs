@@ -8,19 +8,19 @@ namespace Daidokoro.ViewModel
 
         bool InitDBSettings(DBCredentials dbs);
 
-        List<Ingrediente> GetIngredienti(int IdRicetta);
-        List<Ricetta> GetRicette();
-        List<Ricetta> GetRicetteByCollection(int IdCollezione);
-        List<Ricetta> GetRicetteByDifficulty(int Difficolta);
-        List<Ricetta> GetRicetteByTime(int Tempo);
-        Ricetta GetRicetta(int IdRicetta);
-        List<Collezione> GetCollezioni();
-        Collezione GetCollezione(int IdCollezione);
-        List<Collezione> GetDiete();
-        List<Utente> GetUtente(int id);
+        List<Ingrediente> GetIngredients(int IdRicetta);
+        List<Ricetta> GetRecipes();
+        List<Ricetta> GetRecipesByCollection(int IdCollezione);
+        List<Ricetta> GetRecipesByDifficulty(int Difficolta);
+        List<Ricetta> GetRecipesByTime(int Tempo);
+        Ricetta GetRecipeById(int IdRicetta);
+        List<Collezione> GetCollections();
+        Collezione GetCollectionById(int IdCollezione);
+        List<Collezione> GetDiets();
+        List<Utente> GetUserById(int id);
         List<Ricetta> GetMonthRecipes();
-        List<Ricetta> GetRicetteSearched(string text);
-        List<Collezione> GetCollectionsSearched(int dieta, string text);
-        List<CategoriaNutrizionale> GetCategorieNutrizionali(int IdRicetta);
+        List<Ricetta> GetSearchedRecipes(string text);
+        List<Collezione> GetSearchedCollections(int dieta, string text);
+        List<CategoriaNutrizionale> GetNutritionalCategory(int IdRicetta);
     }
 }

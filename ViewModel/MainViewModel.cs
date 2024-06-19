@@ -20,7 +20,7 @@ namespace Daidokoro.ViewModel
             return _dbService.TryConnection(dbc);
         }
 
-        public List<Ingrediente> GetIngredienti(int IdRicetta)
+        public List<Ingrediente> GetIngredients(int IdRicetta)
         {
             return _dbService.GetData<Ingrediente>(
                 $"SELECT ingrediente.*\r\n" +
@@ -30,7 +30,7 @@ namespace Daidokoro.ViewModel
             );
         }
 
-        public List<Ricetta> GetRicette()
+        public List<Ricetta> GetRecipes()
         {
             return _dbService.GetData<Ricetta>(
                 $"CREATE VIEW r1 AS\r\n" +
@@ -38,17 +38,17 @@ namespace Daidokoro.ViewModel
                 $"FROM ricetta\r\n" +
                 $"LEFT JOIN likes ON likes.IdRicetta = ricetta.IdRicetta\r\n" +
                 $"GROUP BY ricetta.IdRicetta\r\n" +
-                $"ORDER BY NumeroLike DESC\r\n" +
                 $"LIMIT 10;\r\n" +
                 $"SELECT DISTINCT r1.*\r\n" +
                 $"FROM r1\r\n" +
                 $"JOIN ingrediente_ricetta ON ingrediente_ricetta.IdRicetta = r1.IdRicetta\r\n" +
-                $"JOIN ingrediente ON ingrediente_ricetta.IdIngrediente = ingrediente.IdIngrediente;\r\n" +
+                $"JOIN ingrediente ON ingrediente_ricetta.IdIngrediente = ingrediente.IdIngrediente\r\n" +
+                $"ORDER BY NumeroLike DESC;\r\n" +
                 $"DROP VIEW r1;"
            );
         }
 
-        public List<Ricetta> GetRicetteByCollection(int IdCollezione)
+        public List<Ricetta> GetRecipesByCollection(int IdCollezione)
         {
             return _dbService.GetData<Ricetta>(
                 $"CREATE VIEW r1 AS\r\n" +
@@ -57,18 +57,17 @@ namespace Daidokoro.ViewModel
                 $"LEFT JOIN likes ON likes.IdRicetta = ricetta.IdRicetta\r\n" +
                 $"JOIN ricetta_collezione ON ricetta_collezione.IdRicetta=ricetta.IdRicetta\r\n" +
                 $"WHERE ricetta_collezione.IdCollezione = {IdCollezione}\r\n" +
-                $"GROUP BY ricetta.IdRicetta\r\n" +
-                $"ORDER BY NumeroLike DESC\r\n" +
-                $"LIMIT 10;\r\n" +
+                $"GROUP BY ricetta.IdRicetta\r\n;" +
                 $"SELECT DISTINCT r1.*\r\n" +
                 $"FROM r1\r\n" +
                 $"JOIN ingrediente_ricetta ON ingrediente_ricetta.IdRicetta = r1.IdRicetta\r\n" +
-                $"JOIN ingrediente ON ingrediente_ricetta.IdIngrediente = ingrediente.IdIngrediente;\r\n" +
+                $"JOIN ingrediente ON ingrediente_ricetta.IdIngrediente = ingrediente.IdIngrediente\r\n" +
+                $"ORDER BY NumeroLike DESC;\r\n" +
                 $"DROP VIEW r1;"
             );
         }
 
-        public List<Ricetta> GetRicetteByDifficulty(int Difficolta)
+        public List<Ricetta> GetRecipesByDifficulty(int Difficolta)
         {
             return _dbService.GetData<Ricetta>(
                 $"SELECT *\r\n" +
@@ -77,7 +76,7 @@ namespace Daidokoro.ViewModel
             );
         }
 
-        public List<Ricetta> GetRicetteByTime(int Tempo)
+        public List<Ricetta> GetRecipesByTime(int Tempo)
         {
             return _dbService.GetData<Ricetta>(
                 $"SELECT *\r\n" +
@@ -86,7 +85,7 @@ namespace Daidokoro.ViewModel
             );
         }
 
-        public Ricetta GetRicetta(int IdRicetta)
+        public Ricetta GetRecipeById(int IdRicetta)
         {
             return _dbService.GetData<Ricetta>(
                 $"SELECT *\r\n" +
@@ -95,7 +94,7 @@ namespace Daidokoro.ViewModel
             )[0];
         }
 
-        public Collezione GetCollezione(int IdCollezione)
+        public Collezione GetCollectionById(int IdCollezione)
         {
             return _dbService.GetData<Collezione>(
                 $"SELECT collezione.*, categoria_nutrizionale.Nome AS NomeCategoria\r\n" +
@@ -105,7 +104,7 @@ namespace Daidokoro.ViewModel
             )[0];
         }
 
-        public List<Collezione> GetCollezioni()
+        public List<Collezione> GetCollections()
         {
             return _dbService.GetData<Collezione>(
                 $"SELECT c1.*, categoria_nutrizionale.Nome AS NomeCategoria, ricetta.Foto AS FotoRicetta\r\n" +
@@ -121,7 +120,7 @@ namespace Daidokoro.ViewModel
             );
         }
 
-        public List<Collezione> GetDiete()
+        public List<Collezione> GetDiets()
         {
             return _dbService.GetData<Collezione>(
                 $"SELECT c1.*, categoria_nutrizionale.Nome AS NomeCategoria, ricetta.Foto AS FotoRicetta\r\n" +
@@ -137,7 +136,7 @@ namespace Daidokoro.ViewModel
             );
         }
 
-        public List<Utente> GetUtente(int id)
+        public List<Utente> GetUserById(int id)
         {
             return _dbService.GetData<Utente>(
                 $"SELECT utente.*, IFNULL(temp_likes.Likes, 0) AS Likes, IFNULL(temp_reviews.ReviewCount, 0) AS ReviewCount, IFNULL(temp_recipes.RecipeCount, 0) AS RecipeCount\r\n" +
@@ -170,7 +169,7 @@ namespace Daidokoro.ViewModel
             );
         }
 
-        public List<Ricetta> GetRicetteSearched(string text)
+        public List<Ricetta> GetSearchedRecipes(string text)
         {
             return _dbService.GetData<Ricetta>(
                 $"CREATE VIEW r1 AS\r\n" +
@@ -192,7 +191,7 @@ namespace Daidokoro.ViewModel
             );
         }
 
-        public List<Collezione> GetCollectionsSearched(int dieta, string text)
+        public List<Collezione> GetSearchedCollections(int dieta, string text)
         {
             return _dbService.GetData<Collezione>(
                 $"CREATE VIEW c1_temp AS\r\n" +
@@ -216,7 +215,7 @@ namespace Daidokoro.ViewModel
             );
         }
 
-        public List<CategoriaNutrizionale> GetCategorieNutrizionali(int IdRicetta)
+        public List<CategoriaNutrizionale> GetNutritionalCategory(int IdRicetta)
         {
             return _dbService.GetData<CategoriaNutrizionale>(
                 $"SELECT DISTINCT categoria_nutrizionale.*\r\n" +

@@ -1,13 +1,13 @@
 <?xml version="1.0" encoding="utf-8" ?>
 <ContentPage xmlns="http://schemas.microsoft.com/dotnet/2021/maui"
              xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml"
-             x:Class="Daidokoro.View.RicettaPage"
+             x:Class="Daidokoro.View.RecipePage"
              xmlns:viewmodel="clr-namespace:Daidokoro.ViewModel"
              xmlns:model="clr-namespace:Daidokoro.Model"
              xmlns:controls="clr-namespace:Daidokoro.View.Components"
              xmlns:toolkit="http://schemas.microsoft.com/dotnet/2022/maui/toolkit"
-             x:DataType="viewmodel:RicettaPageViewModel"
-             Title="RicettaPage">
+             x:DataType="viewmodel:RecipePageViewModel"
+             Title="RecipePage">
 
     <ContentPage.Resources>
         <ResourceDictionary>
@@ -24,7 +24,7 @@
                         <DataTemplate x:DataType="model:Ricetta">
                             <VerticalStackLayout Spacing="25" HorizontalOptions="Center">
                                 <Label x:Name="Nome" Text="{Binding Nome}" FontSize="30" FontAttributes="Bold" TextColor="{StaticResource Palette2}" />
-                                <Border StrokeShape="RoundRectangle 10" StrokeThickness="0" HeightRequest="200" WidthRequest="325">
+                                <Border StrokeShape="RoundRectangle 10" StrokeThickness="0" HeightRequest="300" WidthRequest="325">
                                     <Image BackgroundColor="{StaticResource Palette2}" Aspect="AspectFill" Source="{Binding Foto, Converter={StaticResource ByteArrayToImageSourceConverter}}"/>
                                 </Border>
                                 <Label x:Name="Descrizione" Text="{Binding Descrizione}" FontSize="25" FontAttributes="Bold" TextColor="{StaticResource Palette2}" />

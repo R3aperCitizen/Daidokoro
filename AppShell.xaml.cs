@@ -15,7 +15,7 @@ namespace Daidokoro
             Routing.RegisterRoute(nameof(HomePage), typeof(HomePage));
             Routing.RegisterRoute(nameof(UserPage), typeof(UserPage));
             Routing.RegisterRoute(nameof(BrowsePage), typeof(BrowsePage));
-            Routing.RegisterRoute(nameof(RicettaPage), typeof(RicettaPage));
+            Routing.RegisterRoute(nameof(RecipePage), typeof(RecipePage));
             Routing.RegisterRoute(nameof(CollectionDietPage), typeof(CollectionDietPage));
             Routing.RegisterRoute(nameof(RecipesListPage), typeof(RecipesListPage));
             Routing.RegisterRoute(nameof(CollectionsListPage), typeof(CollectionsListPage));

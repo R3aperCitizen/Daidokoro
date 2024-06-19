@@ -23,7 +23,7 @@ public partial class CollectionsListPage : ContentPage
 
     private void RefreshAll()
     {
-        collezioni = _globals.GetCollezioni();
+        collezioni = _globals.GetCollections();
         CollectionsList.ItemsSource = collezioni;
     }
 
@@ -42,7 +42,7 @@ public partial class CollectionsListPage : ContentPage
         }
         else
         {
-            collezioni = _globals.GetCollectionsSearched(0, text);
+            collezioni = _globals.GetSearchedCollections(0, text);
 
             Refresh();
         }

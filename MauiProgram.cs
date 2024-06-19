@@ -39,12 +39,12 @@ namespace Daidokoro
 
             builder.Services.AddSingleton<IConnectivity>((e) => Connectivity.Current);
             builder.Services.AddSingleton<IMainViewModel, MainViewModel>();
-            builder.Services.AddTransient<RicettaPageViewModel>();
+            builder.Services.AddTransient<RecipePageViewModel>();
             builder.Services.AddTransient<CollectionDietPageViewModel>();
             builder.Services.AddTransient<HomePage>();
             builder.Services.AddTransient<UserPage>();
             builder.Services.AddTransient<BrowsePage>();
-            builder.Services.AddTransient<RicettaPage>();
+            builder.Services.AddTransient<RecipePage>();
             builder.Services.AddTransient<CollectionDietPage>();
             builder.Services.AddTransient<RecipesListPage>();
             builder.Services.AddTransient<CollectionsListPage>();
