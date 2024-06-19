@@ -1,5 +1,7 @@
 using Daidokoro.ViewModel;
 using System.ComponentModel;
+using Newtonsoft.Json;
+using System.Diagnostics;
 
 namespace Daidokoro.View;
 
@@ -39,6 +41,7 @@ public partial class RecipePage : ContentPage
         ricetta = _globals.GetRecipeById(IdRicetta);
         ricetta.Ingredienti = _globals.GetIngredients(IdRicetta);
         ricetta.Tags = GetCategorieNutrizionali(IdRicetta);
+        ParsePassaggiJSON();
         Recipe.ItemsSource = new List<Model.Ricetta>() { ricetta };
     }
 
@@ -50,6 +53,25 @@ public partial class RecipePage : ContentPage
         foreach ( var item in categories ) { categorie += item.Nome + "; "; }
 
         return categorie;
+    }
+
+    private void ParsePassaggiJSON()
+    {
+        string formattedPassaggi = string.Empty;
+        try
+        {
+            List<string> passaggi = JsonConvert.DeserializeObject<List<string>>(ricetta.Passaggi);
+            for (int i=0; i<passaggi.Count(); i++)
+            {
+                formattedPassaggi += (i+1).ToString() + ". " 
+                    + passaggi[i] + "\r\n";
+            }
+        }
+        catch (Exception ex)
+        {
+            Debug.WriteLine(ex.Message);
+        }
+        ricetta.Passaggi = formattedPassaggi;
     }
 
     private void RefreshAll()
