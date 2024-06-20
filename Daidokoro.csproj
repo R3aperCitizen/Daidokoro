@@ -133,6 +133,9 @@
 	  <MauiXaml Update="View\Controls\ImageBlob.xaml">
 	    <Generator>MSBuild:Compile</Generator>
 	  </MauiXaml>
+	  <MauiXaml Update="View\Controls\RatingsSection.xaml">
+	    <Generator>MSBuild:Compile</Generator>
+	  </MauiXaml>
 	  <MauiXaml Update="View\Controls\RecipeMinimal.xaml">
 	    <Generator>MSBuild:Compile</Generator>
 	  </MauiXaml>

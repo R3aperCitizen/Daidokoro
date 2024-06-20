@@ -8,7 +8,7 @@
              x:DataType="viewmodel:RecipePageViewModel"
              Title="RecipePage">
 
-    <VerticalStackLayout  BackgroundColor="{StaticResource Background}">
+    <VerticalStackLayout BackgroundColor="{StaticResource Background}">
         <controls:NavigationBar />
         <ScrollView HeightRequest="700">
             <VerticalStackLayout Padding="20">
@@ -54,16 +54,22 @@
                                         <Label Text="{Binding Passaggi}" FontSize="15" FontAttributes="Bold" TextColor="{StaticResource Palette3}" />
                                     </VerticalStackLayout>
                                 </Border>
-                                <Border StrokeShape="RoundRectangle 10" StrokeThickness="0" BackgroundColor="{StaticResource Palette2}">
-                                    <VerticalStackLayout Padding="15" Spacing="10">
-                                        <Label Text="Commenti: " FontSize="15" TextColor="{StaticResource Palette3}" />
-                                        
-                                    </VerticalStackLayout>
-                                </Border>
                             </VerticalStackLayout>
                         </DataTemplate>
                     </CollectionView.ItemTemplate>
                 </CollectionView>
+                <Border StrokeShape="RoundRectangle 10" StrokeThickness="0" BackgroundColor="{StaticResource Palette2}" Margin="0,20,0,0">
+                    <VerticalStackLayout Padding="15" Spacing="15">
+                        <Label Text="VALUTAZIONI" FontAttributes="Bold" FontSize="15" TextColor="{StaticResource Palette3}" />
+                        <CollectionView x:Name="Ratings">
+                            <CollectionView.ItemTemplate>
+                                <DataTemplate x:DataType="model:Valutazione">
+                                    <controls:RatingsSection />
+                                </DataTemplate>
+                            </CollectionView.ItemTemplate>
+                        </CollectionView>
+                    </VerticalStackLayout>
+                </Border>
             </VerticalStackLayout>
         </ScrollView>
     </VerticalStackLayout>

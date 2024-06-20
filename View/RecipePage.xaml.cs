@@ -39,8 +39,9 @@ public partial class RecipePage : ContentPage
     {
         int IdRicetta = int.Parse(Id);
         ricetta = _globals.GetRecipeById(IdRicetta);
-        ricetta.Ingredienti = _globals.GetIngredients(IdRicetta);
         ricetta.Tags = GetCategorieNutrizionali(IdRicetta);
+        ricetta.Ingredienti = _globals.GetIngredients(IdRicetta);
+        Ratings.ItemsSource = _globals.GetRatingsByRecipe(IdRicetta);
         ParsePassaggiJSON();
         Recipe.ItemsSource = new List<Model.Ricetta>() { ricetta };
     }

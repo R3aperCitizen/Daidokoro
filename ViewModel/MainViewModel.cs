@@ -218,8 +218,8 @@ namespace Daidokoro.ViewModel
         public List<CategoriaNutrizionale> GetNutritionalCategories()
         {
             return _dbService.GetData<CategoriaNutrizionale>(
-                "SELECT categoria_nutrizionale.*\r\n" +
-                "FROM categoria_nutrizionale"
+                $"SELECT categoria_nutrizionale.*\r\n" +
+                $"FROM categoria_nutrizionale"
             );
         }
 
@@ -231,6 +231,16 @@ namespace Daidokoro.ViewModel
                 $"JOIN ingrediente ON categoria_nutrizionale.IdCategoria = ingrediente.IdCategoria\r\n" +
                 $"JOIN ingrediente_ricetta ON ingrediente_ricetta.IdIngrediente = ingrediente.IdIngrediente\r\n" +
                 $"WHERE ingrediente_ricetta.IdRicetta = {IdRicetta};"
+            );
+        }
+
+        public List<Valutazione> GetRatingsByRecipe(int IdRicetta)
+        {
+            return _dbService.GetData<Valutazione>(
+                $"SELECT IdValutazione, Voto, DataValutazione, Commento, valutazione.IdUtente, IdRicetta, utente.Username AS NomeUtente, utente.Foto AS FotoUtente\r\n" +
+                $"FROM valutazione\r\n" +
+                $"JOIN utente ON utente.IdUtente=valutazione.IdUtente\r\n" +
+                $"WHERE IdRicetta = {IdRicetta};"
             );
         }
     }

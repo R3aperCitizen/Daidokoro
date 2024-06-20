@@ -1,0 +1,23 @@
+<?xml version="1.0" encoding="utf-8" ?>
+<ContentView xmlns="http://schemas.microsoft.com/dotnet/2021/maui"
+             xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml"
+             x:Class="Daidokoro.View.Controls.RatingsSection"
+             xmlns:model="clr-namespace:Daidokoro.Model"
+             xmlns:controls="clr-namespace:Daidokoro.View.Controls">
+
+    <HorizontalStackLayout Spacing="5" Padding="10">
+        <Border StrokeShape="Ellipse" StrokeThickness="0" WidthRequest="35" HeightRequest="35">
+            <controls:ImageBlob BackgroundColor="{StaticResource Palette1}" Aspect="AspectFill" Source="{Binding FotoUtente}"/>
+        </Border>
+        <VerticalStackLayout VerticalOptions="Center">
+            <HorizontalStackLayout Spacing="10">
+                <Label Text="{Binding NomeUtente}" FontSize="15" WidthRequest="50" FontAttributes="Bold" TextColor="{StaticResource Palette3}" VerticalTextAlignment="Center" />
+                <Label Text="{Binding DataValutazioneString}" FontSize="12" TextColor="{StaticResource Palette3}" VerticalTextAlignment="Center" />
+            </HorizontalStackLayout>
+            <HorizontalStackLayout Spacing="10">
+                <Label Text="{Binding VotoToString}" FontSize="15" VerticalTextAlignment="Center" />
+                <Label Text="{Binding Commento}" FontSize="12" TextColor="{StaticResource Palette3}" VerticalTextAlignment="Center" />
+            </HorizontalStackLayout>
+        </VerticalStackLayout>
+    </HorizontalStackLayout>
+</ContentView>
