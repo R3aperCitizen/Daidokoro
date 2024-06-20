@@ -87,6 +87,12 @@
 	  <Compile Update="View\Components\CollectionMinimal.xaml.cs">
 	    <DependentUpon>CollectionMinimal.xaml</DependentUpon>
 	  </Compile>
+	  <Compile Update="View\Components\InfoButton.xaml.cs">
+	    <DependentUpon>InfoButton.xaml</DependentUpon>
+	  </Compile>
+	  <Compile Update="View\Components\ImageBlob.xaml.cs">
+	    <DependentUpon>ImageBlob.xaml</DependentUpon>
+	  </Compile>
 	  <Compile Update="View\Components\RecipeMinimal.xaml.cs">
 	    <DependentUpon>RecipeMinimal.xaml</DependentUpon>
 	  </Compile>
@@ -118,6 +124,12 @@
 	    <Generator>MSBuild:Compile</Generator>
 	  </MauiXaml>
 	  <MauiXaml Update="View\Components\CollectionMinimal.xaml">
+	    <Generator>MSBuild:Compile</Generator>
+	  </MauiXaml>
+	  <MauiXaml Update="View\Components\InfoButton.xaml">
+	    <Generator>MSBuild:Compile</Generator>
+	  </MauiXaml>
+	  <MauiXaml Update="View\Components\ImageBlob.xaml">
 	    <Generator>MSBuild:Compile</Generator>
 	  </MauiXaml>
 	  <MauiXaml Update="View\Components\RecipeMinimal.xaml">

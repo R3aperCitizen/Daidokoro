@@ -15,6 +15,6 @@ public partial class UserPage : ContentPage
 
     protected override void OnAppearing()
     {
-        UserInfo.ItemsSource = _globals.GetUserById(1);
+        UserInfo.ItemsSource = _globals.GetUserById(2);
     }
 }
