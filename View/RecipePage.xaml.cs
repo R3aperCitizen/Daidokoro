@@ -2,6 +2,7 @@ using Daidokoro.ViewModel;
 using System.ComponentModel;
 using Newtonsoft.Json;
 using System.Diagnostics;
+using Microsoft.Maui.Controls;
 
 namespace Daidokoro.View;
 
@@ -16,6 +17,7 @@ public partial class RecipePage : ContentPage
 	{
         InitializeComponent();
         _globals = globals;
+        SetScrollBehaviour();
 
         BindingContext = vm;
         vm.PropertyChanged += OnPropertyChanged;
@@ -73,6 +75,14 @@ public partial class RecipePage : ContentPage
             Debug.WriteLine(ex.Message);
         }
         ricetta.Passaggi = formattedPassaggi;
+    }
+
+    private void SetScrollBehaviour()
+    {
+        var screenMetrics = DeviceDisplay.MainDisplayInfo;
+        var screenHeight = screenMetrics.Height;
+        var screenDensity = screenMetrics.Density;
+        MainScroll.HeightRequest = (screenHeight / screenDensity) - 150;
     }
 
     private void RefreshAll()

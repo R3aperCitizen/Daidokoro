@@ -17,6 +17,7 @@ namespace Daidokoro.View
             InitializeComponent();
             _configuration = configuration;
             _globals = globals;
+            SetScrollBehaviour();
 
             if (globals.dbService.dbCredentials.Server == string.Empty)
             {
@@ -30,6 +31,14 @@ namespace Daidokoro.View
         protected override void OnNavigatedTo(NavigatedToEventArgs args)
         {
             SetMonthRecipes();
+        }
+
+        private void SetScrollBehaviour()
+        {
+            var screenMetrics = DeviceDisplay.MainDisplayInfo;
+            var screenHeight = screenMetrics.Height;
+            var screenDensity = screenMetrics.Density;
+            MainScroll.HeightRequest = (screenHeight / screenDensity) - 250;
         }
 
         private void SetMonthRecipes()

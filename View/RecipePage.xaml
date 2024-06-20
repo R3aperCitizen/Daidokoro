@@ -10,7 +10,7 @@
 
     <VerticalStackLayout BackgroundColor="{StaticResource Background}">
         <controls:NavigationBar />
-        <ScrollView HeightRequest="700">
+        <ScrollView x:Name="MainScroll">
             <VerticalStackLayout Padding="20">
                 <CollectionView x:Name="Recipe">
                     <CollectionView.ItemTemplate>

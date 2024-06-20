@@ -10,7 +10,7 @@
         <Border StrokeShape="RoundRectangle 10" StrokeThickness="0" BackgroundColor="{StaticResource Palette2}" Margin="15,10,15,10">
             <Label Text="Ricette più popolari!" FontAttributes="Bold" FontSize="35" HorizontalTextAlignment="Center" TextColor="{StaticResource Palette3}" Padding="15" />
         </Border>
-        <ScrollView HeightRequest="615">
+        <ScrollView x:Name="MainScroll">
             <CollectionView x:Name="MonthRecipe">
                 <CollectionView.ItemTemplate>
                     <DataTemplate x:DataType="model:Ricetta">
