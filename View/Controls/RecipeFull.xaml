@@ -1,19 +1,13 @@
 <?xml version="1.0" encoding="utf-8" ?>
 <ContentView xmlns="http://schemas.microsoft.com/dotnet/2021/maui"
              xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml"
-             xmlns:toolkit="http://schemas.microsoft.com/dotnet/2022/maui/toolkit"
+             xmlns:controls="clr-namespace:Daidokoro.View.Controls"
              x:Class="Daidokoro.View.Controls.RecipeFull">
 
-    <ContentView.Resources>
-        <ResourceDictionary>
-            <toolkit:ByteArrayToImageSourceConverter x:Key="ByteArrayToImageSourceConverter" />
-        </ResourceDictionary>
-    </ContentView.Resources>
-    
     <Border StrokeShape="RoundRectangle 10" StrokeThickness="0" Margin="15,5,15,5" HeightRequest="300">
         <Grid>
             <Button AutomationId="{Binding IdRicetta, FallbackValue=0}" x:Name="RecipeId" BackgroundColor="Transparent" Clicked="GoToRecipePage" />
-            <Image BackgroundColor="{StaticResource Palette1}" Aspect="AspectFill" Source="{Binding Foto, Converter={StaticResource ByteArrayToImageSourceConverter}}" />
+            <controls:ImageBlob BackgroundColor="{StaticResource Palette1}" Aspect="AspectFill" Source="{Binding Foto}" />
             <StackLayout BackgroundColor="#55000000" />
             <VerticalStackLayout HorizontalOptions="Center" Padding="20" Spacing="150">
                 <Label Text="{Binding Nome, FallbackValue='null'}" FontAttributes="Bold" FontSize="40" HorizontalTextAlignment="Center" />
