@@ -1,8 +1,8 @@
-namespace Daidokoro.View.Components;
+namespace Daidokoro.View.Controls;
 
-public partial class RecipeMinimal : ContentView
+public partial class RecipeFull : ContentView
 {
-	public RecipeMinimal()
+	public RecipeFull()
 	{
 		InitializeComponent();
 	}

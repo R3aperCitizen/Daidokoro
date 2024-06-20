@@ -82,22 +82,22 @@
 	</ItemGroup>
 
 	<ItemGroup>
-	  <Compile Update="View\Components\NavigationBar.xaml.cs">
+	  <Compile Update="View\Controls\NavigationBar.xaml.cs">
 	    <DependentUpon>NavigationBar.xaml</DependentUpon>
 	  </Compile>
-	  <Compile Update="View\Components\CollectionMinimal.xaml.cs">
+	  <Compile Update="View\Controls\CollectionMinimal.xaml.cs">
 	    <DependentUpon>CollectionMinimal.xaml</DependentUpon>
 	  </Compile>
-	  <Compile Update="View\Components\InfoButton.xaml.cs">
+	  <Compile Update="View\Controls\InfoButton.xaml.cs">
 	    <DependentUpon>InfoButton.xaml</DependentUpon>
 	  </Compile>
-	  <Compile Update="View\Components\ImageBlob.xaml.cs">
+	  <Compile Update="View\Controls\ImageBlob.xaml.cs">
 	    <DependentUpon>ImageBlob.xaml</DependentUpon>
 	  </Compile>
-	  <Compile Update="View\Components\RecipeMinimal.xaml.cs">
+	  <Compile Update="View\Controls\RecipeMinimal.xaml.cs">
 	    <DependentUpon>RecipeMinimal.xaml</DependentUpon>
 	  </Compile>
-	  <Compile Update="View\Components\RecipeFull.xaml.cs">
+	  <Compile Update="View\Controls\RecipeFull.xaml.cs">
 	    <DependentUpon>RecipeFull.xaml</DependentUpon>
 	  </Compile>
 	  <Compile Update="View\HomePage.xaml.cs">
@@ -121,22 +121,22 @@
 	  <MauiXaml Update="View\CollectionsListPage.xaml">
 	    <Generator>MSBuild:Compile</Generator>
 	  </MauiXaml>
-	  <MauiXaml Update="View\Components\NavigationBar.xaml">
+	  <MauiXaml Update="View\Controls\NavigationBar.xaml">
 	    <Generator>MSBuild:Compile</Generator>
 	  </MauiXaml>
-	  <MauiXaml Update="View\Components\CollectionMinimal.xaml">
+	  <MauiXaml Update="View\Controls\CollectionMinimal.xaml">
 	    <Generator>MSBuild:Compile</Generator>
 	  </MauiXaml>
-	  <MauiXaml Update="View\Components\InfoButton.xaml">
+	  <MauiXaml Update="View\Controls\InfoButton.xaml">
 	    <Generator>MSBuild:Compile</Generator>
 	  </MauiXaml>
-	  <MauiXaml Update="View\Components\ImageBlob.xaml">
+	  <MauiXaml Update="View\Controls\ImageBlob.xaml">
 	    <Generator>MSBuild:Compile</Generator>
 	  </MauiXaml>
-	  <MauiXaml Update="View\Components\RecipeMinimal.xaml">
+	  <MauiXaml Update="View\Controls\RecipeMinimal.xaml">
 	    <Generator>MSBuild:Compile</Generator>
 	  </MauiXaml>
-	  <MauiXaml Update="View\Components\RecipeFull.xaml">
+	  <MauiXaml Update="View\Controls\RecipeFull.xaml">
 	    <Generator>MSBuild:Compile</Generator>
 	  </MauiXaml>
 	  <MauiXaml Update="View\DietsListPage.xaml">

@@ -4,7 +4,7 @@
              x:Class="Daidokoro.View.RecipePage"
              xmlns:viewmodel="clr-namespace:Daidokoro.ViewModel"
              xmlns:model="clr-namespace:Daidokoro.Model"
-             xmlns:controls="clr-namespace:Daidokoro.View.Components"
+             xmlns:controls="clr-namespace:Daidokoro.View.Controls"
              xmlns:toolkit="http://schemas.microsoft.com/dotnet/2022/maui/toolkit"
              x:DataType="viewmodel:RecipePageViewModel"
              Title="RecipePage">

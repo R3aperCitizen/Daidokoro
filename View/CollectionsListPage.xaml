@@ -3,7 +3,7 @@
              xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml"
              x:Class="Daidokoro.View.CollectionsListPage"
              xmlns:model="clr-namespace:Daidokoro.Model"
-             xmlns:controls="clr-namespace:Daidokoro.View.Components"
+             xmlns:controls="clr-namespace:Daidokoro.View.Controls"
              Title="CollectionsListPage">
 
     <VerticalStackLayout BackgroundColor="{StaticResource Background}">

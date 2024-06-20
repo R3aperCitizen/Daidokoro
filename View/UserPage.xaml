@@ -3,7 +3,7 @@
              xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml"
              x:Class="Daidokoro.View.UserPage"
              xmlns:model="clr-namespace:Daidokoro.Model"
-             xmlns:controls="clr-namespace:Daidokoro.View.Components"
+             xmlns:controls="clr-namespace:Daidokoro.View.Controls"
              Title="UserPage">
 
     <VerticalStackLayout BackgroundColor="{StaticResource Background}">
