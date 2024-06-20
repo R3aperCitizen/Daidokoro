@@ -47,6 +47,12 @@ public partial class RecipesListPage : ContentPage
 
         Refresh();
     }
+    private void OpenFilterMenu(object sender, EventArgs e)
+    {
+        FilterMenu.IsVisible = true;
+        FilterMenuButton.IsVisible = false;
+    }
+
     private void Sdiff_ValueChanged(object sender, ValueChangedEventArgs e)
     {
         Vdiff.Text = Math.Round(Sdiff.Value).ToString();
@@ -57,9 +63,10 @@ public partial class RecipesListPage : ContentPage
         Vtime.Text = Math.Round(Stime.Value).ToString();
     }
 
-    private void Bsubmt_Clicked(object sender, EventArgs e)
+    private void SetFilters(object sender, EventArgs e)
     {
-
+        FilterMenu.IsVisible = false;
+        FilterMenuButton.IsVisible = true;
     }
 
     private void SetFilterMenuBehaviour()
