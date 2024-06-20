@@ -20,9 +20,9 @@
                         </VerticalStackLayout>
                         <BoxView Margin="15" HeightRequest="2" Color="{StaticResource White}"/>
                         <HorizontalStackLayout HorizontalOptions="Center" Spacing="20">
-                            <controls:InfoButton InfoText="Likes" ValueText="{Binding Likes}" />
-                            <controls:InfoButton InfoText="Recensioni" ValueText="{Binding ReviewCount}" />
-                            <controls:InfoButton InfoText="Ricette" ValueText="{Binding RecipeCount}" />
+                            <controls:InfoButton InfoText="Likes" ValueText="{Binding Likes}" Clicked="LikesInfoButton_Clicked" />
+                            <controls:InfoButton InfoText="Recensioni" ValueText="{Binding ReviewCount}" Clicked="ReviewsInfoButton_Clicked" />
+                            <controls:InfoButton InfoText="Ricette" ValueText="{Binding RecipeCount}" Clicked="RecipesInfoButton_Clicked" />
                         </HorizontalStackLayout>
                         <BoxView Margin="15" HeightRequest="2" Color="{StaticResource White}"/>
                     </VerticalStackLayout>
