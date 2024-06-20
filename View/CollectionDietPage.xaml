@@ -4,7 +4,7 @@
              x:Class="Daidokoro.View.CollectionDietPage"
              xmlns:model="clr-namespace:Daidokoro.Model"
              xmlns:viewmodel="clr-namespace:Daidokoro.ViewModel"
-             xmlns:controls="clr-namespace:Daidokoro.View.Components"
+             xmlns:controls="clr-namespace:Daidokoro.View.Controls"
              x:DataType="viewmodel:CollectionDietPageViewModel"
              Title="CollectionDietPage">
 

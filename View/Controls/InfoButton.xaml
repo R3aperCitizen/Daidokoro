@@ -1,0 +1,14 @@
+<?xml version="1.0" encoding="utf-8" ?>
+<ContentView xmlns="http://schemas.microsoft.com/dotnet/2021/maui"
+             xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml"
+             x:Name="this"
+             x:Class="Daidokoro.View.Controls.InfoButton">
+
+    <Grid>
+        <Button x:Name="button" BackgroundColor="Transparent" />
+        <VerticalStackLayout>
+            <Label x:Name="infoLabel" TextColor="{StaticResource Palette2}" HorizontalTextAlignment="Center" FontSize="20" />
+            <Label x:Name="valueLabel" TextColor="{StaticResource Palette2}" HorizontalTextAlignment="Center" FontSize="30" />
+        </VerticalStackLayout>
+    </Grid>
+</ContentView>
