@@ -14,7 +14,7 @@
                     <VerticalStackLayout Padding="50">
                         <VerticalStackLayout Spacing="20">
                             <Border HeightRequest="150" WidthRequest="150" StrokeShape="Ellipse" StrokeThickness="0">
-                                <controls:ImageBlob BackgroundColor="{StaticResource Palette1}" Aspect="AspectFill" Source="{Binding Foto}"/>
+                                <controls:ImageBlob BackgroundColor="{StaticResource Palette2}" Aspect="AspectFill" Source="{Binding Foto}"/>
                             </Border>
                             <Label TextColor="{StaticResource Palette2}" FontSize="30" HorizontalTextAlignment="Center" Text="{Binding Username}"/>
                         </VerticalStackLayout>

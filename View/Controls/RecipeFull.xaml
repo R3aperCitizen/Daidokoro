@@ -7,7 +7,7 @@
     <Border StrokeShape="RoundRectangle 10" StrokeThickness="0" Margin="15,5,15,5" HeightRequest="300">
         <Grid>
             <Button AutomationId="{Binding IdRicetta, FallbackValue=0}" x:Name="RecipeId" BackgroundColor="Transparent" Clicked="GoToRecipePage" />
-            <controls:ImageBlob BackgroundColor="{StaticResource Palette1}" Aspect="AspectFill" Source="{Binding Foto}" />
+            <controls:ImageBlob BackgroundColor="{StaticResource Palette2}" Aspect="AspectFill" Source="{Binding Foto}" />
             <StackLayout BackgroundColor="#55000000" />
             <VerticalStackLayout HorizontalOptions="Center" Padding="20" Spacing="150">
                 <Label Text="{Binding Nome, FallbackValue='null'}" FontAttributes="Bold" FontSize="40" HorizontalTextAlignment="Center" />

@@ -18,7 +18,7 @@
                             <VerticalStackLayout Spacing="15" HorizontalOptions="Center">
                                 <Label Text="{Binding Nome}" FontSize="30" TextColor="{StaticResource Palette2}" />
                                 <Border StrokeShape="RoundRectangle 10" StrokeThickness="0" HeightRequest="250" WidthRequest="350">
-                                    <controls:ImageBlob Aspect="AspectFill" Source="{Binding Foto}" />
+                                    <controls:ImageBlob Aspect="AspectFill" Source="{Binding Foto}" BackgroundColor="{StaticResource Palette2}" />
                                 </Border>
                                 <HorizontalStackLayout>
                                     <Label Text="Categorie: " FontSize="15" TextColor="{StaticResource Palette2}" />
@@ -52,6 +52,12 @@
                                     <VerticalStackLayout Padding="15" Spacing="10">
                                         <Label Text="Passaggi: " FontSize="15" TextColor="{StaticResource Palette3}" />
                                         <Label Text="{Binding Passaggi}" FontSize="15" FontAttributes="Bold" TextColor="{StaticResource Palette3}" />
+                                    </VerticalStackLayout>
+                                </Border>
+                                <Border StrokeShape="RoundRectangle 10" StrokeThickness="0" BackgroundColor="{StaticResource Palette2}">
+                                    <VerticalStackLayout Padding="15" Spacing="10">
+                                        <Label Text="Passaggi: " FontSize="15" TextColor="{StaticResource Palette3}" />
+                                         
                                     </VerticalStackLayout>
                                 </Border>
                             </VerticalStackLayout>
