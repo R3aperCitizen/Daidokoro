@@ -8,7 +8,7 @@
         <Button x:Name="button" BackgroundColor="Transparent" />
         <VerticalStackLayout>
             <Label x:Name="infoLabel" TextColor="{StaticResource Palette2}" HorizontalTextAlignment="Center" FontSize="20" />
-            <Label x:Name="valueLabel"  TextColor="{StaticResource Palette2}" HorizontalTextAlignment="Center" FontSize="30" />
+            <Label x:Name="valueLabel" TextColor="{StaticResource Palette2}" HorizontalTextAlignment="Center" FontSize="30" />
         </VerticalStackLayout>
     </Grid>
 </ContentView>
