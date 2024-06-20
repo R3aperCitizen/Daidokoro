@@ -215,7 +215,15 @@ namespace Daidokoro.ViewModel
             );
         }
 
-        public List<CategoriaNutrizionale> GetNutritionalCategory(int IdRicetta)
+        public List<CategoriaNutrizionale> GetNutritionalCategories()
+        {
+            return _dbService.GetData<CategoriaNutrizionale>(
+                "SELECT categoria_nutrizionale.*\r\n" +
+                "FROM categoria_nutrizionale"
+            );
+        }
+
+        public List<CategoriaNutrizionale> GetNutritionalCategories(int IdRicetta)
         {
             return _dbService.GetData<CategoriaNutrizionale>(
                 $"SELECT DISTINCT categoria_nutrizionale.*\r\n" +

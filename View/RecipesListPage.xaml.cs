@@ -12,8 +12,8 @@ public partial class RecipesListPage : ContentPage
     {
         InitializeComponent();
         _globals = globals;
-
         RefreshAll();
+        SetFilterMenuBehaviour();
     }
 
     protected override void OnNavigatedTo(NavigatedToEventArgs args)
@@ -46,6 +46,32 @@ public partial class RecipesListPage : ContentPage
         }
 
         Refresh();
+    }
+    private void Sdiff_ValueChanged(object sender, ValueChangedEventArgs e)
+    {
+        Vdiff.Text = Math.Round(Sdiff.Value).ToString();
+    }
+
+    private void Stime_ValueChanged(object sender, ValueChangedEventArgs e)
+    {
+        Vtime.Text = Math.Round(Stime.Value).ToString();
+    }
+
+    private void Bsubmt_Clicked(object sender, EventArgs e)
+    {
+
+    }
+
+    private void SetFilterMenuBehaviour()
+    {
+        Sdiff.Maximum = 5;
+        Sdiff.Minimum = 1;
+        Sdiff.Value = Stime.Minimum;
+        Stime.Maximum = 100;
+        Stime.Minimum = 5;
+        Stime.Value = Stime.Minimum;
+        var vari = _globals.GetNutritionalCategories();
+        Pcat.ItemsSource = (from c in vari select c.Nome).ToList();
     }
 
     private void RefreshAll()

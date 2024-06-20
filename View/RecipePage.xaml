@@ -56,8 +56,8 @@
                                 </Border>
                                 <Border StrokeShape="RoundRectangle 10" StrokeThickness="0" BackgroundColor="{StaticResource Palette2}">
                                     <VerticalStackLayout Padding="15" Spacing="10">
-                                        <Label Text="Passaggi: " FontSize="15" TextColor="{StaticResource Palette3}" />
-                                         
+                                        <Label Text="Commenti: " FontSize="15" TextColor="{StaticResource Palette3}" />
+                                        
                                     </VerticalStackLayout>
                                 </Border>
                             </VerticalStackLayout>

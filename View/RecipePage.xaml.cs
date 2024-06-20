@@ -48,7 +48,7 @@ public partial class RecipePage : ContentPage
     private string GetCategorieNutrizionali(int IdRicetta)
     {
         string categorie = "";
-        var categories = _globals.GetNutritionalCategory(IdRicetta);
+        var categories = _globals.GetNutritionalCategories(IdRicetta);
 
         foreach ( var item in categories ) { categorie += item.Nome + "; "; }
 
