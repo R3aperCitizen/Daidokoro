@@ -11,15 +11,42 @@
         <ScrollView>
             <VerticalStackLayout Padding="15,25,15,25" Spacing="25">
                 <Border StrokeShape="RoundRectangle 10" StrokeThickness="0">
-                    <SearchBar x:Name="SearchBar" Placeholder="Cerca Diete..." BackgroundColor="{StaticResource NavBar}" PlaceholderColor="White" TextChanged="SearchBar_TextChanged" />
+                        <SearchBar x:Name="SearchBar" Placeholder="Cerca Diete..." BackgroundColor="{StaticResource NavBar}" PlaceholderColor="White" TextChanged="SearchBar_TextChanged"  />
                 </Border>
-
+                <Border StrokeShape="RoundRectangle 10" >
+                    <VerticalStackLayout BackgroundColor="{StaticResource NavBar}">
+                        <HorizontalStackLayout HorizontalOptions="Center" VerticalOptions="Center" Margin="10,10,60,10">
+                            <Slider x:Name="Sdiff" WidthRequest="200" ValueChanged="Sdiff_ValueChanged"></Slider>
+                            <Label x:Name="Vdiff" Text="10" Margin="0,0,10,0" FontAttributes="Bold"/>
+                            <Label x:Name="Ldiff" Text="Difficoltà" FontAttributes="Bold"/>
+                        </HorizontalStackLayout>
+                        <HorizontalStackLayout HorizontalOptions="Center" VerticalOptions="Center" Margin="10,10,60,10">
+                            <Slider x:Name="Stime" WidthRequest="200" ValueChanged="Stime_ValueChanged"></Slider>
+                            <Label x:Name="Vtime" Text="10" Margin="0,0,10,0" FontAttributes="Bold"/>
+                            <Label x:Name="Ltime" Text="Tempo" FontAttributes="Bold"/>
+                        </HorizontalStackLayout>
+                        <HorizontalStackLayout HorizontalOptions="Center" VerticalOptions="Center" Margin="10,10,60,10">
+                            <Slider x:Name="Snric"  WidthRequest="170" ValueChanged="Snric_ValueChanged"></Slider>
+                            <Label x:Name="Vnric" Text="10" Margin="0,0,10,0" FontAttributes="Bold"/>
+                            <Label x:Name="Lnric" Text="Numero ricette" FontAttributes="Bold"/>
+                        </HorizontalStackLayout>
+                        <Border StrokeShape="RoundRectangle 10" WidthRequest="160" HeightRequest="45" Margin="10" >
+                            <Picker x:Name="Pcat" BackgroundColor="White" TextColor="Black" />
+                        </Border>
+                        <Border StrokeShape="RoundRectangle 10" WidthRequest="160" HeightRequest="45" >
+                            <Picker x:Name="Psort" BackgroundColor="White" />
+                        </Border>
+                        <Border StrokeShape="RoundRectangle 10" WidthRequest="120" HeightRequest="50" Margin="10">
+                            <Button x:Name="Bsubmt" Text="Submit" Clicked="Bsubmt_Clicked"/>
+                        </Border>
+                    </VerticalStackLayout>
+                </Border>
                 <CollectionView x:Name="DietsList">
-                    <CollectionView.ItemTemplate>
-                        <DataTemplate x:DataType="model:Collezione">
-                            <controls:CollectionMinimal/>
-                        </DataTemplate>
-                    </CollectionView.ItemTemplate>
+                <CollectionView.ItemTemplate>
+                    <DataTemplate x:DataType="model:Collezione">
+                        <controls:CollectionMinimal/>
+                    </DataTemplate>
+                </CollectionView.ItemTemplate>
                 </CollectionView>
             </VerticalStackLayout>
         </ScrollView>
