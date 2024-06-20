@@ -5,15 +5,8 @@
              xmlns:viewmodel="clr-namespace:Daidokoro.ViewModel"
              xmlns:model="clr-namespace:Daidokoro.Model"
              xmlns:controls="clr-namespace:Daidokoro.View.Controls"
-             xmlns:toolkit="http://schemas.microsoft.com/dotnet/2022/maui/toolkit"
              x:DataType="viewmodel:RecipePageViewModel"
              Title="RecipePage">
-
-    <ContentPage.Resources>
-        <ResourceDictionary>
-            <toolkit:ByteArrayToImageSourceConverter x:Key="ByteArrayToImageSourceConverter" />
-        </ResourceDictionary>
-    </ContentPage.Resources>
 
     <VerticalStackLayout  BackgroundColor="{StaticResource Background}">
         <controls:NavigationBar />
@@ -25,7 +18,7 @@
                             <VerticalStackLayout Spacing="15" HorizontalOptions="Center">
                                 <Label Text="{Binding Nome}" FontSize="30" TextColor="{StaticResource Palette2}" />
                                 <Border StrokeShape="RoundRectangle 10" StrokeThickness="0" HeightRequest="250" WidthRequest="350">
-                                    <Image BackgroundColor="{StaticResource Palette2}" Aspect="AspectFill" Source="{Binding Foto, Converter={StaticResource ByteArrayToImageSourceConverter}}"/>
+                                    <controls:ImageBlob Aspect="AspectFill" Source="{Binding Foto}" />
                                 </Border>
                                 <HorizontalStackLayout>
                                     <Label Text="Categorie: " FontSize="15" TextColor="{StaticResource Palette2}" />
