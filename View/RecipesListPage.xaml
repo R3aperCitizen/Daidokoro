@@ -19,28 +19,28 @@
                 <VerticalStackLayout BackgroundColor="{StaticResource NavBar}" Padding="20" Spacing="20">
                     <HorizontalStackLayout Spacing="20">
                         <Label WidthRequest="120" Text="Difficoltà: " FontAttributes="Bold" />
-                        <Slider x:Name="Sdiff" WidthRequest="100" ValueChanged="Sdiff_ValueChanged" />
-                        <Label x:Name="Vdiff" FontAttributes="Bold" VerticalOptions="Center" />
+                        <Slider x:Name="DifficultySlider" WidthRequest="100" ValueChanged="DifficultySlider_ValueChanged" />
+                        <Label x:Name="DifficultyValue" FontAttributes="Bold" VerticalOptions="Center" />
                     </HorizontalStackLayout>
                     <HorizontalStackLayout Spacing="20">
                         <Label WidthRequest="120" Text="Tempo di preparazione: " FontAttributes="Bold" />
-                        <Slider x:Name="Stime" WidthRequest="100" ValueChanged="Stime_ValueChanged" />
-                        <Label x:Name="Vtime" FontAttributes="Bold" VerticalOptions="Center" />
+                        <Slider x:Name="TimeSlider" WidthRequest="100" ValueChanged="TimeSlider_ValueChanged" />
+                        <Label x:Name="TimeValue" FontAttributes="Bold" VerticalOptions="Center" />
                     </HorizontalStackLayout>
                     <HorizontalStackLayout Spacing="25">
                         <Label WidthRequest="120" Text="Categoria Nutrizionale: " FontAttributes="Bold" VerticalTextAlignment="Center" />
                         <Border StrokeShape="RoundRectangle 10" StrokeThickness="2" Stroke="White" WidthRequest="120" >
-                            <Picker x:Name="Pcat" TextColor="White" FontAttributes="Bold" />
+                            <Picker x:Name="CategoriesPicker" TextColor="White" FontAttributes="Bold" />
                         </Border>
                     </HorizontalStackLayout>
                     <HorizontalStackLayout Spacing="25">
                         <Label WidthRequest="120" Text="Ordina per: " FontAttributes="Bold" VerticalTextAlignment="Center" />
                         <Border StrokeShape="RoundRectangle 10" StrokeThickness="2" Stroke="White" WidthRequest="120">
-                            <Picker x:Name="Psort" TextColor="White" FontAttributes="Bold" />
+                            <Picker x:Name="SortPicker" TextColor="White" FontAttributes="Bold" />
                         </Border>
                     </HorizontalStackLayout>
                     <Border StrokeShape="RoundRectangle 10">
-                        <Button x:Name="Bsubmt" Text="Imposta filtri" BackgroundColor="{StaticResource Palette2}" TextColor="{StaticResource Palette3}" FontAttributes="Bold" Clicked="SetFilters"/>
+                        <Button Text="Imposta filtri" BackgroundColor="{StaticResource Palette2}" TextColor="{StaticResource Palette3}" FontAttributes="Bold" Clicked="SetFilters"/>
                     </Border>
                 </VerticalStackLayout>
             </Border>

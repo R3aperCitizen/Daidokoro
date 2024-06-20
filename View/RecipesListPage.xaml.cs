@@ -53,14 +53,14 @@ public partial class RecipesListPage : ContentPage
         FilterMenuButton.IsVisible = false;
     }
 
-    private void Sdiff_ValueChanged(object sender, ValueChangedEventArgs e)
+    private void DifficultySlider_ValueChanged(object sender, ValueChangedEventArgs e)
     {
-        Vdiff.Text = Math.Round(Sdiff.Value).ToString();
+        DifficultyValue.Text = Math.Round(DifficultySlider.Value).ToString();
     }
 
-    private void Stime_ValueChanged(object sender, ValueChangedEventArgs e)
+    private void TimeSlider_ValueChanged(object sender, ValueChangedEventArgs e)
     {
-        Vtime.Text = Math.Round(Stime.Value).ToString();
+        TimeValue.Text = Math.Round(TimeSlider.Value).ToString();
     }
 
     private void SetFilters(object sender, EventArgs e)
@@ -71,14 +71,12 @@ public partial class RecipesListPage : ContentPage
 
     private void SetFilterMenuBehaviour()
     {
-        Sdiff.Maximum = 5;
-        Sdiff.Minimum = 1;
-        Sdiff.Value = Stime.Minimum;
-        Stime.Maximum = 100;
-        Stime.Minimum = 5;
-        Stime.Value = Stime.Minimum;
-        var vari = _globals.GetNutritionalCategories();
-        Pcat.ItemsSource = (from c in vari select c.Nome).ToList();
+        DifficultySlider.Maximum = 5;
+        DifficultySlider.Minimum = 1;
+        TimeSlider.Maximum = 100;
+        TimeSlider.Minimum = 5;
+        List<Model.CategoriaNutrizionale> categories = _globals.GetNutritionalCategories();
+        CategoriesPicker.ItemsSource = (from c in categories select c.Nome).ToList();
     }
 
     private void RefreshAll()
