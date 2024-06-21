@@ -18,25 +18,28 @@
             <Border x:Name="FilterMenu" StrokeShape="RoundRectangle 10" StrokeThickness="0" Margin="0,-50,0,0" IsVisible="False">
                 <VerticalStackLayout BackgroundColor="{StaticResource NavBar}" Padding="20" Spacing="20">
                     <HorizontalStackLayout Spacing="20">
-                        <Label WidthRequest="120" Text="Difficoltà: " FontAttributes="Bold" />
+                        <Label WidthRequest="120" Text="Difficoltà: " FontAttributes="Bold"/>
                         <Slider x:Name="DifficultySlider" WidthRequest="100" ValueChanged="DifficultySlider_ValueChanged" />
                         <Label x:Name="DifficultyValue" FontAttributes="Bold" VerticalOptions="Center" />
+                        <CheckBox x:Name="CheckDifficulty"/>
                     </HorizontalStackLayout>
                     <HorizontalStackLayout Spacing="20">
                         <Label WidthRequest="120" Text="Tempo di preparazione: " FontAttributes="Bold" />
                         <Slider x:Name="TimeSlider" WidthRequest="100" ValueChanged="TimeSlider_ValueChanged" />
                         <Label x:Name="TimeValue" FontAttributes="Bold" VerticalOptions="Center" />
+                        <CheckBox x:Name="CheckTime"/>
                     </HorizontalStackLayout>
                     <HorizontalStackLayout Spacing="25">
                         <Label WidthRequest="120" Text="Categoria Nutrizionale: " FontAttributes="Bold" VerticalTextAlignment="Center" />
                         <Border StrokeShape="RoundRectangle 10" StrokeThickness="2" Stroke="White" WidthRequest="120" >
                             <Picker x:Name="CategoriesPicker" TextColor="White" FontAttributes="Bold" />
                         </Border>
+                        <CheckBox x:Name="CheckCategories"/>
                     </HorizontalStackLayout>
                     <HorizontalStackLayout Spacing="25">
                         <Label WidthRequest="120" Text="Ordina per: " FontAttributes="Bold" VerticalTextAlignment="Center" />
                         <Border StrokeShape="RoundRectangle 10" StrokeThickness="2" Stroke="White" WidthRequest="120">
-                            <Picker x:Name="SortPicker" TextColor="White" FontAttributes="Bold" />
+                            <Picker x:Name="SortPicker" TextColor="White" FontAttributes="Bold" SelectedIndexChanged="SortPicker_SelectedIndexChanged" />
                         </Border>
                     </HorizontalStackLayout>
                     <Border StrokeShape="RoundRectangle 10">

@@ -1,4 +1,5 @@
 ﻿using Daidokoro.Model;
+using Windows.UI.WebUI;
 
 namespace Daidokoro.ViewModel
 {
@@ -67,22 +68,24 @@ namespace Daidokoro.ViewModel
             );
         }
 
-        public List<Ricetta> GetRecipesByDifficulty(int Difficolta)
+        public List<Ricetta> GetRecipesByDifficulty(int Difficolta, string orderby)
         {
             return _dbService.GetData<Ricetta>(
                 $"SELECT *\r\n" +
                 $"FROM ricetta\r\n" +
-                $"WHERE ricetta.Difficolta = {Difficolta}"
+                $"WHERE ricetta.Difficolta = {Difficolta}" +
+                $"ORDER BY {orderby}"
             );
         }
 
-        public List<Ricetta> GetRecipesByTime(int Tempo)
+        public List<Ricetta> GetRecipesByTime(int Tempo, string orderby)
         {
             return _dbService.GetData<Ricetta>(
                 $"SELECT *\r\n" +
                 $"FROM ricetta\r\n" +
-                $"WHERE ricetta.Tempo = {Tempo}"
-            );
+                $"WHERE ricetta.Tempo = {Tempo}" +
+                $"ORDER BY {orderby}"
+            ); ;
         }
 
         public Ricetta GetRecipeById(int IdRicetta)
@@ -170,7 +173,7 @@ namespace Daidokoro.ViewModel
             );
         }
 
-        public List<Ricetta> GetSearchedRecipes(string text)
+        public List<Ricetta> GetSearchedRecipes(string text, string orderby)
         {
             return _dbService.GetData<Ricetta>(
                 $"CREATE VIEW r1 AS\r\n" +
@@ -186,7 +189,7 @@ namespace Daidokoro.ViewModel
                 $"WHERE LOWER(categoria_nutrizionale.Nome) LIKE \"%{text}%\"\r\n" +
                 $"OR LOWER(ingrediente.Nome) LIKE \"%{text}%\"\r\n" +
                 $"OR LOWER(r1.Nome) LIKE \"%{text}%\"\r\n" +
-                $"ORDER BY NumeroLike DESC\r\n" +
+                $"ORDER BY {orderby} \r\n" +
                 $"LIMIT 10;\r\n" +
                 $"DROP VIEW r1;"
             );
@@ -244,5 +247,6 @@ namespace Daidokoro.ViewModel
                 $"WHERE IdRicetta = {IdRicetta};"
             );
         }
+
     }
 }
