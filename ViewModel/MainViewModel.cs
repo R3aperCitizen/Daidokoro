@@ -1,5 +1,4 @@
 ﻿using Daidokoro.Model;
-using Windows.UI.WebUI;
 
 namespace Daidokoro.ViewModel
 {
