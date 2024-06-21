@@ -6,21 +6,21 @@
 
     <Border StrokeShape="RoundRectangle 10" StrokeThickness="0" Margin="15,5,15,5" HeightRequest="300">
         <Grid>
-            <Button AutomationId="{Binding IdRicetta, FallbackValue=0}" x:Name="RecipeId" BackgroundColor="Transparent" Clicked="GoToRecipePage" />
-            <controls:ImageBlob BackgroundColor="{StaticResource Palette2}" Aspect="AspectFill" Source="{Binding Foto}" />
+            <Button x:Name="button" BackgroundColor="Transparent" Clicked="GoToRecipePage" />
+            <controls:ImageBlob x:Name="imageBlob" BackgroundColor="{StaticResource Palette2}" Aspect="AspectFill" />
             <StackLayout BackgroundColor="#55000000" />
             <VerticalStackLayout HorizontalOptions="Center" Padding="20" Spacing="150">
-                <Label Text="{Binding Nome, FallbackValue='null'}" FontAttributes="Bold" FontSize="40" HorizontalTextAlignment="Center" />
+                <Label x:Name="titleLabel" FontAttributes="Bold" FontSize="40" HorizontalTextAlignment="Center" />
                 <HorizontalStackLayout HorizontalOptions="Center" Spacing="50">
                     <VerticalStackLayout>
                         <Label Text="Minuti: " TextColor="White" FontAttributes="Bold" FontSize="15" HorizontalTextAlignment="Center" />
-                        <Label Text="{Binding Tempo, FallbackValue='null'}" TextColor="{StaticResource Palette4}" FontAttributes="Bold" FontSize="20" HorizontalTextAlignment="Center" />
+                        <Label x:Name="timeLabel" TextColor="{StaticResource Palette4}" FontAttributes="Bold" FontSize="20" HorizontalTextAlignment="Center" />
                     </VerticalStackLayout>
                     <VerticalStackLayout>
                         <Label Text="Difficoltà: " TextColor="White" FontAttributes="Bold" FontSize="15" HorizontalTextAlignment="Center" />
-                        <Label Text="{Binding DifficoltaStella, FallbackValue='null'}" FontSize="20" HorizontalTextAlignment="Center" />
+                        <Label x:Name="difficultyLabel" FontSize="20" HorizontalTextAlignment="Center" />
                     </VerticalStackLayout>
-                    <Label TextColor="{StaticResource Palette4}" FontAttributes="Bold" FontSize="20" Text="{Binding NumeroLike, FallbackValue='null', StringFormat='{0} ❤️'}" HorizontalTextAlignment="Center" VerticalOptions="Center" />
+                    <Label x:Name="likesLabel" TextColor="{StaticResource Palette4}" FontAttributes="Bold" FontSize="20" HorizontalTextAlignment="Center" VerticalOptions="Center" />
                 </HorizontalStackLayout>
             </VerticalStackLayout>
         </Grid>
