@@ -17,7 +17,7 @@ public partial class RecipeMinimal : ContentView
     }
 
     public static readonly BindableProperty TitleProperty = 
-        BindableProperty.Create(nameof(Title), typeof(string), typeof(RecipeMinimal), propertyChanged: OnTitleChanged);
+        BindableProperty.Create(nameof(Title), typeof(string), typeof(RecipeMinimal), "Loading...", propertyChanged: OnTitleChanged);
     private static void OnTitleChanged(BindableObject bindable, object oldValue, object newValue)
     {
         var control = (RecipeMinimal)bindable;
@@ -30,7 +30,7 @@ public partial class RecipeMinimal : ContentView
     }
 
     public static readonly BindableProperty TimeProperty = 
-        BindableProperty.Create(nameof(Time), typeof(int), typeof(RecipeMinimal), propertyChanged: OnTimeChanged);
+        BindableProperty.Create(nameof(Time), typeof(int), typeof(RecipeMinimal), 0, propertyChanged: OnTimeChanged);
     private static void OnTimeChanged(BindableObject bindable, object oldValue, object newValue)
     {
         var control = (RecipeMinimal)bindable;
@@ -43,7 +43,7 @@ public partial class RecipeMinimal : ContentView
     }
 
     public static readonly BindableProperty DifficultyProperty = 
-        BindableProperty.Create(nameof(Difficulty), typeof(int), typeof(RecipeMinimal), propertyChanged: OnDifficultyChanged);
+        BindableProperty.Create(nameof(Difficulty), typeof(int), typeof(RecipeMinimal), 0, propertyChanged: OnDifficultyChanged);
     private static void OnDifficultyChanged(BindableObject bindable, object oldValue, object newValue)
     {
         var control = (RecipeMinimal)bindable;
@@ -57,7 +57,7 @@ public partial class RecipeMinimal : ContentView
     }
 
     public static readonly BindableProperty LikesProperty = 
-        BindableProperty.Create(nameof(Likes), typeof(int), typeof(RecipeMinimal), propertyChanged: OnLikesChanged);
+        BindableProperty.Create(nameof(Likes), typeof(int), typeof(RecipeMinimal), -1, propertyChanged: OnLikesChanged);
     private static void OnLikesChanged(BindableObject bindable, object oldValue, object newValue)
     {
         var control = (RecipeMinimal)bindable;
@@ -85,11 +85,6 @@ public partial class RecipeMinimal : ContentView
 	public RecipeMinimal()
 	{
 		InitializeComponent();
-
-        titleLabel.Text = "null";
-        timeLabel.Text = "null";
-        difficultyLabel.Text = "null";
-        likesLabel.Text = "null";
 	}
 
     private async void GoToRecipePage(object sender, EventArgs e)

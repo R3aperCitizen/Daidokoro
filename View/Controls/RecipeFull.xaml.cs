@@ -7,7 +7,7 @@ public partial class RecipeFull : ContentView
     private const string TIME_UNIT = "min";
 
     public static readonly BindableProperty IdProperty =
-        BindableProperty.Create(nameof(Id), typeof(int), typeof(RecipeFull));
+        BindableProperty.Create(nameof(Id), typeof(int), typeof(RecipeFull), 0);
     public new int Id
     {
         get => (int)GetValue(IdProperty);
@@ -15,7 +15,7 @@ public partial class RecipeFull : ContentView
     }
 
     public static readonly BindableProperty TitleProperty =
-        BindableProperty.Create(nameof(Title), typeof(string), typeof(RecipeFull), propertyChanged: OnTitleChanged);
+        BindableProperty.Create(nameof(Title), typeof(string), typeof(RecipeFull), "Loading...", propertyChanged: OnTitleChanged);
     private static void OnTitleChanged(BindableObject bindable, object oldValue, object newValue)
     {
         var control = (RecipeFull)bindable;
@@ -28,7 +28,7 @@ public partial class RecipeFull : ContentView
     }
 
     public static readonly BindableProperty TimeProperty =
-        BindableProperty.Create(nameof(Time), typeof(int), typeof(RecipeFull), propertyChanged: OnTimeChanged);
+        BindableProperty.Create(nameof(Time), typeof(int), typeof(RecipeFull), 0, propertyChanged: OnTimeChanged);
     private static void OnTimeChanged(BindableObject bindable, object oldValue, object newValue)
     {
         var control = (RecipeFull)bindable;
@@ -41,7 +41,7 @@ public partial class RecipeFull : ContentView
     }
 
     public static readonly BindableProperty DifficultyProperty =
-        BindableProperty.Create(nameof(Difficulty), typeof(int), typeof(RecipeFull), propertyChanged: OnDifficultyChanged);
+        BindableProperty.Create(nameof(Difficulty), typeof(int), typeof(RecipeFull), 0, propertyChanged: OnDifficultyChanged);
     private static void OnDifficultyChanged(BindableObject bindable, object oldValue, object newValue)
     {
         var control = (RecipeFull)bindable;
@@ -55,7 +55,7 @@ public partial class RecipeFull : ContentView
     }
 
     public static readonly BindableProperty LikesProperty =
-        BindableProperty.Create(nameof(Likes), typeof(int), typeof(RecipeFull), propertyChanged: OnLikesChanged);
+        BindableProperty.Create(nameof(Likes), typeof(int), typeof(RecipeFull), -1, propertyChanged: OnLikesChanged);
     private static void OnLikesChanged(BindableObject bindable, object oldValue, object newValue)
     {
         var control = (RecipeFull)bindable;
@@ -83,11 +83,6 @@ public partial class RecipeFull : ContentView
     public RecipeFull()
 	{
 		InitializeComponent();
-
-        titleLabel.Text = "null";
-        timeLabel.Text = "null";
-        difficultyLabel.Text = "null";
-        likesLabel.Text = "null";
     }    
 
     private async void GoToRecipePage(object sender, EventArgs e)
