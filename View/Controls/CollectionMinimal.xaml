@@ -9,13 +9,15 @@
             <Button x:Name="button" BackgroundColor="Transparent" Clicked="GoToCollectionDietPage" />
             <HorizontalStackLayout HeightRequest="100" BackgroundColor="{StaticResource Buttons}">
                 <controls:ImageBlob x:Name="imageBlob" BackgroundColor="{StaticResource Palette1}" WidthRequest="125" Aspect="AspectFill" />
-                <VerticalStackLayout Margin="10" Spacing="10">
-                    <Label x:Name="titleLabel" FontSize="25" WidthRequest="150" TextColor="{StaticResource Text}"/>
-                    <HorizontalStackLayout WidthRequest="150" Spacing="20">
-                        <VerticalStackLayout>
-                            <Label FontSize="10" TextColor="{StaticResource Text}" Text="Categoria:" />
-                            <Label x:Name="categoryLabel" FontSize="15" TextColor="{StaticResource Text}" />
-                        </VerticalStackLayout>
+                <VerticalStackLayout Padding="10" Spacing="5">
+                    <Label x:Name="titleLabel" FontSize="25" TextColor="{StaticResource Text}" />
+                    <HorizontalStackLayout Spacing="10">
+                        <Label FontSize="10" TextColor="{StaticResource Text}" Text="Data Creazione:" />
+                        <Label x:Name="dateLabel" FontSize="10" TextColor="{StaticResource Text}" />
+                    </HorizontalStackLayout>
+                    <HorizontalStackLayout Spacing="10">
+                        <Label x:Name="categoryTitle" FontSize="10" TextColor="{StaticResource Text}" Text="Categoria:" />
+                        <Label x:Name="categoryLabel" FontSize="10" TextColor="{StaticResource Text}" />
                     </HorizontalStackLayout>
                 </VerticalStackLayout>
             </HorizontalStackLayout>

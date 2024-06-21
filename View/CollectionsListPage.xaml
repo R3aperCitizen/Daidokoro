@@ -19,7 +19,9 @@
                         <DataTemplate x:DataType="model:Collezione">
                             <controls:CollectionMinimal Id="{Binding IdCollezione}"
                                                         Title="{Binding Nome}"
-                                                        Category="{Binding NomeCategoria}"/>
+                                                        Date="{Binding DataCreazioneString}"
+                                                        Category=""
+                                                        Image="{Binding FotoRicetta}"/>
                         </DataTemplate>
                     </CollectionView.ItemTemplate>
                 </CollectionView>
