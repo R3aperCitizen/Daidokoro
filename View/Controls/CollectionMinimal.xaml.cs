@@ -36,12 +36,29 @@ public partial class CollectionMinimal : ContentView
         set => SetValue(TitleProperty, value);
     }
 
+    public static readonly BindableProperty DateProperty =
+        BindableProperty.Create(nameof(Date), typeof(string), typeof(CollectionMinimal), propertyChanged: OnDateChanged);
+    private static void OnDateChanged(BindableObject bindable, object oldValue, object newValue)
+    {
+        var control = (CollectionMinimal)bindable;
+        control.dateLabel.Text = (string)newValue;
+    }
+    public string Date
+    {
+        get => (string)GetValue(DateProperty);
+        set => SetValue(DateProperty, value);
+    }
+
     public static readonly BindableProperty CategoryProperty =
         BindableProperty.Create(nameof(Category), typeof(string), typeof(CollectionMinimal), propertyChanged: OnCategoryChanged);
     private static void OnCategoryChanged(BindableObject bindable, object oldValue, object newValue)
     {
         var control = (CollectionMinimal)bindable;
         control.categoryLabel.Text = (string)newValue;
+        if (control.categoryLabel.Text.Equals(string.Empty)) 
+        {
+            control.categoryTitle.IsVisible = false;
+        }
     }
     public string Category
     {
