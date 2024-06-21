@@ -6,16 +6,18 @@
 
     <Border StrokeShape="RoundRectangle 10" StrokeThickness="0" Margin="0,15,0,15">
         <Grid>
-            <Button AutomationId="{Binding IdCollezione, FallbackValue=0}" x:Name="CollectionId" BackgroundColor="Transparent" Clicked="GoToCollectionDietPage" />
+            <Button x:Name="button" BackgroundColor="Transparent" Clicked="GoToCollectionDietPage" />
             <HorizontalStackLayout HeightRequest="100" BackgroundColor="{StaticResource Buttons}">
-                <controls:ImageBlob BackgroundColor="{StaticResource Palette1}" WidthRequest="125" Aspect="AspectFill" Source="{Binding FotoRicetta}" />
-                <VerticalStackLayout Margin="10" Spacing="10">
-                    <Label FontSize="25" WidthRequest="150" TextColor="{StaticResource Text}" Text="{Binding Nome}"/>
-                    <HorizontalStackLayout WidthRequest="150" Spacing="20">
-                        <VerticalStackLayout>
-                            <Label FontSize="10" TextColor="{StaticResource Text}" Text="Categoria:" />
-                            <Label FontSize="15" TextColor="{StaticResource Text}" Text="{Binding NomeCategoria, FallbackValue='null'}" />
-                        </VerticalStackLayout>
+                <controls:ImageBlob x:Name="imageBlob" BackgroundColor="{StaticResource Palette1}" WidthRequest="125" Aspect="AspectFill" />
+                <VerticalStackLayout Padding="10" Spacing="5">
+                    <Label x:Name="titleLabel" FontSize="25" TextColor="{StaticResource Text}" />
+                    <HorizontalStackLayout Spacing="10">
+                        <Label FontSize="10" TextColor="{StaticResource Text}" Text="Data Creazione:" />
+                        <Label x:Name="dateLabel" FontSize="10" TextColor="{StaticResource Text}" />
+                    </HorizontalStackLayout>
+                    <HorizontalStackLayout Spacing="10">
+                        <Label x:Name="categoryTitle" FontSize="10" TextColor="{StaticResource Text}" Text="Categoria:" />
+                        <Label x:Name="categoryLabel" FontSize="10" TextColor="{StaticResource Text}" />
                     </HorizontalStackLayout>
                 </VerticalStackLayout>
             </HorizontalStackLayout>

@@ -25,6 +25,7 @@
                             <controls:InfoButton InfoText="Ricette" ValueText="{Binding RecipeCount}" Clicked="RecipesInfoButton_Clicked" />
                         </HorizontalStackLayout>
                         <BoxView Margin="15" HeightRequest="2" Color="{StaticResource White}"/>
+                        <controls:RecipeMinimal />
                     </VerticalStackLayout>
                 </DataTemplate>    
             </CollectionView.ItemTemplate>

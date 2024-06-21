@@ -17,7 +17,11 @@
                 <CollectionView x:Name="CollectionsList">
                     <CollectionView.ItemTemplate>
                         <DataTemplate x:DataType="model:Collezione">
-                            <controls:CollectionMinimal />
+                            <controls:CollectionMinimal Id="{Binding IdCollezione}"
+                                                        Title="{Binding Nome}"
+                                                        Date="{Binding DataCreazioneString}"
+                                                        Category=""
+                                                        Image="{Binding FotoRicetta}"/>
                         </DataTemplate>
                     </CollectionView.ItemTemplate>
                 </CollectionView>

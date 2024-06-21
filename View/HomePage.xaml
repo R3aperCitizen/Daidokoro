@@ -14,7 +14,12 @@
             <CollectionView x:Name="MonthRecipe">
                 <CollectionView.ItemTemplate>
                     <DataTemplate x:DataType="model:Ricetta">
-                        <controls:RecipeFull />
+                        <controls:RecipeFull Id="{Binding IdRicetta}"
+                                             Image="{Binding Foto}"
+                                             Title="{Binding Nome}"
+                                             Time="{Binding Tempo}"
+                                             Difficulty="{Binding Difficolta}"
+                                             Likes="{Binding NumeroLike}" />
                     </DataTemplate>
                 </CollectionView.ItemTemplate>
             </CollectionView>

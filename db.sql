@@ -118,7 +118,7 @@ CREATE TABLE IF NOT EXISTS valutazione(
     IdValutazione INT NOT NULL AUTO_INCREMENT,
     Voto TINYINT(1) NOT NULL,
     DataValutazione DATE NOT NULL,
-    Commento VARCHAR(255),
+    Commento VARCHAR(255) DEFAULT '',
     IdUtente INT NOT NULL,
     IdRicetta INT,
     IdCollezione INT,
