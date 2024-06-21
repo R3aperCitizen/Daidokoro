@@ -88,9 +88,10 @@ namespace Daidokoro.ViewModel
         public Ricetta GetRecipeById(int IdRicetta)
         {
             return _dbService.GetData<Ricetta>(
-                $"SELECT *\r\n" +
+                $"SELECT ricetta.*, IFNULL(ROUND(((SUM(CASE WHEN Voto = 1 THEN 1 ELSE 0 END) / COUNT(Voto)) * 100), 1), 0) AS VotiPositivi, IFNULL(ROUND(((SUM(CASE WHEN Voto = 0 THEN 1 ELSE 0 END) / COUNT(Voto)) * 100), 1), 0) AS VotiNegativi\r\n" +
                 $"FROM ricetta\r\n" +
-                $"WHERE IdRicetta = {IdRicetta};"
+                $"LEFT JOIN valutazione ON valutazione.IdRicetta = ricetta.IdRicetta\r\n" +
+                $"WHERE ricetta.IdRicetta = {IdRicetta};"
             )[0];
         }
 

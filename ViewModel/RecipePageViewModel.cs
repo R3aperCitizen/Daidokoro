@@ -9,11 +9,11 @@ namespace Daidokoro.ViewModel
         [ObservableProperty]
         string idRicetta;
 
-        IConnectivity connectivity;
+        IConnectivity _connectivity;
 
         public RecipePageViewModel(IConnectivity connectivity)
         {
-            this.connectivity = connectivity;
+            _connectivity = connectivity;
         }
 
         [RelayCommand]

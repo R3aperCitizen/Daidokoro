@@ -2,7 +2,6 @@ using Daidokoro.ViewModel;
 using System.ComponentModel;
 using Newtonsoft.Json;
 using System.Diagnostics;
-using Microsoft.Maui.Controls;
 
 namespace Daidokoro.View;
 
@@ -17,7 +16,7 @@ public partial class RecipePage : ContentPage
 	{
         InitializeComponent();
         _globals = globals;
-        SetScrollBehaviour();
+        SetBehaviours();
 
         BindingContext = vm;
         vm.PropertyChanged += OnPropertyChanged;
@@ -34,6 +33,7 @@ public partial class RecipePage : ContentPage
         if (ricetta.IdRicetta != 0)
         {
             RefreshAll();
+            SetBehaviours();
         }
     }
 
@@ -43,9 +43,10 @@ public partial class RecipePage : ContentPage
         ricetta = _globals.GetRecipeById(IdRicetta);
         ricetta.Tags = GetCategorieNutrizionali(IdRicetta);
         ricetta.Ingredienti = _globals.GetIngredients(IdRicetta);
-        Ratings.ItemsSource = _globals.GetRatingsByRecipe(IdRicetta);
         ParsePassaggiJSON();
         Recipe.ItemsSource = new List<Model.Ricetta>() { ricetta };
+
+        Ratings.ItemsSource = _globals.GetRatingsByRecipe(IdRicetta);
     }
 
     private string GetCategorieNutrizionali(int IdRicetta)
@@ -53,7 +54,7 @@ public partial class RecipePage : ContentPage
         string categorie = "";
         var categories = _globals.GetNutritionalCategories(IdRicetta);
 
-        foreach ( var item in categories ) { categorie += item.Nome + "; "; }
+        foreach (var item in categories) { categorie += item.Nome + "; "; }
 
         return categorie;
     }
@@ -63,10 +64,10 @@ public partial class RecipePage : ContentPage
         string formattedPassaggi = string.Empty;
         try
         {
-            List<string> passaggi = JsonConvert.DeserializeObject<List<string>>(ricetta.Passaggi);
+            List<string> passaggi = JsonConvert.DeserializeObject<List<string>>(ricetta.Passaggi)!;
             for (int i=0; i<passaggi.Count(); i++)
             {
-                formattedPassaggi += (i+1).ToString() + ". " 
+                formattedPassaggi += (i + 1).ToString() + ". "
                     + passaggi[i] + "\r\n";
             }
         }
@@ -77,11 +78,13 @@ public partial class RecipePage : ContentPage
         ricetta.Passaggi = formattedPassaggi;
     }
 
-    private void SetScrollBehaviour()
+    private void SetBehaviours()
     {
         var screenMetrics = DeviceDisplay.MainDisplayInfo;
         var screenHeight = screenMetrics.Height;
+        var screenWidth = screenMetrics.Width;
         var screenDensity = screenMetrics.Density;
+
         MainScroll.HeightRequest = (screenHeight / screenDensity) - 150;
     }
 
