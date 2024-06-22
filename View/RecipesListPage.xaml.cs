@@ -147,8 +147,6 @@ public partial class RecipesListPage : ContentPage
 
     private void SortPicker_SelectedIndexChanged(object sender, EventArgs e)
     {
-        switch (SortPicker.SelectedIndex) {
-            case 0: 
-        }
+
     }
 }
