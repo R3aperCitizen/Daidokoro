@@ -20,24 +20,25 @@ public partial class CollectionDietPage : ContentPage
         collezione = new();
     }
 
-    private void OnPropertyChanged(object? sender, PropertyChangedEventArgs e)
+    private async void OnPropertyChanged(object? sender, PropertyChangedEventArgs e)
     {
-        RefreshAll();
+        await RefreshAll();
     }
 
-    protected override void OnNavigatedTo(NavigatedToEventArgs args)
+    protected async override void OnNavigatedTo(NavigatedToEventArgs args)
     {
         if (ricette.Any() && collezione.IdCollezione != 0)
         {
-            RefreshAll();
+            await RefreshAll();
         }
     }
 
-    private void SetCollezione(string Id)
+    private async Task SetCollezione(string Id)
     {
         int IdCollezione = int.Parse(Id);
-        collezione = _globals.GetCollectionById(IdCollezione);
-        ricette = _globals.GetRecipesByCollection(IdCollezione);
+        List<Model.Collezione> c = await _globals.GetCollectionById(IdCollezione);
+        collezione = c[0];
+        ricette = await _globals.GetRecipesByCollection(IdCollezione);
         CollectionName.Text = collezione.Nome;
         CollectionDescription.Text = collezione.Descrizione;
         CollectionCategory.Text = collezione.NomeCategoria;
@@ -45,10 +46,10 @@ public partial class CollectionDietPage : ContentPage
         RecipesList.ItemsSource = ricette;
     }
 
-    private void RefreshAll()
+    private async Task RefreshAll()
     {
         ricette = new();
         collezione = new();
-        SetCollezione(((CollectionDietPageViewModel)BindingContext).IdCollezione);
+        await SetCollezione(((CollectionDietPageViewModel)BindingContext).IdCollezione);
     }
 }

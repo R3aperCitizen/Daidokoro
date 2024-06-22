@@ -24,13 +24,11 @@ namespace Daidokoro.View
                 Model.DBCredentials dbs = _configuration.GetRequiredSection("DBCredentials").Get<Model.DBCredentials>()!;
                 bool connection = _globals.InitDBSettings(dbs);
             }
-
-            SetMonthRecipes();
         }
 
-        protected override void OnNavigatedTo(NavigatedToEventArgs args)
+        protected async override void OnNavigatedTo(NavigatedToEventArgs args)
         {
-            SetMonthRecipes();
+            await SetMonthRecipes();
         }
 
         private void SetScrollBehaviour()
@@ -41,9 +39,9 @@ namespace Daidokoro.View
             MainScroll.HeightRequest = (screenHeight / screenDensity) - 250;
         }
 
-        private void SetMonthRecipes()
+        private async Task SetMonthRecipes()
         {
-            monthRecipes = _globals.GetMonthRecipes();
+            monthRecipes = await _globals.GetMonthRecipes();
             MonthRecipe.ItemsSource = monthRecipes;
         }
     }

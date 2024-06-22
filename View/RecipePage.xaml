@@ -18,8 +18,8 @@
                 </Border>
                 <Border StrokeShape="RoundRectangle 10" StrokeThickness="0" HeightRequest="50">
                     <HorizontalStackLayout>
-                        <Button x:Name="PositiveVoteButton" Clicked="VotePositive" TextColor="{StaticResource Palette2}" FontSize="15" FontAttributes="Bold" BackgroundColor="#77e835" CornerRadius="0" />
-                        <Button x:Name="NegativeVoteButton" Clicked="VoteNegative" TextColor="{StaticResource Palette2}" FontSize="15" FontAttributes="Bold" BackgroundColor="#c79863" CornerRadius="0" />
+                        <Button x:Name="PositiveVoteButton" Clicked="VotePositive" WidthRequest="175" TextColor="{StaticResource Palette2}" FontSize="15" FontAttributes="Bold" BackgroundColor="#77e835" CornerRadius="0" />
+                        <Button x:Name="NegativeVoteButton" Clicked="VoteNegative" WidthRequest="175" TextColor="{StaticResource Palette2}" FontSize="15" FontAttributes="Bold" BackgroundColor="#c79863" CornerRadius="0" />
                     </HorizontalStackLayout>
                 </Border>
                 <HorizontalStackLayout>

@@ -13,9 +13,9 @@ public partial class UserPage : ContentPage
         _globals = globals;
 	}
 
-    protected override void OnAppearing()
+    protected async override void OnAppearing()
     {
-        UserInfo.ItemsSource = _globals.GetUserById(1);
+        UserInfo.ItemsSource = await _globals.GetUserById(1);
     }
 
     private async void LikesInfoButton_Clicked(object sender, EventArgs e)

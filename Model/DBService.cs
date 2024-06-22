@@ -40,84 +40,92 @@ namespace Daidokoro.Model
         }
 
         // Checks if a given DB table give at least 1 row in the query with the given condition
-        public bool ExistInTable(string query)
+        public async Task<bool> ExistInTable(string query)
         {
             bool exist = false;
             using (MySqlConnection connection = new(connectionString))
-            using (MySqlCommand command = new(query, connection))
             {
-                connection.Open();
-                exist = Convert.ToInt32(command.ExecuteScalar()) > 0;
-                connection.Close();
+                await connection.OpenAsync();
+                using (MySqlCommand command = new(query, connection))
+                {
+                    exist = Convert.ToInt32(await command.ExecuteScalarAsync()) > 0;
+                    await connection.CloseAsync();
+                }
             }
 
             return exist;
         }
 
         // Get all the data from a generic DB table
-        public List<T> GetData<T>(string query) where T : new()
+        public async Task<List<T>> GetData<T>(string query) where T : new()
         {
             List<T> results = [];
 
             using (MySqlConnection connection = new(connectionString))
-            using (MySqlCommand command = new(query, connection))
             {
-                connection.Open();
+                await connection.OpenAsync();
 
-                using (MySqlDataReader reader = command.ExecuteReader())
+                using (MySqlCommand command = new(query, connection))
                 {
-                    while (reader.Read())
+                    using (MySqlDataReader reader = await command.ExecuteReaderAsync())
                     {
-                        // Create an instance of the type T
-                        T item = new();
-
-                        // Map each column value to the corresponding property of T
-                        for (int i = 0; i < reader.FieldCount; i++)
+                        while (await reader.ReadAsync())
                         {
-                            PropertyInfo property = item.GetType().GetProperty(reader.GetName(i))!;
-                            property?.SetValue(item, reader.GetValue(i));
-                        }
+                            // Create an instance of the type T
+                            T item = new();
 
-                        results.Add(item);
+                            // Map each column value to the corresponding property of T
+                            for (int i = 0; i < reader.FieldCount; i++)
+                            {
+                                PropertyInfo property = item.GetType().GetProperty(reader.GetName(i))!;
+                                property?.SetValue(item, reader.GetValue(i));
+                            }
+
+                            results.Add(item);
+                        }
                     }
+                    await connection.CloseAsync();
                 }
-                connection.Close();
             }
 
             return results;
         }
 
         // Insert a given list of Operatore in the DB
-        public void InsertElement(List<Tuple<string, object>> values, string query)
+        public async Task InsertElement(List<Tuple<string, object>> values, string query)
         {
-            MySqlConnection connection = new(connectionString);
-            connection.Open();
-
-            using (MySqlCommand command = new(query, connection))
+            using (MySqlConnection connection = new(connectionString))
             {
-                foreach (Tuple<string, object> t in values)
+                await connection.OpenAsync();
+
+                using (MySqlCommand command = new(query, connection))
                 {
-                    command.Parameters.AddWithValue($"@{t.Item1}", t.Item2);
+                    foreach (Tuple<string, object> t in values)
+                    {
+                        command.Parameters.AddWithValue($"@{t.Item1}", t.Item2);
+                    }
+
+                    await command.ExecuteNonQueryAsync();
                 }
 
-                command.ExecuteNonQuery();
+                await connection.CloseAsync();
             }
-
-            connection.Close();
         }
 
         // Remove elements from a given table based on the given Id and condition
-        public void RemoveElement(string query)
+        public async Task RemoveElement(string query)
         {
-            MySqlConnection connection = new(connectionString);
-            connection.Open();
-
-            using (MySqlCommand command = new(query, connection))
+            using (MySqlConnection connection = new(connectionString))
             {
-                command.ExecuteNonQuery();
-            }
+                await connection.OpenAsync();
 
-            connection.Close();
+                using (MySqlCommand command = new(query, connection))
+                {
+                    await command.ExecuteNonQueryAsync();
+                }
+
+                await connection.CloseAsync();
+            }
         }
     }
 }

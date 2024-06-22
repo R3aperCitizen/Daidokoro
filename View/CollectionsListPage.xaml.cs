@@ -12,18 +12,16 @@ public partial class CollectionsListPage : ContentPage
 	{
 		InitializeComponent();
         _globals = globals;
-
-        RefreshAll();
     }
 
-    protected override void OnNavigatedTo(NavigatedToEventArgs args)
+    protected async override void OnNavigatedTo(NavigatedToEventArgs args)
     {
-        RefreshAll();
+        await RefreshAll();
     }
 
-    private void RefreshAll()
+    private async Task RefreshAll()
     {
-        collezioni = _globals.GetCollections();
+        collezioni = await _globals.GetCollections();
         CollectionsList.ItemsSource = collezioni;
     }
 
@@ -32,17 +30,17 @@ public partial class CollectionsListPage : ContentPage
         CollectionsList.ItemsSource = collezioni;
     }
 
-    private void SearchBar_TextChanged(object sender, TextChangedEventArgs e)
+    private async void SearchBar_TextChanged(object sender, TextChangedEventArgs e)
     {
         string text = SearchBar.Text;
 
         if(text == null) 
         { 
-            RefreshAll(); 
+            await RefreshAll();
         }
         else
         {
-            collezioni = _globals.GetSearchedCollections(0, text);
+            collezioni = await _globals.GetSearchedCollections(0, text);
 
             Refresh();
         }

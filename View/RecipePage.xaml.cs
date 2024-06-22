@@ -28,47 +28,51 @@ public partial class RecipePage : ContentPage
         SetBehaviours();
     }
 
-    private void OnPropertyChanged(object? sender, PropertyChangedEventArgs e)
+    private async void OnPropertyChanged(object? sender, PropertyChangedEventArgs e)
     {
-        RefreshAll();
+        await RefreshAll();
     }
 
-    protected override void OnNavigatedTo(NavigatedToEventArgs args)
+    protected async override void OnNavigatedTo(NavigatedToEventArgs args)
     {
         if (ricetta.IdRicetta != 0)
         {
-            RefreshAll();
+            await RefreshAll();
             SetBehaviours();
         }
     }
 
-    private void SetRecipe(int IdRicetta)
+    private async Task SetRecipe(int IdRicetta)
     {
-        ricetta = _globals.GetRecipeById(IdRicetta);
+        List<Model.Ricetta> r = await _globals.GetRecipeById(IdRicetta);
+        ricetta = r[0];
 
-        SetRecipeFields();
-        SetRatingsBar();
-        SetRatings();
+        await SetRecipeFields();
+        await SetRatingsBar();
+        await SetRatings();
     }
 
-    private void SetRecipeFields()
+    private async Task SetRecipeFields()
     {
         Title.Text = ricetta.Nome;
         Image.Source = ricetta.Foto;
-        Tags.Text = GetCategorieNutrizionali();
+        Tags.Text = await GetCategorieNutrizionali();
         Time.Text = $"{ricetta.Tempo} min.";
         Difficulty.Text = EmoticonDifficulty();
         Description.Text = ricetta.Descrizione;
-        IngredientsList.Text = IngredientsToString();
+        IngredientsList.Text = await IngredientsToString();
         StepsList.Text = ParseStepsToJSON();
     }
 
-    private void SetRatingsBar()
+    private async Task SetRatingsBar()
     {
         double screenWidth = (_displayInfo.Width / _displayInfo.Density) - (MainVSL.Padding.Right + MainVSL.Padding.Left);
-        votiRicetta = _globals.GetRatingsCountGroupByVoto(ricetta.IdRicetta);
-        decimal vpPercentage = (votiRicetta.VotiPositivi / (votiRicetta.VotiPositivi + votiRicetta.VotiNegativi)) * 100;
-        decimal vnPercentage = (votiRicetta.VotiNegativi / (votiRicetta.VotiPositivi + votiRicetta.VotiNegativi)) * 100;
+        List<Model.VotiRicetta> vr = await _globals.GetRatingsCountGroupByVoto(ricetta.IdRicetta);
+        votiRicetta = vr[0];
+        decimal vpPercentage = votiRicetta.VotiPositivi == 0 && votiRicetta.VotiNegativi == 0 ? 
+            0 : (votiRicetta.VotiPositivi / (votiRicetta.VotiPositivi + votiRicetta.VotiNegativi)) * 100;
+        decimal vnPercentage = votiRicetta.VotiPositivi == 0 && votiRicetta.VotiNegativi == 0 ? 
+            0 :(votiRicetta.VotiNegativi / (votiRicetta.VotiPositivi + votiRicetta.VotiNegativi)) * 100;
 
         PositiveVoteButton.Text = $"🍋‍🟩 {Math.Round(vpPercentage, 1)} %";
         NegativeVoteButton.Text = $"🧅 {Math.Round(vnPercentage, 1)} %";
@@ -79,36 +83,36 @@ public partial class RecipePage : ContentPage
             ? screenWidth / 2 : screenWidth * (double)(vnPercentage / 100);
     }
 
-    private void SetRatings()
+    private async Task SetRatings()
     {
-        valutazioni = _globals.GetRatingsByRecipe(ricetta.IdRicetta);
+        valutazioni = await _globals.GetRatingsByRecipe(ricetta.IdRicetta);
         Ratings.ItemsSource = valutazioni;
     }
 
-    private void VotePositive(object sender, EventArgs e)
+    private async void VotePositive(object sender, EventArgs e)
     {
-        _globals.InsertRating(
+        await _globals.InsertRating(
         [
             new("IdUtente", 1),
             new("IdRicetta", ricetta.IdRicetta),
             new("Voto", true)
         ]);
 
-        SetRatingsBar();
-        SetRatings();
+        await SetRatingsBar();
+        await SetRatings();
     }
 
-    private void VoteNegative(object sender, EventArgs e)
+    private async void VoteNegative(object sender, EventArgs e)
     {
-        _globals.InsertRating(
+        await _globals.InsertRating(
         [
             new("IdUtente", 1),
             new("IdRicetta", ricetta.IdRicetta),
             new("Voto", false)
         ]);
 
-        SetRatingsBar();
-        SetRatings();
+        await SetRatingsBar();
+        await SetRatings();
     }
 
     public string EmoticonDifficulty()
@@ -121,20 +125,20 @@ public partial class RecipePage : ContentPage
         return _difficulty;
     }
 
-    private string GetCategorieNutrizionali()
+    private async Task<string> GetCategorieNutrizionali()
     {
         string categorie = "";
-        var categories = _globals.GetNutritionalCategories(ricetta.IdRicetta);
+        var categories = await _globals.GetNutritionalCategories(ricetta.IdRicetta);
 
         foreach (var item in categories) { categorie += item.Nome + "; "; }
 
         return categorie;
     }
 
-    public string IngredientsToString()
+    public async Task<string> IngredientsToString()
     {
         string _ingredienti = string.Empty;
-        foreach (Model.Ingrediente i in _globals.GetIngredients(ricetta.IdRicetta))
+        foreach (Model.Ingrediente i in await _globals.GetIngredients(ricetta.IdRicetta))
         {
             _ingredienti += "● "
                 + i.Nome + " - "
@@ -172,9 +176,9 @@ public partial class RecipePage : ContentPage
         ImageBorder.WidthRequest = (screenWidth / screenDensity) - (MainVSL.Padding.Right + MainVSL.Padding.Left);
     }
 
-    private void RefreshAll()
+    private async Task RefreshAll()
     {
         ricetta = new();
-        SetRecipe(int.Parse(((RecipePageViewModel)BindingContext).IdRicetta));
+        await SetRecipe(int.Parse(((RecipePageViewModel)BindingContext).IdRicetta));
     }
 }
