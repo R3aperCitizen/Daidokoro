@@ -40,18 +40,18 @@ public partial class RecipePage : ContentPage
         }
     }
 
-    private void SetRicetta(string Id)
+    private void SetRecipe(int IdRicetta)
     {
-        int IdRicetta = int.Parse(Id);
-        double screenWidth = (_displayInfo.Width / _displayInfo.Density) - 40;
         ricetta = _globals.GetRecipeById(IdRicetta);
 
+        SetRecipeFields();
+        SetRatingsBar();
+    }
+
+    private void SetRecipeFields()
+    {
         Title.Text = ricetta.Nome;
         Image.Source = ricetta.Foto;
-        PositiveVoteButton.Text = $"🍋‍🟩 {ricetta.VotiPositivi} %";
-        PositiveVoteButton.WidthRequest = screenWidth * (double)(ricetta.VotiPositivi / 100);
-        NegativeVoteButton.Text = $"🧅 {ricetta.VotiNegativi} %";
-        NegativeVoteButton.WidthRequest = screenWidth * (double)(ricetta.VotiNegativi / 100);
         Tags.Text = GetCategorieNutrizionali();
         Time.Text = $"{ricetta.Tempo} min.";
         Difficulty.Text = EmoticonDifficulty();
@@ -59,7 +59,44 @@ public partial class RecipePage : ContentPage
         IngredientsList.Text = IngredientsToString();
         StepsList.Text = ParseStepsToJSON();
 
-        Ratings.ItemsSource = _globals.GetRatingsByRecipe(IdRicetta);
+        Ratings.ItemsSource = _globals.GetRatingsByRecipe(ricetta.IdRicetta);
+    }
+
+    private void SetRatingsBar()
+    {
+        double screenWidth = (_displayInfo.Width / _displayInfo.Density) - (MainVSL.Padding.Right + MainVSL.Padding.Left);
+
+        PositiveVoteButton.Text = $"🍋‍🟩 {ricetta.VotiPositivi} %";
+        NegativeVoteButton.Text = $"🧅 {ricetta.VotiNegativi} %";
+
+        PositiveVoteButton.WidthRequest = ricetta.VotiPositivi == 0 && ricetta.VotiNegativi == 0 
+            ? screenWidth / 2 : screenWidth * (double)(ricetta.VotiPositivi / 100);
+        NegativeVoteButton.WidthRequest = ricetta.VotiPositivi == 0 && ricetta.VotiNegativi == 0 
+            ? screenWidth / 2 : screenWidth * (double)(ricetta.VotiNegativi / 100);
+    }
+
+    private void VotePositive(object sender, EventArgs e)
+    {
+        _globals.InsertRating(new List<Tuple<string, object>>()
+        {
+            new Tuple<string, object>("IdUtente", 1),
+            new Tuple<string, object>("IdRicetta", ricetta.IdRicetta),
+            new Tuple<string, object>("Voto", true)
+        });
+
+        SetRecipe(ricetta.IdRicetta);
+    }
+
+    private void VoteNegative(object sender, EventArgs e)
+    {
+        _globals.InsertRating(new List<Tuple<string, object>>()
+        {
+            new Tuple<string, object>("IdUtente", 1),
+            new Tuple<string, object>("IdRicetta", ricetta.IdRicetta),
+            new Tuple<string, object>("Voto", false)
+        });
+
+        SetRecipe(ricetta.IdRicetta);
     }
 
     public string EmoticonDifficulty()
@@ -120,12 +157,12 @@ public partial class RecipePage : ContentPage
         var screenDensity = _displayInfo.Density;
 
         MainScroll.HeightRequest = (screenHeight / screenDensity) - 150;
-        ImageBorder.WidthRequest = (screenWidth / screenDensity) - 40;
+        ImageBorder.WidthRequest = (screenWidth / screenDensity) - (MainVSL.Padding.Right + MainVSL.Padding.Left);
     }
 
     private void RefreshAll()
     {
         ricetta = new();
-        SetRicetta(((RecipePageViewModel)BindingContext).IdRicetta);
+        SetRecipe(int.Parse(((RecipePageViewModel)BindingContext).IdRicetta));
     }
 }

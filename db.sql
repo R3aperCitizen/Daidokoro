@@ -115,18 +115,15 @@ CREATE TABLE IF NOT EXISTS ricetta_collezione(
 );
 
 CREATE TABLE IF NOT EXISTS valutazione(
-    IdValutazione INT NOT NULL AUTO_INCREMENT,
+    IdUtente INT NOT NULL,
+    IdRicetta INT NOT NULL,
     Voto TINYINT(1) NOT NULL,
     DataValutazione DATE NOT NULL,
     Commento VARCHAR(255) DEFAULT '',
-    IdUtente INT NOT NULL,
-    IdRicetta INT,
-    IdCollezione INT,
-    PRIMARY KEY (IdValutazione),
+    PRIMARY KEY (IdUtente, IdRicetta),
     FOREIGN KEY (IdUtente) REFERENCES utente(IdUtente),
-    FOREIGN KEY (IdRicetta) REFERENCES ricetta(IdRicetta),
-    FOREIGN KEY (IdCollezione) REFERENCES collezione(IdCollezione)
-)AUTO_INCREMENT=1;
+    FOREIGN KEY (IdRicetta) REFERENCES ricetta(IdRicetta)
+);
 
 ALTER TABLE ingrediente
 ADD FOREIGN KEY (IdValoreNutrizionale) REFERENCES valore_nutrizionale(IdValoreNutrizionale);

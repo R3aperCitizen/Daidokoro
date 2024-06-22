@@ -11,53 +11,51 @@
     <VerticalStackLayout BackgroundColor="{StaticResource Background}">
         <controls:NavigationBar />
         <ScrollView x:Name="MainScroll">
-            <VerticalStackLayout Padding="20">
-                <VerticalStackLayout Spacing="15" HorizontalOptions="Center">
-                    <Label x:Name="Title" FontSize="30" TextColor="{StaticResource Palette2}" />
-                    <Border x:Name="ImageBorder" StrokeShape="RoundRectangle 10" StrokeThickness="0" HeightRequest="250">
-                        <controls:ImageBlob x:Name="Image" Aspect="AspectFill" BackgroundColor="{StaticResource Palette2}" />
-                    </Border>
-                    <Border StrokeShape="RoundRectangle 10" StrokeThickness="0" HeightRequest="50">
-                        <HorizontalStackLayout>
-                            <Button x:Name="PositiveVoteButton" TextColor="{StaticResource Palette2}" FontSize="15" FontAttributes="Bold" BackgroundColor="#77e835" CornerRadius="0" />
-                            <Button x:Name="NegativeVoteButton" TextColor="{StaticResource Palette2}" FontSize="15" FontAttributes="Bold" BackgroundColor="#c79863" CornerRadius="0" />
-                        </HorizontalStackLayout>
-                    </Border>
+            <VerticalStackLayout x:Name="MainVSL" Padding="20" Spacing="15">
+                <Label x:Name="Title" FontSize="30" TextColor="{StaticResource Palette2}" />
+                <Border x:Name="ImageBorder" StrokeShape="RoundRectangle 10" StrokeThickness="0" HeightRequest="250">
+                    <controls:ImageBlob x:Name="Image" Aspect="AspectFill" BackgroundColor="{StaticResource Palette2}" />
+                </Border>
+                <Border StrokeShape="RoundRectangle 10" StrokeThickness="0" HeightRequest="50">
                     <HorizontalStackLayout>
-                        <Label Text="Categorie: " FontSize="15" TextColor="{StaticResource Palette2}" />
-                        <Label x:Name="Tags" FontSize="15" FontAttributes="Bold" TextColor="{StaticResource Palette2}" />
+                        <Button x:Name="PositiveVoteButton" Clicked="VotePositive" TextColor="{StaticResource Palette2}" FontSize="15" FontAttributes="Bold" BackgroundColor="#77e835" CornerRadius="0" />
+                        <Button x:Name="NegativeVoteButton" Clicked="VoteNegative" TextColor="{StaticResource Palette2}" FontSize="15" FontAttributes="Bold" BackgroundColor="#c79863" CornerRadius="0" />
                     </HorizontalStackLayout>
-                    <Border StrokeShape="RoundRectangle 10" StrokeThickness="0" BackgroundColor="{StaticResource Palette2}">
-                        <HorizontalStackLayout Padding="15" Spacing="30">
-                            <HorizontalStackLayout>
-                                <Label Text="Tempo: " FontSize="15" TextColor="{StaticResource Palette3}" />
-                                <Label x:Name="Time" FontSize="15" FontAttributes="Bold" TextColor="{StaticResource Palette3}" />
-                            </HorizontalStackLayout>
-                            <HorizontalStackLayout>
-                                <Label Text="Difficoltà: " FontSize="15" TextColor="{StaticResource Palette3}" />
-                                <Label x:Name="Difficulty" FontSize="15" FontAttributes="Bold" TextColor="{StaticResource Palette3}" />
-                            </HorizontalStackLayout>
+                </Border>
+                <HorizontalStackLayout>
+                    <Label Text="Categorie: " FontSize="15" TextColor="{StaticResource Palette2}" />
+                    <Label x:Name="Tags" FontSize="15" FontAttributes="Bold" TextColor="{StaticResource Palette2}" />
+                </HorizontalStackLayout>
+                <Border StrokeShape="RoundRectangle 10" StrokeThickness="0" BackgroundColor="{StaticResource Palette2}">
+                    <HorizontalStackLayout Padding="15" Spacing="30">
+                        <HorizontalStackLayout>
+                            <Label Text="Tempo: " FontSize="15" TextColor="{StaticResource Palette3}" />
+                            <Label x:Name="Time" FontSize="15" FontAttributes="Bold" TextColor="{StaticResource Palette3}" />
                         </HorizontalStackLayout>
-                    </Border>
-                    <Border StrokeShape="RoundRectangle 10" StrokeThickness="0" BackgroundColor="{StaticResource Palette2}">
-                        <VerticalStackLayout Padding="15" Spacing="10">
-                            <Label Text="Descrizione: " FontSize="15" TextColor="{StaticResource Palette3}" />
-                            <Label x:Name="Description" FontSize="15" FontAttributes="Bold" TextColor="{StaticResource Palette3}" />
-                        </VerticalStackLayout>
-                    </Border>
-                    <Border StrokeShape="RoundRectangle 10" StrokeThickness="0" BackgroundColor="{StaticResource Palette2}">
-                        <VerticalStackLayout Padding="15" Spacing="10">
-                            <Label Text="Ingredienti: " FontSize="15" TextColor="{StaticResource Palette3}" />
-                            <Label x:Name="IngredientsList" FontSize="15" FontAttributes="Bold" TextColor="{StaticResource Palette3}" />
-                        </VerticalStackLayout>
-                    </Border>
-                    <Border StrokeShape="RoundRectangle 10" StrokeThickness="0" BackgroundColor="{StaticResource Palette2}">
-                        <VerticalStackLayout Padding="15" Spacing="10">
-                            <Label Text="Passaggi: " FontSize="15" TextColor="{StaticResource Palette3}" />
-                            <Label x:Name="StepsList" FontSize="15" FontAttributes="Bold" TextColor="{StaticResource Palette3}" />
-                        </VerticalStackLayout>
-                    </Border>
-                </VerticalStackLayout>
+                        <HorizontalStackLayout>
+                            <Label Text="Difficoltà: " FontSize="15" TextColor="{StaticResource Palette3}" />
+                            <Label x:Name="Difficulty" FontSize="15" FontAttributes="Bold" TextColor="{StaticResource Palette3}" />
+                        </HorizontalStackLayout>
+                    </HorizontalStackLayout>
+                </Border>
+                <Border StrokeShape="RoundRectangle 10" StrokeThickness="0" BackgroundColor="{StaticResource Palette2}">
+                    <VerticalStackLayout Padding="15" Spacing="10">
+                        <Label Text="Descrizione: " FontSize="15" TextColor="{StaticResource Palette3}" />
+                        <Label x:Name="Description" FontSize="15" FontAttributes="Bold" TextColor="{StaticResource Palette3}" />
+                    </VerticalStackLayout>
+                </Border>
+                <Border StrokeShape="RoundRectangle 10" StrokeThickness="0" BackgroundColor="{StaticResource Palette2}">
+                    <VerticalStackLayout Padding="15" Spacing="10">
+                        <Label Text="Ingredienti: " FontSize="15" TextColor="{StaticResource Palette3}" />
+                        <Label x:Name="IngredientsList" FontSize="15" FontAttributes="Bold" TextColor="{StaticResource Palette3}" />
+                    </VerticalStackLayout>
+                </Border>
+                <Border StrokeShape="RoundRectangle 10" StrokeThickness="0" BackgroundColor="{StaticResource Palette2}">
+                    <VerticalStackLayout Padding="15" Spacing="10">
+                        <Label Text="Passaggi: " FontSize="15" TextColor="{StaticResource Palette3}" />
+                        <Label x:Name="StepsList" FontSize="15" FontAttributes="Bold" TextColor="{StaticResource Palette3}" />
+                    </VerticalStackLayout>
+                </Border>
                 <Border StrokeShape="RoundRectangle 10" StrokeThickness="0" BackgroundColor="{StaticResource Palette2}" Margin="0,20,0,0">
                     <VerticalStackLayout Padding="15" Spacing="15">
                         <Label Text="VALUTAZIONI" FontAttributes="Bold" FontSize="15" TextColor="{StaticResource Palette3}" />

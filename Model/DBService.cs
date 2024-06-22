@@ -71,5 +71,24 @@ namespace Daidokoro.Model
 
             return results;
         }
+
+        // Insert a given list of Operatore in the DB
+        public void InsertElement(List<Tuple<string, object>> values, string query)
+        {
+            MySqlConnection connection = new MySqlConnection(connectionString);
+            connection.Open();
+
+            using (MySqlCommand command = new MySqlCommand(query, connection))
+            {
+                foreach (Tuple<string, object> t in values)
+                {
+                    command.Parameters.AddWithValue($"@{t.Item1}", t.Item2);
+                }
+
+                command.ExecuteNonQuery();
+            }
+
+            connection.Close();
+        }
     }
 }

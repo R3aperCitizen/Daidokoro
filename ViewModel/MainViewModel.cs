@@ -240,12 +240,19 @@ namespace Daidokoro.ViewModel
         public List<Valutazione> GetRatingsByRecipe(int IdRicetta)
         {
             return _dbService.GetData<Valutazione>(
-                $"SELECT IdValutazione, Voto, DataValutazione, Commento, valutazione.IdUtente, IdRicetta, utente.Username AS NomeUtente, utente.Foto AS FotoUtente\r\n" +
+                $"SELECT valutazione.IdUtente, IdRicetta, Voto, DataValutazione, Commento, utente.Username AS NomeUtente, utente.Foto AS FotoUtente\r\n" +
                 $"FROM valutazione\r\n" +
                 $"JOIN utente ON utente.IdUtente=valutazione.IdUtente\r\n" +
                 $"WHERE IdRicetta = {IdRicetta};"
             );
         }
 
+        public void InsertRating(List<Tuple<string, object>> valutazione)
+        {
+            _dbService.InsertElement(
+                valutazione,
+                $@"INSERT INTO valutazione (IdUtente, IdRicetta, Voto, DataValutazione, Commento) VALUES (?, ?, ?, CURDATE(), '');"
+            );
+        }
     }
 }

@@ -24,5 +24,7 @@ namespace Daidokoro.ViewModel
         List<CategoriaNutrizionale> GetNutritionalCategories();
         List<CategoriaNutrizionale> GetNutritionalCategories(int IdRicetta);
         List<Valutazione> GetRatingsByRecipe(int IdRicetta);
+
+        void InsertRating(List<Tuple<string, object>> valutazione);
     }
 }
