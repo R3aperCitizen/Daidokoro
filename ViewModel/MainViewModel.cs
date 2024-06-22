@@ -249,10 +249,17 @@ namespace Daidokoro.ViewModel
 
         public void InsertRating(List<Tuple<string, object>> valutazione)
         {
-            _dbService.InsertElement(
-                valutazione,
-                $@"INSERT INTO valutazione (IdUtente, IdRicetta, Voto, DataValutazione, Commento) VALUES (?, ?, ?, CURDATE(), '');"
-            );
+            if (!_dbService.ExistInTable($"SELECT * FROM valutazione WHERE IdUtente = {valutazione[0].Item2} AND IdRicetta = {valutazione[1].Item2} AND Voto = {valutazione[2].Item2};"))
+            {
+                if (_dbService.ExistInTable($"SELECT * FROM valutazione WHERE IdUtente = {valutazione[0].Item2} AND IdRicetta = {valutazione[1].Item2} AND Voto != {valutazione[2].Item2};"))
+                {
+                    _dbService.RemoveElement($"DELETE FROM valutazione WHERE IdUtente = {valutazione[0].Item2} AND IdRicetta = {valutazione[1].Item2};");
+                }
+                _dbService.InsertElement(
+                    valutazione,
+                    $@"INSERT INTO valutazione (IdUtente, IdRicetta, Voto, DataValutazione, Commento) VALUES (?, ?, ?, CURDATE(), '');"
+                );
+            }
         }
     }
 }

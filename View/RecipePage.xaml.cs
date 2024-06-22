@@ -77,24 +77,24 @@ public partial class RecipePage : ContentPage
 
     private void VotePositive(object sender, EventArgs e)
     {
-        _globals.InsertRating(new List<Tuple<string, object>>()
-        {
-            new Tuple<string, object>("IdUtente", 1),
-            new Tuple<string, object>("IdRicetta", ricetta.IdRicetta),
-            new Tuple<string, object>("Voto", true)
-        });
+        _globals.InsertRating(
+        [
+            new("IdUtente", 1),
+            new("IdRicetta", ricetta.IdRicetta),
+            new("Voto", true)
+        ]);
 
         SetRecipe(ricetta.IdRicetta);
     }
 
     private void VoteNegative(object sender, EventArgs e)
     {
-        _globals.InsertRating(new List<Tuple<string, object>>()
-        {
-            new Tuple<string, object>("IdUtente", 1),
-            new Tuple<string, object>("IdRicetta", ricetta.IdRicetta),
-            new Tuple<string, object>("Voto", false)
-        });
+        _globals.InsertRating(
+        [
+            new("IdUtente", 1),
+            new("IdRicetta", ricetta.IdRicetta),
+            new("Voto", false)
+        ]);
 
         SetRecipe(ricetta.IdRicetta);
     }

@@ -18,7 +18,7 @@ namespace Daidokoro.Model
 
             try
             {
-                MySqlConnection connection = new MySqlConnection(connectionString);
+                MySqlConnection connection = new(connectionString);
                 connection.Open();
 
                 if (connection.State == ConnectionState.Open)
@@ -39,13 +39,28 @@ namespace Daidokoro.Model
             }
         }
 
+        // Checks if a given DB table give at least 1 row in the query with the given condition
+        public bool ExistInTable(string query)
+        {
+            bool exist = false;
+            using (MySqlConnection connection = new(connectionString))
+            using (MySqlCommand command = new(query, connection))
+            {
+                connection.Open();
+                exist = Convert.ToInt32(command.ExecuteScalar()) > 0;
+                connection.Close();
+            }
+
+            return exist;
+        }
+
         // Get all the data from a generic DB table
         public List<T> GetData<T>(string query) where T : new()
         {
             List<T> results = [];
 
-            using (MySqlConnection connection = new MySqlConnection(connectionString))
-            using (MySqlCommand command = new MySqlCommand(query, connection))
+            using (MySqlConnection connection = new(connectionString))
+            using (MySqlCommand command = new(query, connection))
             {
                 connection.Open();
 
@@ -75,16 +90,30 @@ namespace Daidokoro.Model
         // Insert a given list of Operatore in the DB
         public void InsertElement(List<Tuple<string, object>> values, string query)
         {
-            MySqlConnection connection = new MySqlConnection(connectionString);
+            MySqlConnection connection = new(connectionString);
             connection.Open();
 
-            using (MySqlCommand command = new MySqlCommand(query, connection))
+            using (MySqlCommand command = new(query, connection))
             {
                 foreach (Tuple<string, object> t in values)
                 {
                     command.Parameters.AddWithValue($"@{t.Item1}", t.Item2);
                 }
 
+                command.ExecuteNonQuery();
+            }
+
+            connection.Close();
+        }
+
+        // Remove elements from a given table based on the given Id and condition
+        public void RemoveElement(string query)
+        {
+            MySqlConnection connection = new(connectionString);
+            connection.Open();
+
+            using (MySqlCommand command = new(query, connection))
+            {
                 command.ExecuteNonQuery();
             }
 
