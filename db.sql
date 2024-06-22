@@ -114,15 +114,26 @@ CREATE TABLE IF NOT EXISTS ricetta_collezione(
     PRIMARY KEY (IdRicetta, IdCollezione)
 );
 
-CREATE TABLE IF NOT EXISTS valutazione(
-    IdUtente INT NOT NULL,
+CREATE TABLE IF NOT EXISTS valutazione_ricetta(
     IdRicetta INT NOT NULL,
+    IdUtente INT NOT NULL,
     Voto TINYINT(1) NOT NULL,
     DataValutazione DATETIME NOT NULL,
     Commento VARCHAR(255) DEFAULT '',
     PRIMARY KEY (IdUtente, IdRicetta),
     FOREIGN KEY (IdUtente) REFERENCES utente(IdUtente),
     FOREIGN KEY (IdRicetta) REFERENCES ricetta(IdRicetta)
+);
+
+CREATE TABLE IF NOT EXISTS valutazione_collezione(
+    IdCollezione INT NOT NULL,
+    IdUtente INT NOT NULL,
+    Voto TINYINT(1) NOT NULL,
+    DataValutazione DATETIME NOT NULL,
+    Commento VARCHAR(255) DEFAULT '',
+    PRIMARY KEY (IdUtente, IdCollezione),
+    FOREIGN KEY (IdUtente) REFERENCES utente(IdUtente),
+    FOREIGN KEY (IdCollezione) REFERENCES collezione(IdCollezione)
 );
 
 ALTER TABLE ingrediente

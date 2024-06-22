@@ -23,9 +23,9 @@ namespace Daidokoro.ViewModel
         Task<List<Collezione>> GetSearchedCollections(int dieta, string text);
         Task<List<CategoriaNutrizionale>> GetNutritionalCategories();
         Task<List<CategoriaNutrizionale>> GetNutritionalCategories(int IdRicetta);
-        Task<List<VotiRicetta>> GetRatingsCountGroupByVoto(int IdRicetta);
-        Task<List<Valutazione>> GetRatingsByRecipe(int IdRicetta);
+        Task<List<VotiRicetta>> GetRecipeRatingsCountGroupByVoto(int IdRicetta);
+        Task<List<Valutazione>> GetRecipeRatingsByRecipe(int IdRicetta);
 
-        Task InsertRating(List<Tuple<string, object>> valutazione);
+        Task InsertRecipeRating(List<Tuple<string, object>> valutazione);
     }
 }

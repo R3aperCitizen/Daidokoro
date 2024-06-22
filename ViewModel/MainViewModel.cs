@@ -236,37 +236,37 @@ namespace Daidokoro.ViewModel
             );
         }
 
-        public async Task<List<VotiRicetta>> GetRatingsCountGroupByVoto(int IdRicetta)
+        public async Task<List<VotiRicetta>> GetRecipeRatingsCountGroupByVoto(int IdRicetta)
         {
             return await _dbService.GetData<VotiRicetta>(
                 $"SELECT IFNULL(SUM(CASE WHEN Voto = 1 THEN 1 ELSE 0 END), 0) AS VotiPositivi, IFNULL(SUM(CASE WHEN Voto = 0 THEN 1 ELSE 0 END), 0) AS VotiNegativi\r\n" +
-                $"FROM valutazione\r\n" +
+                $"FROM valutazione_ricetta\r\n" +
                 $"WHERE IdRicetta = {IdRicetta};"
             );
         }
 
-        public async Task<List<Valutazione>> GetRatingsByRecipe(int IdRicetta)
+        public async Task<List<Valutazione>> GetRecipeRatingsByRecipe(int IdRicetta)
         {
             return await _dbService.GetData<Valutazione>(
-                $"SELECT valutazione.IdUtente, IdRicetta, Voto, DataValutazione, Commento, utente.Username AS NomeUtente, utente.Foto AS FotoUtente\r\n" +
-                $"FROM valutazione\r\n" +
-                $"JOIN utente ON utente.IdUtente=valutazione.IdUtente\r\n" +
+                $"SELECT valutazione_ricetta.IdUtente, IdRicetta, Voto, DataValutazione, Commento, utente.Username AS NomeUtente, utente.Foto AS FotoUtente\r\n" +
+                $"FROM valutazione_ricetta\r\n" +
+                $"JOIN utente ON utente.IdUtente=valutazione_ricetta.IdUtente\r\n" +
                 $"WHERE IdRicetta = {IdRicetta}\r\n" +
                 $"ORDER BY DataValutazione DESC;"
             );
         }
 
-        public async Task InsertRating(List<Tuple<string, object>> valutazione)
+        public async Task InsertRecipeRating(List<Tuple<string, object>> valutazione)
         {
-            if (!await _dbService.ExistInTable($"SELECT * FROM valutazione WHERE IdUtente = {valutazione[0].Item2} AND IdRicetta = {valutazione[1].Item2} AND Voto = {valutazione[2].Item2};"))
+            if (!await _dbService.ExistInTable($"SELECT * FROM valutazione_ricetta WHERE IdUtente = {valutazione[0].Item2} AND IdRicetta = {valutazione[1].Item2} AND Voto = {valutazione[2].Item2};"))
             {
-                if (await _dbService.ExistInTable($"SELECT * FROM valutazione WHERE IdUtente = {valutazione[0].Item2} AND IdRicetta = {valutazione[1].Item2} AND Voto != {valutazione[2].Item2};"))
+                if (await _dbService.ExistInTable($"SELECT * FROM valutazione_ricetta WHERE IdUtente = {valutazione[0].Item2} AND IdRicetta = {valutazione[1].Item2} AND Voto != {valutazione[2].Item2};"))
                 {
-                    await _dbService.RemoveElement($"DELETE FROM valutazione WHERE IdUtente = {valutazione[0].Item2} AND IdRicetta = {valutazione[1].Item2};");
+                    await _dbService.RemoveElement($"DELETE FROM valutazione_ricetta WHERE IdUtente = {valutazione[0].Item2} AND IdRicetta = {valutazione[1].Item2};");
                 }
                 await _dbService.InsertElement(
                     valutazione,
-                    $@"INSERT INTO valutazione (IdUtente, IdRicetta, Voto, DataValutazione, Commento) VALUES (?, ?, ?, NOW(), '');"
+                    $@"INSERT INTO valutazione_ricetta (IdUtente, IdRicetta, Voto, DataValutazione, Commento) VALUES (?, ?, ?, NOW(), '');"
                 );
             }
         }
