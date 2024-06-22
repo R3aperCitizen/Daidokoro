@@ -11,12 +11,12 @@
         </Border>
         <VerticalStackLayout VerticalOptions="Center">
             <HorizontalStackLayout Spacing="10">
-                <Label Text="{Binding NomeUtente}" FontSize="15" WidthRequest="50" FontAttributes="Bold" TextColor="{StaticResource Palette3}" VerticalTextAlignment="Center" />
-                <Label Text="{Binding DataValutazioneString}" FontSize="12" TextColor="{StaticResource Palette3}" VerticalTextAlignment="Center" />
+                <Label Text="{Binding NomeUtente}" FontSize="15" FontAttributes="Bold" TextColor="{StaticResource Palette3}" VerticalTextAlignment="Center" />
+                <Label Text="{Binding DataValutazioneToString}" FontSize="10" TextColor="{StaticResource Palette3}" VerticalTextAlignment="Center" />
             </HorizontalStackLayout>
             <HorizontalStackLayout Spacing="10">
                 <Label Text="{Binding VotoToString}" FontSize="15" VerticalTextAlignment="Center" />
-                <Label Text="{Binding Commento}" FontSize="12" TextColor="{StaticResource Palette3}" VerticalTextAlignment="Center" />
+                <Label Text="{Binding Commento}" FontSize="14" TextColor="{StaticResource Palette3}" VerticalTextAlignment="Center" />
             </HorizontalStackLayout>
         </VerticalStackLayout>
     </HorizontalStackLayout>

@@ -23,6 +23,7 @@ namespace Daidokoro.ViewModel
         List<Collezione> GetSearchedCollections(int dieta, string text);
         List<CategoriaNutrizionale> GetNutritionalCategories();
         List<CategoriaNutrizionale> GetNutritionalCategories(int IdRicetta);
+        VotiRicetta GetRatingsCountGroupByVoto(int IdRicetta);
         List<Valutazione> GetRatingsByRecipe(int IdRicetta);
 
         void InsertRating(List<Tuple<string, object>> valutazione);

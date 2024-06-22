@@ -118,7 +118,7 @@ CREATE TABLE IF NOT EXISTS valutazione(
     IdUtente INT NOT NULL,
     IdRicetta INT NOT NULL,
     Voto TINYINT(1) NOT NULL,
-    DataValutazione DATE NOT NULL,
+    DataValutazione DATETIME NOT NULL,
     Commento VARCHAR(255) DEFAULT '',
     PRIMARY KEY (IdUtente, IdRicetta),
     FOREIGN KEY (IdUtente) REFERENCES utente(IdUtente),

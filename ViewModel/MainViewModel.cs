@@ -90,9 +90,8 @@ namespace Daidokoro.ViewModel
         public Ricetta GetRecipeById(int IdRicetta)
         {
             return _dbService.GetData<Ricetta>(
-                $"SELECT ricetta.*, IFNULL(ROUND(((SUM(CASE WHEN Voto = 1 THEN 1 ELSE 0 END) / COUNT(Voto)) * 100), 1), 0) AS VotiPositivi, IFNULL(ROUND(((SUM(CASE WHEN Voto = 0 THEN 1 ELSE 0 END) / COUNT(Voto)) * 100), 1), 0) AS VotiNegativi\r\n" +
+                $"SELECT ricetta.*\r\n" +
                 $"FROM ricetta\r\n" +
-                $"LEFT JOIN valutazione ON valutazione.IdRicetta = ricetta.IdRicetta\r\n" +
                 $"WHERE ricetta.IdRicetta = {IdRicetta};"
             )[0];
         }
@@ -237,13 +236,23 @@ namespace Daidokoro.ViewModel
             );
         }
 
+        public VotiRicetta GetRatingsCountGroupByVoto(int IdRicetta)
+        {
+            return _dbService.GetData<VotiRicetta>(
+                $"SELECT IFNULL(SUM(CASE WHEN Voto = 1 THEN 1 ELSE 0 END), 0) AS VotiPositivi, IFNULL(SUM(CASE WHEN Voto = 0 THEN 1 ELSE 0 END), 0) AS VotiNegativi\r\n" +
+                $"FROM valutazione\r\n" +
+                $"WHERE IdRicetta = {IdRicetta};"
+            )[0];
+        }
+
         public List<Valutazione> GetRatingsByRecipe(int IdRicetta)
         {
             return _dbService.GetData<Valutazione>(
                 $"SELECT valutazione.IdUtente, IdRicetta, Voto, DataValutazione, Commento, utente.Username AS NomeUtente, utente.Foto AS FotoUtente\r\n" +
                 $"FROM valutazione\r\n" +
                 $"JOIN utente ON utente.IdUtente=valutazione.IdUtente\r\n" +
-                $"WHERE IdRicetta = {IdRicetta};"
+                $"WHERE IdRicetta = {IdRicetta}\r\n" +
+                $"ORDER BY DataValutazione DESC;"
             );
         }
 
@@ -257,7 +266,7 @@ namespace Daidokoro.ViewModel
                 }
                 _dbService.InsertElement(
                     valutazione,
-                    $@"INSERT INTO valutazione (IdUtente, IdRicetta, Voto, DataValutazione, Commento) VALUES (?, ?, ?, CURDATE(), '');"
+                    $@"INSERT INTO valutazione (IdUtente, IdRicetta, Voto, DataValutazione, Commento) VALUES (?, ?, ?, NOW(), '');"
                 );
             }
         }

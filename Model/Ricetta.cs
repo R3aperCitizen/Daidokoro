@@ -12,7 +12,5 @@
         public DateTime DataCreazione { get; set; }
         public int IdUtente { get; set; }
         public long NumeroLike { get; set; }
-        public decimal VotiPositivi { get; set; }
-        public decimal VotiNegativi { get; set; }
     }
 }

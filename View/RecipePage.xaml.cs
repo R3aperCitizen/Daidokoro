@@ -12,6 +12,8 @@ public partial class RecipePage : ContentPage
     private readonly DisplayInfo _displayInfo;
 
     private Model.Ricetta ricetta;
+    private Model.VotiRicetta votiRicetta;
+    private List<Model.Valutazione> valutazioni;
 
     public RecipePage(IMainViewModel globals, RecipePageViewModel vm)
 	{
@@ -46,6 +48,7 @@ public partial class RecipePage : ContentPage
 
         SetRecipeFields();
         SetRatingsBar();
+        SetRatings();
     }
 
     private void SetRecipeFields()
@@ -58,21 +61,28 @@ public partial class RecipePage : ContentPage
         Description.Text = ricetta.Descrizione;
         IngredientsList.Text = IngredientsToString();
         StepsList.Text = ParseStepsToJSON();
-
-        Ratings.ItemsSource = _globals.GetRatingsByRecipe(ricetta.IdRicetta);
     }
 
     private void SetRatingsBar()
     {
         double screenWidth = (_displayInfo.Width / _displayInfo.Density) - (MainVSL.Padding.Right + MainVSL.Padding.Left);
+        votiRicetta = _globals.GetRatingsCountGroupByVoto(ricetta.IdRicetta);
+        decimal vpPercentage = (votiRicetta.VotiPositivi / (votiRicetta.VotiPositivi + votiRicetta.VotiNegativi)) * 100;
+        decimal vnPercentage = (votiRicetta.VotiNegativi / (votiRicetta.VotiPositivi + votiRicetta.VotiNegativi)) * 100;
 
-        PositiveVoteButton.Text = $"🍋‍🟩 {ricetta.VotiPositivi} %";
-        NegativeVoteButton.Text = $"🧅 {ricetta.VotiNegativi} %";
+        PositiveVoteButton.Text = $"🍋‍🟩 {Math.Round(vpPercentage, 1)} %";
+        NegativeVoteButton.Text = $"🧅 {Math.Round(vnPercentage, 1)} %";
 
-        PositiveVoteButton.WidthRequest = ricetta.VotiPositivi == 0 && ricetta.VotiNegativi == 0 
-            ? screenWidth / 2 : screenWidth * (double)(ricetta.VotiPositivi / 100);
-        NegativeVoteButton.WidthRequest = ricetta.VotiPositivi == 0 && ricetta.VotiNegativi == 0 
-            ? screenWidth / 2 : screenWidth * (double)(ricetta.VotiNegativi / 100);
+        PositiveVoteButton.WidthRequest = vpPercentage == 0 && vnPercentage == 0 
+            ? screenWidth / 2 : screenWidth * (double)(vpPercentage / 100);
+        NegativeVoteButton.WidthRequest = vpPercentage == 0 && vnPercentage == 0 
+            ? screenWidth / 2 : screenWidth * (double)(vnPercentage / 100);
+    }
+
+    private void SetRatings()
+    {
+        valutazioni = _globals.GetRatingsByRecipe(ricetta.IdRicetta);
+        Ratings.ItemsSource = valutazioni;
     }
 
     private void VotePositive(object sender, EventArgs e)
@@ -84,7 +94,8 @@ public partial class RecipePage : ContentPage
             new("Voto", true)
         ]);
 
-        SetRecipe(ricetta.IdRicetta);
+        SetRatingsBar();
+        SetRatings();
     }
 
     private void VoteNegative(object sender, EventArgs e)
@@ -96,7 +107,8 @@ public partial class RecipePage : ContentPage
             new("Voto", false)
         ]);
 
-        SetRecipe(ricetta.IdRicetta);
+        SetRatingsBar();
+        SetRatings();
     }
 
     public string EmoticonDifficulty()

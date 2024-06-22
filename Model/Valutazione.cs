@@ -10,13 +10,11 @@
         public string NomeUtente { get; set; } = string.Empty;
         public byte[] FotoUtente { get; set; } = null!;
 
-        public string DataValutazioneString
+        public string DataValutazioneToString
         {
             get
             {
-                return DataValutazione.Day.ToString() + "/" +
-                    DataValutazione.Month.ToString() + "/" +
-                    DataValutazione.Year.ToString();
+                return DataValutazione.ToString("dd/MM/yyyy HH:mm");
             }
         }
 
