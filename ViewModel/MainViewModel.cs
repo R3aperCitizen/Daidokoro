@@ -274,9 +274,10 @@ namespace Daidokoro.ViewModel
         public async Task<List<Ricetta>> GetFilteredRecipes(string difficulty,string time, string orderby, string category)
         {
             string query =
-                $"WITH v1(IdRicetta,Nome,Descrizione,Passaggi,Foto,Difficolta,Tempo,DataCreazione,IdUtente) AS(\r\n" +
-                $"SELECT ricetta.*\r\n" +
-                $"FROM ricetta\r\n";
+                $"WITH v1(IdRicetta,Nome,Descrizione,Passaggi,Foto,Difficolta,Tempo,DataCreazione,IdUtente,NumeroLike) AS(\r\n" +
+                $"SELECT ricetta.*, COUNT(likes.IdRicetta) AS NumeroLike\r\n" +
+                $"FROM ricetta\r\n" +
+                $"LEFT JOIN likes ON likes.IdRicetta = ricetta.IdRicetta\r\n";
             if (difficulty != null || time != null)
             {
                 query += " WHERE ";
@@ -294,7 +295,7 @@ namespace Daidokoro.ViewModel
                 query += $" FLOOR(ricetta.Tempo / 10) * 10 = FLOOR({time} / 10) * 10 ";
             }
             //end of view
-            query += ")\r\n" + "SELECT *\r\n" + "FROM v1\r\n";
+            query += "\r\nGROUP BY ricetta.IdRicetta)\r\n" + "SELECT DISTINCT v1.*\r\n" + "FROM v1\r\n";
 
             if (category != null)
             {

@@ -18,7 +18,7 @@ public partial class RecipesListPage : ContentPage
     protected async override void OnNavigatedTo(NavigatedToEventArgs args)
     {
         await RefreshAll();
-        await SetFilterMenuBehaviour();
+        SetFilterMenuBehaviour();
     }
     
     private async void SearchBar_TextChanged(object sender, TextChangedEventArgs e)
@@ -74,7 +74,7 @@ public partial class RecipesListPage : ContentPage
         FilterMenuButton.IsVisible = true;
         if(!CheckDifficulty.IsChecked && !CheckCategories.IsChecked && !CheckTime.IsChecked)
         {
-            await _SearchBar(SortPicker.SelectedItem.ToString());
+            await _SearchBar(SortPicker.SelectedItem.ToString()!);
         }
         else
         {
@@ -87,7 +87,7 @@ public partial class RecipesListPage : ContentPage
         }      
     }
 
-    private async Task SetFilterMenuBehaviour()
+    private void SetFilterMenuBehaviour()
     {
         DifficultySlider.Maximum = 5;
         DifficultySlider.Minimum = 1;

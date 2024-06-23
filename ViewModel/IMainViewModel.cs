@@ -30,13 +30,13 @@ namespace Daidokoro.ViewModel
 
         public static Dictionary<string, string> sortings = new Dictionary<string, string>()
         {
-            {"difficolta","Difficolta" },
-            {"tempo","Tempo" },
-            {"voti","NumeroVoti" }
+            {"Difficolta","Difficolta" },
+            {"Tempo","Tempo" },
+            {"Like","NumeroLike" }
         };
         public static Dictionary<string, string> categories = new Dictionary<string, string>()
         {
-            {"gluten-free","GlutenFree" },
+            {"gluten-free","Gluten-Free" },
             {"cascaPalle" , "cascaPalle"}
         };
     }
