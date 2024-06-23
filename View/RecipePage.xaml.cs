@@ -91,7 +91,6 @@ public partial class RecipePage : ContentPage
     {
         await _globals.InsertRecipeRating(
         [
-            new("IdUtente", int.Parse(await SecureStorage.Default.GetAsync("IdUtente"))),
             new("IdRicetta", ricetta.IdRicetta),
             new("Voto", true)
         ]);
@@ -104,13 +103,21 @@ public partial class RecipePage : ContentPage
     {
         await _globals.InsertRecipeRating(
         [
-            new("IdUtente", int.Parse(await SecureStorage.Default.GetAsync("IdUtente"))),
             new("IdRicetta", ricetta.IdRicetta),
             new("Voto", false)
         ]);
 
         await SetRatingsBar();
         await SetRatings();
+    }
+
+    private async void InsertReview(object sender, EventArgs e)
+    {
+        if (ReviewEntry.Text != null && ReviewEntry.Text != string.Empty)
+        {
+            await _globals.InsertReviewIfRecipeIsRatedByUser(ricetta.IdRicetta, ReviewEntry.Text);
+            await SetRatings();
+        }
     }
 
     public string EmoticonDifficulty()

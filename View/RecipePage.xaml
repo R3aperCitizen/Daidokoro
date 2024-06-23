@@ -59,6 +59,10 @@
                 <Border StrokeShape="RoundRectangle 10" StrokeThickness="0" BackgroundColor="{StaticResource Palette2}" Margin="0,20,0,0">
                     <VerticalStackLayout Padding="15" Spacing="15">
                         <Label Text="VALUTAZIONI" FontAttributes="Bold" FontSize="15" TextColor="{StaticResource Palette3}" />
+                        <HorizontalStackLayout Spacing="10">
+                            <Entry x:Name="ReviewEntry" Placeholder="Scrivi una recensione" WidthRequest="250" PlaceholderColor="White" />
+                            <ImageButton Source="send_comment.png" WidthRequest="20" HeightRequest="20" Clicked="InsertReview" />
+                        </HorizontalStackLayout>
                         <CollectionView x:Name="Ratings">
                             <CollectionView.ItemTemplate>
                                 <DataTemplate x:DataType="model:Valutazione">

@@ -13,12 +13,13 @@ public partial class RecipesListPage : ContentPage
     {
         InitializeComponent();
         _globals = globals;
+        SetFilterMenuBehaviour();
     }
 
     protected async override void OnNavigatedTo(NavigatedToEventArgs args)
     {
         await RefreshAll();
-        SetFilterMenuBehaviour();
+        Refresh();
     }
     
     private async void SearchBar_TextChanged(object sender, TextChangedEventArgs e)
@@ -102,7 +103,6 @@ public partial class RecipesListPage : ContentPage
     private async Task RefreshAll()
     {
         ricette = await _globals.GetRecipes();
-        Refresh();
     }
 
     private void Refresh()

@@ -258,17 +258,33 @@ namespace Daidokoro.ViewModel
 
         public async Task InsertRecipeRating(List<Tuple<string, object>> valutazione)
         {
+            valutazione.Add(new ("IdUtente", int.Parse(await SecureStorage.Default.GetAsync("IdUtente"))));
             if (!await _dbService.ExistInTable($"SELECT * FROM valutazione_ricetta WHERE IdUtente = {valutazione[0].Item2} AND IdRicetta = {valutazione[1].Item2} AND Voto = {valutazione[2].Item2};"))
             {
                 if (await _dbService.ExistInTable($"SELECT * FROM valutazione_ricetta WHERE IdUtente = {valutazione[0].Item2} AND IdRicetta = {valutazione[1].Item2} AND Voto != {valutazione[2].Item2};"))
                 {
-                    await _dbService.RemoveElement($"DELETE FROM valutazione_ricetta WHERE IdUtente = {valutazione[0].Item2} AND IdRicetta = {valutazione[1].Item2};");
+                    await _dbService.RemoveOrUpdateElement($"DELETE FROM valutazione_ricetta WHERE IdUtente = {valutazione[0].Item2} AND IdRicetta = {valutazione[1].Item2};");
                 }
                 await _dbService.InsertElement(
                     valutazione,
                     $@"INSERT INTO valutazione_ricetta (IdUtente, IdRicetta, Voto, DataValutazione, Commento) VALUES (?, ?, ?, NOW(), '');"
                 );
             }
+        }
+
+        public async Task<bool> InsertReviewIfRecipeIsRatedByUser(int IdRicetta, string Commento)
+        {
+            int IdUtente = int.Parse(await SecureStorage.Default.GetAsync("IdUtente"));
+            if (await _dbService.ExistInTable($"SELECT * FROM valutazione_ricetta WHERE IdUtente = {IdUtente} AND IdRicetta = {IdRicetta};"))
+            {
+                await _dbService.RemoveOrUpdateElement(
+                    $"UPDATE valutazione_ricetta\r\n" +
+                    $"SET Commento = \'{Commento}\'\r\n" +
+                    $"WHERE IdUtente = {IdUtente} AND IdRicetta = {IdRicetta};"
+                );
+                return true;
+            }
+            return false;
         }
 
         public async Task<List<Ricetta>> GetFilteredRecipes(string difficulty,string time, string orderby, string category)
