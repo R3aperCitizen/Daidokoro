@@ -39,7 +39,7 @@
                     <HorizontalStackLayout Spacing="25">
                         <Label WidthRequest="120" Text="Ordina per: " FontAttributes="Bold" VerticalTextAlignment="Center" />
                         <Border StrokeShape="RoundRectangle 10" StrokeThickness="2" Stroke="White" WidthRequest="120">
-                            <Picker x:Name="SortPicker" TextColor="White" FontAttributes="Bold" SelectedIndexChanged="SortPicker_SelectedIndexChanged" />
+                            <Picker x:Name="SortPicker" TextColor="White" FontAttributes="Bold" />
                         </Border>
                     </HorizontalStackLayout>
                     <Border StrokeShape="RoundRectangle 10">

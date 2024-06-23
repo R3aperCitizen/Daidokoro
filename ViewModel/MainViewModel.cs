@@ -270,5 +270,43 @@ namespace Daidokoro.ViewModel
                 );
             }
         }
+
+        public async Task<List<Ricetta>> GetFilteredRecipes(string difficulty,string time, string orderby, string category)
+        {
+            string query =
+                $"WITH v1(IdRicetta,Nome,Descrizione,Passaggi,Foto,Difficolta,Tempo,DataCreazione,IdUtente) AS(\r\n" +
+                $"SELECT ricetta.*\r\n" +
+                $"FROM ricetta\r\n";
+            if (difficulty != null || time != null)
+            {
+                query += " WHERE ";
+            }
+            if (difficulty != null)
+            {
+                query += $"ricetta.Difficolta =  {difficulty}";
+                if (time != null)
+                {
+                    query += " AND ";
+                }
+            }
+            if (time != null)
+            {
+                query += $" FLOOR(ricetta.Tempo / 10) * 10 = FLOOR({time} / 10) * 10 ";
+            }
+            //end of view
+            query += ")\r\n" + "SELECT *\r\n" + "FROM v1\r\n";
+
+            if (category != null)
+            {
+                query +=
+                $"JOIN ingrediente_ricetta ON ingrediente_ricetta.IdRicetta = v1.IdRicetta\r\n" +
+                $"JOIN ingrediente ON ingrediente.IdIngrediente = ingrediente_ricetta.IdIngrediente\r\n" +
+                $"JOIN categoria_nutrizionale ON categoria_nutrizionale.IdCategoria = ingrediente.IdCategoria\r\n" +
+                $"WHERE categoria_nutrizionale.Nome IN (\'{category}\')\r\n";
+            }
+            
+            query += $"ORDER BY {orderby};";
+            return await dbService.GetData<Ricetta>(query);                     
+        }
     }
 }

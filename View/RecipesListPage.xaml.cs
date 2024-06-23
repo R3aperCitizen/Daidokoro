@@ -72,56 +72,19 @@ public partial class RecipesListPage : ContentPage
     {
         FilterMenu.IsVisible = false;
         FilterMenuButton.IsVisible = true;
-        string query = 
-            ($"SELECT t1.*" +
-            $"\r\nFROM " +
-            $"\r\n(SELECT ricetta.*" +
-            $"\r\nFROM ricetta");
-        if (CheckDifficulty.IsChecked)
-        {
-            query += $"\r\nWHERE ricetta.Difficolta = {Math.Round(DifficultySlider.Value)}";
-            if (CheckTime.IsChecked)
-            {
-                query += " AND ";
-            }
-        }
-        if(CheckTime.IsChecked) 
-        {
-            query += $"FLOOR(ricetta.Tempo / 10) * 10 = FLOOR({Math.Round(TimeSlider.Value)} / 10) * 10";
-        }
-        query += ") AS t1";
-        if (CheckCategories.IsChecked)
-        {
-            query +=
-            $"\r\nJOIN ingrediente_ricetta ON ingrediente_ricetta.IdRicetta = t1.IdRicetta" +
-            $"\r\nJOIN ingrediente ON ingrediente.IdIngrediente = ingrediente_ricetta.IdIngrediente" +
-            $"\r\nJOIN categoria_nutrizionale ON categoria_nutrizionale.IdCategoria = ingrediente.IdCategoria" +
-            $"\r\nWHERE categoria_nutrizionale.Nome IN (\'{(string)CategoriesPicker.SelectedItem}\')";
-        }
-        if(!CheckCategories.IsChecked && !CheckDifficulty.IsChecked &&  !CheckTime.IsChecked) 
+        if(!CheckDifficulty.IsChecked && !CheckCategories.IsChecked && !CheckTime.IsChecked)
         {
             await _SearchBar(SortPicker.SelectedItem.ToString());
-        } 
+        }
         else
         {
-            query += $"\r\nORDER BY {SortPicker.SelectedItem.ToString()}";
-            ricette = await _globals.dbService.GetData<Ricetta>(query);
+            ricette = await _globals.GetFilteredRecipes(
+                CheckDifficulty.IsChecked ? Math.Round(DifficultySlider.Value).ToString() : null,
+                CheckTime.IsChecked ? Math.Round(TimeSlider.Value).ToString() : null,
+                IMainViewModel.sortings[SortPicker.SelectedItem.ToString()],
+                CheckCategories.IsChecked ? IMainViewModel.categories[CategoriesPicker.SelectedItem.ToString()] : null);
             Refresh();
-        }
-       /* ricette = _globals.dbService.GetData<Ricetta>
-        
-            ($"SELECT t1.*" +
-            $"\r\nFROM " +
-            $"\r\n(SELECT ricetta.*" +  
-            $"\r\nFROM ricetta" +
-            $"\r\nWHERE ricetta.Difficolta = {Math.Round(DifficultySlider.Value)} AND FLOOR(ricetta.Tempo / 10) * 10 = FLOOR({Math.Round(TimeSlider.Value)} / 10) * 10) AS t1" +
-            $"\r\nJOIN ingrediente_ricetta ON ingrediente_ricetta.IdRicetta = t1.IdRicetta" +
-            $"\r\nJOIN ingrediente ON ingrediente.IdIngrediente = ingrediente_ricetta.IdIngrediente" +
-            $"\r\nJOIN categoria_nutrizionale ON categoria_nutrizionale.IdCategoria = ingrediente.IdCategoria" +
-            $"\r\nWHERE categoria_nutrizionale.Nome IN (\'{(string)CategoriesPicker.SelectedItem}\')" +
-            $"\r\nGROUP BY t1.IdRicetta \r\n SORT BY ");
-        Console.WriteLine($"{Math.Round(DifficultySlider.Value)}, '{(string)CategoriesPicker.SelectedItem}',{Math.Round(TimeSlider.Value)} ");
-        Refresh();*/
+        }      
     }
 
     private async Task SetFilterMenuBehaviour()
@@ -130,8 +93,10 @@ public partial class RecipesListPage : ContentPage
         DifficultySlider.Minimum = 1;
         TimeSlider.Maximum = 100;
         TimeSlider.Minimum = 5;
-        List<Model.CategoriaNutrizionale> categories = await _globals.GetNutritionalCategories();
-        CategoriesPicker.ItemsSource = (from c in categories select c.Nome).ToList();
+        CategoriesPicker.ItemsSource = IMainViewModel.categories.Keys.ToList() ;
+        SortPicker.ItemsSource = IMainViewModel.sortings.Keys.ToList() ;    
+        CategoriesPicker.SelectedIndex = 0 ;
+        SortPicker.SelectedIndex = 0;
     }
 
     private async Task RefreshAll()
@@ -143,10 +108,5 @@ public partial class RecipesListPage : ContentPage
     private void Refresh()
     {
         RecipesList.ItemsSource = ricette;
-    }
-
-    private void SortPicker_SelectedIndexChanged(object sender, EventArgs e)
-    {
-
     }
 }
