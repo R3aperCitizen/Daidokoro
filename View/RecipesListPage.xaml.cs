@@ -84,7 +84,7 @@ public partial class RecipesListPage : ContentPage
                 IMainViewModel.sortings[SortPicker.SelectedItem.ToString()],
                 CheckCategories.IsChecked ? IMainViewModel.categories[CategoriesPicker.SelectedItem.ToString()] : null);
             Refresh();
-        }      
+        }
     }
 
     private void SetFilterMenuBehaviour()

@@ -12,6 +12,8 @@ namespace Daidokoro
             InitializeComponent();
             _globals = new MainViewModel();
 
+            Routing.RegisterRoute(nameof(AuthCheckPage), typeof(AuthCheckPage));
+            Routing.RegisterRoute(nameof(LoginPage), typeof(LoginPage));
             Routing.RegisterRoute(nameof(HomePage), typeof(HomePage));
             Routing.RegisterRoute(nameof(UserPage), typeof(UserPage));
             Routing.RegisterRoute(nameof(BrowsePage), typeof(BrowsePage));

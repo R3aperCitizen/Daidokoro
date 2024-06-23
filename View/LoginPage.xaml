@@ -1,0 +1,26 @@
+<?xml version="1.0" encoding="utf-8" ?>
+<ContentPage xmlns="http://schemas.microsoft.com/dotnet/2021/maui"
+             xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml"
+             x:Class="Daidokoro.View.LoginPage"
+             Title="LoginPage">
+    <VerticalStackLayout BackgroundColor="{StaticResource Background}" Padding="50" Spacing="50">
+        <Image Source="daidokoro.png" WidthRequest="150" Margin="0,30,0,0" />
+        <Label Text="Accedi a Daidokoro!" TextColor="{StaticResource Palette2}" FontSize="30" FontAttributes="Bold" HorizontalTextAlignment="Center" />
+
+        <VerticalStackLayout Spacing="25">
+            <VerticalStackLayout Spacing="10">
+                <Label Text="E-mail" TextColor="{StaticResource Palette2}" FontSize="20" />
+                <Border StrokeShape="RoundRectangle 10" StrokeThickness="2" Stroke="{StaticResource Palette2}">
+                    <Entry x:Name="Email" Placeholder="Inserisci la tua e-mail" PlaceholderColor="{StaticResource Palette1}" FontSize="15" TextColor="{StaticResource Palette2}" />
+                </Border>
+            </VerticalStackLayout>
+            <VerticalStackLayout Spacing="10">
+                <Label Text="Password" TextColor="{StaticResource Palette2}" FontSize="20" />
+                <Border StrokeShape="RoundRectangle 10" StrokeThickness="2" Stroke="{StaticResource Palette2}">
+                    <Entry x:Name="Password" Placeholder="Inserisci la password" PlaceholderColor="{StaticResource Palette1}" FontSize="15" TextColor="{StaticResource Palette2}" IsPassword="True" />
+                </Border>
+            </VerticalStackLayout>
+            <Button Text="Accedi" TextColor="{StaticResource Palette3}" FontSize="20" FontAttributes="Bold" BackgroundColor="{StaticResource Palette2}" Clicked="Login" />
+        </VerticalStackLayout>
+    </VerticalStackLayout>
+</ContentPage>

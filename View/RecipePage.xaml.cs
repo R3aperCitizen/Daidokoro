@@ -44,8 +44,7 @@ public partial class RecipePage : ContentPage
 
     private async Task SetRecipe(int IdRicetta)
     {
-        List<Model.Ricetta> r = await _globals.GetRecipeById(IdRicetta);
-        ricetta = r[0];
+        ricetta = (await _globals.GetRecipeById(IdRicetta))[0];
 
         await SetRecipeFields();
         await SetRatingsBar();
@@ -67,8 +66,7 @@ public partial class RecipePage : ContentPage
     private async Task SetRatingsBar()
     {
         double screenWidth = (_displayInfo.Width / _displayInfo.Density) - (MainVSL.Padding.Right + MainVSL.Padding.Left);
-        List<Model.VotiRicetta> vr = await _globals.GetRecipeRatingsCountGroupByVoto(ricetta.IdRicetta);
-        votiRicetta = vr[0];
+        votiRicetta = (await _globals.GetRecipeRatingsCountGroupByVoto(ricetta.IdRicetta))[0];
         decimal vpPercentage = votiRicetta.VotiPositivi == 0 && votiRicetta.VotiNegativi == 0 ? 
             0 : (votiRicetta.VotiPositivi / (votiRicetta.VotiPositivi + votiRicetta.VotiNegativi)) * 100;
         decimal vnPercentage = votiRicetta.VotiPositivi == 0 && votiRicetta.VotiNegativi == 0 ? 
@@ -93,7 +91,7 @@ public partial class RecipePage : ContentPage
     {
         await _globals.InsertRecipeRating(
         [
-            new("IdUtente", 1),
+            new("IdUtente", int.Parse(await SecureStorage.Default.GetAsync("IdUtente"))),
             new("IdRicetta", ricetta.IdRicetta),
             new("Voto", true)
         ]);
@@ -106,7 +104,7 @@ public partial class RecipePage : ContentPage
     {
         await _globals.InsertRecipeRating(
         [
-            new("IdUtente", 1),
+            new("IdUtente", int.Parse(await SecureStorage.Default.GetAsync("IdUtente"))),
             new("IdRicetta", ricetta.IdRicetta),
             new("Voto", false)
         ]);

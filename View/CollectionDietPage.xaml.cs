@@ -36,8 +36,7 @@ public partial class CollectionDietPage : ContentPage
     private async Task SetCollezione(string Id)
     {
         int IdCollezione = int.Parse(Id);
-        List<Model.Collezione> c = await _globals.GetCollectionById(IdCollezione);
-        collezione = c[0];
+        collezione = (await _globals.GetCollectionById(IdCollezione))[0];
         ricette = await _globals.GetRecipesByCollection(IdCollezione);
         CollectionName.Text = collezione.Nome;
         CollectionDescription.Text = collezione.Descrizione;

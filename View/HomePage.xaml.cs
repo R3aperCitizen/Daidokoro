@@ -1,5 +1,4 @@
 ﻿using Daidokoro.ViewModel;
-using Microsoft.Extensions.Configuration;
 
 namespace Daidokoro.View
 {
@@ -7,23 +6,14 @@ namespace Daidokoro.View
     {
         // Global app variables
         private readonly IMainViewModel _globals;
-        // Appsettings configuration
-        private readonly IConfiguration _configuration;
 
         private List<Model.Ricetta> monthRecipes;
 
-        public HomePage(IConfiguration configuration, IMainViewModel globals)
+        public HomePage(IMainViewModel globals)
         {
             InitializeComponent();
-            _configuration = configuration;
             _globals = globals;
             SetScrollBehaviour();
-
-            if (globals.dbService.dbCredentials.Server == string.Empty)
-            {
-                Model.DBCredentials dbs = _configuration.GetRequiredSection("DBCredentials").Get<Model.DBCredentials>()!;
-                bool connection = _globals.InitDBSettings(dbs);
-            }
         }
 
         protected async override void OnNavigatedTo(NavigatedToEventArgs args)

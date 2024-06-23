@@ -145,7 +145,7 @@ namespace Daidokoro.ViewModel
                 $"FROM utente\r\n" +
                 $"LEFT JOIN (SELECT utente.IdUtente, COUNT(*) AS Likes FROM utente JOIN likes ON likes.IdUtente = utente.IdUtente GROUP BY likes.IdUtente) AS temp_likes\r\n" +
                 $"ON utente.IdUtente = temp_likes.IdUtente\r\n" +
-                $"LEFT JOIN (SELECT utente.IdUtente, COUNT(*) AS ReviewCount FROM utente JOIN valutazione ON valutazione.IdUtente = utente.IdUtente GROUP BY valutazione.IdUtente) AS temp_reviews\r\n" +
+                $"LEFT JOIN (SELECT utente.IdUtente, COUNT(*) AS ReviewCount FROM utente JOIN valutazione_ricetta ON valutazione_ricetta.IdUtente = utente.IdUtente GROUP BY valutazione_ricetta.IdUtente) AS temp_reviews\r\n" +
                 $"ON utente.IdUtente = temp_reviews.IdUtente\r\n" +
                 $"LEFT JOIN (SELECT utente.IdUtente, COUNT(*) AS RecipeCount FROM utente JOIN ricetta ON ricetta.IdUtente = utente.IdUtente GROUP BY ricetta.IdUtente) AS temp_recipes\r\n" +
                 $"ON utente.IdUtente = temp_recipes.IdUtente\r\n" +
@@ -308,6 +308,16 @@ namespace Daidokoro.ViewModel
             
             query += $"ORDER BY {orderby};";
             return await dbService.GetData<Ricetta>(query);                     
+        }
+
+        public async Task<bool> CanUserLogin(string Email, string Password)
+        {
+            return await _dbService.ExistInTable($"SELECT * FROM utente WHERE Email = \'{Email}\' AND Pwd = \'{Password}\'");
+        }
+
+        public async Task<string> GetLoggedUserId(string Email, string Password)
+        {
+            return (await _dbService.GetData<Utente>($"SELECT * FROM utente WHERE Email = \'{Email}\' AND Pwd = \'{Password}\'"))[0].IdUtente.ToString();
         }
     }
 }

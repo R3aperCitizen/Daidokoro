@@ -9,6 +9,20 @@
     Title="Daidokoro">
 
     <ShellContent
+        Title="AuthCheck"
+        ContentTemplate="{DataTemplate view:AuthCheckPage}"
+        Route="AuthCheckPage"
+        Shell.NavBarIsVisible="False"
+        Shell.FlyoutBehavior="Disabled"/>
+    
+    <ShellContent
+        Title="Login"
+        ContentTemplate="{DataTemplate view:LoginPage}"
+        Route="LoginPage"
+        Shell.NavBarIsVisible="False"
+        Shell.FlyoutBehavior="Disabled"/>
+    
+    <ShellContent
         Title="Home"
         ContentTemplate="{DataTemplate view:HomePage}"
         Route="HomePage"

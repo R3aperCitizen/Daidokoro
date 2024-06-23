@@ -1,4 +1,6 @@
-﻿namespace Daidokoro
+﻿using Daidokoro.View;
+
+namespace Daidokoro
 {
     public partial class App : Application
     {

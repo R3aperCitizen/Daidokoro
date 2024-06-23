@@ -27,6 +27,8 @@ namespace Daidokoro.ViewModel
         Task<List<VotiRicetta>> GetRecipeRatingsCountGroupByVoto(int IdRicetta);
         Task<List<Valutazione>> GetRecipeRatingsByRecipe(int IdRicetta);
         Task InsertRecipeRating(List<Tuple<string, object>> valutazione);
+        Task<bool> CanUserLogin(string Email, string Password);
+        Task<string> GetLoggedUserId(string Email, string Password);
 
         public static Dictionary<string, string> sortings = new Dictionary<string, string>()
         {
@@ -36,7 +38,7 @@ namespace Daidokoro.ViewModel
         };
         public static Dictionary<string, string> categories = new Dictionary<string, string>()
         {
-            {"gluten-free","Gluten-Free" },
+            {"gluten-free", "Gluten-Free"},
             {"cascaPalle" , "cascaPalle"}
         };
     }

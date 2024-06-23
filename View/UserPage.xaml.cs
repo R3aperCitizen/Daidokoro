@@ -15,7 +15,7 @@ public partial class UserPage : ContentPage
 
     protected async override void OnAppearing()
     {
-        UserInfo.ItemsSource = await _globals.GetUserById(1);
+        UserInfo.ItemsSource = await _globals.GetUserById(int.Parse(await SecureStorage.Default.GetAsync("IdUtente")));
     }
 
     private async void LikesInfoButton_Clicked(object sender, EventArgs e)

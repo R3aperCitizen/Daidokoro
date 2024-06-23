@@ -41,6 +41,8 @@ namespace Daidokoro
             builder.Services.AddSingleton<IMainViewModel, MainViewModel>();
             builder.Services.AddTransient<RecipePageViewModel>();
             builder.Services.AddTransient<CollectionDietPageViewModel>();
+            builder.Services.AddTransient<AuthCheckPage>();
+            builder.Services.AddTransient<LoginPage>();
             builder.Services.AddTransient<HomePage>();
             builder.Services.AddTransient<UserPage>();
             builder.Services.AddTransient<BrowsePage>();
