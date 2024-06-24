@@ -102,7 +102,6 @@ public partial class RecipesListPage : ContentPage
     private async Task RefreshAll()
     {
         ricette = await _globals.GetRecipes();
-        Refresh();
     }
 
     private void Refresh()

@@ -91,7 +91,7 @@ namespace Daidokoro.Model
             return results;
         }
 
-        // Insert a given list of Operatore in the DB
+        // Insert a given element inside the db using the given query
         public async Task InsertElement(List<Tuple<string, object>> values, string query)
         {
             using (MySqlConnection connection = new(connectionString))
@@ -112,8 +112,8 @@ namespace Daidokoro.Model
             }
         }
 
-        // Remove elements from a given table based on the given Id and condition
-        public async Task RemoveElement(string query)
+        // Remove an element from a db table using the given query
+        public async Task RemoveOrUpdateElement(string query)
         {
             using (MySqlConnection connection = new(connectionString))
             {

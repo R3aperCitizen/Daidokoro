@@ -25,13 +25,13 @@ public partial class AuthCheckPage : ContentPage
 
     protected async override void OnNavigatedTo(NavigatedToEventArgs args)
     {
-        //if (await SecureStorage.Default.GetAsync("IdUtente") != null)
-        //{
-            //await Shell.Current.GoToAsync($"//{nameof(HomePage)}");
-        //}
-        //else
-        //{
-           //await Shell.Current.GoToAsync($"//{nameof(LoginPage)}");
-        //}
+        if (await SecureStorage.Default.GetAsync("IdUtente") != null)
+        {
+            await Shell.Current.GoToAsync($"//{nameof(HomePage)}");
+        }
+        else
+        {
+           await Shell.Current.GoToAsync($"//{nameof(LoginPage)}");
+        }
     }
 }
