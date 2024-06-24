@@ -24,10 +24,10 @@ namespace Daidokoro.ViewModel
         Task<List<Collezione>> GetSearchedCollections(int dieta, string text);
         Task<List<CategoriaNutrizionale>> GetNutritionalCategories();
         Task<List<CategoriaNutrizionale>> GetNutritionalCategories(int IdRicetta);
-        Task<List<VotiRicetta>> GetRecipeRatingsCountGroupByVoto(int IdRicetta);
-        Task<List<Valutazione>> GetRecipeRatingsByRecipe(int IdRicetta);
-        Task InsertRecipeRating(List<Tuple<string, object>> valutazione);
-        Task<bool> InsertReviewIfRecipeIsRatedByUser(int IdRicetta, string Commento);
+        Task<List<VotiRicetta>> GetRatingsCountGroupByVoto(int Id, bool isRecipe);
+        Task<List<Valutazione>> GetRatingsById(int Id, bool isRecipe);
+        Task InsertRating(List<Tuple<string, object>> valutazione, bool isRecipe);
+        Task<bool> InsertReviewIfRatedByUser(int Id, string Commento, bool isRecipe);
         Task<bool> CanUserLogin(string Email, string Password);
         Task<string> GetLoggedUserId(string Email, string Password);
 
