@@ -1,4 +1,5 @@
-﻿using Daidokoro.Model;
+﻿using AndroidX.Emoji2.Text.FlatBuffer;
+using Daidokoro.Model;
 
 namespace Daidokoro.ViewModel
 {
@@ -365,6 +366,19 @@ namespace Daidokoro.ViewModel
             
             query += $"ORDER BY {orderby};";
             return await dbService.GetData<Ricetta>(query);                     
+        }
+
+        public async Task InsertNewRecipe(List<Tuple<string, object>> recipe)
+        {
+            if (int.TryParse(await SecureStorage.Default.GetAsync("IdUtente"), out int IdUtente))
+            {
+                var r = recipe;
+                r.Add(new("IdUtente", IdUtente));
+                await _dbService.InsertElement(
+                    r,
+                    $@"INSERT INTO ricetta (Nome, Descrizione, Passaggi, Foto, Difficolta, Tempo, DataCreazione, IdUtente) VALUES (?, ?, ?, ?, ?, ?, NOW(), ?);"
+                );
+            }
         }
 
         public async Task<bool> CanUserLogin(string Email, string Password)

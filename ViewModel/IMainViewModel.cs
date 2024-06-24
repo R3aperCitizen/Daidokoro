@@ -30,6 +30,7 @@ namespace Daidokoro.ViewModel
         Task<bool> InsertReviewIfRatedByUser(int Id, string Commento, bool isRecipe);
         Task<bool> CanUserLogin(string Email, string Password);
         Task<string> GetLoggedUserId(string Email, string Password);
+        Task InsertNewRecipe(List<Tuple<string, object>> recipe);
 
         public static Dictionary<string, string> sortings = new Dictionary<string, string>()
         {

@@ -49,7 +49,14 @@
          Route="RecipePage"
          Shell.NavBarIsVisible="False"
          Shell.FlyoutBehavior="Disabled"/>
-    
+
+    <ShellContent
+         Title="RecipeCreationPage"
+         ContentTemplate="{DataTemplate view:RecipeCreationPage}"
+         Route="RecipeCreationPage"
+         Shell.NavBarIsVisible="False"
+         Shell.FlyoutBehavior="Disabled"/>
+
     <ShellContent
          Title="CollectionDietPage"
          ContentTemplate="{DataTemplate view:CollectionDietPage}"

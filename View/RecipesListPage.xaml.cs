@@ -1,4 +1,3 @@
-using Daidokoro.Model;
 using Daidokoro.ViewModel;
 
 namespace Daidokoro.View;
@@ -7,6 +6,8 @@ public partial class RecipesListPage : ContentPage
 {
     // Global app variables
     private readonly IMainViewModel _globals;
+    private readonly DisplayInfo _displayInfo;
+
     private List<Model.Ricetta> ricette;
     private List<string> categories;
 
@@ -14,7 +15,8 @@ public partial class RecipesListPage : ContentPage
     {
         InitializeComponent();
         _globals = globals;
-        SetFilterMenuBehaviour();
+        _displayInfo = DeviceDisplay.MainDisplayInfo;
+        SetBehaviours();
     }
 
     protected async override void OnNavigatedTo(NavigatedToEventArgs args)
@@ -86,15 +88,19 @@ public partial class RecipesListPage : ContentPage
         }
     }
 
-    private void SetFilterMenuBehaviour()
+    private void SetBehaviours()
     {
+        var screenHeight = _displayInfo.Height;
+        var screenDensity = _displayInfo.Density;
+
+        MainScroll.HeightRequest = (screenHeight / screenDensity) - 275;
         DifficultySlider.Maximum = 5;
         DifficultySlider.Minimum = 1;
         TimeSlider.Maximum = 100;
         TimeSlider.Minimum = 5;
-        CategoriesPicker.ItemsSource = IMainViewModel.categories.Keys.ToList() ;
-        SortPicker.ItemsSource = IMainViewModel.sortings.Keys.ToList() ;    
-        CategoriesPicker.SelectedIndex = 0 ;
+        CategoriesPicker.ItemsSource = IMainViewModel.categories.Keys.ToList();
+        SortPicker.ItemsSource = IMainViewModel.sortings.Keys.ToList();    
+        CategoriesPicker.SelectedIndex = 0;
         SortPicker.SelectedIndex = 0;
     }
 

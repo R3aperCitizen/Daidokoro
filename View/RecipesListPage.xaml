@@ -48,7 +48,7 @@
                 </VerticalStackLayout>
             </Border>
         </VerticalStackLayout>
-        <ScrollView HeightRequest="700">
+        <ScrollView x:Name="MainScroll">
             <VerticalStackLayout Padding="15,5,15,25" Spacing="25">
                 <CollectionView x:Name="RecipesList">
                     <CollectionView.ItemTemplate>

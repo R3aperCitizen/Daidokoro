@@ -15,7 +15,10 @@ public partial class UserPage : ContentPage
 
     protected async override void OnAppearing()
     {
-        UserInfo.ItemsSource = await _globals.GetUserById(int.Parse(await SecureStorage.Default.GetAsync("IdUtente")));
+        if (int.TryParse(await SecureStorage.Default.GetAsync("IdUtente"), out int IdUtente))
+        {
+            UserInfo.ItemsSource = await _globals.GetUserById(IdUtente);
+        }
     }
 
     private async void LikesInfoButton_Clicked(object sender, EventArgs e)
@@ -31,5 +34,15 @@ public partial class UserPage : ContentPage
     private async void RecipesInfoButton_Clicked(object sender, EventArgs e)
     {
         await DisplayAlert("Ricette", "Premuto!", "OK");
+    }
+
+    private async void GoToRecipeCreationPage(object sender, EventArgs e)
+    {
+        await Shell.Current.GoToAsync($"//{nameof(RecipeCreationPage)}");
+    }
+
+    private void GoToCollectionCreationPage(object sender, EventArgs e)
+    {
+
     }
 }

@@ -75,10 +75,8 @@ public partial class RecipePage : ContentPage
         PositiveVoteButton.Text = $"🍋‍🟩 {Math.Round(vpPercentage, 1)} %";
         NegativeVoteButton.Text = $"🧅 {Math.Round(vnPercentage, 1)} %";
 
-        PositiveVoteButton.WidthRequest = vpPercentage == 0 && vnPercentage == 0 
-            ? screenWidth / 2 : screenWidth * (double)(vpPercentage / 100);
-        NegativeVoteButton.WidthRequest = vpPercentage == 0 && vnPercentage == 0 
-            ? screenWidth / 2 : screenWidth * (double)(vnPercentage / 100);
+        PositiveVoteButton.WidthRequest = screenWidth / 2;
+        NegativeVoteButton.WidthRequest = screenWidth / 2;
     }
 
     private async Task SetRatings()

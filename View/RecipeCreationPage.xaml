@@ -1,0 +1,47 @@
+<?xml version="1.0" encoding="utf-8" ?>
+<ContentPage xmlns="http://schemas.microsoft.com/dotnet/2021/maui"
+             xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml"
+             x:Class="Daidokoro.View.RecipeCreationPage"
+             xmlns:model="clr-namespace:Daidokoro.Model"
+             xmlns:controls="clr-namespace:Daidokoro.View.Controls"
+             Title="RecipeCreationPage">
+    
+    <VerticalStackLayout BackgroundColor="{StaticResource Background}">
+        <controls:NavigationBar />
+        <ScrollView x:Name="MainScroll">
+            <VerticalStackLayout Spacing="35" Padding="20">
+                <Label Text="Creazione Ricetta" FontSize="30" HorizontalTextAlignment="Center" TextColor="{StaticResource Palette2}" />
+                <Border StrokeShape="RoundRectangle 10" StrokeThickness="2" Stroke="{StaticResource Palette2}">
+                    <Entry x:Name="NomeRicetta" Placeholder="Inserisci il nome della ricetta" PlaceholderColor="{StaticResource Palette2}" TextColor="{StaticResource Palette2}" />
+                </Border>
+                <Border StrokeShape="RoundRectangle 10" StrokeThickness="2" Stroke="{StaticResource Palette2}">
+                    <Entry x:Name="Descrizione" HeightRequest="100" HorizontalOptions="FillAndExpand" Placeholder="Inserisci la descrizione" PlaceholderColor="{StaticResource Palette2}" TextColor="{StaticResource Palette2}" />
+                </Border>
+                <Border StrokeShape="RoundRectangle 10" StrokeThickness="0">
+                    <Image x:Name="SelectedImage" Aspect="AspectFill" />
+                </Border>
+                <Button Text="Seleziona la foto della ricetta completata" BackgroundColor="{StaticResource Palette2}" TextColor="{StaticResource Palette3}" Clicked="SelectImage" />
+                <Border StrokeShape="RoundRectangle 10" StrokeThickness="2" Stroke="{StaticResource Palette2}" WidthRequest="350">
+                    <HorizontalStackLayout>
+                        <Entry x:Name="Passaggio" WidthRequest="300" Placeholder="Inserisci un passaggio" PlaceholderColor="{StaticResource Palette2}" />
+                        <ImageButton Source="add.png" WidthRequest="50" HeightRequest="50" BackgroundColor="{StaticResource Palette2}" Clicked="AddStep" />
+                    </HorizontalStackLayout>
+                </Border>
+                <Border StrokeShape="RoundRectangle 10" StrokeThickness="0" BackgroundColor="{StaticResource Palette2}" Padding="15">
+                    <Label x:Name="Passaggi" Text="Lista dei passaggi:" TextColor="{StaticResource Palette3}" />
+                </Border>
+                <HorizontalStackLayout Spacing="15">
+                    <Label Text="Difficoltà:" TextColor="{StaticResource Palette2}" FontSize="15" VerticalTextAlignment="Center" />
+                    <Border StrokeShape="RoundRectangle 10" StrokeThickness="2" Stroke="{StaticResource Palette2}">
+                        <Picker x:Name="Difficulty" HorizontalTextAlignment="Center" TextColor="{StaticResource Palette2}" />
+                    </Border>
+                    <Label Text="Tempo:" TextColor="{StaticResource Palette2}" FontSize="15" VerticalTextAlignment="Center" />
+                    <Border StrokeShape="RoundRectangle 10" StrokeThickness="2" Stroke="{StaticResource Palette2}">
+                        <Entry x:Name="Time" Placeholder="Valore in minuti" PlaceholderColor="{StaticResource Palette2}" TextColor="{StaticResource Palette2}" />
+                    </Border>
+                </HorizontalStackLayout>
+            </VerticalStackLayout>
+        </ScrollView>
+        <Button Text="Crea Ricetta" HeightRequest="50" BackgroundColor="{StaticResource Palette2}" TextColor="{StaticResource Palette3}" Clicked="CreateRecipe" />
+    </VerticalStackLayout>
+</ContentPage>
