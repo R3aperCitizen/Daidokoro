@@ -73,15 +73,14 @@ public partial class RecipesListPage : ContentPage
         }
         else
         {
-            if(SearchBar.Text == null)
-            {
-                ricette = await _globals.GetFilteredRecipes(
-                CheckDifficulty.IsChecked ? Math.Round(DifficultySlider.Value).ToString() : null,
-                CheckTime.IsChecked ? Math.Round(TimeSlider.Value).ToString() : null,
-                IMainViewModel.sortings[SortPicker.SelectedItem.ToString()],
-                CheckCategories.IsChecked ? IMainViewModel.categories[CategoriesPicker.SelectedItem.ToString()] : null,
-                SearchBar.Text);
-            }
+            
+            ricette = await _globals.GetFilteredRecipes(
+            CheckDifficulty.IsChecked ? Math.Round(DifficultySlider.Value).ToString() : null,
+            CheckTime.IsChecked ? Math.Round(TimeSlider.Value).ToString() : null,
+            IMainViewModel.sortings[SortPicker.SelectedItem.ToString()],
+            CheckCategories.IsChecked ? IMainViewModel.categories[CategoriesPicker.SelectedItem.ToString()] : null,
+            SearchBar.Text);
+            
             
             Refresh();
         }
