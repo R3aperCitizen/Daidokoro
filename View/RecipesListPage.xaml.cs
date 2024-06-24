@@ -8,17 +8,24 @@ public partial class RecipesListPage : ContentPage
     // Global app variables
     private readonly IMainViewModel _globals;
     private List<Model.Ricetta> ricette;
+    private List<string> categories;
 
     public RecipesListPage(IMainViewModel globals)
     {
         InitializeComponent();
         _globals = globals;
+        SetFilterMenuBehaviour();
     }
 
     protected async override void OnNavigatedTo(NavigatedToEventArgs args)
     {
+        categories =
+            (from i
+            in (await _globals.GetNutritionalCategories())
+            select i.Nome).ToList();
+
         await RefreshAll();
-        SetFilterMenuBehaviour();
+        Refresh();
     }
     
     private async void SearchBar_TextChanged(object sender, TextChangedEventArgs e)
@@ -28,29 +35,17 @@ public partial class RecipesListPage : ContentPage
 
     private async Task _SearchBar(string orderby)
     {
-        string text = SearchBar.Text.ToLower();
+        string text = SearchBar.Text;
         if (text == null || text == string.Empty)
         {
             await RefreshAll();
-        }
-        else if (int.TryParse(text, out int value))
-        {
-            if (value < 6)
-            {
-                ricette = await _globals.GetRecipesByDifficulty(value, orderby);
-            }
-            else
-            {
-                ricette = await _globals.GetRecipesByTime(value, orderby);
-            }
         }
         else
         {
             //query categoria nutrizionale
             ricette = await _globals.GetSearchedRecipes(text,orderby);
-        }
-
-        Refresh();
+            Refresh();
+        }        
     }
     private void OpenFilterMenu(object sender, EventArgs e)
     {
@@ -78,11 +73,16 @@ public partial class RecipesListPage : ContentPage
         }
         else
         {
-            ricette = await _globals.GetFilteredRecipes(
+            if(SearchBar.Text == null)
+            {
+                ricette = await _globals.GetFilteredRecipes(
                 CheckDifficulty.IsChecked ? Math.Round(DifficultySlider.Value).ToString() : null,
                 CheckTime.IsChecked ? Math.Round(TimeSlider.Value).ToString() : null,
                 IMainViewModel.sortings[SortPicker.SelectedItem.ToString()],
-                CheckCategories.IsChecked ? IMainViewModel.categories[CategoriesPicker.SelectedItem.ToString()] : null);
+                CheckCategories.IsChecked ? IMainViewModel.categories[CategoriesPicker.SelectedItem.ToString()] : null,
+                SearchBar.Text);
+            }
+            
             Refresh();
         }
     }

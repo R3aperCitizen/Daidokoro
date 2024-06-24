@@ -271,13 +271,36 @@ namespace Daidokoro.ViewModel
             }
         }
 
-        public async Task<List<Ricetta>> GetFilteredRecipes(string difficulty,string time, string orderby, string category)
+        public async Task<List<Ricetta>> GetFilteredRecipes(string difficulty,string time, string orderby, string category, string s)
         {
-            string query =
-                $"WITH v1(IdRicetta,Nome,Descrizione,Passaggi,Foto,Difficolta,Tempo,DataCreazione,IdUtente,NumeroLike) AS(\r\n" +
-                $"SELECT ricetta.*, COUNT(likes.IdRicetta) AS NumeroLike\r\n" +
+            string query = $"WITH v2(IdRicetta,Nome,Descrizione,Passaggi,Foto,Difficolta,Tempo,DataCreazione,IdUtente,NumeroLike) AS(\r\n";
+            if (s == null || s == string.Empty)
+            {
+                query += $"Select ricetta.* \r\n From ricetta)";
+            }
+            else
+            {
+                query +=
+                $"WITH v3(IdRicetta,Nome,Descrizione,Passaggi,Foto,Difficolta,Tempo,DataCreazione,IdUtente,NumeroLike) AS(\\r\\n\"" +
+                $"SELECT ricetta.*\r\n" +
                 $"FROM ricetta\r\n" +
-                $"LEFT JOIN likes ON likes.IdRicetta = ricetta.IdRicetta\r\n";
+                $"LEFT JOIN likes ON likes.IdRicetta = ricetta.IdRicetta\r\n" +
+                $"GROUP BY ricetta.IdRicetta);\r\n" +
+                $"SELECT DISTINCT v3.*\r\n" +
+                $"FROM v3\r\n" +
+                $"JOIN ingrediente_ricetta ON ingrediente_ricetta.IdRicetta = v3.IdRicetta\r\n" +
+                $"JOIN ingrediente ON ingrediente_ricetta.IdIngrediente = ingrediente.IdIngrediente\r\n" +
+                $"JOIN categoria_nutrizionale ON ingrediente.IdCategoria=categoria_nutrizionale.IdCategoria\r\n" +
+                $"WHERE LOWER(categoria_nutrizionale.Nome) LIKE \"%{s}%\"\r\n" +
+                $"OR LOWER(ingrediente.Nome) LIKE \"%{s}%\"\r\n" +
+                $"OR LOWER(v3.Nome) LIKE \"%{s}%\"\r\n" +
+                $"LIMIT 10;)";
+            }
+            query +=
+            $"WITH v1(IdRicetta,Nome,Descrizione,Passaggi,Foto,Difficolta,Tempo,DataCreazione,IdUtente,NumeroLike) AS(\r\n" +
+                $"SELECT v2.*, COUNT(likes.IdRicetta) AS NumeroLike\r\n" +
+                $"FROM ricetta\r\n" +
+                $"LEFT JOIN likes ON likes.IdRicetta = v2.IdRicetta\r\n";
             if (difficulty != null || time != null)
             {
                 query += " WHERE ";
@@ -295,7 +318,7 @@ namespace Daidokoro.ViewModel
                 query += $" FLOOR(ricetta.Tempo / 10) * 10 = FLOOR({time} / 10) * 10 ";
             }
             //end of view
-            query += "\r\nGROUP BY ricetta.IdRicetta)\r\n" + "SELECT DISTINCT v1.*\r\n" + "FROM v1\r\n";
+            query += "\r\nGROUP BY v2.IdRicetta)\r\n" + "SELECT DISTINCT v1.*\r\n" + "FROM v1\r\n";
 
             if (category != null)
             {
