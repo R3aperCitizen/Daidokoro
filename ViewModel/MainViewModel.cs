@@ -53,12 +53,10 @@ namespace Daidokoro.ViewModel
                 $"WITH v1(IdRicetta,Nome,Descrizione,Passaggi,Foto,Difficolta,Tempo,DataCreazione,IdUtente,NumeroLike) AS(\r\n" +
                 $"SELECT ricetta.*, COUNT(likes.IdRicetta) AS NumeroLike\r\n" +
                 $"FROM ricetta\r\n" +
-                $"SELECT ricetta.*, COUNT(likes.IdRicetta) AS NumeroLike\r\n" +
-                $"FROM ricetta\r\n" +
                 $"LEFT JOIN likes ON likes.IdRicetta = ricetta.IdRicetta\r\n" +
                 $"JOIN ricetta_collezione ON ricetta_collezione.IdRicetta=ricetta.IdRicetta\r\n" +
                 $"WHERE ricetta_collezione.IdCollezione = {IdCollezione}\r\n" +
-                $"GROUP BY ricetta.IdRicetta)\r\n;" +
+                $"GROUP BY ricetta.IdRicetta)\r\n" +
                 $"SELECT DISTINCT v1.*\r\n" +
                 $"FROM v1\r\n" +
                 $"JOIN ingrediente_ricetta ON ingrediente_ricetta.IdRicetta = v1.IdRicetta\r\n" +
