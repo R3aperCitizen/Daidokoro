@@ -66,7 +66,7 @@ public partial class RecipePage : ContentPage
     private async Task SetRatingsBar()
     {
         double screenWidth = (_displayInfo.Width / _displayInfo.Density) - (MainVSL.Padding.Right + MainVSL.Padding.Left);
-        votiRicetta = (await _globals.GetRecipeRatingsCountGroupByVoto(ricetta.IdRicetta))[0];
+        votiRicetta = (await _globals.GetRatingsCountGroupByVoto(ricetta.IdRicetta, true))[0];
         decimal vpPercentage = votiRicetta.VotiPositivi == 0 && votiRicetta.VotiNegativi == 0 ? 
             0 : (votiRicetta.VotiPositivi / (votiRicetta.VotiPositivi + votiRicetta.VotiNegativi)) * 100;
         decimal vnPercentage = votiRicetta.VotiPositivi == 0 && votiRicetta.VotiNegativi == 0 ? 
@@ -83,17 +83,17 @@ public partial class RecipePage : ContentPage
 
     private async Task SetRatings()
     {
-        valutazioni = await _globals.GetRecipeRatingsByRecipe(ricetta.IdRicetta);
+        valutazioni = await _globals.GetRatingsById(ricetta.IdRicetta, true);
         Ratings.ItemsSource = valutazioni;
     }
 
     private async void VotePositive(object sender, EventArgs e)
     {
-        await _globals.InsertRecipeRating(
+        await _globals.InsertRating(
         [
             new("IdRicetta", ricetta.IdRicetta),
             new("Voto", true)
-        ]);
+        ], true);
 
         await SetRatingsBar();
         await SetRatings();
@@ -101,11 +101,11 @@ public partial class RecipePage : ContentPage
 
     private async void VoteNegative(object sender, EventArgs e)
     {
-        await _globals.InsertRecipeRating(
+        await _globals.InsertRating(
         [
             new("IdRicetta", ricetta.IdRicetta),
             new("Voto", false)
-        ]);
+        ], true);
 
         await SetRatingsBar();
         await SetRatings();
@@ -115,8 +115,9 @@ public partial class RecipePage : ContentPage
     {
         if (ReviewEntry.Text != null && ReviewEntry.Text != string.Empty)
         {
-            await _globals.InsertReviewIfRecipeIsRatedByUser(ricetta.IdRicetta, ReviewEntry.Text);
+            await _globals.InsertReviewIfRatedByUser(ricetta.IdRicetta, ReviewEntry.Text, true);
             await SetRatings();
+            ReviewEntry.Text = string.Empty;
         }
     }
 

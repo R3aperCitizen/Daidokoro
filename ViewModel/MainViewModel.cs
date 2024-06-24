@@ -236,58 +236,72 @@ namespace Daidokoro.ViewModel
             );
         }
 
-        public async Task<List<VotiRicetta>> GetRecipeRatingsCountGroupByVoto(int IdRicetta)
+        public async Task<List<VotiRicetta>> GetRatingsCountGroupByVoto(int Id, bool isRecipe)
         {
+            string table = isRecipe ? "valutazione_ricetta" : "valutazione_collezione";
+            string idName = isRecipe ? "IdRicetta" : "IdCollezione";
             return await _dbService.GetData<VotiRicetta>(
                 $"SELECT IFNULL(SUM(CASE WHEN Voto = 1 THEN 1 ELSE 0 END), 0) AS VotiPositivi, IFNULL(SUM(CASE WHEN Voto = 0 THEN 1 ELSE 0 END), 0) AS VotiNegativi\r\n" +
-                $"FROM valutazione_ricetta\r\n" +
-                $"WHERE IdRicetta = {IdRicetta};"
+                $"FROM {table}\r\n" +
+                $"WHERE {idName} = {Id};"
             );
         }
 
-        public async Task<List<Valutazione>> GetRecipeRatingsByRecipe(int IdRicetta)
+        public async Task<List<Valutazione>> GetRatingsById(int Id, bool isRecipe)
         {
+            string table = isRecipe ? "valutazione_ricetta" : "valutazione_collezione";
+            string idName = isRecipe ? "IdRicetta" : "IdCollezione";
             return await _dbService.GetData<Valutazione>(
-                $"SELECT valutazione_ricetta.IdUtente, IdRicetta, Voto, DataValutazione, Commento, utente.Username AS NomeUtente, utente.Foto AS FotoUtente\r\n" +
-                $"FROM valutazione_ricetta\r\n" +
-                $"JOIN utente ON utente.IdUtente=valutazione_ricetta.IdUtente\r\n" +
-                $"WHERE IdRicetta = {IdRicetta}\r\n" +
+                $"SELECT {table}.IdUtente, {idName}, Voto, DataValutazione, Commento, utente.Username AS NomeUtente, utente.Foto AS FotoUtente\r\n" +
+                $"FROM {table}\r\n" +
+                $"JOIN utente ON utente.IdUtente={table}.IdUtente\r\n" +
+                $"WHERE {idName} = {Id}\r\n" +
                 $"ORDER BY DataValutazione DESC;"
             );
         }
 
-        public async Task InsertRecipeRating(List<Tuple<string, object>> valutazione)
+        public async Task InsertRating(List<Tuple<string, object>> valutazione, bool isRecipe)
         {
-            valutazione.Add(new ("IdUtente", int.Parse(await SecureStorage.Default.GetAsync("IdUtente"))));
-            if (!await _dbService.ExistInTable($"SELECT * FROM valutazione_ricetta WHERE IdUtente = {valutazione[0].Item2} AND IdRicetta = {valutazione[1].Item2} AND Voto = {valutazione[2].Item2};"))
+            string table = isRecipe ? "valutazione_ricetta" : "valutazione_collezione";
+            string idName = isRecipe ? "IdRicetta" : "IdCollezione";
+            if (int.TryParse(await SecureStorage.Default.GetAsync("IdUtente"), out int IdUtente))
             {
-                if (await _dbService.ExistInTable($"SELECT * FROM valutazione_ricetta WHERE IdUtente = {valutazione[0].Item2} AND IdRicetta = {valutazione[1].Item2} AND Voto != {valutazione[2].Item2};"))
+                var v = valutazione;
+                v.Insert(0, new("IdUtente", IdUtente));
+                if (!await _dbService.ExistInTable($"SELECT * FROM {table} WHERE IdUtente = {valutazione[0].Item2} AND {idName} = {valutazione[1].Item2} AND Voto = {valutazione[2].Item2};"))
                 {
-                    await _dbService.RemoveOrUpdateElement($"DELETE FROM valutazione_ricetta WHERE IdUtente = {valutazione[0].Item2} AND IdRicetta = {valutazione[1].Item2};");
+                    if (await _dbService.ExistInTable($"SELECT * FROM {table} WHERE IdUtente = {valutazione[0].Item2} AND {idName} = {valutazione[1].Item2} AND Voto != {valutazione[2].Item2};"))
+                    {
+                        await _dbService.RemoveOrUpdateElement($"DELETE FROM {table} WHERE IdUtente = {valutazione[0].Item2} AND {idName} = {valutazione[1].Item2};");
+                    }
+                    await _dbService.InsertElement(
+                        v,
+                        $@"INSERT INTO {table} (IdUtente, {idName}, Voto, DataValutazione, Commento) VALUES (?, ?, ?, NOW(), '');"
+                    );
                 }
-                await _dbService.InsertElement(
-                    valutazione,
-                    $@"INSERT INTO valutazione_ricetta (IdUtente, IdRicetta, Voto, DataValutazione, Commento) VALUES (?, ?, ?, NOW(), '');"
-                );
             }
         }
 
-        public async Task<bool> InsertReviewIfRecipeIsRatedByUser(int IdRicetta, string Commento)
+        public async Task<bool> InsertReviewIfRatedByUser(int Id, string Commento, bool isRecipe)
         {
-            int IdUtente = int.Parse(await SecureStorage.Default.GetAsync("IdUtente"));
-            if (await _dbService.ExistInTable($"SELECT * FROM valutazione_ricetta WHERE IdUtente = {IdUtente} AND IdRicetta = {IdRicetta};"))
+            string table = isRecipe ? "valutazione_ricetta" : "valutazione_collezione";
+            string idName = isRecipe ? "IdRicetta" : "IdCollezione";
+            if (int.TryParse(await SecureStorage.Default.GetAsync("IdUtente"), out int IdUtente))
             {
-                await _dbService.RemoveOrUpdateElement(
-                    $"UPDATE valutazione_ricetta\r\n" +
-                    $"SET Commento = \'{Commento}\'\r\n" +
-                    $"WHERE IdUtente = {IdUtente} AND IdRicetta = {IdRicetta};"
-                );
-                return true;
+                if (await _dbService.ExistInTable($"SELECT * FROM {table} WHERE IdUtente = {IdUtente} AND {idName} = {Id};"))
+                {
+                    await _dbService.RemoveOrUpdateElement(
+                        $"UPDATE {table}\r\n" +
+                        $"SET Commento = \'{Commento}\'\r\n" +
+                        $"WHERE IdUtente = {IdUtente} AND {idName} = {Id};"
+                    );
+                    return true;
+                }
             }
             return false;
         }
 
-        public async Task<List<Ricetta>> GetFilteredRecipes(string difficulty,string time, string orderby, string category)
+        public async Task<List<Ricetta>> GetFilteredRecipes(string difficulty, string time, string orderby, string category)
         {
             string query =
                 $"WITH v1(IdRicetta,Nome,Descrizione,Passaggi,Foto,Difficolta,Tempo,DataCreazione,IdUtente,NumeroLike) AS(\r\n" +
