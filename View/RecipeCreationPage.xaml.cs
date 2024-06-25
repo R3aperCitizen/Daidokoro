@@ -1,3 +1,4 @@
+﻿using Daidokoro.Model;
 using Daidokoro.ViewModel;
 using Newtonsoft.Json;
 
@@ -11,6 +12,8 @@ public partial class RecipeCreationPage : ContentPage
 
     private List<string> passaggi;
     private byte[] selectedImage;
+    private List<Model.IngredienteRicetta> ingredientiRicetta;
+    private int IdRicetta;
 
     public RecipeCreationPage(IMainViewModel globals)
 	{
@@ -20,6 +23,7 @@ public partial class RecipeCreationPage : ContentPage
         SetBehaviours();
 
         passaggi = new();
+        ingredientiRicetta = new();
     }
 
     private void AddStep(object sender, EventArgs e)
@@ -82,12 +86,45 @@ public partial class RecipeCreationPage : ContentPage
                 new("Difficolta", diff),
                 new("Tempo", time)
             ]);
+            IdRicetta = await _globals.GetInsertedRecipeId();
+
+            ingredientiRicetta.ForEach(ir => ir.IdRicetta = IdRicetta);
+            ingredientiRicetta.ForEach(async ir => await _globals.InsertRecipeIngredient([
+                new("IdIngrediente", ir.IdIngrediente),
+                new("IdRicetta", ir.IdRicetta),
+                new("PesoInGrammi", ir.PesoInGrammi)
+            ]));
 
             await Shell.Current.GoToAsync($"//{nameof(UserPage)}");
         }
         else
         {
             await DisplayAlert("Impossibile creare la ricetta", "Completa tutti i campi!", "OK");
+        }
+    }
+
+    private async void SearchBar_TextChanged(object sender, TextChangedEventArgs e)
+    {
+        if (SearchBar.Text != null && SearchBar.Text != string.Empty)
+        {
+            IngredientsList.ItemsSource = await _globals.GetSearchedIngredients(SearchBar.Text.ToLower());
+        }
+    }
+
+    private void AddIngredient(object sender, EventArgs e)
+    {
+        if (IngredientsList.SelectedItem != null && 
+            Peso.Text != null && 
+            Peso.Text != string.Empty && 
+            int.TryParse(Peso.Text, out int _peso))
+        {
+            Model.Ingrediente i = (Model.Ingrediente)IngredientsList.SelectedItem;
+            ingredientiRicetta.Add(new Model.IngredienteRicetta
+            {
+                IdIngrediente = i.IdIngrediente,
+                PesoInGrammi = _peso
+            });
+            Ingredienti.Text = Ingredienti.Text + "\r\n" + "● " + i.Nome + " - " + _peso.ToString() + " gr.";
         }
     }
 }
