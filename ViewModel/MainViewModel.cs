@@ -322,7 +322,6 @@ namespace Daidokoro.ViewModel
                     $"WHERE LOWER(categoria_nutrizionale.Nome) LIKE \"%{text}%\"\r\n" +
                     $"OR LOWER(ingrediente.Nome) LIKE \"%{text}%\"\r\n" +
                     $"OR LOWER(v3.Nome) LIKE \"%{text}%\"\r\n" +
-                    $"ORDER BY {orderby}\r\n" +
                     $"LIMIT 10)\r\n";
             }
             else

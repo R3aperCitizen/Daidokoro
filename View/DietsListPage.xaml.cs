@@ -1,4 +1,5 @@
 using Daidokoro.ViewModel;
+using Java.IO;
 
 namespace Daidokoro.View;
 
@@ -44,5 +45,17 @@ public partial class DietsListPage : ContentPage
 
             Refresh();
         }
+    }
+
+    private void Button_Pressed(object sender, EventArgs e)
+    {
+        FilterMenuButton.IsVisible = true;
+        filterMenu.IsVisible = false;
+    }
+
+    private void FilterMenuButton_Clicked(object sender, EventArgs e)
+    {
+        FilterMenuButton.IsVisible = false;
+        filterMenu.IsVisible = true;
     }
 }

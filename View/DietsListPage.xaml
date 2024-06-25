@@ -5,26 +5,59 @@
              xmlns:model="clr-namespace:Daidokoro.Model"
              xmlns:controls="clr-namespace:Daidokoro.View.Controls"
              Title="DietsListPage">
-    
+
     <VerticalStackLayout BackgroundColor="{StaticResource Background}">
         <controls:NavigationBar />
-        <ScrollView>
-            <VerticalStackLayout Padding="15,25,15,25" Spacing="25">
-                <Border StrokeShape="RoundRectangle 10" StrokeThickness="0">
-                    <SearchBar x:Name="SearchBar" Placeholder="Cerca Diete..." BackgroundColor="{StaticResource NavBar}" PlaceholderColor="White" TextChanged="SearchBar_TextChanged"  />
-                </Border>
-                <CollectionView x:Name="DietsList">
-                <CollectionView.ItemTemplate>
-                    <DataTemplate x:DataType="model:Collezione">
-                        <controls:CollectionMinimal Id="{Binding IdCollezione}"
+        <VerticalStackLayout Padding="15,25,15,25" Spacing="25">
+            <Border StrokeShape="RoundRectangle 10" StrokeThickness="0">
+                <SearchBar x:Name="SearchBar" Placeholder="Cerca Diete..." BackgroundColor="{StaticResource NavBar}" PlaceholderColor="White" TextChanged="SearchBar_TextChanged"  />
+            </Border>
+            <Border StrokeShape="RoundRectangle 10" StrokeThickness="0">
+                <Button x:Name="FilterMenuButton" Text="Apri Menu Filtri ☰" FontAttributes="Bold" TextColor="White" BackgroundColor="{StaticResource NavBar}" Clicked="FilterMenuButton_Clicked" />
+            </Border>
+            <Border x:Name="filterMenu" BackgroundColor="{StaticResource NavBar}" StrokeShape="RoundRectangle 10" StrokeThickness="0" Padding="10" IsVisible="False">
+                <VerticalStackLayout >
+                    <HorizontalStackLayout HorizontalOptions="Center" Padding="5" >
+                        <Label Text="Data" VerticalOptions="Center" FontSize="Medium" Margin="0,0,80,0"/>
+                        <DatePicker FontSize="Medium" Margin="0,0,45,0"/>
+                        <CheckBox x:Name="DataCheck"/>
+                    </HorizontalStackLayout>
+                    <HorizontalStackLayout HorizontalOptions="Center" Padding="5">
+                        <Label Text="Difficoltà media" WidthRequest="100" VerticalOptions="Center" FontSize="Medium" Margin="0,0,20,0"/>
+                        <Label Text="1" VerticalOptions="Center" FontSize="Medium" Margin="0,0,10,0" x:Name="DifficoltaLabel"/>
+                        <Slider WidthRequest="130" Margin="0,0,0,0" x:Name="DifficoltaSlider"/>
+                        <CheckBox x:Name="DifficoltaCheck"/>
+                    </HorizontalStackLayout>
+                    <HorizontalStackLayout HorizontalOptions="Center" Padding="5">
+                        <Label Text="Numero ricette" WidthRequest="100" VerticalOptions="Center" FontSize="Medium" Margin="0,0,20,0"/>
+                        <Label Text="1" VerticalOptions="Center" FontSize="Medium" Margin="0,0,10,0" x:Name="NricetteLabel"/>
+                        <Slider WidthRequest="130" x:Name="NricetteSlider" />
+                        <CheckBox x:Name="NricetteCheck"/>
+                    </HorizontalStackLayout>
+                    <HorizontalStackLayout HorizontalOptions="Center" Padding="5">
+                        <Label Text="Ordinamento"  VerticalOptions="Center" FontSize="Medium" Margin="0,0,70,0"/>
+                        <Picker WidthRequest="130"/>
+                    </HorizontalStackLayout>
+                    <Border WidthRequest="150" HeightRequest="45" StrokeShape="RoundRectangle 10" Margin="5">
+                        <Button Text="Apply" Clicked="Button_Pressed"/>
+                    </Border>
+                </VerticalStackLayout>
+            </Border>
+            <VerticalStackLayout>
+                <ScrollView>
+                    <CollectionView x:Name="DietsList">
+                        <CollectionView.ItemTemplate>
+                            <DataTemplate x:DataType="model:Collezione">
+                                <controls:CollectionMinimal Id="{Binding IdCollezione}"
                                                     Title="{Binding Nome}"
                                                     Date="{Binding DataCreazioneString}"
                                                     Category="{Binding NomeCategoria}"
                                                     Image="{Binding FotoRicetta}"/>
-                    </DataTemplate>
-                </CollectionView.ItemTemplate>
-                </CollectionView>
+                            </DataTemplate>
+                        </CollectionView.ItemTemplate>
+                    </CollectionView>
+                </ScrollView>
             </VerticalStackLayout>
-        </ScrollView>
+        </VerticalStackLayout>
     </VerticalStackLayout>
 </ContentPage>
