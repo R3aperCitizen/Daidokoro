@@ -30,11 +30,7 @@
                             <Button WidthRequest="130" Text="Crea Collezione" BackgroundColor="#82cf4e" TextColor="White" FontAttributes="Bold" Clicked="GoToCollectionCreationPage" />
                         </HorizontalStackLayout>
                         <BoxView Margin="15" HeightRequest="2" Color="{StaticResource White}"/>
-                        <controls:GenericList>
-                            <controls:GenericList.Template>
-                                <controls:RecipeMinimal />
-                            </controls:GenericList.Template>
-                        </controls:GenericList>
+                        
                     </VerticalStackLayout>
                 </DataTemplate>    
             </CollectionView.ItemTemplate>

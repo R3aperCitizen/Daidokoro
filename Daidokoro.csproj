@@ -94,8 +94,8 @@
 	  <Compile Update="View\Controls\ImageBlob.xaml.cs">
 	    <DependentUpon>ImageBlob.xaml</DependentUpon>
 	  </Compile>
-	  <Compile Update="View\Controls\GenericList.xaml.cs">
-	    <DependentUpon>GenericList.xaml</DependentUpon>
+	  <Compile Update="View\Controls\RecipesList.xaml.cs">
+	    <DependentUpon>RecipesList.xaml</DependentUpon>
 	  </Compile>
 	  <Compile Update="View\Controls\RecipeMinimal.xaml.cs">
 	    <DependentUpon>RecipeMinimal.xaml</DependentUpon>
@@ -139,7 +139,7 @@
 	  <MauiXaml Update="View\Controls\ImageBlob.xaml">
 	    <Generator>MSBuild:Compile</Generator>
 	  </MauiXaml>
-	  <MauiXaml Update="View\Controls\GenericList.xaml">
+	  <MauiXaml Update="View\Controls\RecipesList.xaml">
 	    <Generator>MSBuild:Compile</Generator>
 	  </MauiXaml>
 	  <MauiXaml Update="View\Controls\RatingsSection.xaml">
