@@ -17,7 +17,7 @@
                 <Border StrokeShape="RoundRectangle 10" StrokeThickness="2" Stroke="{StaticResource Palette2}">
                     <Entry x:Name="Descrizione" HorizontalOptions="FillAndExpand" Placeholder="Inserisci la descrizione" PlaceholderColor="{StaticResource Palette2}" TextColor="{StaticResource Palette2}" />
                 </Border>
-                <Border StrokeShape="RoundRectangle 10" StrokeThickness="0">
+                <Border StrokeShape="RoundRectangle 10" BackgroundColor="{StaticResource Palette2}" HeightRequest="250" StrokeThickness="0">
                     <Image x:Name="SelectedImage" Aspect="AspectFill" />
                 </Border>
                 <Button Text="Seleziona la foto della ricetta completata" BackgroundColor="{StaticResource Palette2}" TextColor="{StaticResource Palette3}" Clicked="SelectImage" />

@@ -26,6 +26,25 @@ public partial class RecipeCreationPage : ContentPage
         ingredientiRicetta = new();
     }
 
+    private void ResetPage()
+    {
+        NomeRicetta.Text = string.Empty;
+        Descrizione.Text = string.Empty;
+        Passaggi.Text = "Lista dei passaggi:";
+        Passaggio.Text = string.Empty;
+        passaggi = new();
+        SelectedImage.Source = null;
+        selectedImage = null!;
+        Difficulty.SelectedItem = Difficulty.ItemsSource[0];
+        Time.Text = string.Empty;
+        SearchBar.Text = string.Empty;
+        IngredientsList.ItemsSource = null;
+        Peso.Text = string.Empty;
+        IdRicetta = 0;
+        ingredientiRicetta = new();
+        Ingredienti.Text = "Lista degli ingredienti:";
+    }
+
     private void AddStep(object sender, EventArgs e)
     {
         if (Passaggio.Text != null && Passaggio.Text != string.Empty)
@@ -43,6 +62,7 @@ public partial class RecipeCreationPage : ContentPage
 
         MainScroll.HeightRequest = (screenHeight / screenDensity) - 150;
         Difficulty.ItemsSource = new List<string>() { "1", "2", "3", "4", "5" };
+        Difficulty.SelectedItem = Difficulty.ItemsSource[0];
     }
 
     private async void SelectImage(object sender, EventArgs e)
@@ -61,7 +81,6 @@ public partial class RecipeCreationPage : ContentPage
             await stream.ReadAsync(selectedImage, 0, selectedImage.Length);
             stream = await response.OpenReadAsync();
             SelectedImage.Source = ImageSource.FromStream(() => stream);
-            SelectedImage.HeightRequest = 250;
         }
     }
 
@@ -74,7 +93,8 @@ public partial class RecipeCreationPage : ContentPage
             Difficulty.SelectedItem != null &&
             Time.Text != null && Time.Text != string.Empty &&
             int.TryParse(Time.Text, out int time) && 
-            int.TryParse(Difficulty.SelectedItem.ToString(), out int diff))
+            int.TryParse(Difficulty.SelectedItem.ToString(), out int diff) &&
+            ingredientiRicetta.Count > 0)
         {
             string passaggiJson = JsonConvert.SerializeObject(passaggi);
             await _globals.InsertNewRecipe(
@@ -95,6 +115,7 @@ public partial class RecipeCreationPage : ContentPage
                 new("PesoInGrammi", ir.PesoInGrammi)
             ]));
 
+            ResetPage();
             await Shell.Current.GoToAsync($"//{nameof(UserPage)}");
         }
         else
