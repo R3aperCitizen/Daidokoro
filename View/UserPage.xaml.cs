@@ -17,7 +17,7 @@ public partial class UserPage : ContentPage
     {
         if (int.TryParse(await SecureStorage.Default.GetAsync("IdUtente"), out int IdUtente))
         {
-            UserInfo.ItemsSource = await _globals.GetUserById(IdUtente);
+            userInfo.ItemsSource = await _globals.GetUserById(IdUtente);
         }
     }
 
@@ -31,9 +31,9 @@ public partial class UserPage : ContentPage
         await DisplayAlert("Recensioni", "Premuto!", "OK");
     }
 
-    private async void RecipesInfoButton_Clicked(object sender, EventArgs e)
+    private void RecipesInfoButton_Clicked(object sender, EventArgs e)
     {
-        await DisplayAlert("Ricette", "Premuto!", "OK");
+        recentRecipes.AsyncSource = _globals.GetRecipes();
     }
 
     private async void GoToRecipeCreationPage(object sender, EventArgs e)

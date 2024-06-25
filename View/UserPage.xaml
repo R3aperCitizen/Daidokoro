@@ -8,7 +8,7 @@
 
     <VerticalStackLayout BackgroundColor="{StaticResource Background}">
         <controls:NavigationBar />
-        <CollectionView x:Name="UserInfo">
+        <CollectionView x:Name="userInfo">
             <CollectionView.ItemTemplate>
                 <DataTemplate x:DataType="model:Utente">
                     <VerticalStackLayout Padding="50">
@@ -30,10 +30,10 @@
                             <Button WidthRequest="130" Text="Crea Collezione" BackgroundColor="#82cf4e" TextColor="White" FontAttributes="Bold" Clicked="GoToCollectionCreationPage" />
                         </HorizontalStackLayout>
                         <BoxView Margin="15" HeightRequest="2" Color="{StaticResource White}"/>
-                        
                     </VerticalStackLayout>
                 </DataTemplate>    
             </CollectionView.ItemTemplate>
         </CollectionView>
+        <controls:RecipesList x:Name="recentRecipes" />
     </VerticalStackLayout>
 </ContentPage>
