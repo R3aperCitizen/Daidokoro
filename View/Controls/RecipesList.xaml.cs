@@ -5,14 +5,11 @@ namespace Daidokoro.View.Controls;
 public partial class RecipesList : ContentView
 {
 	public static readonly BindableProperty SourceProperty =
-		BindableProperty.Create(nameof(Source), typeof(List<Ricetta>), typeof(RecipesList), propertyChanged: OnSourceChanged);
+		BindableProperty.Create(nameof(Source), typeof(List<Ricetta>), typeof(RecipesList), new List<Ricetta>(), propertyChanged: OnSourceChanged);
     private static void OnSourceChanged(BindableObject bindable, object oldValue, object newValue)
     {
         var control = (RecipesList)bindable;
-
-        control.loading.IsVisible = true;
         control.list.ItemsSource = (List<Ricetta>)newValue;
-        control.loading.IsVisible = false;
     }
     public List<Ricetta> Source
 	{
@@ -26,10 +23,10 @@ public partial class RecipesList : ContentView
     {
         var control = (RecipesList)bindable;
         var asyncSourceTask = (Task<List<Ricetta>>)newValue;
+        control.Source = new List<Ricetta>();
 
         control.loading.IsVisible = true;
-        await asyncSourceTask;
-        control.list.ItemsSource = asyncSourceTask.Result;
+        control.Source = await asyncSourceTask;
         control.loading.IsVisible = false;
     }
     public Task<List<Ricetta>> AsyncSource
@@ -41,6 +38,6 @@ public partial class RecipesList : ContentView
     public RecipesList()
 	{
 		InitializeComponent();
-        loading.IsVisible = false;
+        list.SetBinding(ListView.ItemsSourceProperty, nameof(Source));
 	}
 }

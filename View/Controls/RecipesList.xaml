@@ -6,7 +6,7 @@
              x:Class="Daidokoro.View.Controls.RecipesList">
 
     <Grid>
-        <ActivityIndicator x:Name="loading" IsRunning="true" Color="{StaticResource Palette2}" />
+        <ActivityIndicator x:Name="loading" IsVisible="False" IsRunning="True" Color="{StaticResource Palette2}" />
         <CollectionView x:Name="list">
             <CollectionView.ItemTemplate>
                 <DataTemplate x:DataType="model:Ricetta">
