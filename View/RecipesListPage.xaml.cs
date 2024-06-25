@@ -21,8 +21,7 @@ public partial class RecipesListPage : ContentPage
     protected async override void OnNavigatedTo(NavigatedToEventArgs args)
     {
         CategoriesPicker.ItemsSource = await _globals.GetNutritionalCategories();
-
-        RefreshAll();
+        RecipesList.AsyncSource = _globals.GetRecipes();
     }
     
     private void SearchBar_TextChanged(object sender, TextChangedEventArgs e)
@@ -35,7 +34,7 @@ public partial class RecipesListPage : ContentPage
         string text = SearchBar.Text;
         if (text == null || text == string.Empty)
         {
-            RefreshAll();
+            RecipesList.AsyncSource = _globals.GetRecipes();
         }
         else
         {
@@ -65,19 +64,17 @@ public partial class RecipesListPage : ContentPage
         FilterMenuButton.IsVisible = true;
         if(!CheckDifficulty.IsChecked && !CheckCategories.IsChecked && !CheckTime.IsChecked)
         {
-            await _SearchBar(SortPicker.SelectedItem.ToString()!);
+            _SearchBar(SortPicker.SelectedItem.ToString()!);
         }
         else
         {
-            
-            ricette = await _globals.GetFilteredRecipes(
+
+            RecipesList.AsyncSource = _globals.GetFilteredRecipes(
             CheckDifficulty.IsChecked ? Math.Round(DifficultySlider.Value).ToString() : null,
             CheckTime.IsChecked ? Math.Round(TimeSlider.Value).ToString() : null,
             IMainViewModel.sortings[SortPicker.SelectedItem.ToString()],
             CheckCategories.IsChecked ? ((CategoriaNutrizionale)CategoriesPicker.SelectedItem).Nome : null,
             SearchBar.Text);
-                   
-            Refresh();
         }
     }
 
@@ -93,10 +90,5 @@ public partial class RecipesListPage : ContentPage
         SortPicker.ItemsSource = IMainViewModel.sortings.Keys.ToList();    
         CategoriesPicker.SelectedIndex = 0;
         SortPicker.SelectedIndex = 0;
-    }
-
-    private void RefreshAll()
-    {
-        RecipesList.AsyncSource = _globals.GetRecipes();
     }
 }
