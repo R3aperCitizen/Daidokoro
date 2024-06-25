@@ -94,8 +94,17 @@
 	  <Compile Update="View\Controls\ImageBlob.xaml.cs">
 	    <DependentUpon>ImageBlob.xaml</DependentUpon>
 	  </Compile>
-	  <Compile Update="View\Controls\RecipesList.xaml.cs">
-	    <DependentUpon>RecipesList.xaml</DependentUpon>
+	  <Compile Update="View\Controls\LoadingPopup.xaml.cs">
+	    <DependentUpon>LoadingPopup.xaml</DependentUpon>
+	  </Compile>
+	  <Compile Update="View\Controls\CollectionMinimalList.xaml.cs">
+	    <DependentUpon>CollectionMinimalList.xaml</DependentUpon>
+	  </Compile>
+	  <Compile Update="View\Controls\RecipeFullList.xaml.cs">
+	    <DependentUpon>RecipeFullList.xaml</DependentUpon>
+	  </Compile>
+	  <Compile Update="View\Controls\RecipeMinimalList.xaml.cs">
+	    <DependentUpon>RecipeMinimalList.xaml</DependentUpon>
 	  </Compile>
 	  <Compile Update="View\Controls\RecipeMinimal.xaml.cs">
 	    <DependentUpon>RecipeMinimal.xaml</DependentUpon>
@@ -139,7 +148,16 @@
 	  <MauiXaml Update="View\Controls\ImageBlob.xaml">
 	    <Generator>MSBuild:Compile</Generator>
 	  </MauiXaml>
-	  <MauiXaml Update="View\Controls\RecipesList.xaml">
+	  <MauiXaml Update="View\Controls\LoadingPopup.xaml">
+	    <Generator>MSBuild:Compile</Generator>
+	  </MauiXaml>
+	  <MauiXaml Update="View\Controls\CollectionMinimalList.xaml">
+	    <Generator>MSBuild:Compile</Generator>
+	  </MauiXaml>
+	  <MauiXaml Update="View\Controls\RecipeFullList.xaml">
+	    <Generator>MSBuild:Compile</Generator>
+	  </MauiXaml>
+	  <MauiXaml Update="View\Controls\RecipeMinimalList.xaml">
 	    <Generator>MSBuild:Compile</Generator>
 	  </MauiXaml>
 	  <MauiXaml Update="View\Controls\RatingsSection.xaml">

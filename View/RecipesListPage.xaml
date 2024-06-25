@@ -50,18 +50,7 @@
         </VerticalStackLayout>
         <ScrollView x:Name="MainScroll">
             <VerticalStackLayout Padding="15,5,15,25" Spacing="25">
-                <CollectionView x:Name="RecipesList">
-                    <CollectionView.ItemTemplate>
-                        <DataTemplate x:DataType="model:Ricetta">
-                            <controls:RecipeMinimal Id="{Binding IdRicetta}"
-                                                    Image="{Binding Foto}"
-                                                    Title="{Binding Nome}"
-                                                    Time="{Binding Tempo}"
-                                                    Difficulty="{Binding Difficolta}"
-                                                    Likes="{Binding NumeroLike}" />
-                        </DataTemplate>
-                    </CollectionView.ItemTemplate>
-                </CollectionView>
+                <controls:RecipeMinimalList x:Name="RecipesList" />
             </VerticalStackLayout>
         </ScrollView>
     </VerticalStackLayout>

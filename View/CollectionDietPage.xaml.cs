@@ -44,12 +44,11 @@ public partial class CollectionDietPage : ContentPage
     {
         int IdCollezione = int.Parse(Id);
         collezione = (await _globals.GetCollectionById(IdCollezione))[0];
-        ricette = await _globals.GetRecipesByCollection(IdCollezione);
         CollectionName.Text = collezione.Nome;
         CollectionDescription.Text = collezione.Descrizione;
         CollectionCategory.Text = collezione.NomeCategoria;
         CollectionDate.Text = "Data Creazione: " + collezione.DataCreazioneString;
-        RecipesList.ItemsSource = ricette;
+        RecipesList.AsyncSource = _globals.GetRecipesByCollection(IdCollezione);
 
         if (collezione.Dieta)
         {

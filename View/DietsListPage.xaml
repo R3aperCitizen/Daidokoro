@@ -13,17 +13,7 @@
                 <Border StrokeShape="RoundRectangle 10" StrokeThickness="0">
                     <SearchBar x:Name="SearchBar" Placeholder="Cerca Diete..." BackgroundColor="{StaticResource NavBar}" PlaceholderColor="White" TextChanged="SearchBar_TextChanged"  />
                 </Border>
-                <CollectionView x:Name="DietsList">
-                <CollectionView.ItemTemplate>
-                    <DataTemplate x:DataType="model:Collezione">
-                        <controls:CollectionMinimal Id="{Binding IdCollezione}"
-                                                    Title="{Binding Nome}"
-                                                    Date="{Binding DataCreazioneString}"
-                                                    Category="{Binding NomeCategoria}"
-                                                    Image="{Binding FotoRicetta}"/>
-                    </DataTemplate>
-                </CollectionView.ItemTemplate>
-                </CollectionView>
+                <controls:CollectionMinimalList x:Name="DietsList"/>
             </VerticalStackLayout>
         </ScrollView>
     </VerticalStackLayout>

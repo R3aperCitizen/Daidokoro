@@ -8,6 +8,9 @@ namespace Daidokoro.ViewModel
 
         bool InitDBSettings(DBCredentials dbs);
 
+        Task<T> LoadAndGet<T>(Task<T> task);
+        Task Load(Task task);
+
         Task<List<Ingrediente>> GetIngredients(int IdRicetta);
         Task<List<Ricetta>> GetRecipes();
         Task<List<Ricetta>> GetRecipesByCollection(int IdCollezione);
