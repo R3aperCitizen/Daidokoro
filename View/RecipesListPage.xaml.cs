@@ -67,13 +67,12 @@ public partial class RecipesListPage : ContentPage
         }
         else
         {
-
             RecipesList.AsyncSource = _globals.GetFilteredRecipes(
-            CheckDifficulty.IsChecked ? Math.Round(DifficultySlider.Value).ToString() : null,
-            CheckTime.IsChecked ? Math.Round(TimeSlider.Value).ToString() : null,
-            IMainViewModel.sortings[SortPicker.SelectedItem.ToString()],
-            CheckCategories.IsChecked ? ((CategoriaNutrizionale)CategoriesPicker.SelectedItem).Nome : null,
-            SearchBar.Text);
+                CheckDifficulty.IsChecked ? Math.Round(DifficultySlider.Value).ToString() : null,
+                CheckTime.IsChecked ? Math.Round(TimeSlider.Value).ToString() : null,
+                IMainViewModel.sortings[SortPicker.SelectedItem.ToString()],
+                CheckCategories.IsChecked ? ((CategoriaNutrizionale)CategoriesPicker.SelectedItem).Nome : null,
+                SearchBar.Text);
         }
     }
 

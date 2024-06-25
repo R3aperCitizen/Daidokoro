@@ -28,6 +28,7 @@
                     <Button WidthRequest="130" Text="Crea Collezione" BackgroundColor="#82cf4e" TextColor="White" FontAttributes="Bold" Clicked="GoToCollectionCreationPage" />
                 </HorizontalStackLayout>
                 <BoxView Margin="15" HeightRequest="2" Color="{StaticResource White}"/>
+                <controls:RecipeMinimalList x:Name="recentRecipes"/>
             </VerticalStackLayout>
         </VerticalStackLayout>
     </VerticalStackLayout>

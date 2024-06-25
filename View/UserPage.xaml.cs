@@ -36,7 +36,7 @@ public partial class UserPage : ContentPage
 
     private void RecipesInfoButton_Clicked(object sender, EventArgs e)
     {
-        //recentRecipes.AsyncSource = _globals.GetRecipes();
+        recentRecipes.AsyncSource = _globals.GetRecipes();
     }
 
     private async void GoToRecipeCreationPage(object sender, EventArgs e)
