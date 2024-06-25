@@ -144,7 +144,7 @@ namespace Daidokoro.ViewModel
                 $"FROM utente\r\n" +
                 $"LEFT JOIN (SELECT utente.IdUtente, COUNT(*) AS Likes FROM utente JOIN likes ON likes.IdUtente = utente.IdUtente GROUP BY likes.IdUtente) AS temp_likes\r\n" +
                 $"ON utente.IdUtente = temp_likes.IdUtente\r\n" +
-                $"LEFT JOIN (SELECT utente.IdUtente, COUNT(*) AS ReviewCount FROM utente JOIN valutazione ON valutazione.IdUtente = utente.IdUtente GROUP BY valutazione.IdUtente) AS temp_reviews\r\n" +
+                $"LEFT JOIN (SELECT utente.IdUtente, COUNT(*) AS ReviewCount FROM utente JOIN valutazione_ricetta ON valutazione_ricetta.IdUtente = utente.IdUtente GROUP BY valutazione_ricetta.IdUtente) AS temp_reviews\r\n" +
                 $"ON utente.IdUtente = temp_reviews.IdUtente\r\n" +
                 $"LEFT JOIN (SELECT utente.IdUtente, COUNT(*) AS RecipeCount FROM utente JOIN ricetta ON ricetta.IdUtente = utente.IdUtente GROUP BY ricetta.IdUtente) AS temp_recipes\r\n" +
                 $"ON utente.IdUtente = temp_recipes.IdUtente\r\n" +
