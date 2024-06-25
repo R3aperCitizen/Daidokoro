@@ -7,8 +7,6 @@ public partial class SwitchView : ContentView
     private static void OnPrimaryChanged(BindableObject bindable, object oldValue, object newValue)
     {
         var control = (SwitchView)bindable;
-        var primary = (Microsoft.Maui.Controls.View)newValue;
-
         control.Content = control.Switch ? control.Secondary : control.Primary;
     }
     public Microsoft.Maui.Controls.View Primary
@@ -22,8 +20,6 @@ public partial class SwitchView : ContentView
     private static void OnSecondaryChanged(BindableObject bindable, object oldValue, object newValue)
     {
         var control = (SwitchView)bindable;
-        var secondary = (Microsoft.Maui.Controls.View)newValue;
-
         control.Content = control.Switch ? control.Secondary : control.Primary;
     }
     public Microsoft.Maui.Controls.View Secondary
@@ -37,9 +33,7 @@ public partial class SwitchView : ContentView
     private static void OnSwitchChanged(BindableObject bindable, object oldValue, object newValue)
     {
         var control = (SwitchView)bindable;
-        var flag = (bool)newValue;
-
-        control.Content = flag ? control.Secondary : control.Primary;
+        control.Content = control.Switch ? control.Secondary : control.Primary;
     }
     public bool Switch
     {

@@ -36,6 +36,7 @@ public partial class UserPage : ContentPage
 
     private void RecipesInfoButton_Clicked(object sender, EventArgs e)
     {
+        recentRecipes.IsVisible = true;
         recentRecipes.AsyncSource = _globals.GetRecipes();
     }
 
