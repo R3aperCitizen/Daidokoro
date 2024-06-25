@@ -36,13 +36,7 @@
                             <Entry x:Name="ReviewEntry" Placeholder="Scrivi una recensione" WidthRequest="250" PlaceholderColor="White" />
                             <ImageButton Source="send_comment.png" WidthRequest="20" HeightRequest="20" Clicked="InsertReview" />
                         </HorizontalStackLayout>
-                        <CollectionView x:Name="Ratings">
-                            <CollectionView.ItemTemplate>
-                                <DataTemplate x:DataType="model:Valutazione">
-                                    <controls:RatingsSection />
-                                </DataTemplate>
-                            </CollectionView.ItemTemplate>
-                        </CollectionView>
+                        <controls:RatingList x:Name="Ratings"/>
                     </VerticalStackLayout>
                 </Border>
             </VerticalStackLayout>

@@ -10,15 +10,5 @@
         public string Commento { get; set; } = string.Empty;
         public string NomeUtente { get; set; } = string.Empty;
         public byte[] FotoUtente { get; set; } = null!;
-
-        public string DataValutazioneToString
-        {
-            get { return DataValutazione.ToString("dd/MM/yyyy HH:mm"); }
-        }
-
-        public string VotoToString
-        {
-            get { return Voto ? "🍋‍🟩" : "🧅"; }
-        }
     }
 }

@@ -12,7 +12,6 @@ public partial class CollectionDietPage : ContentPage
     private List<Model.Ricetta> ricette;
     private Model.Collezione collezione;
     private Model.VotiRicetta votiCollezione;
-    private List<Model.Valutazione> valutazioni;
 
     public CollectionDietPage(IMainViewModel globals, CollectionDietPageViewModel vm)
     {
@@ -55,7 +54,7 @@ public partial class CollectionDietPage : ContentPage
             RatingsBar.IsVisible = true;
             RatingSection.IsVisible = true;
             await SetRatingsBar();
-            await SetRatings();
+            SetRatings();
         }
         else
         {
@@ -80,10 +79,9 @@ public partial class CollectionDietPage : ContentPage
         NegativeVoteButton.WidthRequest = screenWidth / 2;
     }
 
-    private async Task SetRatings()
+    private void SetRatings()
     {
-        valutazioni = await _globals.GetRatingsById(collezione.IdCollezione, false);
-        Ratings.ItemsSource = valutazioni;
+        Ratings.AsyncSource = _globals.GetRatingsById(collezione.IdCollezione, false);
     }
 
     private async void VotePositive(object sender, EventArgs e)
@@ -95,7 +93,7 @@ public partial class CollectionDietPage : ContentPage
         ], false);
 
         await SetRatingsBar();
-        await SetRatings();
+        SetRatings();
     }
 
     private async void VoteNegative(object sender, EventArgs e)
@@ -107,7 +105,7 @@ public partial class CollectionDietPage : ContentPage
         ], false);
 
         await SetRatingsBar();
-        await SetRatings();
+        SetRatings();
     }
 
     private async void InsertReview(object sender, EventArgs e)
@@ -115,7 +113,7 @@ public partial class CollectionDietPage : ContentPage
         if (ReviewEntry.Text != null && ReviewEntry.Text != string.Empty)
         {
             await _globals.InsertReviewIfRatedByUser(collezione.IdCollezione, ReviewEntry.Text, false);
-            await SetRatings();
+            SetRatings();
             ReviewEntry.Text = string.Empty;
         }
     }

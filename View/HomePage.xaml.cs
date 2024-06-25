@@ -7,8 +7,6 @@ namespace Daidokoro.View
         // Global app variables
         private readonly IMainViewModel _globals;
 
-        private List<Model.Ricetta> monthRecipes;
-
         public HomePage(IMainViewModel globals)
         {
             InitializeComponent();
