@@ -37,7 +37,7 @@ public partial class RecipeCreationPage : ContentPage
         var screenHeight = _displayInfo.Height;
         var screenDensity = _displayInfo.Density;
 
-        MainScroll.HeightRequest = (screenHeight / screenDensity) - 200;
+        MainScroll.HeightRequest = (screenHeight / screenDensity) - 150;
         Difficulty.ItemsSource = new List<string>() { "1", "2", "3", "4", "5" };
     }
 
