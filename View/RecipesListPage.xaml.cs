@@ -1,3 +1,4 @@
+using Daidokoro.Model;
 using Daidokoro.ViewModel;
 
 namespace Daidokoro.View;
@@ -9,8 +10,6 @@ public partial class RecipesListPage : ContentPage
     private readonly DisplayInfo _displayInfo;
 
     private List<Model.Ricetta> ricette;
-    private List<string> categories;
-
     public RecipesListPage(IMainViewModel globals)
     {
         InitializeComponent();
@@ -21,10 +20,7 @@ public partial class RecipesListPage : ContentPage
 
     protected async override void OnNavigatedTo(NavigatedToEventArgs args)
     {
-        categories =
-            (from i
-            in (await _globals.GetNutritionalCategories())
-            select i.Nome).ToList();
+        CategoriesPicker.ItemsSource = await _globals.GetNutritionalCategories();
 
         RefreshAll();
     }
@@ -69,16 +65,19 @@ public partial class RecipesListPage : ContentPage
         FilterMenuButton.IsVisible = true;
         if(!CheckDifficulty.IsChecked && !CheckCategories.IsChecked && !CheckTime.IsChecked)
         {
-            _SearchBar(SortPicker.SelectedItem.ToString()!);
+            await _SearchBar(SortPicker.SelectedItem.ToString()!);
         }
         else
         {
-            RecipesList.AsyncSource = _globals.GetFilteredRecipes(
-                CheckDifficulty.IsChecked ? Math.Round(DifficultySlider.Value).ToString() : null,
-                CheckTime.IsChecked ? Math.Round(TimeSlider.Value).ToString() : null,
-                IMainViewModel.sortings[SortPicker.SelectedItem.ToString()],
-                CheckCategories.IsChecked ? IMainViewModel.categories[CategoriesPicker.SelectedItem.ToString()] : null,
-                SearchBar.Text);
+            
+            ricette = await _globals.GetFilteredRecipes(
+            CheckDifficulty.IsChecked ? Math.Round(DifficultySlider.Value).ToString() : null,
+            CheckTime.IsChecked ? Math.Round(TimeSlider.Value).ToString() : null,
+            IMainViewModel.sortings[SortPicker.SelectedItem.ToString()],
+            CheckCategories.IsChecked ? ((CategoriaNutrizionale)CategoriesPicker.SelectedItem).Nome : null,
+            SearchBar.Text);
+                   
+            Refresh();
         }
     }
 
@@ -86,13 +85,11 @@ public partial class RecipesListPage : ContentPage
     {
         var screenHeight = _displayInfo.Height;
         var screenDensity = _displayInfo.Density;
-
         MainScroll.HeightRequest = (screenHeight / screenDensity) - 275;
         DifficultySlider.Maximum = 5;
         DifficultySlider.Minimum = 1;
         TimeSlider.Maximum = 100;
         TimeSlider.Minimum = 5;
-        CategoriesPicker.ItemsSource = IMainViewModel.categories.Keys.ToList();
         SortPicker.ItemsSource = IMainViewModel.sortings.Keys.ToList();    
         CategoriesPicker.SelectedIndex = 0;
         SortPicker.SelectedIndex = 0;
