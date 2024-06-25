@@ -213,6 +213,15 @@ namespace Daidokoro.ViewModel
             );
         }
 
+        public async Task<List<Ingrediente>> GetSearchedIngredients(string text)
+        {
+            return await _dbService.GetData<Ingrediente>(
+                $"SELECT *\r\n" +
+                $"FROM ingrediente\r\n" +
+                $"WHERE LOWER(Nome) LIKE \"%{text}%\";"
+            );
+        }
+
         public async Task<List<CategoriaNutrizionale>> GetNutritionalCategories()
         {
             return await _dbService.GetData<CategoriaNutrizionale>(
@@ -378,6 +387,21 @@ namespace Daidokoro.ViewModel
                     $@"INSERT INTO ricetta (Nome, Descrizione, Passaggi, Foto, Difficolta, Tempo, DataCreazione, IdUtente) VALUES (?, ?, ?, ?, ?, ?, NOW(), ?);"
                 );
             }
+        }
+
+        public async Task InsertRecipeIngredient(List<Tuple<string, object>> ingredientRecipe)
+        {
+            await _dbService.InsertElement(
+                ingredientRecipe,
+                $@"INSERT INTO ingrediente_ricetta (IdIngrediente, IdRicetta, PesoInGrammi) VALUES (?, ?, ?);"
+            );
+        }
+
+        public async Task<int> GetInsertedRecipeId()
+        {
+            return (await _dbService.GetData<Ricetta>(
+                    "SELECT MAX(IdRicetta) AS IdRicetta\r\n" +
+                    "FROM ricetta"))[0].IdRicetta;
         }
 
         public async Task<bool> CanUserLogin(string Email, string Password)
