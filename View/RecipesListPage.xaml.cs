@@ -9,7 +9,6 @@ public partial class RecipesListPage : ContentPage
     private readonly IMainViewModel _globals;
     private readonly DisplayInfo _displayInfo;
 
-    private List<Model.Ricetta> ricette;
     public RecipesListPage(IMainViewModel globals)
     {
         InitializeComponent();
