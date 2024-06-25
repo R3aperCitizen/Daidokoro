@@ -15,7 +15,7 @@
                     <Entry x:Name="NomeRicetta" Placeholder="Inserisci il nome della ricetta" PlaceholderColor="{StaticResource Palette2}" TextColor="{StaticResource Palette2}" />
                 </Border>
                 <Border StrokeShape="RoundRectangle 10" StrokeThickness="2" Stroke="{StaticResource Palette2}">
-                    <Entry x:Name="Descrizione" HeightRequest="100" HorizontalOptions="FillAndExpand" Placeholder="Inserisci la descrizione" PlaceholderColor="{StaticResource Palette2}" TextColor="{StaticResource Palette2}" />
+                    <Entry x:Name="Descrizione" HorizontalOptions="FillAndExpand" Placeholder="Inserisci la descrizione" PlaceholderColor="{StaticResource Palette2}" TextColor="{StaticResource Palette2}" />
                 </Border>
                 <Border StrokeShape="RoundRectangle 10" StrokeThickness="0">
                     <Image x:Name="SelectedImage" Aspect="AspectFill" />
@@ -40,8 +40,8 @@
                         <Entry x:Name="Time" Placeholder="Valore in minuti" PlaceholderColor="{StaticResource Palette2}" TextColor="{StaticResource Palette2}" />
                     </Border>
                 </HorizontalStackLayout>
+                <Button Text="Crea Ricetta" HeightRequest="50" BackgroundColor="{StaticResource Palette5}" TextColor="{StaticResource Palette3}" FontSize="20" FontAttributes="Bold" Clicked="CreateRecipe" />
             </VerticalStackLayout>
         </ScrollView>
-        <Button Text="Crea Ricetta" HeightRequest="50" BackgroundColor="{StaticResource Palette2}" TextColor="{StaticResource Palette3}" Clicked="CreateRecipe" />
     </VerticalStackLayout>
 </ContentPage>
