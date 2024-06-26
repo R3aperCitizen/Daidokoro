@@ -44,23 +44,21 @@
                     <Border StrokeShape="RoundRectangle 10" StrokeThickness="0">
                         <SearchBar x:Name="SearchBar" Placeholder="Cerca Ingredienti da aggiungere..." BackgroundColor="{StaticResource Palette2}" PlaceholderColor="{StaticResource Palette3}" TextColor="{StaticResource Palette3}" TextChanged="SearchBar_TextChanged" />
                     </Border>
-                    <HorizontalStackLayout Spacing="10">
-                        <Border StrokeShape="RoundRectangle 10" StrokeThickness="2" Stroke="{StaticResource Palette2}" WidthRequest="180">
-                            <ListView x:Name="IngredientsList">
-                                <ListView.ItemTemplate>
-                                    <DataTemplate x:DataType="model:Ingrediente">
-                                        <TextCell Text="{Binding Nome}" TextColor="{StaticResource Palette2}" />
-                                    </DataTemplate>
-                                </ListView.ItemTemplate>
-                            </ListView>
-                        </Border>
-                        <Border StrokeShape="RoundRectangle 10" StrokeThickness="2" Stroke="{StaticResource Palette2}" WidthRequest="100">
-                            <Entry x:Name="Peso" Placeholder="Peso in grammi" PlaceholderColor="{StaticResource Palette2}" TextColor="{StaticResource Palette2}" />
-                        </Border>
-                        <Border StrokeShape="RoundRectangle 10" StrokeThickness="0">
-                            <ImageButton Source="add.png" WidthRequest="50" HeightRequest="50" BackgroundColor="{StaticResource Palette2}" Clicked="AddIngredient" />
-                        </Border>
-                    </HorizontalStackLayout>
+                    <Border StrokeShape="RoundRectangle 10" StrokeThickness="2" Stroke="{StaticResource Palette2}" HeightRequest="150">
+                        <ListView x:Name="IngredientsList">
+                            <ListView.ItemTemplate>
+                                <DataTemplate x:DataType="model:Ingrediente">
+                                    <TextCell Text="{Binding Nome}" TextColor="{StaticResource Palette2}" />
+                                </DataTemplate>
+                            </ListView.ItemTemplate>
+                        </ListView>
+                    </Border>
+                    <Border StrokeShape="RoundRectangle 10" StrokeThickness="2" Stroke="{StaticResource Palette2}">
+                        <Entry x:Name="Peso" Placeholder="Peso in grammi" PlaceholderColor="{StaticResource Palette2}" TextColor="{StaticResource Palette2}" />
+                    </Border>
+                    <Border StrokeShape="RoundRectangle 10" StrokeThickness="0">
+                        <ImageButton Source="add.png" HeightRequest="50" BackgroundColor="{StaticResource Palette2}" Clicked="AddIngredient" />
+                    </Border>
                     <Border StrokeShape="RoundRectangle 10" StrokeThickness="0" BackgroundColor="{StaticResource Palette2}" Padding="15">
                         <Label x:Name="Ingredienti" Text="Lista degli ingredienti:" TextColor="{StaticResource Palette3}" />
                     </Border>
