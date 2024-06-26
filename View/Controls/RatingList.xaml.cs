@@ -10,7 +10,7 @@ public partial class RatingList : ContentView
     {
         var control = (RatingList)bindable;
         control.list.ItemsSource = (List<Valutazione>)newValue;
-        control.switcher.Switch = true;
+        control.switcher.Index = 1;
     }
     public List<Valutazione> Source
     {
@@ -25,9 +25,9 @@ public partial class RatingList : ContentView
         var control = (RatingList)bindable;
         var asyncSourceTask = (Task<List<Valutazione>>)newValue;
 
-        control.switcher.Switch = false;
+        control.switcher.Index = 0;
         control.Source = await asyncSourceTask;
-        control.switcher.Switch = true;
+        control.switcher.Index = 1;
     }
     public Task<List<Valutazione>> AsyncSource
     {
