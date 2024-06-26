@@ -10,6 +10,7 @@ public partial class CollectionMinimalList : ContentView
     {
         var control = (CollectionMinimalList)bindable;
         control.list.ItemsSource = (List<Collezione>)newValue;
+        control.switcher.Switch = true;
     }
     public List<Collezione> Source
     {

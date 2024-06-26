@@ -10,6 +10,7 @@ public partial class RatingList : ContentView
     {
         var control = (RatingList)bindable;
         control.list.ItemsSource = (List<Valutazione>)newValue;
+        control.switcher.Switch = true;
     }
     public List<Valutazione> Source
     {

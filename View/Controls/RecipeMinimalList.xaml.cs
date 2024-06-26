@@ -10,6 +10,7 @@ public partial class RecipeMinimalList : ContentView
     {
         var control = (RecipeMinimalList)bindable;
         control.list.ItemsSource = (List<Ricetta>)newValue;
+        control.switcher.Switch = true;
     }
     public List<Ricetta> Source
 	{

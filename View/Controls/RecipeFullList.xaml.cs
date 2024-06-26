@@ -10,6 +10,7 @@ public partial class RecipeFullList : ContentView
     {
         var control = (RecipeFullList)bindable;
         control.list.ItemsSource = (List<Ricetta>)newValue;
+        control.switcher.Switch = true;
     }
     public List<Ricetta> Source
     {
