@@ -25,9 +25,9 @@ public partial class RecipeFullList : ContentView
         var control = (RecipeFullList)bindable;
         var asyncSourceTask = (Task<List<Ricetta>>)newValue;
 
-        control.switcher.Index = 0;
+        control.switcher.Switch = false;
         control.Source = await asyncSourceTask;
-        control.switcher.Index = 1;
+        control.switcher.Switch = true;
     }
     public Task<List<Ricetta>> AsyncSource
     {
