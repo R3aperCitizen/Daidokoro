@@ -10,6 +10,7 @@ public partial class CollectionMinimalList : ContentView
     {
         var control = (CollectionMinimalList)bindable;
         control.list.ItemsSource = (List<Collezione>)newValue;
+        control.switcher.Switch = true;
     }
     public List<Collezione> Source
     {
@@ -24,9 +25,9 @@ public partial class CollectionMinimalList : ContentView
         var control = (CollectionMinimalList)bindable;
         var asyncSourceTask = (Task<List<Collezione>>)newValue;
 
-        control.switcher.Switch = false;
+        //control.switcher.Switch = false;
         control.Source = await asyncSourceTask;
-        control.switcher.Switch = true;
+        //control.switcher.Switch = true;
     }
     public Task<List<Collezione>> AsyncSource
     {
