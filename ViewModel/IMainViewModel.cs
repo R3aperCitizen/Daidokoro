@@ -11,11 +11,15 @@ namespace Daidokoro.ViewModel
         Task<T> LoadAndGet<T>(Task<T> task);
         Task Load(Task task);
 
+        Task<int> GetCurrentUserId();
         Task<List<Ingrediente>> GetIngredients(int IdRicetta);
         Task<List<Ricetta>> GetRecipes();
         Task<List<Ricetta>> GetRecipesByCollection(int IdCollezione);
         Task<List<Ricetta>> GetRecipesByDifficulty(int Difficolta,string orderby);
         Task<List<Ricetta>> GetRecipesByTime(int Tempo,string orderby);
+        Task<List<Ricetta>> GetRecipesByUser(int userID);
+        Task<List<Ricetta>> GetLikedRecipes(int userID);
+        Task<List<Ricetta>> GetReviewedRecipes(int userID);
         Task<List<Ricetta>> GetRecipeById(int IdRicetta);
         Task<List<Collezione>> GetCollections();
         Task<List<Collezione>> GetCollectionById(int IdCollezione);

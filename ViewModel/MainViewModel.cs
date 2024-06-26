@@ -39,6 +39,12 @@ namespace Daidokoro.ViewModel
             loadingPopup.Close();
         }
 
+        public async Task<int> GetCurrentUserId()
+        {
+            string value = await SecureStorage.Default.GetAsync("IdUtente");
+            return int.Parse(value);
+        }
+
         public async Task<List<Ingrediente>> GetIngredients(int IdRicetta)
         {
             return await _dbService.GetData<Ingrediente>(
@@ -89,7 +95,7 @@ namespace Daidokoro.ViewModel
             return await _dbService.GetData<Ricetta>(
                 $"SELECT *\r\n" +
                 $"FROM ricetta\r\n" +
-                $"WHERE ricetta.Difficolta = {Difficolta}" +
+                $"WHERE ricetta.Difficolta = {Difficolta}\r\n" +
                 $"ORDER BY {orderby}"
             );
         }
@@ -99,9 +105,38 @@ namespace Daidokoro.ViewModel
             return await _dbService.GetData<Ricetta>(
                 $"SELECT *\r\n" +
                 $"FROM ricetta\r\n" +
-                $"WHERE ricetta.Tempo = {Tempo}" +
-                $"ORDER BY {orderby}"
-            ); ;
+                $"WHERE ricetta.Tempo = {Tempo}\r\n" +
+                $"ORDER BY {orderby}\r\n"
+            );
+        }
+
+        public async Task<List<Ricetta>> GetRecipesByUser(int userID)
+        {
+            return await _dbService.GetData<Ricetta>(
+                $"SELECT *\r\n" +
+                $"FROM ricetta\r\n" +
+                $"WHERE ricetta.IdUtente = {userID}\r\n"
+            );
+        }
+
+        public async Task<List<Ricetta>> GetLikedRecipes(int userID)
+        {
+            return await _dbService.GetData<Ricetta>(
+                $"SELECT ricetta.*\r\n" +
+                $"FROM ricetta\r\n" +
+                $"JOIN likes ON ricetta.IdRicetta = likes.IdRicetta\r\n" +
+                $"WHERE likes.IdUtente = {userID}\r\n"
+            );
+        }
+
+        public async Task<List<Ricetta>> GetReviewedRecipes(int userID)
+        {
+            return await _dbService.GetData<Ricetta>(
+                $"SELECT *\r\n" +
+                $"FROM ricetta\r\n" +
+                $"JOIN valutazione_ricetta ON ricetta.IdRicetta = valutazione_ricetta.IdRicetta\r\n" +
+                $"WHERE valutazione_ricetta.IdUtente = {userID}\r\n"
+            );
         }
 
         public async Task<List<Ricetta>> GetRecipeById(int IdRicetta)
@@ -453,6 +488,8 @@ namespace Daidokoro.ViewModel
                 where v2.num = 2*/
 
             }
+
+            return null;
         }
     }
 }
