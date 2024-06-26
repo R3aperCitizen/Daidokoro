@@ -39,7 +39,7 @@
                         <Picker WidthRequest="130"/>
                     </HorizontalStackLayout>
                     <Border WidthRequest="150" HeightRequest="45" StrokeShape="RoundRectangle 10" Margin="5">
-                        <Button Text="Apply" Clicked="Button_Pressed"/>
+                        <Button x:Name="ButtonApply" Text="Apply" Clicked="ButtonAppyl_Pressed"/>
                     </Border>
                 </VerticalStackLayout>
             </Border>

@@ -1,5 +1,6 @@
 ﻿using AndroidX.Emoji2.Text.FlatBuffer;
 using Daidokoro.Model;
+using System.Runtime.Intrinsics.X86;
 
 namespace Daidokoro.ViewModel
 {
@@ -412,6 +413,29 @@ namespace Daidokoro.ViewModel
         public async Task<string> GetLoggedUserId(string Email, string Password)
         {
             return (await _dbService.GetData<Utente>($"SELECT * FROM utente WHERE Email = \'{Email}\' AND Pwd = \'{Password}\'"))[0].IdUtente.ToString();
+        }
+
+        public async Task<List<Collezione>> getFilteredDiets(string text, string difficolta, string Data, string ordinamento,string Nricette)
+        {
+            if (text != null)
+            {
+                /* use daidokoro;
+                with v2 as (
+                With v1 AS(
+                Select *
+                from collezione
+                where collezione.Dieta = 1 && collezione.DataCreazione = 20240603)
+                Select v1.*,avg(ricetta.difficolta) as avDiff, count(ricetta.difficolta) as num
+                from v1
+                join ricetta_collezione on ricetta_collezione.IdCollezione = v1.IdCollezione
+                join ricetta on ricetta.IdRicetta = ricetta_collezione.IdRicetta
+                group by v1.IdCollezione
+                order by num)
+                Select v2.*
+                from v2
+                where v2.num = 2*/
+
+            }
         }
     }
 }

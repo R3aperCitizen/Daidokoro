@@ -42,12 +42,11 @@ public partial class DietsListPage : ContentPage
         else
         {
             diete = await _globals.GetSearchedCollections(1, text);
-
             Refresh();
         }
     }
 
-    private void Button_Pressed(object sender, EventArgs e)
+    private void ButtonApply_Pressed(object sender, EventArgs e)
     {
         FilterMenuButton.IsVisible = true;
         filterMenu.IsVisible = false;
