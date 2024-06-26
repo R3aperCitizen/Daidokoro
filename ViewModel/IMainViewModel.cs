@@ -22,7 +22,8 @@ namespace Daidokoro.ViewModel
         Task<List<Collezione>> GetDiets();
         Task<List<Utente>> GetUserById(int id);
         Task<List<Ricetta>> GetMonthRecipes();
-        Task<List<Ricetta>> GetSearchedRecipes(string text,string orderby);
+        Task<List<Ricetta>> GetSearchedRecipes(string text, string orderby);
+        Task<List<Ricetta>> GetSearchedRecipes(string Name, int IdCategoria);
         Task<List<Ricetta>> GetFilteredRecipes(string difficulty, string time, string orderby, string categories, string searchBarText);
         Task<List<Collezione>> GetSearchedCollections(int dieta, string text);
         Task<List<Ingrediente>> GetSearchedIngredients(string text);
@@ -37,6 +38,9 @@ namespace Daidokoro.ViewModel
         Task InsertNewRecipe(List<Tuple<string, object>> recipe);
         Task InsertRecipeIngredient(List<Tuple<string, object>> ingredientRecipe);
         Task<int> GetInsertedRecipeId();
+        Task InsertNewCollection(List<Tuple<string, object>> collection);
+        Task InsertCollectionRecipe(List<Tuple<string, object>> recipeCollection);
+        Task<int> GetInsertedCollectionId();
 
         public static Dictionary<string, string> sortings = new Dictionary<string, string>()
         {

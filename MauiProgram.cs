@@ -46,12 +46,13 @@ namespace Daidokoro
             builder.Services.AddTransient<HomePage>();
             builder.Services.AddTransient<UserPage>();
             builder.Services.AddTransient<BrowsePage>();
-            builder.Services.AddTransient<RecipePage>();
             builder.Services.AddTransient<RecipeCreationPage>();
-            builder.Services.AddTransient<CollectionDietPage>();
             builder.Services.AddTransient<RecipesListPage>();
+            builder.Services.AddTransient<RecipePage>();
+            builder.Services.AddTransient<CollectionCreationPage>();
             builder.Services.AddTransient<CollectionsListPage>();
             builder.Services.AddTransient<DietsListPage>();
+            builder.Services.AddTransient<CollectionDietPage>();
 
             return builder.Build();
         }

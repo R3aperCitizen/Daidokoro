@@ -208,6 +208,24 @@ namespace Daidokoro.ViewModel
             );
         }
 
+        public async Task<List<Ricetta>> GetSearchedRecipes(string name, int IdCategoria)
+        {
+            return await _dbService.GetData<Ricetta>(
+                $"WITH v1(IdRicetta,Nome,Descrizione,Passaggi,Foto,Difficolta,Tempo,DataCreazione,IdUtente,NumeroLike) AS(\r\n" +
+                $"SELECT ricetta.*, COUNT(likes.IdRicetta) AS NumeroLike\r\n" +
+                $"FROM ricetta\r\n" +
+                $"LEFT JOIN likes ON likes.IdRicetta = ricetta.IdRicetta\r\n" +
+                $"GROUP BY ricetta.IdRicetta)\r\n" +
+                $"SELECT DISTINCT v1.*\r\n" +
+                $"FROM v1\r\n" +
+                $"JOIN ingrediente_ricetta ON ingrediente_ricetta.IdRicetta=v1.IdRicetta\r\n" +
+                $"JOIN ingrediente ON ingrediente.IdIngrediente=ingrediente_ricetta.IdIngrediente\r\n" +
+                $"WHERE v1.Nome LIKE \"%{name}%\"\r\n" +
+                $"AND ingrediente.IdIngrediente IN (\r\n" +
+                $"SELECT IdIngrediente FROM ingrediente WHERE IdCategoria = {IdCategoria});"
+            );
+        }
+
         public async Task<List<Collezione>> GetSearchedCollections(int dieta, string text)
         {
             return await _dbService.GetData<Collezione>(
@@ -422,6 +440,34 @@ namespace Daidokoro.ViewModel
                     "FROM ricetta"))[0].IdRicetta;
         }
 
+        public async Task InsertNewCollection(List<Tuple<string, object>> collection)
+        {
+            if (int.TryParse(await SecureStorage.Default.GetAsync("IdUtente"), out int IdUtente))
+            {
+                var c = collection;
+                c.Add(new("IdUtente", IdUtente));
+                await _dbService.InsertElement(
+                    c,
+                    $@"INSERT INTO collezione (Nome, Descrizione, Dieta, DataCreazione, IdUtente, IdCategoria) VALUES (?, ?, ?, NOW(), ?, ?);"
+                );
+            }
+        }
+
+        public async Task InsertCollectionRecipe(List<Tuple<string, object>> recipeCollection)
+        {
+            await _dbService.InsertElement(
+                recipeCollection,
+                $@"INSERT INTO ricetta_collezione (IdRicetta, IdCollezione) VALUES (?, ?);"
+            );
+        }
+
+        public async Task<int> GetInsertedCollectionId()
+        {
+            return (await _dbService.GetData<Collezione>(
+                    "SELECT MAX(IdCollezione) AS IdCollezione\r\n" +
+                    "FROM collezione"))[0].IdCollezione;
+        }
+
         public async Task<bool> CanUserLogin(string Email, string Password)
         {
             return await _dbService.ExistInTable($"SELECT * FROM utente WHERE Email = \'{Email}\' AND Pwd = \'{Password}\'");
@@ -451,7 +497,7 @@ namespace Daidokoro.ViewModel
                 Select v2.*
                 from v2
                 where v2.num = 2*/
-
+                
             }
         }
     }

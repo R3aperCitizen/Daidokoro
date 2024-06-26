@@ -45,8 +45,8 @@ public partial class UserPage : ContentPage
         await Shell.Current.GoToAsync($"//{nameof(RecipeCreationPage)}");
     }
 
-    private void GoToCollectionCreationPage(object sender, EventArgs e)
+    private async void GoToCollectionCreationPage(object sender, EventArgs e)
     {
-
+        await Shell.Current.GoToAsync($"//{nameof(CollectionCreationPage)}");
     }
 }

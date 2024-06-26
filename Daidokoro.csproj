@@ -136,6 +136,9 @@
 	  <MauiXaml Update="View\BrowsePage.xaml">
 	    <Generator>MSBuild:Compile</Generator>
 	  </MauiXaml>
+	  <MauiXaml Update="View\CollectionCreationPage.xaml">
+	    <Generator>MSBuild:Compile</Generator>
+	  </MauiXaml>
 	  <MauiXaml Update="View\CollectionDietPage.xaml">
 	    <Generator>MSBuild:Compile</Generator>
 	  </MauiXaml>
