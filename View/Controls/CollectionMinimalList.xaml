@@ -6,21 +6,17 @@
              x:Class="Daidokoro.View.Controls.CollectionMinimalList">
 
     <controls:SwitchView x:Name="switcher">
-        <controls:SwitchView.Primary>
-            <ActivityIndicator IsRunning="True" Color="{StaticResource Palette2}" />
-        </controls:SwitchView.Primary>
-        <controls:SwitchView.Secondary>
-            <CollectionView x:Name="list">
-                <CollectionView.ItemTemplate>
-                    <DataTemplate x:DataType="model:Collezione">
-                        <controls:CollectionMinimal Id="{Binding IdCollezione}"
-                                                    Title="{Binding Nome}"
-                                                    Date="{Binding DataCreazioneString}"
-                                                    Category=""
-                                                    Image="{Binding FotoRicetta}"/>
-                    </DataTemplate>
-                </CollectionView.ItemTemplate>
-            </CollectionView>
-        </controls:SwitchView.Secondary>
+        <ActivityIndicator IsRunning="True" Color="{StaticResource Palette2}" />
+        <CollectionView x:Name="list">
+            <CollectionView.ItemTemplate>
+                <DataTemplate x:DataType="model:Collezione">
+                    <controls:CollectionMinimal Id="{Binding IdCollezione}"
+                                                Title="{Binding Nome}"
+                                                Date="{Binding DataCreazioneString}"
+                                                Category=""
+                                                Image="{Binding FotoRicetta}"/>
+                </DataTemplate>
+            </CollectionView.ItemTemplate>
+        </CollectionView>
     </controls:SwitchView>
 </ContentView>

@@ -6,22 +6,18 @@
              x:Class="Daidokoro.View.Controls.RecipeMinimalList">
 
     <controls:SwitchView x:Name="switcher">
-        <controls:SwitchView.Primary>
-            <ActivityIndicator IsRunning="True" Color="{StaticResource Palette2}" />
-        </controls:SwitchView.Primary>
-        <controls:SwitchView.Secondary>
-            <CollectionView x:Name="list">
-                <CollectionView.ItemTemplate>
-                    <DataTemplate x:DataType="model:Ricetta">
-                        <controls:RecipeMinimal Id="{Binding IdRicetta}"
-                                                Image="{Binding Foto}"
-                                                Title="{Binding Nome}"
-                                                Time="{Binding Tempo}"
-                                                Difficulty="{Binding Difficolta}"
-                                                Likes="{Binding NumeroLike}" />
-                    </DataTemplate>
-                </CollectionView.ItemTemplate>
-            </CollectionView>
-        </controls:SwitchView.Secondary>
+        <ActivityIndicator IsRunning="True" Color="{StaticResource Palette2}" />
+        <CollectionView x:Name="list">
+            <CollectionView.ItemTemplate>
+                <DataTemplate x:DataType="model:Ricetta">
+                    <controls:RecipeMinimal Id="{Binding IdRicetta}"
+                                            Image="{Binding Foto}"
+                                            Title="{Binding Nome}"
+                                            Time="{Binding Tempo}"
+                                            Difficulty="{Binding Difficolta}"
+                                            Likes="{Binding NumeroLike}" />
+                </DataTemplate>
+            </CollectionView.ItemTemplate>
+        </CollectionView>
     </controls:SwitchView>
 </ContentView>

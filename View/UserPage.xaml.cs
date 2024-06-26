@@ -1,7 +1,6 @@
 using CommunityToolkit.Maui.Views;
 using Daidokoro.View.Controls;
 using Daidokoro.ViewModel;
-using Java.Lang;
 
 namespace Daidokoro.View;
 

@@ -5,23 +5,19 @@
              xmlns:controls="clr-namespace:Daidokoro.View.Controls"
              x:Class="Daidokoro.View.Controls.RecipeFullList">
     
-    <controls:SwitchView x:Name="switcher">
-        <controls:SwitchView.Primary>
-            <ActivityIndicator IsRunning="True" Color="{StaticResource Palette2}" />
-        </controls:SwitchView.Primary>
-        <controls:SwitchView.Secondary>
-            <CollectionView x:Name="list">
-                <CollectionView.ItemTemplate>
-                    <DataTemplate x:DataType="model:Ricetta">
-                        <controls:RecipeFull Id="{Binding IdRicetta}"
-                                             Image="{Binding Foto}"
-                                             Title="{Binding Nome}"
-                                             Time="{Binding Tempo}"
-                                             Difficulty="{Binding Difficolta}"
-                                             Likes="{Binding NumeroLike}" />
-                    </DataTemplate>
-                </CollectionView.ItemTemplate>
-            </CollectionView>
-        </controls:SwitchView.Secondary>
+    <controls:SwitchView x:Name="switcher" Index="0">
+        <ActivityIndicator IsRunning="True" Color="{StaticResource Palette2}" />
+        <CollectionView x:Name="list">
+            <CollectionView.ItemTemplate>
+                <DataTemplate x:DataType="model:Ricetta">
+                    <controls:RecipeFull Id="{Binding IdRicetta}"
+                                         Image="{Binding Foto}"
+                                         Title="{Binding Nome}"
+                                         Time="{Binding Tempo}"
+                                         Difficulty="{Binding Difficolta}"
+                                         Likes="{Binding NumeroLike}" />
+                </DataTemplate>
+            </CollectionView.ItemTemplate>
+        </CollectionView>
     </controls:SwitchView>
 </ContentView>
