@@ -50,7 +50,8 @@ public partial class CollectionCreationPage : ContentPage
 
     private void AddRecipe(object sender, EventArgs e)
     {
-        if (RecipesListView.SelectedItem != null)
+        if (RecipesListView.SelectedItem != null && 
+            !ricette.Contains((Model.Ricetta)RecipesListView.SelectedItem))
         {
             Model.Ricetta i = (Model.Ricetta)RecipesListView.SelectedItem;
             ricette.Add(i);
@@ -58,7 +59,7 @@ public partial class CollectionCreationPage : ContentPage
             {
                 IdRicetta = i.IdRicetta
             });
-            RecipesList.Source = ricette;
+            RecipesList.Source = new List<Model.Ricetta>(ricette);
         }
     }
 

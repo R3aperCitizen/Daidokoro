@@ -37,14 +37,15 @@ namespace Daidokoro.ViewModel
         Task<List<Valutazione>> GetRatingsById(int Id, bool isRecipe);
         Task InsertRating(List<Tuple<string, object>> valutazione, bool isRecipe);
         Task<bool> InsertReviewIfRatedByUser(int Id, string Commento, bool isRecipe);
-        Task<bool> CanUserLogin(string Email, string Password);
-        Task<string> GetLoggedUserId(string Email, string Password);
         Task InsertNewRecipe(List<Tuple<string, object>> recipe);
         Task InsertRecipeIngredient(List<Tuple<string, object>> ingredientRecipe);
         Task<int> GetInsertedRecipeId();
         Task InsertNewCollection(List<Tuple<string, object>> collection);
         Task InsertCollectionRecipe(List<Tuple<string, object>> recipeCollection);
         Task<int> GetInsertedCollectionId();
+        Task<bool> CanUserLogin(string Email, string Password);
+        Task<string> GetLoggedUserId(string Email, string Password);
+        Task AddOrRemoveRecipeFromLiked(int IdRicetta);
 
         public static Dictionary<string, string> sortings = new Dictionary<string, string>()
         {

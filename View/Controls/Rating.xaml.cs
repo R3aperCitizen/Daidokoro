@@ -3,7 +3,7 @@
 public partial class Rating : ContentView
 {
 	private const string DATE_FORMAT = "dd/MM/yyyy HH:mm";
-	private const string POSITIVE_VOTE = "🍋‍";
+	private const string POSITIVE_VOTE = "🍋‍🟩";
 	private const string NEGATIVE_VOTE = "🧅";
 
 

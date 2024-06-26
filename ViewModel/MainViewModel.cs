@@ -513,6 +513,30 @@ namespace Daidokoro.ViewModel
             return (await _dbService.GetData<Utente>($"SELECT * FROM utente WHERE Email = \'{Email}\' AND Pwd = \'{Password}\'"))[0].IdUtente.ToString();
         }
 
+        public async Task AddOrRemoveRecipeFromLiked(int IdRicetta)
+        {
+            if (int.TryParse(await SecureStorage.Default.GetAsync("IdUtente"), out int IdUtente))
+            {
+                if (await _dbService.ExistInTable(
+                    $"SELECT * FROM likes\r\n" +
+                    $"WHERE IdRicetta = {IdRicetta} AND IdUtente = {IdUtente};"))
+                {
+                    await _dbService.RemoveOrUpdateElement(
+                        $"DELETE FROM likes\r\n" +
+                        $"WHERE IdRicetta = {IdRicetta} AND IdUtente = {IdUtente}"
+                    );
+                }
+                else
+                {
+                    await _dbService.InsertElement(
+                    [
+                        new("IdRicetta", IdRicetta),
+                        new("IdUtente", IdUtente)
+                    ], $"INSERT INTO likes (IdRicetta, IdUtente, Data) VALUES (?, ?, CURDATE());");
+                }
+            }
+        }
+
         public async Task<List<Collezione>> getFilteredDiets(string text, string difficolta, string Data, string ordinamento,string Nricette)
         {
             if (text != null)
