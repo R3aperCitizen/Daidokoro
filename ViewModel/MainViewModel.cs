@@ -1,6 +1,6 @@
-﻿using AndroidX.Emoji2.Text.FlatBuffer;
+﻿using CommunityToolkit.Maui.Views;
 using Daidokoro.Model;
-using System.Runtime.Intrinsics.X86;
+using Daidokoro.View.Controls;
 
 namespace Daidokoro.ViewModel
 {
@@ -20,6 +20,23 @@ namespace Daidokoro.ViewModel
                 Password = dbs.Password
             };
             return _dbService.TryConnection(dbc);
+        }
+
+        public async Task<T> LoadAndGet<T>(Task<T> task)
+        {
+            var loadingPopup = new LoadingPopup();
+            Application.Current.MainPage.ShowPopup(loadingPopup);
+            await task;
+            loadingPopup.Close();
+            return task.Result;
+        }
+
+        public async Task Load(Task task)
+        {
+            var loadingPopup = new LoadingPopup();
+            Application.Current.MainPage.ShowPopup(loadingPopup);
+            await task;
+            loadingPopup.Close();
         }
 
         public async Task<List<Ingrediente>> GetIngredients(int IdRicetta)

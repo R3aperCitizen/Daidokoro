@@ -6,7 +6,6 @@ public partial class CollectionsListPage : ContentPage
 {
     // Global app variables
     private readonly IMainViewModel _globals;
-    private List<Model.Collezione> collezioni;
 
     public CollectionsListPage(IMainViewModel globals)
 	{
@@ -14,35 +13,22 @@ public partial class CollectionsListPage : ContentPage
         _globals = globals;
     }
 
-    protected async override void OnNavigatedTo(NavigatedToEventArgs args)
+    protected override void OnNavigatedTo(NavigatedToEventArgs args)
     {
-        await RefreshAll();
+        CollectionsList.AsyncSource = _globals.GetCollections();
     }
 
-    private async Task RefreshAll()
-    {
-        collezioni = await _globals.GetCollections();
-        CollectionsList.ItemsSource = collezioni;
-    }
-
-    private void Refresh()
-    {
-        CollectionsList.ItemsSource = collezioni;
-    }
-
-    private async void SearchBar_TextChanged(object sender, TextChangedEventArgs e)
+    private void SearchBar_TextChanged(object sender, TextChangedEventArgs e)
     {
         string text = SearchBar.Text;
 
         if(text == null) 
-        { 
-            await RefreshAll();
+        {
+            CollectionsList.AsyncSource = _globals.GetCollections();
         }
         else
         {
-            collezioni = await _globals.GetSearchedCollections(0, text);
-
-            Refresh();
+            CollectionsList.AsyncSource = _globals.GetSearchedCollections(0, text);
         }
     }
 }

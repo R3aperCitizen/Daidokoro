@@ -45,17 +45,7 @@
             </Border>
             <VerticalStackLayout>
                 <ScrollView>
-                    <CollectionView x:Name="DietsList">
-                        <CollectionView.ItemTemplate>
-                            <DataTemplate x:DataType="model:Collezione">
-                                <controls:CollectionMinimal Id="{Binding IdCollezione}"
-                                                    Title="{Binding Nome}"
-                                                    Date="{Binding DataCreazioneString}"
-                                                    Category="{Binding NomeCategoria}"
-                                                    Image="{Binding FotoRicetta}"/>
-                            </DataTemplate>
-                        </CollectionView.ItemTemplate>
-                    </CollectionView>
+                    <controls:CollectionMinimalList x:Name="DietsList"/>
                 </ScrollView>
             </VerticalStackLayout>
         </VerticalStackLayout>

@@ -13,18 +13,7 @@
                 <Border StrokeShape="RoundRectangle 10" StrokeThickness="0">
                     <SearchBar x:Name="SearchBar" Placeholder="Cerca Collezioni..." BackgroundColor="{StaticResource NavBar}" PlaceholderColor="White" TextChanged="SearchBar_TextChanged" />
                 </Border>
-
-                <CollectionView x:Name="CollectionsList">
-                    <CollectionView.ItemTemplate>
-                        <DataTemplate x:DataType="model:Collezione">
-                            <controls:CollectionMinimal Id="{Binding IdCollezione}"
-                                                        Title="{Binding Nome}"
-                                                        Date="{Binding DataCreazioneString}"
-                                                        Category=""
-                                                        Image="{Binding FotoRicetta}"/>
-                        </DataTemplate>
-                    </CollectionView.ItemTemplate>
-                </CollectionView>
+                <controls:CollectionMinimalList x:Name="CollectionsList"/>
             </VerticalStackLayout>
         </ScrollView>
     </VerticalStackLayout>

@@ -8,32 +8,28 @@
 
     <VerticalStackLayout BackgroundColor="{StaticResource Background}">
         <controls:NavigationBar />
-        <CollectionView x:Name="userInfo">
-            <CollectionView.ItemTemplate>
-                <DataTemplate x:DataType="model:Utente">
-                    <VerticalStackLayout Padding="50">
-                        <VerticalStackLayout Spacing="20">
-                            <Border HeightRequest="150" WidthRequest="150" StrokeShape="Ellipse" StrokeThickness="0">
-                                <controls:ImageBlob BackgroundColor="{StaticResource Palette2}" Aspect="AspectFill" Source="{Binding Foto}"/>
-                            </Border>
-                            <Label TextColor="{StaticResource Palette2}" FontSize="30" HorizontalTextAlignment="Center" Text="{Binding Username}"/>
-                        </VerticalStackLayout>
-                        <BoxView Margin="15" HeightRequest="2" Color="{StaticResource White}"/>
-                        <HorizontalStackLayout HorizontalOptions="Center" Spacing="20">
-                            <controls:InfoButton InfoText="Likes" ValueText="{Binding Likes}" Clicked="LikesInfoButton_Clicked" />
-                            <controls:InfoButton InfoText="Recensioni" ValueText="{Binding ReviewCount}" Clicked="ReviewsInfoButton_Clicked" />
-                            <controls:InfoButton InfoText="Ricette" ValueText="{Binding RecipeCount}" Clicked="RecipesInfoButton_Clicked" />
-                        </HorizontalStackLayout>
-                        <BoxView Margin="15" HeightRequest="2" Color="{StaticResource White}"/>
-                        <HorizontalStackLayout HorizontalOptions="Center" Padding="10" Spacing="15">
-                            <Button WidthRequest="130" Text="Crea Ricetta" BackgroundColor="#e69d29" TextColor="White" FontAttributes="Bold" Clicked="GoToRecipeCreationPage" />
-                            <Button WidthRequest="130" Text="Crea Collezione" BackgroundColor="#82cf4e" TextColor="White" FontAttributes="Bold" Clicked="GoToCollectionCreationPage" />
-                        </HorizontalStackLayout>
-                        <BoxView Margin="15" HeightRequest="2" Color="{StaticResource White}"/>
-                    </VerticalStackLayout>
-                </DataTemplate>    
-            </CollectionView.ItemTemplate>
-        </CollectionView>
-        <controls:RecipesList x:Name="recentRecipes" />
+        <VerticalStackLayout Padding="50">
+            <VerticalStackLayout x:DataType="model:Utente">
+                <VerticalStackLayout Spacing="20">
+                    <Border HeightRequest="150" WidthRequest="150" StrokeShape="Ellipse" StrokeThickness="0">
+                        <controls:ImageBlob BackgroundColor="{StaticResource Palette2}" Aspect="AspectFill" Source="{Binding Foto}"/>
+                    </Border>
+                    <Label TextColor="{StaticResource Palette2}" FontSize="30" HorizontalTextAlignment="Center" Text="{Binding Username}"/>
+                </VerticalStackLayout>
+                <BoxView Margin="15" HeightRequest="2" Color="{StaticResource White}"/>
+                <HorizontalStackLayout HorizontalOptions="Center" Spacing="20">
+                    <controls:InfoButton InfoText="Likes" ValueText="{Binding Likes}" Clicked="LikesInfoButton_Clicked" />
+                    <controls:InfoButton InfoText="Recensioni" ValueText="{Binding ReviewCount}" Clicked="ReviewsInfoButton_Clicked" />
+                    <controls:InfoButton InfoText="Ricette" ValueText="{Binding RecipeCount}" Clicked="RecipesInfoButton_Clicked" />
+                </HorizontalStackLayout>
+                <BoxView Margin="15" HeightRequest="2" Color="{StaticResource White}"/>
+                <HorizontalStackLayout HorizontalOptions="Center" Padding="10" Spacing="15">
+                    <Button WidthRequest="130" Text="Crea Ricetta" BackgroundColor="#e69d29" TextColor="White" FontAttributes="Bold" Clicked="GoToRecipeCreationPage" />
+                    <Button WidthRequest="130" Text="Crea Collezione" BackgroundColor="#82cf4e" TextColor="White" FontAttributes="Bold" Clicked="GoToCollectionCreationPage" />
+                </HorizontalStackLayout>
+                <BoxView Margin="15" HeightRequest="2" Color="{StaticResource White}"/>
+                <controls:RecipeMinimalList x:Name="recentRecipes" IsVisible="False"/>
+            </VerticalStackLayout>
+        </VerticalStackLayout>
     </VerticalStackLayout>
 </ContentPage>

@@ -9,7 +9,6 @@ public partial class RecipesListPage : ContentPage
     private readonly IMainViewModel _globals;
     private readonly DisplayInfo _displayInfo;
 
-    private List<Model.Ricetta> ricette;
     public RecipesListPage(IMainViewModel globals)
     {
         InitializeComponent();
@@ -21,28 +20,25 @@ public partial class RecipesListPage : ContentPage
     protected async override void OnNavigatedTo(NavigatedToEventArgs args)
     {
         CategoriesPicker.ItemsSource = await _globals.GetNutritionalCategories();
-
-        await RefreshAll();
-        Refresh();
+        RecipesList.AsyncSource = _globals.GetRecipes();
     }
     
-    private async void SearchBar_TextChanged(object sender, TextChangedEventArgs e)
+    private void SearchBar_TextChanged(object sender, TextChangedEventArgs e)
     {
-        await _SearchBar("NumeroLike");
+        _SearchBar("NumeroLike");
     }
 
-    private async Task _SearchBar(string orderby)
+    private void _SearchBar(string orderby)
     {
         string text = SearchBar.Text;
         if (text == null || text == string.Empty)
         {
-            await RefreshAll();
+            RecipesList.AsyncSource = _globals.GetRecipes();
         }
         else
         {
             //query categoria nutrizionale
-            ricette = await _globals.GetSearchedRecipes(text,orderby);
-            Refresh();
+            RecipesList.AsyncSource = _globals.GetSearchedRecipes(text,orderby);
         }        
     }
     private void OpenFilterMenu(object sender, EventArgs e)
@@ -61,25 +57,22 @@ public partial class RecipesListPage : ContentPage
         TimeValue.Text = Math.Round(TimeSlider.Value).ToString();
     }
 
-    private async void SetFilters(object sender, EventArgs e)
+    private void SetFilters(object sender, EventArgs e)
     {
         FilterMenu.IsVisible = false;
         FilterMenuButton.IsVisible = true;
         if(!CheckDifficulty.IsChecked && !CheckCategories.IsChecked && !CheckTime.IsChecked)
         {
-            await _SearchBar(IMainViewModel.sortings[SortPicker.SelectedItem.ToString()!]!);
+            _SearchBar(SortPicker.SelectedItem.ToString()!);
         }
         else
         {
-            
-            ricette = await _globals.GetFilteredRecipes(
-            CheckDifficulty.IsChecked ? Math.Round(DifficultySlider.Value).ToString() : null,
-            CheckTime.IsChecked ? Math.Round(TimeSlider.Value).ToString() : null,
-            IMainViewModel.sortings[SortPicker.SelectedItem.ToString()],
-            CheckCategories.IsChecked ? ((CategoriaNutrizionale)CategoriesPicker.SelectedItem).Nome : null,
-            SearchBar.Text);
-                   
-            Refresh();
+            RecipesList.AsyncSource = _globals.GetFilteredRecipes(
+                CheckDifficulty.IsChecked ? Math.Round(DifficultySlider.Value).ToString() : null,
+                CheckTime.IsChecked ? Math.Round(TimeSlider.Value).ToString() : null,
+                IMainViewModel.sortings[SortPicker.SelectedItem.ToString()],
+                CheckCategories.IsChecked ? ((CategoriaNutrizionale)CategoriesPicker.SelectedItem).Nome : null,
+                SearchBar.Text);
         }
     }
 
@@ -95,15 +88,5 @@ public partial class RecipesListPage : ContentPage
         SortPicker.ItemsSource = IMainViewModel.sortings.Keys.ToList();    
         CategoriesPicker.SelectedIndex = 0;
         SortPicker.SelectedIndex = 0;
-    }
-
-    private async Task RefreshAll()
-    {
-        ricette = await _globals.GetRecipes();
-    }
-
-    private void Refresh()
-    {
-        RecipesList.ItemsSource = ricette;
     }
 }

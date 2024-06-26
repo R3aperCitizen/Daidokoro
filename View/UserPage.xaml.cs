@@ -1,3 +1,5 @@
+using CommunityToolkit.Maui.Views;
+using Daidokoro.View.Controls;
 using Daidokoro.ViewModel;
 
 namespace Daidokoro.View;
@@ -17,7 +19,8 @@ public partial class UserPage : ContentPage
     {
         if (int.TryParse(await SecureStorage.Default.GetAsync("IdUtente"), out int IdUtente))
         {
-            userInfo.ItemsSource = await _globals.GetUserById(IdUtente);
+            var result = await _globals.GetUserById(IdUtente);
+            this.BindingContext = result[0];
         }
     }
 
@@ -33,6 +36,7 @@ public partial class UserPage : ContentPage
 
     private void RecipesInfoButton_Clicked(object sender, EventArgs e)
     {
+        recentRecipes.IsVisible = true;
         recentRecipes.AsyncSource = _globals.GetRecipes();
     }
 

@@ -7,8 +7,6 @@ namespace Daidokoro.View
         // Global app variables
         private readonly IMainViewModel _globals;
 
-        private List<Model.Ricetta> monthRecipes;
-
         public HomePage(IMainViewModel globals)
         {
             InitializeComponent();
@@ -16,9 +14,9 @@ namespace Daidokoro.View
             SetScrollBehaviour();
         }
 
-        protected async override void OnNavigatedTo(NavigatedToEventArgs args)
+        protected override void OnNavigatedTo(NavigatedToEventArgs args)
         {
-            await SetMonthRecipes();
+            MonthRecipe.AsyncSource = _globals.GetMonthRecipes();
         }
 
         private void SetScrollBehaviour()
@@ -28,12 +26,5 @@ namespace Daidokoro.View
             var screenDensity = screenMetrics.Density;
             MainScroll.HeightRequest = (screenHeight / screenDensity) - 250;
         }
-
-        private async Task SetMonthRecipes()
-        {
-            monthRecipes = await _globals.GetMonthRecipes();
-            MonthRecipe.ItemsSource = monthRecipes;
-        }
     }
-
 }

@@ -2,13 +2,13 @@ using Daidokoro.Model;
 
 namespace Daidokoro.View.Controls;
 
-public partial class RecipesList : ContentView
+public partial class RecipeMinimalList : ContentView
 {
 	public static readonly BindableProperty SourceProperty =
-		BindableProperty.Create(nameof(Source), typeof(List<Ricetta>), typeof(RecipesList), new List<Ricetta>(), propertyChanged: OnSourceChanged);
+		BindableProperty.Create(nameof(Source), typeof(List<Ricetta>), typeof(RecipeMinimalList), new List<Ricetta>(), propertyChanged: OnSourceChanged);
     private static void OnSourceChanged(BindableObject bindable, object oldValue, object newValue)
     {
-        var control = (RecipesList)bindable;
+        var control = (RecipeMinimalList)bindable;
         control.list.ItemsSource = (List<Ricetta>)newValue;
     }
     public List<Ricetta> Source
@@ -18,16 +18,15 @@ public partial class RecipesList : ContentView
 	}
 
     public static readonly BindableProperty AsyncSourceProperty =
-        BindableProperty.Create(nameof(AsyncSource), typeof(Task<List<Ricetta>>), typeof(RecipesList), propertyChanged: OnAsyncSourceChanged);
+        BindableProperty.Create(nameof(AsyncSource), typeof(Task<List<Ricetta>>), typeof(RecipeMinimalList), propertyChanged: OnAsyncSourceChanged);
     private static async void OnAsyncSourceChanged(BindableObject bindable, object oldValue, object newValue)
     {
-        var control = (RecipesList)bindable;
+        var control = (RecipeMinimalList)bindable;
         var asyncSourceTask = (Task<List<Ricetta>>)newValue;
-        control.Source = new List<Ricetta>();
 
-        control.loading.IsVisible = true;
+        control.switcher.Switch = false;
         control.Source = await asyncSourceTask;
-        control.loading.IsVisible = false;
+        control.switcher.Switch = true;
     }
     public Task<List<Ricetta>> AsyncSource
     {
@@ -35,9 +34,8 @@ public partial class RecipesList : ContentView
         set => SetValue(AsyncSourceProperty, value);
     }
 
-    public RecipesList()
+    public RecipeMinimalList()
 	{
 		InitializeComponent();
-        list.SetBinding(ListView.ItemsSourceProperty, nameof(Source));
 	}
 }

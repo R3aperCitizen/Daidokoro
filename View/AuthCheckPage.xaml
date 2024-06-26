@@ -3,7 +3,5 @@
              xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml"
              x:Class="Daidokoro.View.AuthCheckPage"
              Title="AuthCheckPage">
-    <VerticalStackLayout BackgroundColor="{StaticResource Background}" Padding="0,350,0,350">
-        <ActivityIndicator IsRunning="true" Color="{StaticResource Palette2}" />
-    </VerticalStackLayout>
+    <VerticalStackLayout BackgroundColor="{StaticResource Background}" Padding="0,350,0,350"/>
 </ContentPage>

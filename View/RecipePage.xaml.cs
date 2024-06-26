@@ -13,7 +13,6 @@ public partial class RecipePage : ContentPage
 
     private Model.Ricetta ricetta;
     private Model.VotiRicetta votiRicetta;
-    private List<Model.Valutazione> valutazioni;
 
     public RecipePage(IMainViewModel globals, RecipePageViewModel vm)
 	{
@@ -48,7 +47,7 @@ public partial class RecipePage : ContentPage
 
         await SetRecipeFields();
         await SetRatingsBar();
-        await SetRatings();
+        SetRatings();
     }
 
     private async Task SetRecipeFields()
@@ -79,10 +78,9 @@ public partial class RecipePage : ContentPage
         NegativeVoteButton.WidthRequest = screenWidth / 2;
     }
 
-    private async Task SetRatings()
+    private void SetRatings()
     {
-        valutazioni = await _globals.GetRatingsById(ricetta.IdRicetta, true);
-        Ratings.ItemsSource = valutazioni;
+        Ratings.AsyncSource = _globals.GetRatingsById(ricetta.IdRicetta, true);
     }
 
     private async void VotePositive(object sender, EventArgs e)
@@ -94,7 +92,7 @@ public partial class RecipePage : ContentPage
         ], true);
 
         await SetRatingsBar();
-        await SetRatings();
+        SetRatings();
     }
 
     private async void VoteNegative(object sender, EventArgs e)
@@ -106,7 +104,7 @@ public partial class RecipePage : ContentPage
         ], true);
 
         await SetRatingsBar();
-        await SetRatings();
+        SetRatings();
     }
 
     private async void InsertReview(object sender, EventArgs e)
@@ -114,7 +112,7 @@ public partial class RecipePage : ContentPage
         if (ReviewEntry.Text != null && ReviewEntry.Text != string.Empty)
         {
             await _globals.InsertReviewIfRatedByUser(ricetta.IdRicetta, ReviewEntry.Text, true);
-            await SetRatings();
+            SetRatings();
             ReviewEntry.Text = string.Empty;
         }
     }
