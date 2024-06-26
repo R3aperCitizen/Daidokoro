@@ -1,5 +1,4 @@
 using Daidokoro.ViewModel;
-using Java.IO;
 
 namespace Daidokoro.View;
 
