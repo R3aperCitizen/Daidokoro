@@ -1,7 +1,6 @@
 ﻿using CommunityToolkit.Maui.Views;
 using Daidokoro.Model;
 using Daidokoro.View.Controls;
-
 namespace Daidokoro.ViewModel
 {
     public class MainViewModel : IMainViewModel
@@ -208,29 +207,6 @@ namespace Daidokoro.ViewModel
             );
         }
 
-        public async Task<List<Collezione>> GetSearchedCollections(int dieta, string text)
-        {
-            return await _dbService.GetData<Collezione>(
-                $"WITH v1(IdCollezione,Nome,Descrizione,Dieta,DataCreazione,IdUtente,IdCategoria,NomeCategoria,FotoRicetta) AS(\r\n" +
-                $"SELECT c1.*, categoria_nutrizionale.Nome AS NomeCategoria, ricetta.Foto AS FotoRicetta\r\n" +
-                $"FROM collezione AS c1\r\n" +
-                $"JOIN categoria_nutrizionale ON categoria_nutrizionale.IdCategoria = c1.IdCategoria\r\n" +
-                $"JOIN ricetta_collezione ON ricetta_collezione.IdCollezione = c1.IdCollezione\r\n" +
-                $"JOIN ricetta ON ricetta.IdRicetta = ricetta_collezione.IdRicetta\r\n" +
-                $"WHERE Dieta = {dieta} AND ricetta.IdRicetta = (\r\n" +
-                $"SELECT MIN(ricetta.IdRicetta)\r\n" +
-                $"FROM ricetta\r\n" +
-                $"JOIN ricetta_collezione ON ricetta_collezione.IdRicetta = ricetta.IdRicetta\r\n" +
-                $"WHERE ricetta_collezione.IdCollezione = c1.IdCollezione)\r\n" +
-                $"SELECT DISTINCT v1.*\r\n" +
-                $"FROM v1\r\n" +
-                $"JOIN categoria_nutrizionale ON categoria_nutrizionale.IdCategoria = v1.IdCategoria\r\n" +
-                $"JOIN ricetta_collezione ON v1.IdCollezione = ricetta_collezione.IdCollezione\r\n" +
-                $"JOIN ricetta ON ricetta.IdRicetta = ricetta_collezione.IdRicetta\r\n" +
-                $"WHERE v1.nome LIKE \"%{text}%\" OR categoria_nutrizionale.Nome LIKE \"%{text}%\" OR ricetta.Nome LIKE \"%{text}%\";"
-            );
-        }
-
         public async Task<List<Ingrediente>> GetSearchedIngredients(string text)
         {
             return await _dbService.GetData<Ingrediente>(
@@ -432,27 +408,36 @@ namespace Daidokoro.ViewModel
             return (await _dbService.GetData<Utente>($"SELECT * FROM utente WHERE Email = \'{Email}\' AND Pwd = \'{Password}\'"))[0].IdUtente.ToString();
         }
 
-        public async Task<List<Collezione>> getFilteredDiets(string text, string difficolta, string Data, string ordinamento,string Nricette)
+        public Task<List<Collezione>> getFilteredDiets(string text, string difficolta, string Data, string ordinamento,string Nricette)
         {
-            if (text != null)
-            {
-                /* use daidokoro;
-                with v2 as (
-                With v1 AS(
-                Select *
-                from collezione
-                where collezione.Dieta = 1 && collezione.DataCreazione = 20240603)
-                Select v1.*,avg(ricetta.difficolta) as avDiff, count(ricetta.difficolta) as num
-                from v1
-                join ricetta_collezione on ricetta_collezione.IdCollezione = v1.IdCollezione
-                join ricetta on ricetta.IdRicetta = ricetta_collezione.IdRicetta
-                group by v1.IdCollezione
-                order by num)
-                Select v2.*
-                from v2
-                where v2.num = 2*/
+            string query =
+            "with v2 as (\r\n" +
+            "with v1 AS(\r\n" +
+            "Select collezione.*\r\n" +
+            "from collezione\r\n" +
+            "where collezione.Dieta = 1 " +
+            (Data == null ? "" : $"&& collezione.DataCreazione = \'{Data}\' ") +            
+            ")\r\n" +
+            "Select v1.*" +
+            ",avg(ricetta.difficolta) as avDiff" +
+            ",count(ricetta.difficolta) as num" +
+            "\r\n from v1 \r\n" +
+            "join ricetta_collezione on ricetta_collezione.IdCollezione = v1.IdCollezione\r\n" +
+            "join ricetta on ricetta.IdRicetta = ricetta_collezione.IdRicetta\r\n" +
+            (text == null ? "" : $"where Lower(ricetta.Nome) like \"%{text}%\" || v1.Nome  LIKE \"%{text}%\"") +
+            "\r\n group by v1.IdCollezione\r\n" +
+            $"order by {ordinamento})\r\n" +
+            "Select v2.*\r\n" +
+            "from v2\r\n" +
+            (Nricette == null && difficolta == null ? "" : "where ") +
+            (Nricette == null ? difficolta == null ? "" : $"v2.avDiff = {difficolta}" :
+            difficolta == null ? $"v2.num = {Nricette}" : $"v2.num = {Nricette} AND v2.avDiff = {difficolta}");
+            
 
-            }
+            
+
+            return  dbService.GetData<Collezione>(query);
+            
         }
     }
 }

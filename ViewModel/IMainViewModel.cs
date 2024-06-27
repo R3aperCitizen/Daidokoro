@@ -14,17 +14,16 @@ namespace Daidokoro.ViewModel
         Task<List<Ingrediente>> GetIngredients(int IdRicetta);
         Task<List<Ricetta>> GetRecipes();
         Task<List<Ricetta>> GetRecipesByCollection(int IdCollezione);
-        Task<List<Ricetta>> GetRecipesByDifficulty(int Difficolta,string orderby);
-        Task<List<Ricetta>> GetRecipesByTime(int Tempo,string orderby);
+        Task<List<Ricetta>> GetRecipesByDifficulty(int Difficolta, string orderby);
+        Task<List<Ricetta>> GetRecipesByTime(int Tempo, string orderby);
         Task<List<Ricetta>> GetRecipeById(int IdRicetta);
         Task<List<Collezione>> GetCollections();
         Task<List<Collezione>> GetCollectionById(int IdCollezione);
         Task<List<Collezione>> GetDiets();
         Task<List<Utente>> GetUserById(int id);
         Task<List<Ricetta>> GetMonthRecipes();
-        Task<List<Ricetta>> GetSearchedRecipes(string text,string orderby);
+        Task<List<Ricetta>> GetSearchedRecipes(string text, string orderby);
         Task<List<Ricetta>> GetFilteredRecipes(string difficulty, string time, string orderby, string categories, string searchBarText);
-        Task<List<Collezione>> GetSearchedCollections(int dieta, string text);
         Task<List<Ingrediente>> GetSearchedIngredients(string text);
         Task<List<CategoriaNutrizionale>> GetNutritionalCategories();
         Task<List<CategoriaNutrizionale>> GetNutritionalCategories(int IdRicetta);
@@ -37,6 +36,7 @@ namespace Daidokoro.ViewModel
         Task InsertNewRecipe(List<Tuple<string, object>> recipe);
         Task InsertRecipeIngredient(List<Tuple<string, object>> ingredientRecipe);
         Task<int> GetInsertedRecipeId();
+        public Task<List<Collezione>> getFilteredDiets(string text, string difficolta, string Data, string ordinamento, string Nricette);
 
         public static Dictionary<string, string> sortings = new Dictionary<string, string>()
         {
@@ -44,10 +44,12 @@ namespace Daidokoro.ViewModel
             {"Tempo","Tempo" },
             {"Like","NumeroLike" }
         };
-        public static Dictionary<string, string> categories = new Dictionary<string, string>()
+
+        public static Dictionary<string, string> DietSort = new Dictionary<string, string>()
         {
-            {"gluten-free", "Gluten-Free"},
-            {"cascaPalle" , "cascaPalle"}
+            { "DifficoltaMedia", "avDiff" },
+            { "NumeroRicette", "num" },
+            {"Data","DataCreazione" }
         };
     }
 }

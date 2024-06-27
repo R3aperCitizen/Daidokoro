@@ -1,6 +1,4 @@
 using Daidokoro.ViewModel;
-using Java.IO;
-
 namespace Daidokoro.View;
 
 public partial class DietsListPage : ContentPage
@@ -12,6 +10,7 @@ public partial class DietsListPage : ContentPage
     {
         InitializeComponent();
         _globals = globals;
+        FilterSetUp();
     }
 
     protected override void OnNavigatedTo(NavigatedToEventArgs args)
@@ -29,7 +28,13 @@ public partial class DietsListPage : ContentPage
         }
         else
         {
-            DietsList.AsyncSource = _globals.GetSearchedCollections(1, text);
+            string s1 = SearchBar.Text == string.Empty ? null : SearchBar.Text;
+            string s2 = null;
+            string s3 = null;
+            string s4 = "num";
+            string s5 = null;
+
+            DietsList.AsyncSource = _globals.getFilteredDiets(s1, s2, s3, s4, s5);
         }
     }
 
@@ -37,11 +42,39 @@ public partial class DietsListPage : ContentPage
     {
         FilterMenuButton.IsVisible = true;
         filterMenu.IsVisible = false;
+        var s1 = SearchBar.Text == string.Empty ? null : SearchBar.Text;
+        var s2 = DifficoltaCheck.IsChecked ? Math.Round(DifficoltaSlider.Value).ToString() : null;
+        var s3 = DataCheck.IsChecked ? DateOnly.FromDateTime(DataPicker.Date).ToString("o") : null;
+        var s4 = IMainViewModel.DietSort[SortPicker.SelectedItem.ToString()];
+        var s5 = NricetteCheck.IsChecked ? Math.Round(NricetteSlider.Value).ToString() : null;
+
+        DietsList.AsyncSource = _globals.getFilteredDiets(s1, s2, s3, s4, s5);             
     }
 
     private void FilterMenuButton_Clicked(object sender, EventArgs e)
     {
         FilterMenuButton.IsVisible = false;
-        filterMenu.IsVisible = true;
+        filterMenu.IsVisible = true;  
+    }
+
+    private void FilterSetUp()
+    {
+        DifficoltaSlider.Maximum = 5;
+        NricetteSlider.Maximum = 20;
+        SortPicker.ItemsSource = IMainViewModel.DietSort.Keys.ToList();
+        SortPicker.SelectedIndex = 0;
+        
+    }
+
+    private void DifficoltaSlider_ValueChanged(object sender, ValueChangedEventArgs e)
+    {
+        DifficoltaSlider.Value = Math.Round(DifficoltaSlider.Value);
+        DifficoltaLabel.Text = DifficoltaSlider.Value.ToString();   
+    }
+
+    private void NricetteSlider_ValueChanged(object sender, ValueChangedEventArgs e)
+    {
+        NricetteSlider.Value = Math.Round(NricetteSlider.Value);
+        NricetteLabel.Text = NricetteSlider.Value.ToString();
     }
 }

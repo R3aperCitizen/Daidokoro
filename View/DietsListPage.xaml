@@ -19,27 +19,27 @@
                 <VerticalStackLayout >
                     <HorizontalStackLayout HorizontalOptions="Center" Padding="5" >
                         <Label Text="Data" VerticalOptions="Center" FontSize="Medium" Margin="0,0,80,0"/>
-                        <DatePicker FontSize="Medium" Margin="0,0,45,0"/>
+                        <DatePicker x:Name="DataPicker" FontSize="Medium" Margin="0,0,45,0"/>
                         <CheckBox x:Name="DataCheck"/>
                     </HorizontalStackLayout>
                     <HorizontalStackLayout HorizontalOptions="Center" Padding="5">
                         <Label Text="Difficoltà media" WidthRequest="100" VerticalOptions="Center" FontSize="Medium" Margin="0,0,20,0"/>
                         <Label Text="1" VerticalOptions="Center" FontSize="Medium" Margin="0,0,10,0" x:Name="DifficoltaLabel"/>
-                        <Slider WidthRequest="130" Margin="0,0,0,0" x:Name="DifficoltaSlider"/>
+                        <Slider WidthRequest="130" Margin="0,0,0,0" x:Name="DifficoltaSlider" ValueChanged="DifficoltaSlider_ValueChanged"/>
                         <CheckBox x:Name="DifficoltaCheck"/>
                     </HorizontalStackLayout>
                     <HorizontalStackLayout HorizontalOptions="Center" Padding="5">
                         <Label Text="Numero ricette" WidthRequest="100" VerticalOptions="Center" FontSize="Medium" Margin="0,0,20,0"/>
                         <Label Text="1" VerticalOptions="Center" FontSize="Medium" Margin="0,0,10,0" x:Name="NricetteLabel"/>
-                        <Slider WidthRequest="130" x:Name="NricetteSlider" />
+                        <Slider WidthRequest="130" x:Name="NricetteSlider" ValueChanged="NricetteSlider_ValueChanged" />
                         <CheckBox x:Name="NricetteCheck"/>
                     </HorizontalStackLayout>
                     <HorizontalStackLayout HorizontalOptions="Center" Padding="5">
                         <Label Text="Ordinamento"  VerticalOptions="Center" FontSize="Medium" Margin="0,0,70,0"/>
-                        <Picker WidthRequest="130"/>
+                        <Picker x:Name="SortPicker" WidthRequest="130"/>
                     </HorizontalStackLayout>
                     <Border WidthRequest="150" HeightRequest="45" StrokeShape="RoundRectangle 10" Margin="5">
-                        <Button x:Name="ButtonApply" Text="Apply" Clicked="ButtonAppyl_Pressed"/>
+                        <Button x:Name="ButtonApply" Text="Apply" Clicked="ButtonApply_Pressed"/>
                     </Border>
                 </VerticalStackLayout>
             </Border>
