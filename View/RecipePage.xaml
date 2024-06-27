@@ -12,9 +12,14 @@
         <controls:NavigationBar />
         <ScrollView x:Name="MainScroll">
             <VerticalStackLayout x:Name="MainVSL" Padding="20" Spacing="15">
-                <Label x:Name="Title" FontSize="30" TextColor="{StaticResource Palette2}" />
-                <Border x:Name="ImageBorder" StrokeShape="RoundRectangle 10" StrokeThickness="0" HeightRequest="250">
-                    <controls:ImageBlob x:Name="Image" Aspect="AspectFill" BackgroundColor="{StaticResource Palette2}" />
+                <Border StrokeShape="RoundRectangle 10" StrokeThickness="0" BackgroundColor="{StaticResource Palette2}" Padding="10">
+                    <Label x:Name="Title" FontSize="30" TextColor="{StaticResource Palette3}" HorizontalOptions="Center" />
+                </Border>
+                <Border x:Name="ImageBorder" StrokeShape="RoundRectangle 10" StrokeThickness="0">
+                    <VerticalStackLayout>
+                        <controls:ImageBlob x:Name="Image" Aspect="AspectFill" BackgroundColor="{StaticResource Palette2}" HeightRequest="250" />
+                        <ImageButton Source="like.png" HeightRequest="50" BackgroundColor="{StaticResource Palette5}" CornerRadius="0" Clicked="AddToFavorites" />
+                    </VerticalStackLayout>
                 </Border>
                 <Border StrokeShape="RoundRectangle 10" StrokeThickness="0" HeightRequest="50">
                     <HorizontalStackLayout>

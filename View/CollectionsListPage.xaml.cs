@@ -28,7 +28,13 @@ public partial class CollectionsListPage : ContentPage
         }
         else
         {
-            CollectionsList.AsyncSource = _globals.GetSearchedCollections(0, text);
+            string s1 = SearchBar.Text == string.Empty ? null : SearchBar.Text;
+            string s2 = null;
+            string s3 = null;
+            string s4 = "num";
+            string s5 = null;
+
+            CollectionsList.AsyncSource = _globals.getFilteredDiets(s1, s2, s3, s4, s5, 0);
         }
     }
 }

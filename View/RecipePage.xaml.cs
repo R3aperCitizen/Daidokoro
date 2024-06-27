@@ -183,4 +183,9 @@ public partial class RecipePage : ContentPage
         ricetta = new();
         await SetRecipe(int.Parse(((RecipePageViewModel)BindingContext).IdRicetta));
     }
+
+    private async void AddToFavorites(object sender, EventArgs e)
+    {
+        await _globals.AddOrRemoveRecipeFromLiked(ricetta.IdRicetta);
+    }
 }

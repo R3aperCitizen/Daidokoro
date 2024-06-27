@@ -1,43 +1,34 @@
+using System.Collections.ObjectModel;
+using System.Collections.Specialized;
+
 namespace Daidokoro.View.Controls;
 
+[ContentProperty(nameof(Elements))]
 public partial class SwitchView : ContentView
 {
-    public static readonly BindableProperty PrimaryProperty =
-        BindableProperty.Create(nameof(Primary), typeof(Microsoft.Maui.Controls.View), typeof(SwitchView), propertyChanged: OnPrimaryChanged);
-    private static void OnPrimaryChanged(BindableObject bindable, object oldValue, object newValue)
+    public ObservableCollection<Microsoft.Maui.Controls.View> Elements { get; set; }
+
+    public static readonly BindableProperty IndexProperty =
+        BindableProperty.Create(nameof(Index), typeof(int), typeof(SwitchView), 0, propertyChanged: OnIndexChanged);
+    private static void OnIndexChanged(BindableObject bindable, object oldValue, object newValue)
     {
         var control = (SwitchView)bindable;
-        control.Content = control.Switch ? control.Secondary : control.Primary;
+        control.Content = control.Elements[control.Index];
     }
-    public Microsoft.Maui.Controls.View Primary
+    public int Index
     {
-        get => (Microsoft.Maui.Controls.View)GetValue(PrimaryProperty);
-        set => SetValue(PrimaryProperty, value);
+        get => (int)GetValue(IndexProperty);
+        set => SetValue(IndexProperty, value);
     }
 
-    public static readonly BindableProperty SecondaryProperty =
-        BindableProperty.Create(nameof(Secondary), typeof(Microsoft.Maui.Controls.View), typeof(SwitchView), propertyChanged: OnSecondaryChanged);
-    private static void OnSecondaryChanged(BindableObject bindable, object oldValue, object newValue)
+    public SwitchView()
     {
-        var control = (SwitchView)bindable;
-        control.Content = control.Switch ? control.Secondary : control.Primary;
-    }
-    public Microsoft.Maui.Controls.View Secondary
-    {
-        get => (Microsoft.Maui.Controls.View)GetValue(SecondaryProperty);
-        set => SetValue(SecondaryProperty, value);
+        Elements = new();
+        Elements.CollectionChanged += OnElementsChanged;
     }
 
-    public static readonly BindableProperty SwitchProperty =
-        BindableProperty.Create(nameof(Switch), typeof(bool), typeof(SwitchView), false, propertyChanged: OnSwitchChanged);
-    private static void OnSwitchChanged(BindableObject bindable, object oldValue, object newValue)
+    private void OnElementsChanged(object? sender, NotifyCollectionChangedEventArgs e)
     {
-        var control = (SwitchView)bindable;
-        control.Content = control.Switch ? control.Secondary : control.Primary;
-    }
-    public bool Switch
-    {
-        get => (bool)GetValue(SwitchProperty);
-        set => SetValue(SwitchProperty, value);
+        Content = Elements[Index];
     }
 }

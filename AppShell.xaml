@@ -85,4 +85,11 @@
          Shell.NavBarIsVisible="False"
          Shell.FlyoutBehavior="Disabled"/>
 
+    <ShellContent
+         Title="CollectionCreationPage"
+         ContentTemplate="{DataTemplate view:CollectionCreationPage}"
+         Route="CollectionCreationPage"
+         Shell.NavBarIsVisible="False"
+         Shell.FlyoutBehavior="Disabled"/>
+
 </Shell>

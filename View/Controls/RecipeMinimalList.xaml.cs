@@ -10,6 +10,7 @@ public partial class RecipeMinimalList : ContentView
     {
         var control = (RecipeMinimalList)bindable;
         control.list.ItemsSource = (List<Ricetta>)newValue;
+        control.switcher.Index = 1;
     }
     public List<Ricetta> Source
 	{
@@ -24,9 +25,9 @@ public partial class RecipeMinimalList : ContentView
         var control = (RecipeMinimalList)bindable;
         var asyncSourceTask = (Task<List<Ricetta>>)newValue;
 
-        control.switcher.Switch = false;
+        control.switcher.Index = 0;
         control.Source = await asyncSourceTask;
-        control.switcher.Switch = true;
+        control.switcher.Index = 1;
     }
     public Task<List<Ricetta>> AsyncSource
     {

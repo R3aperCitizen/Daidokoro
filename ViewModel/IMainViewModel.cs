@@ -11,11 +11,15 @@ namespace Daidokoro.ViewModel
         Task<T> LoadAndGet<T>(Task<T> task);
         Task Load(Task task);
 
+        Task<int> GetCurrentUserId();
         Task<List<Ingrediente>> GetIngredients(int IdRicetta);
         Task<List<Ricetta>> GetRecipes();
         Task<List<Ricetta>> GetRecipesByCollection(int IdCollezione);
-        Task<List<Ricetta>> GetRecipesByDifficulty(int Difficolta, string orderby);
-        Task<List<Ricetta>> GetRecipesByTime(int Tempo, string orderby);
+        Task<List<Ricetta>> GetRecipesByDifficulty(int Difficolta,string orderby);
+        Task<List<Ricetta>> GetRecipesByTime(int Tempo,string orderby);
+        Task<List<Ricetta>> GetRecipesByUser(int userID);
+        Task<List<Ricetta>> GetLikedRecipes(int userID);
+        Task<List<Ricetta>> GetReviewedRecipes(int userID);
         Task<List<Ricetta>> GetRecipeById(int IdRicetta);
         Task<List<Collezione>> GetCollections();
         Task<List<Collezione>> GetCollectionById(int IdCollezione);
@@ -23,6 +27,7 @@ namespace Daidokoro.ViewModel
         Task<List<Utente>> GetUserById(int id);
         Task<List<Ricetta>> GetMonthRecipes();
         Task<List<Ricetta>> GetSearchedRecipes(string text, string orderby);
+        Task<List<Ricetta>> GetSearchedRecipes(string Name, int IdCategoria);
         Task<List<Ricetta>> GetFilteredRecipes(string difficulty, string time, string orderby, string categories, string searchBarText);
         Task<List<Ingrediente>> GetSearchedIngredients(string text);
         Task<List<CategoriaNutrizionale>> GetNutritionalCategories();
@@ -31,12 +36,16 @@ namespace Daidokoro.ViewModel
         Task<List<Valutazione>> GetRatingsById(int Id, bool isRecipe);
         Task InsertRating(List<Tuple<string, object>> valutazione, bool isRecipe);
         Task<bool> InsertReviewIfRatedByUser(int Id, string Commento, bool isRecipe);
-        Task<bool> CanUserLogin(string Email, string Password);
-        Task<string> GetLoggedUserId(string Email, string Password);
         Task InsertNewRecipe(List<Tuple<string, object>> recipe);
         Task InsertRecipeIngredient(List<Tuple<string, object>> ingredientRecipe);
         Task<int> GetInsertedRecipeId();
-        public Task<List<Collezione>> getFilteredDiets(string text, string difficolta, string Data, string ordinamento, string Nricette);
+        Task InsertNewCollection(List<Tuple<string, object>> collection);
+        Task InsertCollectionRecipe(List<Tuple<string, object>> recipeCollection);
+        Task<int> GetInsertedCollectionId();
+        Task<bool> CanUserLogin(string Email, string Password);
+        Task<string> GetLoggedUserId(string Email, string Password);
+        Task AddOrRemoveRecipeFromLiked(int IdRicetta);
+        public Task<List<Collezione>> getFilteredDiets(string text, string difficolta, string Data, string ordinamento, string Nricette,int dieta);
 
         public static Dictionary<string, string> sortings = new Dictionary<string, string>()
         {
