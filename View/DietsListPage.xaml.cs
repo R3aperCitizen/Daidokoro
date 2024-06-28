@@ -1,3 +1,4 @@
+using Daidokoro.Model;
 using Daidokoro.ViewModel;
 namespace Daidokoro.View;
 
@@ -33,8 +34,8 @@ public partial class DietsListPage : ContentPage
             string s3 = null!;
             string s4 = "num";
             string s5 = null!;
-
-            DietsList.AsyncSource = _globals.getFilteredDiets(s1, s2, s3, s4, s5, 1);
+            string s6 = null!;
+            DietsList.AsyncSource = _globals.getFilteredDiets(s1, s2, s3, s4, s5, 1, s6);
         }
     }
 
@@ -47,8 +48,9 @@ public partial class DietsListPage : ContentPage
         var s3 = DataCheck.IsChecked ? DateOnly.FromDateTime(DataPicker.Date).ToString("o") : null!;
         var s4 = IMainViewModel.DietSort[SortPicker.SelectedItem.ToString()!];
         var s5 = NricetteCheck.IsChecked ? Math.Round(NricetteSlider.Value).ToString() : null!;
+        var s6 = CategoryCheck.IsChecked ? ((CategoriaNutrizionale)CategoryPicker.SelectedItem).Nome : null!;
 
-        DietsList.AsyncSource = _globals.getFilteredDiets(s1, s2, s3, s4, s5, 1);             
+        DietsList.AsyncSource = _globals.getFilteredDiets(s1, s2, s3, s4, s5, 1, s6);             
     }
 
     private void FilterMenuButton_Clicked(object sender, EventArgs e)
@@ -57,12 +59,14 @@ public partial class DietsListPage : ContentPage
         filterMenu.IsVisible = true;  
     }
 
-    private void FilterSetUp()
+    private async void FilterSetUp()
     {
         DifficoltaSlider.Maximum = 5;
         NricetteSlider.Maximum = 20;
         SortPicker.ItemsSource = IMainViewModel.DietSort.Keys.ToList();
         SortPicker.SelectedIndex = 0;
+        CategoryPicker.ItemsSource = await _globals.GetNutritionalCategories();
+        CategoryPicker.SelectedIndex = 0;
 
         
     }

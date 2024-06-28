@@ -44,7 +44,7 @@ namespace Daidokoro.ViewModel
         Task<bool> CanUserLogin(string email, string password);
         Task<string> GetLoggedUserId(string email, string password);
         Task AddOrRemoveRecipeFromLiked(int IdRicetta);
-        public Task<List<Collezione>> getFilteredDiets(string text, string difficolta, string Data, string ordinamento, string Nricette,int dieta);
+        public Task<List<Collezione>> getFilteredDiets(string text, string difficolta, string Data, string ordinamento, string Nricette,int dieta,string categoriaNutrizionale);
 
         public static Dictionary<string, string> sortings = new Dictionary<string, string>()
         {

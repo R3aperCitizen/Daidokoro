@@ -501,12 +501,12 @@ namespace Daidokoro.ViewModel
             string query =
             "with v2 as (\r\n" +
             "with v1 AS(\r\n" +
-            "Select collezione.*\r\n" +
+            "Select collezione.*, categoria_nutrizionale.Nome as NomeCategoria\r\n" +
             "from collezione\r\n" +
-            "JOIN categoria_nutrizionale ON categoria_nutrizionale.IdCategoria = collezione.IdCategoria" +
+            "JOIN categoria_nutrizionale ON categoria_nutrizionale.IdCategoria = collezione.IdCategoria\r\n" +
             $"where collezione.Dieta = {dieta} " +
-            (Data == null ? "" : $"&& collezione.DataCreazione = \'{Data}\' ") +      
-            (categoriaNutrizionale == null ? "" : $"&& categoria_nutrizionale.nome = \'{categoriaNutrizionale}\' ") +
+            (Data == null ? "" : $"AND collezione.DataCreazione = \'{Data}\' ") +      
+            (categoriaNutrizionale == null ? "" : $"AND categoria_nutrizionale.Nome = \'{categoriaNutrizionale}\' ") +
             ")\r\n" +
             "Select v1.*" +
             ",avg(ricetta.difficolta) as avDiff" +
@@ -514,7 +514,7 @@ namespace Daidokoro.ViewModel
             "\r\n from v1 \r\n" +
             "join ricetta_collezione on ricetta_collezione.IdCollezione = v1.IdCollezione\r\n" +
             "join ricetta on ricetta.IdRicetta = ricetta_collezione.IdRicetta\r\n" +
-            (text == null ? "" : $"where Lower(ricetta.Nome) like \"%{text}%\" || v1.Nome  LIKE \"%{text}%\"") +
+            (text == null ? "" : $"where Lower(ricetta.Nome) like \"%{text}%\" OR v1.Nome  LIKE \"%{text}%\"") +
             "\r\n group by v1.IdCollezione\r\n" +
             $"order by {ordinamento})\r\n" +
             "Select v2.*, ricetta.Foto as FotoRicetta\r\n" +

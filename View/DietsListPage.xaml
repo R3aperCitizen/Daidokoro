@@ -40,7 +40,7 @@
                     </HorizontalStackLayout>
                     <HorizontalStackLayout HorizontalOptions="Center" Padding="5">
                         <Label Text="Categoria"  VerticalOptions="Center" FontSize="Medium" Margin="0,0,70,0"/>
-                        <Picker x:Name="CategoryPicker" WidthRequest="130"/>
+                        <Picker x:Name="CategoryPicker" WidthRequest="130" x:DataType="model:CategoriaNutrizionale" ItemDisplayBinding="{Binding Nome}"/>
                         <CheckBox x:Name="CategoryCheck"/>
                     </HorizontalStackLayout>
                     <Border WidthRequest="150" HeightRequest="45" StrokeShape="RoundRectangle 10" Margin="5">
