@@ -15,7 +15,7 @@ public partial class CollectionsListPage : ContentPage
 
     protected override void OnNavigatedTo(NavigatedToEventArgs args)
     {
-        CollectionsList.AsyncSource = _globals.GetCollections();
+        //CollectionsList.AsyncSource = _globals.GetCollections();
     }
 
     private void SearchBar_TextChanged(object sender, TextChangedEventArgs e)
@@ -24,11 +24,11 @@ public partial class CollectionsListPage : ContentPage
 
         if(text == null) 
         {
-            CollectionsList.AsyncSource = _globals.GetCollections();
+            //CollectionsList.AsyncSource = _globals.GetCollections();
         }
         else
         {
-            CollectionsList.AsyncSource = _globals.GetSearchedCollections(0, text);
+            //CollectionsList.AsyncSource = _globals.GetSearchedCollections(0, text);
         }
     }
 }

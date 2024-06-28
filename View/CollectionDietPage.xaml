@@ -28,7 +28,7 @@
                         <Button x:Name="NegativeVoteButton" Clicked="VoteNegative" WidthRequest="175" TextColor="{StaticResource Palette2}" FontSize="15" FontAttributes="Bold" BackgroundColor="#c79863" CornerRadius="0" />
                     </HorizontalStackLayout>
                 </Border>
-                <controls:RecipeMinimalList x:Name="RecipesList"/>
+                <!-- <controls:RecipeMinimalList x:Name="RecipesList"/> -->
                 <Border x:Name="RatingSection" StrokeShape="RoundRectangle 10" StrokeThickness="0" BackgroundColor="{StaticResource Palette2}" Margin="0,20,0,0">
                     <VerticalStackLayout Padding="15" Spacing="15">
                         <Label Text="VALUTAZIONI" FontAttributes="Bold" FontSize="15" TextColor="{StaticResource Palette3}" />

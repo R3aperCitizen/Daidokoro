@@ -15,7 +15,7 @@ public partial class DietsListPage : ContentPage
 
     protected override void OnNavigatedTo(NavigatedToEventArgs args)
     {
-        DietsList.AsyncSource = _globals.GetDiets();
+        //DietsList.AsyncSource = _globals.GetDiets();
     }
 
     private void SearchBar_TextChanged(object sender, TextChangedEventArgs e)
@@ -24,11 +24,11 @@ public partial class DietsListPage : ContentPage
 
         if (text == null)
         {
-            DietsList.AsyncSource = _globals.GetDiets();
+            //DietsList.AsyncSource = _globals.GetDiets();
         }
         else
         {
-            DietsList.AsyncSource = _globals.GetSearchedCollections(1, text);
+            //DietsList.AsyncSource = _globals.GetSearchedCollections(1, text);
         }
     }
 

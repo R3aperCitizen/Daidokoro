@@ -45,7 +45,7 @@
             </Border>
             <VerticalStackLayout>
                 <ScrollView>
-                    <controls:CollectionMinimalList x:Name="DietsList"/>
+                    <!-- <controls:CollectionMinimalList x:Name="DietsList"/> -->
                 </ScrollView>
             </VerticalStackLayout>
         </VerticalStackLayout>

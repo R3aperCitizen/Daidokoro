@@ -3,7 +3,7 @@ using System.Globalization;
 
 namespace Daidokoro.View.Controls;
 
-public partial class RecipeFull : ContentView, ITemplate<Ricetta>
+public partial class RecipeFull : ContentView
 {
     public static readonly BindableProperty ModelProperty
         = BindableProperty.Create(nameof(Model), typeof(Ricetta), typeof(RecipeFull), propertyChanged: OnModelChanged);

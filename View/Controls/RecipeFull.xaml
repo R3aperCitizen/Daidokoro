@@ -27,7 +27,7 @@
                         <Label Text="Difficoltà: " TextColor="White" FontAttributes="Bold" FontSize="15" HorizontalTextAlignment="Center" />
                         <Label FontSize="20" HorizontalTextAlignment="Center" Text="{Binding Difficolta, Converter={StaticResource difficulty}}" />
                     </VerticalStackLayout>
-                    <Label TextColor="{StaticResource Palette4}" FontAttributes="Bold" FontSize="20" HorizontalTextAlignment="Center" VerticalOptions="Center" />
+                    <Label TextColor="{StaticResource Palette4}" FontAttributes="Bold" FontSize="20" HorizontalTextAlignment="Center" VerticalOptions="Center" Text="{Binding NumeroLike, Converter={StaticResource likes}}" />
                 </HorizontalStackLayout>
             </VerticalStackLayout>
         </Grid>

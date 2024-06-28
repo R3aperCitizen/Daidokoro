@@ -50,7 +50,7 @@
         </VerticalStackLayout>
         <ScrollView x:Name="MainScroll">
             <VerticalStackLayout Padding="15,5,15,25" Spacing="25">
-                <controls:RecipeMinimalList x:Name="RecipesList" />
+                
             </VerticalStackLayout>
         </ScrollView>
     </VerticalStackLayout>

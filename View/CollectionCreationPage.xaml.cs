@@ -59,7 +59,7 @@ public partial class CollectionCreationPage : ContentPage
             {
                 IdRicetta = i.IdRicetta
             });
-            RecipesList.Source = new List<Model.Ricetta>(ricette);
+            //RecipesList.Source = new List<Model.Ricetta>(ricette);
         }
     }
 
