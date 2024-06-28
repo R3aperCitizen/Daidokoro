@@ -76,9 +76,9 @@ CREATE TABLE IF NOT EXISTS ricetta(
 )AUTO_INCREMENT=1;
 
 CREATE TABLE IF NOT EXISTS likes (
-	Data DATE NOT NULL,
 	IdUtente INT NOT NULL,
 	IdRicetta INT NOT NULL,
+	Data DATE NOT NULL,
 	FOREIGN KEY (IdUtente) REFERENCES utente(IdUtente),
 	FOREIGN KEY (IdRicetta) REFERENCES ricetta(IdRicetta),
 	PRIMARY KEY (IdUtente, IdRicetta)

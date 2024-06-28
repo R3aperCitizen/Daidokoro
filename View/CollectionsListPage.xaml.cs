@@ -15,7 +15,7 @@ public partial class CollectionsListPage : ContentPage
 
     protected override void OnNavigatedTo(NavigatedToEventArgs args)
     {
-        CollectionsList.AsyncSource = _globals.GetCollections();
+        CollectionsList.AsyncSource = _globals.GetCollectionsOrDiets(0);
     }
 
     private void SearchBar_TextChanged(object sender, TextChangedEventArgs e)
@@ -24,15 +24,15 @@ public partial class CollectionsListPage : ContentPage
 
         if(text == null) 
         {
-            CollectionsList.AsyncSource = _globals.GetCollections();
+            CollectionsList.AsyncSource = _globals.GetCollectionsOrDiets(0);
         }
         else
         {
-            string s1 = SearchBar.Text == string.Empty ? null : SearchBar.Text;
-            string s2 = null;
-            string s3 = null;
+            string s1 = SearchBar.Text == string.Empty ? null! : SearchBar.Text;
+            string s2 = null!;
+            string s3 = null!;
             string s4 = "num";
-            string s5 = null;
+            string s5 = null!;
 
             CollectionsList.AsyncSource = _globals.getFilteredDiets(s1, s2, s3, s4, s5, 0);
         }
