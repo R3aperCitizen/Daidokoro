@@ -512,15 +512,17 @@ namespace Daidokoro.ViewModel
             }
         }
 
-        public Task<List<Collezione>> getFilteredDiets(string text, string difficolta, string Data, string ordinamento,string Nricette,int dieta)
+        public Task<List<Collezione>> getFilteredDiets(string text, string difficolta, string Data, string ordinamento,string Nricette,int dieta,string categoriaNutrizionale)
         {
             string query =
             "with v2 as (\r\n" +
             "with v1 AS(\r\n" +
             "Select collezione.*\r\n" +
             "from collezione\r\n" +
+            "JOIN categoria_nutrizionale ON categoria_nutrizionale.IdCategoria = collezione.IdCategoria" +
             $"where collezione.Dieta = {dieta} " +
-            (Data == null ? "" : $"&& collezione.DataCreazione = \'{Data}\' ") +            
+            (Data == null ? "" : $"&& collezione.DataCreazione = \'{Data}\' ") +      
+            (categoriaNutrizionale == null ? "" : $"&& categoria_nutrizionale.nome = \'{categoriaNutrizionale}\' ") +
             ")\r\n" +
             "Select v1.*" +
             ",avg(ricetta.difficolta) as avDiff" +
@@ -543,9 +545,6 @@ namespace Daidokoro.ViewModel
             (Nricette == null ? difficolta == null ? "" : $" AND v2.avDiff = {difficolta}" :
             difficolta == null ? $"AND v2.num = {Nricette}" : $" AND v2.num = {Nricette} AND v2.avDiff = {difficolta}");
             
-
-            
-
             return  dbService.GetData<Collezione>(query);
             
         }

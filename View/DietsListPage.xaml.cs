@@ -63,6 +63,7 @@ public partial class DietsListPage : ContentPage
         NricetteSlider.Maximum = 20;
         SortPicker.ItemsSource = IMainViewModel.DietSort.Keys.ToList();
         SortPicker.SelectedIndex = 0;
+
         
     }
 

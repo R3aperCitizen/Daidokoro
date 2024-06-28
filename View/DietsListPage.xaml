@@ -38,6 +38,11 @@
                         <Label Text="Ordinamento"  VerticalOptions="Center" FontSize="Medium" Margin="0,0,70,0"/>
                         <Picker x:Name="SortPicker" WidthRequest="130"/>
                     </HorizontalStackLayout>
+                    <HorizontalStackLayout HorizontalOptions="Center" Padding="5">
+                        <Label Text="Categoria"  VerticalOptions="Center" FontSize="Medium" Margin="0,0,70,0"/>
+                        <Picker x:Name="CategoryPicker" WidthRequest="130"/>
+                        <CheckBox x:Name="CategoryCheck"/>
+                    </HorizontalStackLayout>
                     <Border WidthRequest="150" HeightRequest="45" StrokeShape="RoundRectangle 10" Margin="5">
                         <Button x:Name="ButtonApply" Text="Apply" Clicked="ButtonApply_Pressed"/>
                     </Border>
