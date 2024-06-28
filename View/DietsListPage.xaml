@@ -23,7 +23,7 @@
                         <CheckBox x:Name="DataCheck" />
                     </HorizontalStackLayout>
                     <HorizontalStackLayout Spacing="20">
-                        <Label Text="Difficoltà media>" WidthRequest="120" VerticalOptions="Center" FontAttributes="Bold" />
+                        <Label Text="Difficoltà media:" WidthRequest="120" VerticalOptions="Center" FontAttributes="Bold" />
                         <HorizontalStackLayout>
                             <Slider x:Name="DifficoltaSlider" WidthRequest="110" ValueChanged="DifficoltaSlider_ValueChanged" />
                             <Label x:Name="DifficoltaLabel" VerticalOptions="Center" FontAttributes="Bold" />

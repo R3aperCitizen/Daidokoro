@@ -25,7 +25,6 @@ namespace Daidokoro.ViewModel
         Task<List<Collezione>> GetCollectionById(int IdCollezione);
         Task<List<Utente>> GetUserById(int id);
         Task<List<Ricetta>> GetMonthRecipes();
-        Task<List<Ricetta>> GetSearchedRecipes(string text, string orderby);
         Task<List<Ricetta>> GetSearchedRecipes(string name, int IdCategoria);
         Task<List<Ricetta>> GetFilteredRecipes(string difficulty, string time, string orderby, string categories, string searchBarText);
         Task<List<Ingrediente>> GetSearchedIngredients(string text);
@@ -46,18 +45,24 @@ namespace Daidokoro.ViewModel
         Task AddOrRemoveRecipeFromLiked(int IdRicetta);
         public Task<List<Collezione>> GetFilteredCollections(string text, string difficulty, string date, string orderby, string recipeNumber, int dieta, string nutritionalCategory);
 
-        public static Dictionary<string, string> sortings = new()
+        public static Dictionary<string, string> RecipeSortings = new()
         {
-            { "Difficolta", "Difficolta" },
-            { "Tempo", "Tempo" },
-            { "Like", "NumeroLike" }
+            { "Like ▲", "NumeroLike DESC" },
+            { "Like ▼", "NumeroLike" },
+            { "Difficolta ▲", "Difficolta DESC" },
+            { "Difficolta ▼", "Difficolta" },
+            { "Tempo ▲", "Tempo DESC" },
+            { "Tempo ▼", "Tempo" }
         };
 
-        public static Dictionary<string, string> DietSort = new()
+        public static Dictionary<string, string> DietSortings = new()
         {
-            { "DifficoltaMedia", "avDiff" },
-            { "NumeroRicette", "num" },
-            { "Data", "DataCreazione" }
+            { "Difficolta Media ▲", "avDiff DESC" },
+            { "Difficolta Media ▼", "avDiff" },
+            { "Numero Ricette ▲", "num DESC" },
+            { "Numero Ricette ▼", "num" },
+            { "Data Creazione ▲", "DataCreazione DESC" },
+            { "Data Creazione ▼", "DataCreazione" }
         };
     }
 }

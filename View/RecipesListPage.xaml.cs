@@ -24,22 +24,16 @@ public partial class RecipesListPage : ContentPage
     
     private void SearchBar_TextChanged(object sender, TextChangedEventArgs e)
     {
-        _SearchBar("NumeroLike");
+        _SearchBar(IMainViewModel.RecipeSortings[SortPicker.SelectedItem.ToString()!]);
     }
 
     private void _SearchBar(string orderby)
     {
         string text = SearchBar.Text;
-        if (text == null || text == string.Empty)
-        {
-            RecipesList.AsyncSource = _globals.GetRecipes();
-        }
-        else
-        {
-            //query categoria nutrizionale
-            RecipesList.AsyncSource = _globals.GetSearchedRecipes(text,orderby);
-        }        
+        //query categoria nutrizionale
+        RecipesList.AsyncSource = _globals.GetFilteredRecipes(null!, null!, orderby, null!, text);
     }
+
     private void OpenFilterMenu(object sender, EventArgs e)
     {
         FilterMenu.IsVisible = true;
@@ -62,14 +56,14 @@ public partial class RecipesListPage : ContentPage
         FilterMenuButton.IsVisible = true;
         if(!CheckDifficulty.IsChecked && !CheckCategories.IsChecked && !CheckTime.IsChecked)
         {
-            _SearchBar(SortPicker.SelectedItem.ToString()!);
+            _SearchBar(IMainViewModel.RecipeSortings[SortPicker.SelectedItem.ToString()!]);
         }
         else
         {
             RecipesList.AsyncSource = _globals.GetFilteredRecipes(
                 CheckDifficulty.IsChecked ? Math.Round(DifficultySlider.Value).ToString() : null!,
                 CheckTime.IsChecked ? Math.Round(TimeSlider.Value).ToString() : null!,
-                IMainViewModel.sortings[SortPicker.SelectedItem.ToString()!],
+                IMainViewModel.RecipeSortings[SortPicker.SelectedItem.ToString()!],
                 CheckCategories.IsChecked ? ((CategoriaNutrizionale)CategoriesPicker.SelectedItem).Nome : null!,
                 SearchBar.Text);
         }
@@ -79,12 +73,12 @@ public partial class RecipesListPage : ContentPage
     {
         var screenHeight = _displayInfo.Height;
         var screenDensity = _displayInfo.Density;
-        MainScroll.HeightRequest = (screenHeight / screenDensity) - 275;
+        MainScroll.HeightRequest = (screenHeight / screenDensity) - 300;
         DifficultySlider.Maximum = 5;
         DifficultySlider.Minimum = 1;
         TimeSlider.Maximum = 100;
         TimeSlider.Minimum = 5;
-        SortPicker.ItemsSource = IMainViewModel.sortings.Keys.ToList();
+        SortPicker.ItemsSource = IMainViewModel.RecipeSortings.Keys.ToList();
         SortPicker.SelectedIndex = 0;
         CategoriesPicker.ItemsSource = await _globals.GetNutritionalCategories();
         CategoriesPicker.SelectedIndex = 0;

@@ -205,26 +205,6 @@ namespace Daidokoro.ViewModel
             );
         }
 
-        public async Task<List<Ricetta>> GetSearchedRecipes(string text, string orderby)
-        {
-            return await _dbService.GetData<Ricetta>(
-                $"WITH v1(IdRicetta,Nome,Descrizione,Passaggi,Foto,Difficolta,Tempo,DataCreazione,IdUtente,NumeroLike) AS(\r\n" +               
-                $"SELECT ricetta.*, COUNT(likes.IdRicetta) AS NumeroLike\r\n" +
-                $"FROM ricetta\r\n" +
-                $"LEFT JOIN likes ON likes.IdRicetta = ricetta.IdRicetta\r\n" +
-                $"GROUP BY ricetta.IdRicetta)\r\n" +
-                $"SELECT DISTINCT v1.*\r\n" +
-                $"FROM v1\r\n" +
-                $"JOIN ingrediente_ricetta ON ingrediente_ricetta.IdRicetta = v1.IdRicetta\r\n" +
-                $"JOIN ingrediente ON ingrediente_ricetta.IdIngrediente = ingrediente.IdIngrediente\r\n" +
-                $"JOIN categoria_nutrizionale ON ingrediente.IdCategoria=categoria_nutrizionale.IdCategoria\r\n" + 
-                $"WHERE LOWER(categoria_nutrizionale.Nome) LIKE \"%{text}%\"\r\n" +
-                $"OR LOWER(ingrediente.Nome) LIKE \"%{text}%\"\r\n" +
-                $"OR LOWER(v1.Nome) LIKE \"%{text}%\"\r\n" +
-                $"ORDER BY {orderby}\r\n" +
-                $"LIMIT 10;"
-            );
-        }
         public async Task<List<Ricetta>> GetSearchedRecipes(string name, int IdCategoria)
         {
             return await _dbService.GetData<Ricetta>(
@@ -367,7 +347,9 @@ namespace Daidokoro.ViewModel
             {
                 query +=
                     $"SELECT ricetta.*, COUNT(likes.IdRicetta) AS NumeroLike\r\n" +
-                    $"FROM ricetta)\r\n" +
+                    $"FROM ricetta\r\n" +
+                    $"LEFT JOIN likes ON likes.IdRicetta = ricetta.IdRicetta\r\n" +
+                    $"GROUP BY ricetta.IdRicetta)\r\n" +
                     $"SELECT DISTINCT v3.*\r\n" +
                     $"FROM v3)\r\n";
             }
