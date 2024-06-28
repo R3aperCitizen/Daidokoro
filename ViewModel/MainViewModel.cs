@@ -89,22 +89,22 @@ namespace Daidokoro.ViewModel
             );
         }
 
-        public async Task<List<Ricetta>> GetRecipesByDifficulty(int Difficolta, string orderby)
+        public async Task<List<Ricetta>> GetRecipesByDifficulty(int difficulty, string orderby)
         {
             return await _dbService.GetData<Ricetta>(
                 $"SELECT *\r\n" +
                 $"FROM ricetta\r\n" +
-                $"WHERE ricetta.Difficolta = {Difficolta}\r\n" +
+                $"WHERE ricetta.Difficolta = {difficulty}\r\n" +
                 $"ORDER BY {orderby}"
             );
         }
 
-        public async Task<List<Ricetta>> GetRecipesByTime(int Tempo, string orderby)
+        public async Task<List<Ricetta>> GetRecipesByTime(int time, string orderby)
         {
             return await _dbService.GetData<Ricetta>(
                 $"SELECT *\r\n" +
                 $"FROM ricetta\r\n" +
-                $"WHERE ricetta.Tempo = {Tempo}\r\n" +
+                $"WHERE ricetta.Tempo = {time}\r\n" +
                 $"ORDER BY {orderby}\r\n"
             );
         }
@@ -157,7 +157,7 @@ namespace Daidokoro.ViewModel
             );
         }
 
-        public async Task<List<Collezione>> GetCollections()
+        public async Task<List<Collezione>> GetCollectionsOrDiets(int Dieta)
         {
             return await _dbService.GetData<Collezione>(
                 $"SELECT c1.*, categoria_nutrizionale.Nome AS NomeCategoria, ricetta.Foto AS FotoRicetta\r\n" +
@@ -165,23 +165,7 @@ namespace Daidokoro.ViewModel
                 $"JOIN categoria_nutrizionale ON categoria_nutrizionale.IdCategoria = c1.IdCategoria\r\n" +
                 $"JOIN ricetta_collezione ON ricetta_collezione.IdCollezione = c1.IdCollezione\r\n" +
                 $"JOIN ricetta ON ricetta.IdRicetta = ricetta_collezione.IdRicetta\r\n" +
-                $"WHERE Dieta = 0 AND ricetta.IdRicetta = (\r\n" +
-                $"SELECT MIN(ricetta.IdRicetta)\r\n" +
-                $"FROM ricetta\r\n" +
-                $"JOIN ricetta_collezione ON ricetta_collezione.IdRicetta = ricetta.IdRicetta\r\n" +
-                $"WHERE ricetta_collezione.IdCollezione = c1.IdCollezione);"
-            );
-        }
-
-        public async Task<List<Collezione>> GetDiets()
-        {
-            return await _dbService.GetData<Collezione>(
-                $"SELECT c1.*, categoria_nutrizionale.Nome AS NomeCategoria, ricetta.Foto AS FotoRicetta\r\n" +
-                $"FROM collezione AS c1\r\n" +
-                $"JOIN categoria_nutrizionale ON categoria_nutrizionale.IdCategoria = c1.IdCategoria\r\n" +
-                $"JOIN ricetta_collezione ON ricetta_collezione.IdCollezione = c1.IdCollezione\r\n" +
-                $"JOIN ricetta ON ricetta.IdRicetta = ricetta_collezione.IdRicetta\r\n" +
-                $"WHERE Dieta = 1 AND ricetta.IdRicetta = (\r\n" +
+                $"WHERE Dieta = {Dieta} AND ricetta.IdRicetta = (\r\n" +
                 $"SELECT MIN(ricetta.IdRicetta)\r\n" +
                 $"FROM ricetta\r\n" +
                 $"JOIN ricetta_collezione ON ricetta_collezione.IdRicetta = ricetta.IdRicetta\r\n" +
@@ -287,18 +271,18 @@ namespace Daidokoro.ViewModel
             );
         }
 
-        public async Task<List<VotiRicetta>> GetRatingsCountGroupByVoto(int Id, bool isRecipe)
+        public async Task<List<VotiRicetta>> GetRatingsCountGroupByVoto(int id, bool isRecipe)
         {
             string table = isRecipe ? "valutazione_ricetta" : "valutazione_collezione";
             string idName = isRecipe ? "IdRicetta" : "IdCollezione";
             return await _dbService.GetData<VotiRicetta>(
                 $"SELECT IFNULL(SUM(CASE WHEN Voto = 1 THEN 1 ELSE 0 END), 0) AS VotiPositivi, IFNULL(SUM(CASE WHEN Voto = 0 THEN 1 ELSE 0 END), 0) AS VotiNegativi\r\n" +
                 $"FROM {table}\r\n" +
-                $"WHERE {idName} = {Id};"
+                $"WHERE {idName} = {id};"
             );
         }
 
-        public async Task<List<Valutazione>> GetRatingsById(int Id, bool isRecipe)
+        public async Task<List<Valutazione>> GetRatingsById(int id, bool isRecipe)
         {
             string table = isRecipe ? "valutazione_ricetta" : "valutazione_collezione";
             string idName = isRecipe ? "IdRicetta" : "IdCollezione";
@@ -306,45 +290,45 @@ namespace Daidokoro.ViewModel
                 $"SELECT {table}.IdUtente, {idName}, Voto, DataValutazione, Commento, utente.Username AS NomeUtente, utente.Foto AS FotoUtente\r\n" +
                 $"FROM {table}\r\n" +
                 $"JOIN utente ON utente.IdUtente={table}.IdUtente\r\n" +
-                $"WHERE {idName} = {Id}\r\n" +
+                $"WHERE {idName} = {id}\r\n" +
                 $"ORDER BY DataValutazione DESC;"
             );
         }
 
-        public async Task InsertRating(List<Tuple<string, object>> valutazione, bool isRecipe)
+        public async Task InsertRating(List<Tuple<string, object>> rating, bool isRecipe)
         {
             string table = isRecipe ? "valutazione_ricetta" : "valutazione_collezione";
             string idName = isRecipe ? "IdRicetta" : "IdCollezione";
             if (int.TryParse(await SecureStorage.Default.GetAsync("IdUtente"), out int IdUtente))
             {
-                var v = valutazione;
-                v.Insert(0, new("IdUtente", IdUtente));
-                if (!await _dbService.ExistInTable($"SELECT * FROM {table} WHERE IdUtente = {valutazione[0].Item2} AND {idName} = {valutazione[1].Item2} AND Voto = {valutazione[2].Item2};"))
+                var r = rating;
+                r.Insert(0, new("IdUtente", IdUtente));
+                if (!await _dbService.ExistInTable($"SELECT * FROM {table} WHERE IdUtente = {rating[0].Item2} AND {idName} = {rating[1].Item2} AND Voto = {rating[2].Item2};"))
                 {
-                    if (await _dbService.ExistInTable($"SELECT * FROM {table} WHERE IdUtente = {valutazione[0].Item2} AND {idName} = {valutazione[1].Item2} AND Voto != {valutazione[2].Item2};"))
+                    if (await _dbService.ExistInTable($"SELECT * FROM {table} WHERE IdUtente = {rating[0].Item2} AND {idName} = {rating[1].Item2} AND Voto != {rating[2].Item2};"))
                     {
-                        await _dbService.RemoveOrUpdateElement($"DELETE FROM {table} WHERE IdUtente = {valutazione[0].Item2} AND {idName} = {valutazione[1].Item2};");
+                        await _dbService.RemoveOrUpdateElement($"DELETE FROM {table} WHERE IdUtente = {rating[0].Item2} AND {idName} = {rating[1].Item2};");
                     }
                     await _dbService.InsertElement(
-                        v,
+                        r,
                         $@"INSERT INTO {table} (IdUtente, {idName}, Voto, DataValutazione, Commento) VALUES (?, ?, ?, NOW(), '');"
                     );
                 }
             }
         }
 
-        public async Task<bool> InsertReviewIfRatedByUser(int Id, string Commento, bool isRecipe)
+        public async Task<bool> InsertReviewIfRatedByUser(int id, string comment, bool isRecipe)
         {
             string table = isRecipe ? "valutazione_ricetta" : "valutazione_collezione";
             string idName = isRecipe ? "IdRicetta" : "IdCollezione";
             if (int.TryParse(await SecureStorage.Default.GetAsync("IdUtente"), out int IdUtente))
             {
-                if (await _dbService.ExistInTable($"SELECT * FROM {table} WHERE IdUtente = {IdUtente} AND {idName} = {Id};"))
+                if (await _dbService.ExistInTable($"SELECT * FROM {table} WHERE IdUtente = {IdUtente} AND {idName} = {id};"))
                 {
                     await _dbService.RemoveOrUpdateElement(
                         $"UPDATE {table}\r\n" +
-                        $"SET Commento = \'{Commento}\'\r\n" +
-                        $"WHERE IdUtente = {IdUtente} AND {idName} = {Id};"
+                        $"SET Commento = \'{comment}\'\r\n" +
+                        $"WHERE IdUtente = {IdUtente} AND {idName} = {id};"
                     );
                     return true;
                 }
@@ -352,7 +336,7 @@ namespace Daidokoro.ViewModel
             return false;
         }
 
-        public async Task<List<Ricetta>> GetFilteredRecipes(string difficulty,string time, string orderby, string category,string text)
+        public async Task<List<Ricetta>> GetFilteredRecipes(string difficulty, string time, string orderby, string category, string text)
         {
             // the query generator is structured in 2 principal tables, v2 and v1, v2 contains other tables
             // or no tables, is necessary so that v1 can reference generally to whatever thing is in v2
@@ -478,14 +462,14 @@ namespace Daidokoro.ViewModel
                     "FROM collezione"))[0].IdCollezione;
         }
 
-        public async Task<bool> CanUserLogin(string Email, string Password)
+        public async Task<bool> CanUserLogin(string email, string password)
         {
-            return await _dbService.ExistInTable($"SELECT * FROM utente WHERE Email = \'{Email}\' AND Pwd = \'{Password}\'");
+            return await _dbService.ExistInTable($"SELECT * FROM utente WHERE Email = \'{email}\' AND Pwd = \'{password}\'");
         }
 
-        public async Task<string> GetLoggedUserId(string Email, string Password)
+        public async Task<string> GetLoggedUserId(string email, string password)
         {
-            return (await _dbService.GetData<Utente>($"SELECT * FROM utente WHERE Email = \'{Email}\' AND Pwd = \'{Password}\'"))[0].IdUtente.ToString();
+            return (await _dbService.GetData<Utente>($"SELECT * FROM utente WHERE Email = \'{email}\' AND Pwd = \'{password}\'"))[0].IdUtente.ToString();
         }
 
         public async Task AddOrRemoveRecipeFromLiked(int IdRicetta)
