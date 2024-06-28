@@ -44,20 +44,20 @@ namespace Daidokoro.ViewModel
         Task<bool> CanUserLogin(string email, string password);
         Task<string> GetLoggedUserId(string email, string password);
         Task AddOrRemoveRecipeFromLiked(int IdRicetta);
-        public Task<List<Collezione>> getFilteredDiets(string text, string difficolta, string Data, string ordinamento, string Nricette,int dieta,string categoriaNutrizionale);
+        public Task<List<Collezione>> GetFilteredCollections(string text, string difficulty, string date, string orderby, string recipeNumber, int dieta, string nutritionalCategory);
 
-        public static Dictionary<string, string> sortings = new Dictionary<string, string>()
+        public static Dictionary<string, string> sortings = new()
         {
-            {"Difficolta","Difficolta" },
-            {"Tempo","Tempo" },
-            {"Like","NumeroLike" }
+            { "Difficolta", "Difficolta" },
+            { "Tempo", "Tempo" },
+            { "Like", "NumeroLike" }
         };
 
-        public static Dictionary<string, string> DietSort = new Dictionary<string, string>()
+        public static Dictionary<string, string> DietSort = new()
         {
             { "DifficoltaMedia", "avDiff" },
             { "NumeroRicette", "num" },
-            {"Data","DataCreazione" }
+            { "Data", "DataCreazione" }
         };
     }
 }

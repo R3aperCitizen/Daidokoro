@@ -34,7 +34,7 @@ public partial class CollectionsListPage : ContentPage
             string s4 = "num";
             string s5 = null!;
             string s6 = null!;
-            CollectionsList.AsyncSource = _globals.getFilteredDiets(s1, s2, s3, s4, s5, 0, s6);
+            CollectionsList.AsyncSource = _globals.GetFilteredCollections(s1, s2, s3, s4, s5, 0, s6);
         }
     }
 }

@@ -14,12 +14,11 @@ public partial class RecipesListPage : ContentPage
         InitializeComponent();
         _globals = globals;
         _displayInfo = DeviceDisplay.MainDisplayInfo;
-        SetBehaviours();
     }
 
     protected async override void OnNavigatedTo(NavigatedToEventArgs args)
     {
-        CategoriesPicker.ItemsSource = await _globals.GetNutritionalCategories();
+        await SetBehaviours();
         RecipesList.AsyncSource = _globals.GetRecipes();
     }
     
@@ -68,15 +67,15 @@ public partial class RecipesListPage : ContentPage
         else
         {
             RecipesList.AsyncSource = _globals.GetFilteredRecipes(
-                CheckDifficulty.IsChecked ? Math.Round(DifficultySlider.Value).ToString() : null,
-                CheckTime.IsChecked ? Math.Round(TimeSlider.Value).ToString() : null,
-                IMainViewModel.sortings[SortPicker.SelectedItem.ToString()],
-                CheckCategories.IsChecked ? ((CategoriaNutrizionale)CategoriesPicker.SelectedItem).Nome : null,
+                CheckDifficulty.IsChecked ? Math.Round(DifficultySlider.Value).ToString() : null!,
+                CheckTime.IsChecked ? Math.Round(TimeSlider.Value).ToString() : null!,
+                IMainViewModel.sortings[SortPicker.SelectedItem.ToString()!],
+                CheckCategories.IsChecked ? ((CategoriaNutrizionale)CategoriesPicker.SelectedItem).Nome : null!,
                 SearchBar.Text);
         }
     }
 
-    private void SetBehaviours()
+    private async Task SetBehaviours()
     {
         var screenHeight = _displayInfo.Height;
         var screenDensity = _displayInfo.Density;
@@ -85,8 +84,9 @@ public partial class RecipesListPage : ContentPage
         DifficultySlider.Minimum = 1;
         TimeSlider.Maximum = 100;
         TimeSlider.Minimum = 5;
-        SortPicker.ItemsSource = IMainViewModel.sortings.Keys.ToList();    
-        CategoriesPicker.SelectedIndex = 0;
+        SortPicker.ItemsSource = IMainViewModel.sortings.Keys.ToList();
         SortPicker.SelectedIndex = 0;
+        CategoriesPicker.ItemsSource = await _globals.GetNutritionalCategories();
+        CategoriesPicker.SelectedIndex = 0;
     }
 }

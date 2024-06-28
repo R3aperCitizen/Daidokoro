@@ -8,35 +8,39 @@
 
     <VerticalStackLayout BackgroundColor="{StaticResource Background}">
         <controls:NavigationBar />
-        <VerticalStackLayout Padding="15" Spacing="15">
+        <VerticalStackLayout Padding="15,25,15,25" Spacing="25">
             <Border StrokeShape="RoundRectangle 10" StrokeThickness="0">
                 <SearchBar x:Name="SearchBar" Placeholder="Cerca Ricette..." BackgroundColor="{StaticResource NavBar}" PlaceholderColor="White" TextChanged="SearchBar_TextChanged" />
             </Border>
             <Border StrokeShape="RoundRectangle 10" StrokeThickness="0">
                 <Button x:Name="FilterMenuButton" Text="Apri Menu Filtri ☰" FontAttributes="Bold" TextColor="White" BackgroundColor="{StaticResource NavBar}" Clicked="OpenFilterMenu" />
             </Border>
-            <Border x:Name="FilterMenu" StrokeShape="RoundRectangle 10" StrokeThickness="0" Margin="0,-50,0,0" IsVisible="False">
+            <Border x:Name="FilterMenu" StrokeShape="RoundRectangle 10" StrokeThickness="0" Margin="0,-70,0,0" IsVisible="False">
                 <VerticalStackLayout BackgroundColor="{StaticResource NavBar}" Padding="20" Spacing="20">
                     <HorizontalStackLayout Spacing="20">
-                        <Label WidthRequest="120" Text="Difficoltà: " FontAttributes="Bold"/>
-                        <Slider x:Name="DifficultySlider" WidthRequest="100" ValueChanged="DifficultySlider_ValueChanged" />
-                        <Label x:Name="DifficultyValue" FontAttributes="Bold" VerticalOptions="Center" />
-                        <CheckBox x:Name="CheckDifficulty"/>
+                        <Label WidthRequest="120" Text="Difficoltà: " VerticalTextAlignment="Center" FontAttributes="Bold"/>
+                        <HorizontalStackLayout>
+                            <Slider x:Name="DifficultySlider" WidthRequest="110" ValueChanged="DifficultySlider_ValueChanged" />
+                            <Label x:Name="DifficultyValue" FontAttributes="Bold" VerticalTextAlignment="Center" />
+                        </HorizontalStackLayout>
+                        <CheckBox x:Name="CheckDifficulty" />
                     </HorizontalStackLayout>
                     <HorizontalStackLayout Spacing="20">
-                        <Label WidthRequest="120" Text="Tempo di preparazione: " FontAttributes="Bold" />
-                        <Slider x:Name="TimeSlider" WidthRequest="100" ValueChanged="TimeSlider_ValueChanged" />
-                        <Label x:Name="TimeValue" FontAttributes="Bold" VerticalOptions="Center" />
-                        <CheckBox x:Name="CheckTime"/>
+                        <Label WidthRequest="120" Text="Tempo di preparazione: " VerticalTextAlignment="Center" FontAttributes="Bold" />
+                        <HorizontalStackLayout>
+                            <Slider x:Name="TimeSlider" WidthRequest="110" ValueChanged="TimeSlider_ValueChanged" />
+                            <Label x:Name="TimeValue" FontAttributes="Bold" VerticalTextAlignment="Center" />
+                        </HorizontalStackLayout>
+                        <CheckBox x:Name="CheckTime" />
                     </HorizontalStackLayout>
-                    <HorizontalStackLayout Spacing="25">
+                    <HorizontalStackLayout Spacing="20">
                         <Label WidthRequest="120" Text="Categoria Nutrizionale: " FontAttributes="Bold" VerticalTextAlignment="Center" />
-                        <Border StrokeShape="RoundRectangle 10" StrokeThickness="2" Stroke="White" WidthRequest="120" >
+                        <Border StrokeShape="RoundRectangle 10" StrokeThickness="2" Stroke="White" WidthRequest="120">
                             <Picker x:Name="CategoriesPicker" x:DataType="model:CategoriaNutrizionale" ItemDisplayBinding="{Binding Nome}" TextColor="White" FontAttributes="Bold" />
                         </Border>
                         <CheckBox x:Name="CheckCategories"/>
                     </HorizontalStackLayout>
-                    <HorizontalStackLayout Spacing="25">
+                    <HorizontalStackLayout Spacing="20">
                         <Label WidthRequest="120" Text="Ordina per: " FontAttributes="Bold" VerticalTextAlignment="Center" />
                         <Border StrokeShape="RoundRectangle 10" StrokeThickness="2" Stroke="White" WidthRequest="120">
                             <Picker x:Name="SortPicker" TextColor="White" FontAttributes="Bold" />

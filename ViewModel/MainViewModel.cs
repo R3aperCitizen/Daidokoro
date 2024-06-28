@@ -496,43 +496,38 @@ namespace Daidokoro.ViewModel
             }
         }
 
-        public Task<List<Collezione>> getFilteredDiets(string text, string difficolta, string Data, string ordinamento,string Nricette,int dieta,string categoriaNutrizionale)
+        public Task<List<Collezione>> GetFilteredCollections(string text, string difficulty, string date, string orderby, string recipeNumber, int dieta, string nutritionalCategory)
         {
             string query =
-            "with v2 as (\r\n" +
-            "with v1 AS(\r\n" +
-            "Select collezione.*, categoria_nutrizionale.Nome as NomeCategoria\r\n" +
-            "from collezione\r\n" +
-            "JOIN categoria_nutrizionale ON categoria_nutrizionale.IdCategoria = collezione.IdCategoria\r\n" +
-            $"where collezione.Dieta = {dieta} " +
-            (Data == null ? "" : $"AND collezione.DataCreazione = \'{Data}\' ") +      
-            (categoriaNutrizionale == null ? "" : $"AND categoria_nutrizionale.Nome = \'{categoriaNutrizionale}\' ") +
-            ")\r\n" +
-            "Select v1.*" +
-            ",avg(ricetta.difficolta) as avDiff" +
-            ",count(ricetta.difficolta) as num" +
-            "\r\n from v1 \r\n" +
-            "join ricetta_collezione on ricetta_collezione.IdCollezione = v1.IdCollezione\r\n" +
-            "join ricetta on ricetta.IdRicetta = ricetta_collezione.IdRicetta\r\n" +
-            (text == null ? "" : $"where Lower(ricetta.Nome) like \"%{text}%\" OR v1.Nome  LIKE \"%{text}%\"") +
-            "\r\n group by v1.IdCollezione\r\n" +
-            $"order by {ordinamento})\r\n" +
-            "Select v2.*, ricetta.Foto as FotoRicetta\r\n" +
-            "from v2\r\n"+
-            "join ricetta_collezione on ricetta_collezione.IdCollezione = v2.IdCollezione\r\n"+
-            "join ricetta ON ricetta.IdRicetta = ricetta_collezione.IdRicetta\r\n"+
-            "WHERE ricetta_collezione.IdRicetta = ("+
-                "SELECT MIN(ricetta.IdRicetta)\r\n"+
-                "FROM ricetta\r\n"+
-                "JOIN ricetta_collezione ON ricetta_collezione.IdRicetta = ricetta.IdRicetta\r\n"+
-                "WHERE ricetta_collezione.IdCollezione = v2.IdCollezione) " +
-            (Nricette == null ? difficolta == null ? "" : $" AND v2.avDiff = {difficolta}" :
-            difficolta == null ? $"AND v2.num = {Nricette}" : $" AND v2.num = {Nricette} AND v2.avDiff = {difficolta}");
+            $"WITH v2 AS (\r\n" +
+                $"WITH v1 AS (\r\n" +
+                    $"SELECT collezione.*, categoria_nutrizionale.Nome as NomeCategoria\r\n" +
+                    $"FROM collezione\r\n" +
+                    $"JOIN categoria_nutrizionale ON categoria_nutrizionale.IdCategoria = collezione.IdCategoria\r\n" +
+                    $"WHERE collezione.Dieta = {dieta}\r\n" +
+                    (date == null ? "" : $"AND collezione.DataCreazione = \'{date}\'\r\n") +      
+                    (nutritionalCategory == null ? "" : $"AND categoria_nutrizionale.Nome = \'{nutritionalCategory}\'\r\n") +
+                $")\r\n" +
+                $"SELECT v1.*, avg(ricetta.Difficolta) AS avDiff, COUNT(ricetta.Difficolta) AS num\r\n" +
+                $"FROM v1\r\n" +
+                $"JOIN ricetta_collezione ON ricetta_collezione.IdCollezione = v1.IdCollezione\r\n" +
+                $"JOIN ricetta ON ricetta.IdRicetta = ricetta_collezione.IdRicetta\r\n" +
+                (text == null ? "" : $"WHERE LOWER(ricetta.Nome) LIKE \"%{text}%\" OR v1.Nome LIKE \"%{text}%\"\r\n") +
+                $"GROUP BY v1.IdCollezione\r\n" +
+            $"ORDER BY {orderby})\r\n" +
+            $"SELECT v2.*, ricetta.Foto AS FotoRicetta\r\n" +
+            $"FROM v2\r\n"+
+            $"JOIN ricetta_collezione ON ricetta_collezione.IdCollezione = v2.IdCollezione\r\n"+
+            $"JOIN ricetta ON ricetta.IdRicetta = ricetta_collezione.IdRicetta\r\n" +
+            $"WHERE ricetta_collezione.IdRicetta = ("+
+            $"SELECT MIN(ricetta.IdRicetta)\r\n"+
+            $"FROM ricetta\r\n"+
+            $"JOIN ricetta_collezione ON ricetta_collezione.IdRicetta = ricetta.IdRicetta\r\n"+
+            $"WHERE ricetta_collezione.IdCollezione = v2.IdCollezione)\r\n" +
+            (recipeNumber == null ? difficulty == null ? "" : $"AND v2.avDiff = {difficulty}" :
+            difficulty == null ? $"AND v2.num = {recipeNumber}" : $" AND v2.num = {recipeNumber} AND v2.avDiff = {difficulty}");
             
             return  dbService.GetData<Collezione>(query);
-            
         }
-
-       
     }
 }
