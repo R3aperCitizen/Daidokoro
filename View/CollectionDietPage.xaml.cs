@@ -47,7 +47,7 @@ public partial class CollectionDietPage : ContentPage
         CollectionDescription.Text = collezione.Descrizione;
         CollectionCategory.Text = collezione.NomeCategoria;
         CollectionDate.Text = "Data Creazione: " + collezione.DataCreazioneString;
-        RecipesList.AsyncSource = _globals.GetRecipesByCollection(IdCollezione);
+        RecipesList.SetSourceAsync(_globals.GetRecipesByCollection(IdCollezione));
 
         if (collezione.Dieta)
         {

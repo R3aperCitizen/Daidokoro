@@ -1,4 +1,5 @@
 using Daidokoro.Model;
+using System.Diagnostics;
 
 namespace Daidokoro.View.Controls;
 
@@ -9,7 +10,7 @@ public partial class RecipeMinimalList : ContentView
     private static void OnSourceChanged(BindableObject bindable, object oldValue, object newValue)
     {
         var control = (RecipeMinimalList)bindable;
-        control.list.ItemsSource = (List<Ricetta>)newValue;
+        control.list.ItemsSource = control.Source;
         control.switcher.Index = 1;
     }
     public List<Ricetta> Source
@@ -18,25 +19,15 @@ public partial class RecipeMinimalList : ContentView
 		set => SetValue(SourceProperty, value);
 	}
 
-    public static readonly BindableProperty AsyncSourceProperty =
-        BindableProperty.Create(nameof(AsyncSource), typeof(Task<List<Ricetta>>), typeof(RecipeMinimalList), propertyChanged: OnAsyncSourceChanged);
-    private static async void OnAsyncSourceChanged(BindableObject bindable, object oldValue, object newValue)
-    {
-        var control = (RecipeMinimalList)bindable;
-        var asyncSourceTask = (Task<List<Ricetta>>)newValue;
-
-        control.switcher.Index = 0;
-        control.Source = await asyncSourceTask;
-        control.switcher.Index = 1;
-    }
-    public Task<List<Ricetta>> AsyncSource
-    {
-        get => (Task<List<Ricetta>>)GetValue(AsyncSourceProperty);
-        set => SetValue(AsyncSourceProperty, value);
-    }
-
     public RecipeMinimalList()
 	{
 		InitializeComponent();
 	}
+
+    public async void SetSourceAsync(Task<List<Ricetta>> asyncSource)
+    {
+        switcher.Index = 0;
+        Source = await asyncSource;
+        switcher.Index = 1;
+    }
 }

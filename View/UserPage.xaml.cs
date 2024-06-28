@@ -18,7 +18,7 @@ public partial class UserPage : ContentPage
     protected async override void OnAppearing()
     {
         int userId = await _globals.GetCurrentUserId();
-        recipes.AsyncSource = _globals.GetRecipesByUser(userId);
+        recipes.SetSourceAsync(_globals.GetRecipesByUser(userId));
 
         var result = await _globals.GetUserById(userId);
         this.BindingContext = result[0];
@@ -27,19 +27,19 @@ public partial class UserPage : ContentPage
     private async void LikesInfoButton_Clicked(object sender, EventArgs e)
     {
         int userId = await _globals.GetCurrentUserId();
-        recipes.AsyncSource = _globals.GetLikedRecipes(userId);
+        recipes.SetSourceAsync(_globals.GetLikedRecipes(userId));
     }
 
     private async void ReviewsInfoButton_Clicked(object sender, EventArgs e)
     {
         int userId = await _globals.GetCurrentUserId();
-        recipes.AsyncSource = _globals.GetReviewedRecipes(userId);
+        recipes.SetSourceAsync(_globals.GetReviewedRecipes(userId));
     }
 
     private async void RecipesInfoButton_Clicked(object sender, EventArgs e)
     {
         int userId = await _globals.GetCurrentUserId();
-        recipes.AsyncSource = _globals.GetRecipesByUser(userId);
+        recipes.SetSourceAsync(_globals.GetRecipesByUser(userId));
     }
 
     private async void GoToRecipeCreationPage(object sender, EventArgs e)

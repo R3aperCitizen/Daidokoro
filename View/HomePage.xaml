@@ -11,7 +11,8 @@
             <Label Text="Ricette più popolari!" FontAttributes="Bold" FontSize="35" HorizontalTextAlignment="Center" TextColor="{StaticResource Palette3}" Padding="15" />
         </Border>
         <ScrollView x:Name="MainScroll">
-            <controls:RecipeFullList x:Name="MonthRecipe"/>
+            <!-- <controls:RecipeFullList x:Name="MonthRecipe"/> -->
+            <controls:RecipeList x:Name="MonthRecipe" />
         </ScrollView>
     </VerticalStackLayout>
 

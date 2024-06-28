@@ -2,25 +2,32 @@
 <ContentView xmlns="http://schemas.microsoft.com/dotnet/2021/maui"
              xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml"
              xmlns:controls="clr-namespace:Daidokoro.View.Controls"
+             xmlns:converters="clr-namespace:Daidokoro.View.Converters"
+             xmlns:model="clr-namespace:Daidokoro.Model"
              x:Class="Daidokoro.View.Controls.RecipeFull">
+    <ContentView.Resources>
+        <converters:DifficultyConverter x:Key="difficulty"/>
+        <converters:MinutesConverter x:Key="minutes"/>
+        <converters:LikesConverter x:Key="likes"/>
+    </ContentView.Resources>
 
     <Border StrokeShape="RoundRectangle 10" StrokeThickness="0" Margin="15,5,15,5" HeightRequest="300">
-        <Grid>
-            <Button x:Name="button" BackgroundColor="Transparent" Clicked="GoToRecipePage" />
-            <controls:ImageBlob x:Name="imageBlob" BackgroundColor="{StaticResource Palette2}" Aspect="AspectFill" />
+        <Grid x:DataType="model:Ricetta">
+            <Button BackgroundColor="Transparent" Clicked="GoToRecipePage" />
+            <controls:ImageBlob x:Name="imageBlob" BackgroundColor="{StaticResource Palette2}" Aspect="AspectFill" Source="{Binding Foto}"/>
             <StackLayout BackgroundColor="#55000000" />
             <VerticalStackLayout HorizontalOptions="Center" Padding="20" Spacing="150">
-                <Label x:Name="titleLabel" FontAttributes="Bold" FontSize="40" HorizontalTextAlignment="Center" />
+                <Label FontAttributes="Bold" FontSize="40" HorizontalTextAlignment="Center" Text="{Binding Nome}"/>
                 <HorizontalStackLayout HorizontalOptions="Center" Spacing="50">
                     <VerticalStackLayout>
                         <Label Text="Minuti: " TextColor="White" FontAttributes="Bold" FontSize="15" HorizontalTextAlignment="Center" />
-                        <Label x:Name="timeLabel" TextColor="{StaticResource Palette4}" FontAttributes="Bold" FontSize="20" HorizontalTextAlignment="Center" />
+                        <Label TextColor="{StaticResource Palette4}" FontAttributes="Bold" FontSize="20" HorizontalTextAlignment="Center" Text="{Binding Tempo, Converter={StaticResource minutes}}" />
                     </VerticalStackLayout>
                     <VerticalStackLayout>
                         <Label Text="Difficoltà: " TextColor="White" FontAttributes="Bold" FontSize="15" HorizontalTextAlignment="Center" />
-                        <Label x:Name="difficultyLabel" FontSize="20" HorizontalTextAlignment="Center" />
+                        <Label FontSize="20" HorizontalTextAlignment="Center" Text="{Binding Difficolta, Converter={StaticResource difficulty}}" />
                     </VerticalStackLayout>
-                    <Label x:Name="likesLabel" TextColor="{StaticResource Palette4}" FontAttributes="Bold" FontSize="20" HorizontalTextAlignment="Center" VerticalOptions="Center" />
+                    <Label TextColor="{StaticResource Palette4}" FontAttributes="Bold" FontSize="20" HorizontalTextAlignment="Center" VerticalOptions="Center" />
                 </HorizontalStackLayout>
             </VerticalStackLayout>
         </Grid>

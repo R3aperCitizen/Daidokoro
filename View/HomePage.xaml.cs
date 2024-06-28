@@ -16,7 +16,7 @@ namespace Daidokoro.View
 
         protected override void OnNavigatedTo(NavigatedToEventArgs args)
         {
-            MonthRecipe.AsyncSource = _globals.GetMonthRecipes();
+            MonthRecipe.SetSourceAsync(_globals.GetMonthRecipes());
         }
 
         private void SetScrollBehaviour()

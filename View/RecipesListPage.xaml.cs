@@ -20,7 +20,7 @@ public partial class RecipesListPage : ContentPage
     protected async override void OnNavigatedTo(NavigatedToEventArgs args)
     {
         CategoriesPicker.ItemsSource = await _globals.GetNutritionalCategories();
-        RecipesList.AsyncSource = _globals.GetRecipes();
+        RecipesList.SetSourceAsync(_globals.GetRecipes());
     }
     
     private void SearchBar_TextChanged(object sender, TextChangedEventArgs e)
@@ -33,12 +33,12 @@ public partial class RecipesListPage : ContentPage
         string text = SearchBar.Text;
         if (text == null || text == string.Empty)
         {
-            RecipesList.AsyncSource = _globals.GetRecipes();
+            RecipesList.SetSourceAsync(_globals.GetRecipes());
         }
         else
         {
             //query categoria nutrizionale
-            RecipesList.AsyncSource = _globals.GetSearchedRecipes(text,orderby);
+            RecipesList.SetSourceAsync(_globals.GetSearchedRecipes(text,orderby));
         }        
     }
     private void OpenFilterMenu(object sender, EventArgs e)
@@ -67,12 +67,12 @@ public partial class RecipesListPage : ContentPage
         }
         else
         {
-            RecipesList.AsyncSource = _globals.GetFilteredRecipes(
+            RecipesList.SetSourceAsync(_globals.GetFilteredRecipes(
                 CheckDifficulty.IsChecked ? Math.Round(DifficultySlider.Value).ToString() : null,
                 CheckTime.IsChecked ? Math.Round(TimeSlider.Value).ToString() : null,
                 IMainViewModel.sortings[SortPicker.SelectedItem.ToString()],
                 CheckCategories.IsChecked ? ((CategoriaNutrizionale)CategoriesPicker.SelectedItem).Nome : null,
-                SearchBar.Text);
+                SearchBar.Text));
         }
     }
 

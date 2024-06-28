@@ -18,25 +18,15 @@ public partial class RecipeFullList : ContentView
         set => SetValue(SourceProperty, value);
     }
 
-    public static readonly BindableProperty AsyncSourceProperty =
-        BindableProperty.Create(nameof(AsyncSource), typeof(Task<List<Ricetta>>), typeof(RecipeFullList), propertyChanged: OnAsyncSourceChanged);
-    private static async void OnAsyncSourceChanged(BindableObject bindable, object oldValue, object newValue)
-    {
-        var control = (RecipeFullList)bindable;
-        var asyncSourceTask = (Task<List<Ricetta>>)newValue;
-
-        control.switcher.Index = 0;
-        control.Source = await asyncSourceTask;
-        control.switcher.Index = 1;
-    }
-    public Task<List<Ricetta>> AsyncSource
-    {
-        get => (Task<List<Ricetta>>)GetValue(AsyncSourceProperty);
-        set => SetValue(AsyncSourceProperty, value);
-    }
-
     public RecipeFullList()
     {
         InitializeComponent();
+    }
+
+    public async Task SetSourceAsync(Task<List<Ricetta>> asyncSource)
+    {
+        switcher.Index = 0;
+        Source = await asyncSource;
+        switcher.Index = 1;
     }
 }
