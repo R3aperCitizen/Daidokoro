@@ -81,7 +81,7 @@ public partial class CollectionDietPage : ContentPage
 
     private void SetRatings()
     {
-        Ratings.AsyncSource = _globals.GetRatingsById(collezione.IdCollezione, false);
+        //Ratings.AsyncSource = _globals.GetRatingsById(collezione.IdCollezione, false);
     }
 
     private async void VotePositive(object sender, EventArgs e)

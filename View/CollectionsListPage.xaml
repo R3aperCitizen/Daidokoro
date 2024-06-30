@@ -13,7 +13,7 @@
                 <Border StrokeShape="RoundRectangle 10" StrokeThickness="0">
                     <SearchBar x:Name="SearchBar" Placeholder="Cerca Collezioni..." BackgroundColor="{StaticResource NavBar}" PlaceholderColor="White" TextChanged="SearchBar_TextChanged" />
                 </Border>
-                <!-- <controls:CollectionMinimalList x:Name="CollectionsList"/> -->
+                <controls:AsyncListView x:TypeArguments="model:Collezione, controls:CollectionMinimal" x:Name="CollectionsList"/>
             </VerticalStackLayout>
         </ScrollView>
     </VerticalStackLayout>

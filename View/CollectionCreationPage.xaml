@@ -42,7 +42,7 @@
                     </Border>
                     <ScrollView>
                         <VerticalStackLayout Spacing="25">
-                            <!-- <controls:RecipeMinimalList x:Name="RecipesList" /> -->
+                            <controls:AsyncListView x:TypeArguments="model:Ricetta, controls:RecipeMinimal" x:Name="RecipesList"/>
                         </VerticalStackLayout>
                     </ScrollView>
                 </VerticalStackLayout>

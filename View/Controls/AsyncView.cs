@@ -6,37 +6,37 @@ using System.Threading.Tasks;
 
 namespace Daidokoro.View.Controls
 {
-    [ContentProperty(nameof(AsyncObject))]
-    public class AsyncView<AsyncDataType, AsyncObjectType> : ContentView where AsyncObjectType : Microsoft.Maui.Controls.View
+    [ContentProperty(nameof(Target))]
+    public class AsyncView<DataType, ViewType> : ContentView where ViewType : Microsoft.Maui.Controls.View, new()
     {
         private SwitchView switcher;
 
         public static readonly BindableProperty TaskProperty =
-            BindableProperty.Create(nameof(Task), typeof(Task<AsyncDataType>), typeof(AsyncView<AsyncDataType, AsyncObjectType>), propertyChanged: OnAsyncSourceChanged);
+            BindableProperty.Create(nameof(Task), typeof(Task<DataType>), typeof(AsyncView<DataType, ViewType>), propertyChanged: OnAsyncSourceChanged);
         private static async void OnAsyncSourceChanged(BindableObject bindable, object oldValue, object newValue)
         {
-            var control = (AsyncView<AsyncDataType, AsyncObjectType>)bindable;
+            var control = (AsyncView<DataType, ViewType>)bindable;
             control.switcher.Index = 0;
             await control.Task;
             control.switcher.Index = 1;
         }
-        public Task<AsyncDataType> Task
+        public Task<DataType> Task
         {
-            get => (Task<AsyncDataType>)GetValue(TaskProperty);
+            get => (Task<DataType>)GetValue(TaskProperty);
             set => SetValue(TaskProperty, value);
         }
 
-        public AsyncObjectType AsyncObject
+        public ViewType Target
         {
-            get => (AsyncObjectType)switcher.Elements[1];
+            get => (ViewType)switcher.Elements[1];
             set => switcher.Elements[1] = value;
         }
 
-        public AsyncView(AsyncObjectType asyncObject)
+        public AsyncView()
         {
             switcher = new SwitchView();
             switcher.Elements.Add(new ActivityIndicator { IsRunning = true });
-            switcher.Elements.Add(asyncObject);
+            switcher.Elements.Add(new ViewType());
             switcher.Index = 0;
 
             Content = switcher;

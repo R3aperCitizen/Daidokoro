@@ -68,7 +68,7 @@
                             <Entry x:Name="ReviewEntry" Placeholder="Scrivi una recensione" WidthRequest="250" PlaceholderColor="White" />
                             <ImageButton Source="send_comment.png" WidthRequest="20" HeightRequest="20" Clicked="InsertReview" />
                         </HorizontalStackLayout>
-                        <controls:RatingList x:Name="Ratings"/>
+                        <controls:AsyncListView x:TypeArguments="model:Valutazione, controls:Rating" x:Name="Ratings"/>
                     </VerticalStackLayout>
                 </Border>
             </VerticalStackLayout>

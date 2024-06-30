@@ -97,9 +97,6 @@
 	  <Compile Update="View\Controls\LoadingPopup.xaml.cs">
 	    <DependentUpon>LoadingPopup.xaml</DependentUpon>
 	  </Compile>
-	  <Compile Update="View\Controls\RatingList.xaml.cs">
-	    <DependentUpon>RatingList.xaml</DependentUpon>
-	  </Compile>
 	  <Compile Update="View\Controls\Rating.xaml.cs">
 	    <DependentUpon>Rating.xaml</DependentUpon>
 	  </Compile>
@@ -151,9 +148,6 @@
 	  <MauiXaml Update="View\Controls\LoadingPopup.xaml">
 	    <Generator>MSBuild:Compile</Generator>
 	  </MauiXaml>
-	  <MauiXaml Update="View\Controls\RatingList.xaml">
-	    <Generator>MSBuild:Compile</Generator>
-	  </MauiXaml>
 	  <MauiXaml Update="View\Controls\Rating.xaml">
 	    <Generator>MSBuild:Compile</Generator>
 	  </MauiXaml>
@@ -181,6 +175,10 @@
 	  <MauiXaml Update="View\UserPage.xaml">
 	    <Generator>MSBuild:Compile</Generator>
 	  </MauiXaml>
+	</ItemGroup>
+
+	<ItemGroup>
+	  <Folder Include="View\Pages\" />
 	</ItemGroup>
 
 	<ProjectExtensions><VisualStudio><UserProperties XamarinHotReloadDebuggerTimeoutExceptionDaidokoroHideInfoBar="True" XamarinHotReloadUnhandledDeviceExceptionDaidokoroHideInfoBar="True" /></VisualStudio></ProjectExtensions>

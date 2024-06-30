@@ -80,7 +80,7 @@ public partial class RecipePage : ContentPage
 
     private void SetRatings()
     {
-        Ratings.AsyncSource = _globals.GetRatingsById(ricetta.IdRicetta, true);
+        //Ratings.AsyncSource = _globals.GetRatingsById(ricetta.IdRicetta, true);
     }
 
     private async void VotePositive(object sender, EventArgs e)
