@@ -411,9 +411,14 @@ namespace Daidokoro.ViewModel
 
         public async Task<int> GetInsertedRecipeId()
         {
-            return (await _dbService.GetData<Ricetta>(
-                    "SELECT MAX(IdRicetta) AS IdRicetta\r\n" +
-                    "FROM ricetta"))[0].IdRicetta;
+            if (int.TryParse(await SecureStorage.Default.GetAsync("IdUtente"), out int IdUtente))
+            {
+                return (await _dbService.GetData<Ricetta>(
+                    $"SELECT MAX(IdRicetta) AS IdRicetta\r\n" +
+                    $"FROM ricetta\r\n" +
+                    $"WHERE IdUtente = {IdUtente}"))[0].IdRicetta;
+            }
+            return 0;
         }
 
         public async Task InsertNewCollection(List<Tuple<string, object>> collection)
@@ -439,9 +444,14 @@ namespace Daidokoro.ViewModel
 
         public async Task<int> GetInsertedCollectionId()
         {
-            return (await _dbService.GetData<Collezione>(
-                    "SELECT MAX(IdCollezione) AS IdCollezione\r\n" +
-                    "FROM collezione"))[0].IdCollezione;
+            if (int.TryParse(await SecureStorage.Default.GetAsync("IdUtente"), out int IdUtente))
+            {
+                return (await _dbService.GetData<Collezione>(
+                    $"SELECT MAX(IdCollezione) AS IdCollezione\r\n" +
+                    $"FROM collezione\r\n" +
+                    $"WHERE IdUtente = {IdUtente}"))[0].IdCollezione;
+            }
+            return 0;
         }
 
         public async Task<bool> CanUserLogin(string email, string password)

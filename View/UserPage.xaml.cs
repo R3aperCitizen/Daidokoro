@@ -51,4 +51,10 @@ public partial class UserPage : ContentPage
     {
         await Shell.Current.GoToAsync($"//{nameof(CollectionCreationPage)}");
     }
+
+    private async void Logout(object sender, EventArgs e)
+    {
+        SecureStorage.Default.Remove("IdUtente");
+        await Shell.Current.GoToAsync($"//{nameof(LoginPage)}");
+    }
 }

@@ -10,6 +10,7 @@
         <controls:NavigationBar />
             <VerticalStackLayout Padding="50">
                 <VerticalStackLayout x:DataType="model:Utente">
+                    <ImageButton x:Name="LogoutButton" Source="pp.jpeg" HeightRequest="50" Padding="25" Margin="10" Clicked="Logout" />
                     <VerticalStackLayout Spacing="20">
                         <Border HeightRequest="150" WidthRequest="150" StrokeShape="Ellipse" StrokeThickness="0">
                             <controls:ImageBlob BackgroundColor="{StaticResource Palette2}" Aspect="AspectFill" Source="{Binding Foto}"/>
