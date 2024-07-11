@@ -1,6 +1,7 @@
 using CommunityToolkit.Maui.Views;
 using Daidokoro.View.Controls;
 using Daidokoro.ViewModel;
+using Microsoft.Maui.Devices;
 
 namespace Daidokoro.View;
 
@@ -13,6 +14,9 @@ public partial class UserPage : ContentPage
 	{
 		InitializeComponent();
         _globals = globals;
+
+        var displayInfo = DeviceDisplay.MainDisplayInfo;
+        MainScroll.HeightRequest = (displayInfo.Height / displayInfo.Density) - 600;
     }
 
     protected async override void OnAppearing()
