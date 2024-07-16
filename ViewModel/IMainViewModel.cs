@@ -41,7 +41,9 @@ namespace Daidokoro.ViewModel
         Task InsertCollectionRecipe(List<Tuple<string, object>> recipeCollection);
         Task<int> GetInsertedCollectionId();
         Task<bool> CanUserLogin(string email, string password);
-        Task<string> GetLoggedUserId(string email, string password);
+        Task<string> GetLoggedUserId(string email);
+        Task<bool> CanUserRegister(string email);
+        Task RegisterUser(List<Tuple<string, object>> userData);
         Task AddOrRemoveRecipeFromLiked(int IdRicetta);
         public Task<List<Collezione>> GetFilteredCollections(string text, string difficulty, string date, string orderby, string recipeNumber, int dieta, string nutritionalCategory);
 

@@ -459,9 +459,19 @@ namespace Daidokoro.ViewModel
             return await _dbService.ExistInTable($"SELECT * FROM utente WHERE Email = \'{email}\' AND Pwd = \'{password}\'");
         }
 
-        public async Task<string> GetLoggedUserId(string email, string password)
+        public async Task<string> GetLoggedUserId(string email)
         {
-            return (await _dbService.GetData<Utente>($"SELECT * FROM utente WHERE Email = \'{email}\' AND Pwd = \'{password}\'"))[0].IdUtente.ToString();
+            return (await _dbService.GetData<Utente>($"SELECT * FROM utente WHERE Email = \'{email}\';"))[0].IdUtente.ToString();
+        }
+
+        public async Task<bool> CanUserRegister(string email)
+        {
+            return !await _dbService.ExistInTable($"SELECT * FROM utente WHERE Email = \'{email}\';");
+        }
+
+        public async Task RegisterUser(List<Tuple<string, object>> userData)
+        {
+            await _dbService.InsertElement(userData, $"INSERT INTO utente (Username, Pwd, Email, Foto, Esperienza, Livello) VALUES (?, ?, ?, ?, 0, 1);");
         }
 
         public async Task AddOrRemoveRecipeFromLiked(int IdRicetta)
