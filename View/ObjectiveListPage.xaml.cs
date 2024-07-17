@@ -13,7 +13,7 @@ public partial class ObjectiveListPage : ContentPage
 	}
     protected override async void OnNavigatedTo(NavigatedToEventArgs args)
     {
-		objectiveMinimalList.Source = await _globals.dbService.GetData<Obiettivo>(
+		objectiveMinimalList.AsyncSource = _globals.dbService.GetData<Obiettivo>(
 		"WITH v1 AS(\r\n" +
 		"SELECT DISTINCT obiettivo.*, obiettivo_ottenuto.DataOttenimento, obiettivo_ottenuto.IdUtente\r\n" +
 		"FROM obiettivo\r\n" +

@@ -9,7 +9,7 @@
         <controls:NavigationBar />
         <ScrollView>
             <VerticalStackLayout Padding="15,25,15,25" Spacing="25">
-                <controls:ObjectiveMinimalList x:Name="objectiveMinimalList"/>
+                <controls:AsyncListView x:TypeArguments="model:Obiettivo, controls:ObjectiveMinimal" x:Name="objectiveMinimalList" />
             </VerticalStackLayout>
         </ScrollView>
     </VerticalStackLayout>
