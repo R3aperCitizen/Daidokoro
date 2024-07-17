@@ -14,12 +14,12 @@
         <HorizontalStackLayout VerticalOptions="Center" Padding="15" Spacing="20">
             <Image x:Name="ImageIcon" Source="home.png" VerticalOptions="Center" />
             <VerticalStackLayout VerticalOptions="Center" WidthRequest="150">
-                <Label Text="{Binding Nome}" x:Name="LabelName" TextColor="white" FontSize="20" />
-                <Label Text="{Binding Descrizione}" x:Name="LabelDesc" TextColor="white" FontSize="15" />
+                <Label Text="{Binding Nome}" TextColor="white" FontSize="20" />
+                <Label Text="{Binding Descrizione}" TextColor="white" FontSize="15" />
             </VerticalStackLayout>
             <VerticalStackLayout VerticalOptions="Center">
-                <Label Text="{Binding Esperienza, StringFormat='EXP: {0}'}" x:Name="LabelExp" TextColor="white" FontSize="20" />
-                <Label Text="{Binding DataOttenimento, Converter={StaticResource date}}" x:Name="LabelData" TextColor="white" FontSize="10" />
+                <Label Text="{Binding Esperienza, StringFormat='EXP: {0}'}" TextColor="white" FontSize="20" />
+                <Label Text="{Binding DataOttenimento, Converter={StaticResource date}}" TextColor="white" FontSize="10" />
             </VerticalStackLayout>
         </HorizontalStackLayout>
     </Border>
