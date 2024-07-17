@@ -10,7 +10,7 @@
             <controls:ImageBlob x:Name="imageBlob" BackgroundColor="{StaticResource Palette2}" Aspect="AspectFill" />
             <StackLayout BackgroundColor="#55000000" />
             <VerticalStackLayout HorizontalOptions="Center" Padding="20" Spacing="150">
-                <Label x:Name="titleLabel" FontAttributes="Bold" FontSize="40" HorizontalTextAlignment="Center" />
+                <Label x:Name="titleLabel" FontAttributes="Bold" FontSize="40" TextColor="White" HorizontalTextAlignment="Center" />
                 <HorizontalStackLayout HorizontalOptions="Center" Spacing="50">
                     <VerticalStackLayout>
                         <Label Text="Minuti: " TextColor="White" FontAttributes="Bold" FontSize="15" HorizontalTextAlignment="Center" />
