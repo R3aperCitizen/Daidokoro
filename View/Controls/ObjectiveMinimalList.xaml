@@ -10,7 +10,9 @@
             <CollectionView.ItemTemplate>
                 <DataTemplate x:DataType="model:Obiettivo">
                     <controls:ObjectiveMinimal Name="{Binding Nome}"
-                                               Description="{Binding Descrizione}"/>
+                                               Description="{Binding Descrizione}"
+                                               Exp="{Binding Esperienza}"
+                                               Data="{Binding DataOttenimentoToString}" />
                 </DataTemplate>
             </CollectionView.ItemTemplate>
         </CollectionView>

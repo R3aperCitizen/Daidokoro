@@ -13,6 +13,11 @@ public partial class ObjectiveListPage : ContentPage
 	}
     protected override async void OnNavigatedTo(NavigatedToEventArgs args)
     {
-		objectiveMinimalList.Source = await _globals.dbService.GetData<Obiettivo>("SELECT obiettivo.*\r\nFROM obiettivo");
+		objectiveMinimalList.Source = await _globals.dbService.GetData<Obiettivo>(
+			"SELECT *\r\n" +
+			"FROM obiettivo\r\n" +
+			"JOIN obiettivo_ottenuto ON obiettivo.IdObiettivo=obiettivo_ottenuto.IdObiettivo\r\n" +
+			"WHERE IdUtente=1;"
+		);
     }
 }

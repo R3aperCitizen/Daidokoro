@@ -33,6 +33,37 @@ public partial class ObjectiveMinimal : ContentView
         get => (string)GetValue(NameProperty);
         set => SetValue(NameProperty, value);
     }
+
+    public static readonly BindableProperty ExpProperty =
+    BindableProperty.Create(nameof(Exp), typeof(string), typeof(ObjectiveMinimal), propertyChanged: expChanged);
+
+    private static void expChanged(BindableObject bindable, object oldValue, object newValue)
+    {
+        var main = (ObjectiveMinimal)bindable;
+        main.LabelExp.Text = "XP: " + (string)newValue;
+    }
+
+    public string Exp
+    {
+        get => (string)GetValue(ExpProperty);
+        set => SetValue(ExpProperty, value);
+    }
+
+    public static readonly BindableProperty DataProperty =
+    BindableProperty.Create(nameof(Data), typeof(string), typeof(ObjectiveMinimal), propertyChanged: dataChanged);
+
+    private static void dataChanged(BindableObject bindable, object oldValue, object newValue)
+    {
+        var main = (ObjectiveMinimal)bindable;
+        main.LabelData.Text = "Data: " + (string)newValue;
+    }
+
+    public string Data
+    {
+        get => (string)GetValue(DataProperty);
+        set => SetValue(DataProperty, value);
+    }
+
     public ObjectiveMinimal()
 	{
 		InitializeComponent();
