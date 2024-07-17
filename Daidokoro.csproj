@@ -100,9 +100,6 @@
 	  <Compile Update="View\Controls\CollectionMinimalList.xaml.cs">
 	    <DependentUpon>CollectionMinimalList.xaml</DependentUpon>
 	  </Compile>
-	  <Compile Update="View\Controls\ObjectiveMinimalList.xaml.cs">
-	    <DependentUpon>ObjectiveMinimalList.xaml</DependentUpon>
-	  </Compile>
 	  <Compile Update="View\Controls\RatingList.xaml.cs">
 	    <DependentUpon>RatingList.xaml</DependentUpon>
 	  </Compile>
@@ -167,9 +164,6 @@
 	    <Generator>MSBuild:Compile</Generator>
 	  </MauiXaml>
 	  <MauiXaml Update="View\Controls\ObjectiveMinimal.xaml">
-	    <Generator>MSBuild:Compile</Generator>
-	  </MauiXaml>
-	  <MauiXaml Update="View\Controls\ObjectiveMinimalList.xaml">
 	    <Generator>MSBuild:Compile</Generator>
 	  </MauiXaml>
 	  <MauiXaml Update="View\Controls\RatingList.xaml">

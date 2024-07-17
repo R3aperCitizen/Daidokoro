@@ -23,12 +23,12 @@ public partial class SwitchView : ContentView
 
     public SwitchView()
     {
-        Elements = new();
-        Elements.CollectionChanged += OnElementsChanged;
+        this.Elements = new();
+        this.Elements.CollectionChanged += OnElementsChanged;
     }
 
     private void OnElementsChanged(object? sender, NotifyCollectionChangedEventArgs e)
     {
-        Content = Elements[Index];
+        this.Content = Elements[Index];
     }
 }
