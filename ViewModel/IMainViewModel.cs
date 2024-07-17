@@ -44,6 +44,7 @@ namespace Daidokoro.ViewModel
         Task<string> GetLoggedUserId(string email);
         Task<bool> CanUserRegister(string email);
         Task RegisterUser(List<Tuple<string, object>> userData);
+        Task GiveRegisterObjective();
         Task AddOrRemoveRecipeFromLiked(int IdRicetta);
         public Task<List<Collezione>> GetFilteredCollections(string text, string difficulty, string date, string orderby, string recipeNumber, int dieta, string nutritionalCategory);
 

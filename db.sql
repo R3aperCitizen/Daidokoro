@@ -141,3 +141,6 @@ ADD FOREIGN KEY (IdValoreNutrizionale) REFERENCES valore_nutrizionale(IdValoreNu
 
 ALTER TABLE valore_nutrizionale
 ADD FOREIGN KEY (IdIngrediente) REFERENCES ingrediente(IdIngrediente);
+
+INSERT INTO categoria_nutrizionale (Nome) VALUES ("Generico");
+INSERT INTO obiettivo (Nome, Descrizione, Esperienza, IdCategoria) VALUES ("Benvenuto", "Ti sei registrato a Daidokoro!", 100, 1);

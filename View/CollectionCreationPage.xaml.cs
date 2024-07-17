@@ -74,7 +74,7 @@ public partial class CollectionCreationPage : ContentPage
                 new("Nome", NomeCollezione.Text),
                 new("Descrizione", Descrizione.Text),
                 new("Dieta", IsDieta.IsChecked),
-                new("IdCategoria", IsDieta.IsChecked ? categoria.IdCategoria : 3)
+                new("IdCategoria", IsDieta.IsChecked ? categoria.IdCategoria : 1)
             ]);
             IdCollezione = await _globals.GetInsertedCollectionId();
 

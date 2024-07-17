@@ -1,6 +1,7 @@
 ﻿using CommunityToolkit.Maui.Views;
 using Daidokoro.Model;
 using Daidokoro.View.Controls;
+
 namespace Daidokoro.ViewModel
 {
     public class MainViewModel : IMainViewModel
@@ -307,12 +308,24 @@ namespace Daidokoro.ViewModel
             {
                 if (await _dbService.ExistInTable($"SELECT * FROM {table} WHERE IdUtente = {IdUtente} AND {idName} = {id};"))
                 {
-                    await _dbService.RemoveOrUpdateElement(
-                        $"UPDATE {table}\r\n" +
-                        $"SET Commento = \'{comment}\'\r\n" +
-                        $"WHERE IdUtente = {IdUtente} AND {idName} = {id};"
-                    );
-                    return true;
+                    if ((idName.Equals("IdCollezione") &&
+                        await _dbService.ExistInTable(
+                            $"SELECT *\r\n" +
+                            $"FROM obiettivo\r\n" +
+                            $"JOIN obiettivo_ottenuto ON obiettivo.IdObiettivo=obiettivo_ottenuto.IdObiettivo\r\n" +
+                            $"JOIN collezione ON collezione.IdCategoria = obiettivo.IdCategoria\r\n" +
+                            $"WHERE obiettivo_ottenuto.IdUtente = {IdUtente}\r\n" +
+                            $"AND collezione.IdCollezione = {id}\r\n" +
+                            $"AND collezione.IdCategoria = obiettivo.IdCategoria;")) ||
+                        idName.Equals("IdRicetta"))
+                    {
+                        await _dbService.RemoveOrUpdateElement(
+                            $"UPDATE {table}\r\n" +
+                            $"SET Commento = \'{comment}\'\r\n" +
+                            $"WHERE IdUtente = {IdUtente} AND {idName} = {id};"
+                        );
+                        return true;
+                    }
                 }
             }
             return false;
@@ -474,6 +487,14 @@ namespace Daidokoro.ViewModel
         public async Task RegisterUser(List<Tuple<string, object>> userData)
         {
             await _dbService.InsertElement(userData, $"INSERT INTO utente (Username, Pwd, Email, Foto, Esperienza, Livello) VALUES (?, ?, ?, ?, 0, 1);");
+        }
+
+        public async Task GiveRegisterObjective()
+        {
+            if (int.TryParse(await SecureStorage.Default.GetAsync("IdUtente"), out int IdUtente))
+            {
+                await _dbService.InsertElement([ new("IdUtente", IdUtente) ], $"INSERT INTO obiettivo_ottenuto (IdObiettivo, IdUtente, DataOttenimento) VALUES (1, ?, CURDATE());");
+            }
         }
 
         public async Task AddOrRemoveRecipeFromLiked(int IdRicetta)

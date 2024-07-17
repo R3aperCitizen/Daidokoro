@@ -90,6 +90,7 @@ public partial class LoginPage : ContentPage
 
                 await SecureStorage.Default.SetAsync("IdUtente", await _globals.GetLoggedUserId(_email));
                 ResetPage();
+                await _globals.GiveRegisterObjective();
                 await Shell.Current.GoToAsync($"//{nameof(HomePage)}");
             }
         }

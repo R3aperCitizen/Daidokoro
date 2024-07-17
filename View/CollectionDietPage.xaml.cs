@@ -49,18 +49,8 @@ public partial class CollectionDietPage : ContentPage
         CollectionDate.Text = "Data Creazione: " + collezione.DataCreazioneString;
         RecipesList.AsyncSource = _globals.GetRecipesByCollection(IdCollezione);
 
-        if (collezione.Dieta)
-        {
-            RatingsBar.IsVisible = true;
-            RatingSection.IsVisible = true;
-            await SetRatingsBar();
-            SetRatings();
-        }
-        else
-        {
-            RatingsBar.IsVisible = false;
-            RatingSection.IsVisible = false;
-        }
+        await SetRatingsBar();
+        SetRatings();
     }
 
     private async Task SetRatingsBar()
@@ -112,9 +102,15 @@ public partial class CollectionDietPage : ContentPage
     {
         if (ReviewEntry.Text != null && ReviewEntry.Text != string.Empty)
         {
-            await _globals.InsertReviewIfRatedByUser(collezione.IdCollezione, ReviewEntry.Text, false);
-            SetRatings();
-            ReviewEntry.Text = string.Empty;
+            if (await _globals.InsertReviewIfRatedByUser(collezione.IdCollezione, ReviewEntry.Text, false))
+            {
+                SetRatings();
+                ReviewEntry.Text = string.Empty;
+            }
+            else
+            {
+                await DisplayAlert("Impossibile commentare", "Non disponi dei permessi per commentare questa dieta!", "OK");
+            }
         }
     }
 
