@@ -91,5 +91,12 @@
          Route="CollectionCreationPage"
          Shell.NavBarIsVisible="False"
          Shell.FlyoutBehavior="Disabled"/>
+    
+    <ShellContent
+     Title="ObjectiveListPage"
+     ContentTemplate="{DataTemplate view:ObjectiveListPage}"
+     Route="ObjectiveListPage"
+     Shell.NavBarIsVisible="False"
+     Shell.FlyoutBehavior="Disabled"/>
 
 </Shell>

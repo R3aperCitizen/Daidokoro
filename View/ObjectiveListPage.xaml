@@ -1,0 +1,16 @@
+<?xml version="1.0" encoding="utf-8" ?>
+<ContentPage xmlns="http://schemas.microsoft.com/dotnet/2021/maui"
+            xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml"
+            x:Class="Daidokoro.View.ObjectiveListPage"
+            xmlns:model="clr-namespace:Daidokoro.Model"
+            xmlns:controls="clr-namespace:Daidokoro.View.Controls"
+            Title="ObjectiveListPage">
+    <VerticalStackLayout BackgroundColor="{StaticResource Background}">
+        <controls:NavigationBar />
+        <ScrollView>
+            <VerticalStackLayout Padding="15,25,15,25" Spacing="25">
+                <controls:ObjectiveMinimalList x:Name="objectiveMinimalList"/>
+            </VerticalStackLayout>
+        </ScrollView>
+    </VerticalStackLayout>
+</ContentPage>

@@ -21,6 +21,7 @@
                         <controls:InfoButton InfoText="Ricette" ValueText="{Binding RecipeCount}" Clicked="RecipesInfoButton_Clicked" />
                         <controls:InfoButton InfoText="Recensioni" ValueText="{Binding ReviewCount}" Clicked="ReviewsInfoButton_Clicked" />
                         <controls:InfoButton InfoText="Likes" ValueText="{Binding Likes}" Clicked="LikesInfoButton_Clicked" />
+                        <Button Clicked="Button_Clicked"/>
                     </HorizontalStackLayout>
                     <BoxView Margin="15" HeightRequest="2" Color="White"/>
                 </VerticalStackLayout>

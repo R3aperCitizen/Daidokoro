@@ -100,6 +100,9 @@
 	  <Compile Update="View\Controls\CollectionMinimalList.xaml.cs">
 	    <DependentUpon>CollectionMinimalList.xaml</DependentUpon>
 	  </Compile>
+	  <Compile Update="View\Controls\ObjectiveMinimalList.xaml.cs">
+	    <DependentUpon>ObjectiveMinimalList.xaml</DependentUpon>
+	  </Compile>
 	  <Compile Update="View\Controls\RatingList.xaml.cs">
 	    <DependentUpon>RatingList.xaml</DependentUpon>
 	  </Compile>
@@ -163,6 +166,12 @@
 	  <MauiXaml Update="View\Controls\CollectionMinimalList.xaml">
 	    <Generator>MSBuild:Compile</Generator>
 	  </MauiXaml>
+	  <MauiXaml Update="View\Controls\ObjectiveMinimal.xaml">
+	    <Generator>MSBuild:Compile</Generator>
+	  </MauiXaml>
+	  <MauiXaml Update="View\Controls\ObjectiveMinimalList.xaml">
+	    <Generator>MSBuild:Compile</Generator>
+	  </MauiXaml>
 	  <MauiXaml Update="View\Controls\RatingList.xaml">
 	    <Generator>MSBuild:Compile</Generator>
 	  </MauiXaml>
@@ -185,6 +194,9 @@
 	    <Generator>MSBuild:Compile</Generator>
 	  </MauiXaml>
 	  <MauiXaml Update="View\LoginPage.xaml">
+	    <Generator>MSBuild:Compile</Generator>
+	  </MauiXaml>
+	  <MauiXaml Update="View\ObjectiveListPage.xaml">
 	    <Generator>MSBuild:Compile</Generator>
 	  </MauiXaml>
 	  <MauiXaml Update="View\RecipeCreationPage.xaml">

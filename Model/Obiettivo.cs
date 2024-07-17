@@ -7,5 +7,6 @@
         public string Descrizione { get; set; } = string.Empty;
         public int Esperienza { get; set; }
         public int IdCategoria { get; set; }
+        public DateTime DataOttenimento { get; set; }
     }
 }

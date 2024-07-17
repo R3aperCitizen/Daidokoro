@@ -53,6 +53,7 @@ namespace Daidokoro
             builder.Services.AddTransient<CollectionsListPage>();
             builder.Services.AddTransient<DietsListPage>();
             builder.Services.AddTransient<CollectionDietPage>();
+            builder.Services.AddTransient<ObjectiveListPage>();
 
             return builder.Build();
         }
