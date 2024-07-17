@@ -4,23 +4,65 @@
              x:Class="Daidokoro.View.LoginPage"
              Title="LoginPage">
     <VerticalStackLayout BackgroundColor="{StaticResource Background}" Padding="50" Spacing="50">
-        <Image Source="daidokoro.png" WidthRequest="150" Margin="0,30,0,0" />
-        <Label Text="Accedi a Daidokoro!" TextColor="{StaticResource Palette2}" FontSize="30" FontAttributes="Bold" HorizontalTextAlignment="Center" />
+        <Image Source="daidokoro.png" WidthRequest="120" />
+        
+        <VerticalStackLayout x:Name="LoginSection" Spacing="50">
+            <Label Text="Accedi a Daidokoro!" TextColor="{StaticResource Palette2}" FontSize="20" FontAttributes="Bold" HorizontalTextAlignment="Center" />
 
-        <VerticalStackLayout Spacing="25">
-            <VerticalStackLayout Spacing="10">
-                <Label Text="E-mail" TextColor="{StaticResource Palette2}" FontSize="20" />
-                <Border StrokeShape="RoundRectangle 10" StrokeThickness="2" Stroke="{StaticResource Palette2}">
-                    <Entry x:Name="Email" Placeholder="Inserisci la tua e-mail" PlaceholderColor="{StaticResource Palette1}" FontSize="15" TextColor="{StaticResource Palette2}" />
-                </Border>
+            <VerticalStackLayout Spacing="25">
+                <VerticalStackLayout Spacing="10">
+                    <Label Text="E-mail" TextColor="{StaticResource Palette2}" FontSize="20" />
+                    <Border StrokeShape="RoundRectangle 10" StrokeThickness="2" Stroke="{StaticResource Palette2}">
+                        <Entry x:Name="Email" MaxLength="30" Placeholder="Inserisci la tua e-mail" PlaceholderColor="{StaticResource Palette1}" FontSize="15" TextColor="{StaticResource Palette2}" />
+                    </Border>
+                </VerticalStackLayout>
+                <VerticalStackLayout Spacing="10">
+                    <Label Text="Password" TextColor="{StaticResource Palette2}" FontSize="20" />
+                    <Border StrokeShape="RoundRectangle 10" StrokeThickness="2" Stroke="{StaticResource Palette2}">
+                        <Entry x:Name="Password" MaxLength="20" Placeholder="Inserisci la password" PlaceholderColor="{StaticResource Palette1}" FontSize="15" TextColor="{StaticResource Palette2}" IsPassword="True" />
+                    </Border>
+                </VerticalStackLayout>
+                <Button Text="Accedi" TextColor="{StaticResource Palette3}" FontSize="20" FontAttributes="Bold" BackgroundColor="{StaticResource Palette2}" Clicked="Login" />
+                <Button BackgroundColor="Transparent" TextColor="{StaticResource Palette2}" Text="Non hai account? Registrati!" Clicked="ShowRegisterSection" />
             </VerticalStackLayout>
-            <VerticalStackLayout Spacing="10">
-                <Label Text="Password" TextColor="{StaticResource Palette2}" FontSize="20" />
-                <Border StrokeShape="RoundRectangle 10" StrokeThickness="2" Stroke="{StaticResource Palette2}">
-                    <Entry x:Name="Password" Placeholder="Inserisci la password" PlaceholderColor="{StaticResource Palette1}" FontSize="15" TextColor="{StaticResource Palette2}" IsPassword="True" />
-                </Border>
-            </VerticalStackLayout>
-            <Button Text="Accedi" TextColor="{StaticResource Palette3}" FontSize="20" FontAttributes="Bold" BackgroundColor="{StaticResource Palette2}" Clicked="Login" />
+        </VerticalStackLayout>
+        
+        <VerticalStackLayout x:Name="RegisterSection" IsVisible="False" Spacing="50">
+            <Label Text="Registrati a Daidokoro!" TextColor="{StaticResource Palette2}" FontSize="20" FontAttributes="Bold" HorizontalTextAlignment="Center" />
+
+            <ScrollView x:Name="MainScroll">
+                <VerticalStackLayout Spacing="25">
+                    <VerticalStackLayout Spacing="10">
+                        <Label Text="Username" TextColor="{StaticResource Palette2}" FontSize="20" />
+                        <Border StrokeShape="RoundRectangle 10" StrokeThickness="2" Stroke="{StaticResource Palette2}">
+                            <Entry x:Name="Username" MaxLength="20" Placeholder="Inserisci uno username" PlaceholderColor="{StaticResource Palette1}" FontSize="15" TextColor="{StaticResource Palette2}" />
+                        </Border>
+                    </VerticalStackLayout>
+                    <VerticalStackLayout Spacing="10">
+                        <Label Text="E-mail" TextColor="{StaticResource Palette2}" FontSize="20" />
+                        <Border StrokeShape="RoundRectangle 10" StrokeThickness="2" Stroke="{StaticResource Palette2}">
+                            <Entry x:Name="EmailR" MaxLength="30" Placeholder="Inserisci la tua e-mail" PlaceholderColor="{StaticResource Palette1}" FontSize="15" TextColor="{StaticResource Palette2}" />
+                        </Border>
+                    </VerticalStackLayout>
+                    <VerticalStackLayout Spacing="10">
+                        <Label Text="Password" TextColor="{StaticResource Palette2}" FontSize="20" />
+                        <Border StrokeShape="RoundRectangle 10" StrokeThickness="2" Stroke="{StaticResource Palette2}">
+                            <Entry x:Name="PasswordR" MaxLength="20" Placeholder="Inserisci una password" PlaceholderColor="{StaticResource Palette1}" FontSize="15" TextColor="{StaticResource Palette2}" IsPassword="True" />
+                        </Border>
+                    </VerticalStackLayout>
+                    <VerticalStackLayout Spacing="10">
+                        <Label Text="Immagine Profilo" TextColor="{StaticResource Palette2}" FontSize="20" />
+                        <Border StrokeShape="RoundRectangle 10" StrokeThickness="0" HeightRequest="300" Stroke="{StaticResource Palette2}">
+                            <VerticalStackLayout>
+                                <Image x:Name="SelectedImage" Aspect="AspectFill" HeightRequest="250" BackgroundColor="{StaticResource Palette2}" />
+                                <Button Text="Seleziona una foto profilo" BackgroundColor="{StaticResource Palette1}" TextColor="{StaticResource Palette3}" CornerRadius="0" HeightRequest="50" Clicked="SelectImage" />
+                            </VerticalStackLayout>
+                        </Border>
+                    </VerticalStackLayout>
+                    <Button Text="Registrati" TextColor="{StaticResource Palette3}" FontSize="20" FontAttributes="Bold" BackgroundColor="{StaticResource Palette2}" Clicked="Register" />
+                    <Button BackgroundColor="Transparent" TextColor="{StaticResource Palette2}" Text="Hai un account? Accedi!" Clicked="ShowLoginSection" />
+                </VerticalStackLayout>
+            </ScrollView>
         </VerticalStackLayout>
     </VerticalStackLayout>
 </ContentPage>

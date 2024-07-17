@@ -411,9 +411,14 @@ namespace Daidokoro.ViewModel
 
         public async Task<int> GetInsertedRecipeId()
         {
-            return (await _dbService.GetData<Ricetta>(
-                    "SELECT MAX(IdRicetta) AS IdRicetta\r\n" +
-                    "FROM ricetta"))[0].IdRicetta;
+            if (int.TryParse(await SecureStorage.Default.GetAsync("IdUtente"), out int IdUtente))
+            {
+                return (await _dbService.GetData<Ricetta>(
+                    $"SELECT MAX(IdRicetta) AS IdRicetta\r\n" +
+                    $"FROM ricetta\r\n" +
+                    $"WHERE IdUtente = {IdUtente}"))[0].IdRicetta;
+            }
+            return 0;
         }
 
         public async Task InsertNewCollection(List<Tuple<string, object>> collection)
@@ -439,9 +444,14 @@ namespace Daidokoro.ViewModel
 
         public async Task<int> GetInsertedCollectionId()
         {
-            return (await _dbService.GetData<Collezione>(
-                    "SELECT MAX(IdCollezione) AS IdCollezione\r\n" +
-                    "FROM collezione"))[0].IdCollezione;
+            if (int.TryParse(await SecureStorage.Default.GetAsync("IdUtente"), out int IdUtente))
+            {
+                return (await _dbService.GetData<Collezione>(
+                    $"SELECT MAX(IdCollezione) AS IdCollezione\r\n" +
+                    $"FROM collezione\r\n" +
+                    $"WHERE IdUtente = {IdUtente}"))[0].IdCollezione;
+            }
+            return 0;
         }
 
         public async Task<bool> CanUserLogin(string email, string password)
@@ -449,9 +459,19 @@ namespace Daidokoro.ViewModel
             return await _dbService.ExistInTable($"SELECT * FROM utente WHERE Email = \'{email}\' AND Pwd = \'{password}\'");
         }
 
-        public async Task<string> GetLoggedUserId(string email, string password)
+        public async Task<string> GetLoggedUserId(string email)
         {
-            return (await _dbService.GetData<Utente>($"SELECT * FROM utente WHERE Email = \'{email}\' AND Pwd = \'{password}\'"))[0].IdUtente.ToString();
+            return (await _dbService.GetData<Utente>($"SELECT * FROM utente WHERE Email = \'{email}\';"))[0].IdUtente.ToString();
+        }
+
+        public async Task<bool> CanUserRegister(string email)
+        {
+            return !await _dbService.ExistInTable($"SELECT * FROM utente WHERE Email = \'{email}\';");
+        }
+
+        public async Task RegisterUser(List<Tuple<string, object>> userData)
+        {
+            await _dbService.InsertElement(userData, $"INSERT INTO utente (Username, Pwd, Email, Foto, Esperienza, Livello) VALUES (?, ?, ?, ?, 0, 1);");
         }
 
         public async Task AddOrRemoveRecipeFromLiked(int IdRicetta)

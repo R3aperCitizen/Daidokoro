@@ -60,4 +60,10 @@ public partial class UserPage : ContentPage
     {
         await Shell.Current.GoToAsync($"//{nameof(ObjectiveListPage)}");
     }
+
+    private async void Logout(object sender, EventArgs e)
+    {
+        SecureStorage.Default.Remove("IdUtente");
+        await Shell.Current.GoToAsync($"//{nameof(LoginPage)}");
+    }
 }
