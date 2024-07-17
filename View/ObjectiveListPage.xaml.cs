@@ -14,10 +14,16 @@ public partial class ObjectiveListPage : ContentPage
     protected override async void OnNavigatedTo(NavigatedToEventArgs args)
     {
 		objectiveMinimalList.Source = await _globals.dbService.GetData<Obiettivo>(
-			"SELECT *\r\n" +
-			"FROM obiettivo\r\n" +
-			"JOIN obiettivo_ottenuto ON obiettivo.IdObiettivo=obiettivo_ottenuto.IdObiettivo\r\n" +
-			"WHERE IdUtente=1;"
-		);
+		"WITH v1 AS(\r\n" +
+		"SELECT DISTINCT obiettivo.*, obiettivo_ottenuto.DataOttenimento, obiettivo_ottenuto.IdUtente\r\n" +
+		"FROM obiettivo\r\n" +
+		"Left JOIN obiettivo_ottenuto\r\n" +
+		"ON obiettivo_ottenuto.IdObiettivo = obiettivo.IdObiettivo)\r\n" +
+		"SELECT v1.*\r\n" +
+		"FROM v1\r\n" +
+		$"WHERE IdUtente is null OR IdUtente = {await SecureStorage.Default.GetAsync("IdUtente")}"
+
+
+        );
     }
 }

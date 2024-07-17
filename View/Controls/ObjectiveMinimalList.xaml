@@ -12,7 +12,7 @@
                     <controls:ObjectiveMinimal Name="{Binding Nome}"
                                                Description="{Binding Descrizione}"
                                                Exp="{Binding Esperienza}"
-                                               Data="{Binding DataOttenimentoToString}" />
+                                               Data="{Binding DataOttenimento}" />
                 </DataTemplate>
             </CollectionView.ItemTemplate>
         </CollectionView>
