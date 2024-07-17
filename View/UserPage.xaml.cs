@@ -56,7 +56,7 @@ public partial class UserPage : ContentPage
         await Shell.Current.GoToAsync($"//{nameof(CollectionCreationPage)}");
     }
 
-    private async void Button_Clicked(object sender, EventArgs e)
+    private async void GoToAchievementPage(object sender, EventArgs e)
     {
         await Shell.Current.GoToAsync($"//{nameof(ObjectiveListPage)}");
     }

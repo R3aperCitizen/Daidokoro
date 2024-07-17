@@ -176,14 +176,16 @@ namespace Daidokoro.ViewModel
         public async Task<List<Utente>> GetUserById(int id)
         {
             return await _dbService.GetData<Utente>(
-                $"SELECT utente.*, IFNULL(temp_likes.Likes, 0) AS Likes, IFNULL(temp_reviews.ReviewCount, 0) AS ReviewCount, IFNULL(temp_recipes.RecipeCount, 0) AS RecipeCount\r\n" +
+                $"SELECT utente.*, IFNULL(temp_likes.count, 0) AS Likes, IFNULL(temp_reviews.count, 0) AS ReviewCount, IFNULL(temp_recipes.count, 0) AS RecipeCount, IFNULL(temp_achievements.count, 0) AS AchievementsCount\r\n" +
                 $"FROM utente\r\n" +
-                $"LEFT JOIN (SELECT utente.IdUtente, COUNT(*) AS Likes FROM utente JOIN likes ON likes.IdUtente = utente.IdUtente GROUP BY likes.IdUtente) AS temp_likes\r\n" +
+                $"LEFT JOIN (SELECT utente.IdUtente, COUNT(*) AS count FROM utente JOIN likes ON likes.IdUtente = utente.IdUtente GROUP BY likes.IdUtente) AS temp_likes\r\n" +
                 $"ON utente.IdUtente = temp_likes.IdUtente\r\n" +
-                $"LEFT JOIN (SELECT utente.IdUtente, COUNT(*) AS ReviewCount FROM utente JOIN valutazione_ricetta ON valutazione_ricetta.IdUtente = utente.IdUtente GROUP BY valutazione_ricetta.IdUtente) AS temp_reviews\r\n" +
+                $"LEFT JOIN (SELECT utente.IdUtente, COUNT(*) AS count FROM utente JOIN valutazione_ricetta ON valutazione_ricetta.IdUtente = utente.IdUtente GROUP BY valutazione_ricetta.IdUtente) AS temp_reviews\r\n" +
                 $"ON utente.IdUtente = temp_reviews.IdUtente\r\n" +
-                $"LEFT JOIN (SELECT utente.IdUtente, COUNT(*) AS RecipeCount FROM utente JOIN ricetta ON ricetta.IdUtente = utente.IdUtente GROUP BY ricetta.IdUtente) AS temp_recipes\r\n" +
+                $"LEFT JOIN (SELECT utente.IdUtente, COUNT(*) AS count FROM utente JOIN ricetta ON ricetta.IdUtente = utente.IdUtente GROUP BY ricetta.IdUtente) AS temp_recipes\r\n" +
                 $"ON utente.IdUtente = temp_recipes.IdUtente\r\n" +
+                $"LEFT JOIN (SELECT utente.IdUtente, COUNT(*) AS count FROM utente JOIN obiettivo_ottenuto ON obiettivo_ottenuto.IdUtente = utente.IdUtente GROUP BY obiettivo_ottenuto.IdUtente) AS temp_achievements\r\n" +
+                $"ON utente.IdUtente = temp_achievements.IdUtente\r\n" +
                 $"WHERE utente.IdUtente = {id};"
             );
         }

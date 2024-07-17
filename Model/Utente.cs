@@ -13,5 +13,6 @@
         public long Likes { get; set; }
         public long ReviewCount {  get; set; }
         public long RecipeCount {  get; set; }
+        public long AchievementsCount { get; set; }
     }
 }
