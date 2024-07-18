@@ -254,6 +254,22 @@ namespace Daidokoro.ViewModel
             );
         }
 
+        public async Task<List<CategoriaNutrizionale>> GetUnlockedNutritionalCategories()
+        {
+            if (int.TryParse(await SecureStorage.Default.GetAsync("IdUtente"), out int IdUtente))
+            {
+                return await _dbService.GetData<CategoriaNutrizionale>(
+                    $"SELECT categoria_nutrizionale.*\r\n" +
+                    $"FROM categoria_nutrizionale\r\n" +
+                    $"JOIN obiettivo ON obiettivo.IdCategoria=categoria_nutrizionale.IdCategoria\r\n" +
+                    $"JOIN obiettivo_ottenuto ON obiettivo_ottenuto.IdObiettivo=obiettivo.IdObiettivo\r\n" +
+                    $"WHERE IdUtente = {IdUtente}\r\n" +
+                    $"AND categoria_nutrizionale.IdCategoria != 1;"
+                );
+            }
+            return new List<CategoriaNutrizionale>();
+        }
+
         public async Task<List<VotiRicetta>> GetRatingsCountGroupByVoto(int id, bool isRecipe)
         {
             string table = isRecipe ? "valutazione_ricetta" : "valutazione_collezione";
@@ -497,7 +513,7 @@ namespace Daidokoro.ViewModel
             }
         }
 
-        public async Task AddOrRemoveRecipeFromLiked(int IdRicetta)
+        public async Task<bool> AddOrRemoveRecipeFromLiked(int IdRicetta)
         {
             if (int.TryParse(await SecureStorage.Default.GetAsync("IdUtente"), out int IdUtente))
             {
@@ -509,6 +525,7 @@ namespace Daidokoro.ViewModel
                         $"DELETE FROM likes\r\n" +
                         $"WHERE IdRicetta = {IdRicetta} AND IdUtente = {IdUtente}"
                     );
+                    return false;
                 }
                 else
                 {
@@ -517,11 +534,28 @@ namespace Daidokoro.ViewModel
                         new("IdRicetta", IdRicetta),
                         new("IdUtente", IdUtente)
                     ], $"INSERT INTO likes (IdRicetta, IdUtente, Data) VALUES (?, ?, CURDATE());");
+                    return true;
                 }
             }
+            return false;
         }
 
-        public Task<List<Collezione>> GetFilteredCollections(string text, string difficulty, string date, string orderby, string recipeNumber, int dieta, string nutritionalCategory)
+        public async Task<bool> IsRecipeLikedByUser(int IdRicetta)
+        {
+            if (int.TryParse(await SecureStorage.Default.GetAsync("IdUtente"), out int IdUtente))
+            {
+                return await _dbService.ExistInTable(
+                    $"SELECT*\r\n" +
+                    $"FROM ricetta\r\n" +
+                    $"JOIN likes ON likes.IdRicetta=ricetta.IdRicetta\r\n" +
+                    $"WHERE likes.IdUtente = {IdUtente}\r\n" +
+                    $"AND ricetta.IdRicetta = {IdRicetta};"
+                );
+            }
+            return false;
+        }
+
+        public async Task<List<Collezione>> GetFilteredCollections(string text, string difficulty, string date, string orderby, string recipeNumber, int dieta, string nutritionalCategory)
         {
             string query =
             $"WITH v2 AS (\r\n" +
@@ -552,7 +586,7 @@ namespace Daidokoro.ViewModel
             (recipeNumber == null ? difficulty == null ? "" : $"AND v2.avDiff = {difficulty}" :
             difficulty == null ? $"AND v2.num = {recipeNumber}" : $" AND v2.num = {recipeNumber} AND v2.avDiff = {difficulty}");
             
-            return  dbService.GetData<Collezione>(query);
+            return await dbService.GetData<Collezione>(query);
         }
     }
 }

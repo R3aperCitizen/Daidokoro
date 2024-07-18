@@ -18,11 +18,12 @@ public partial class CollectionCreationPage : ContentPage
         InitializeComponent();
         _globals = globals;
         _displayInfo = DeviceDisplay.MainDisplayInfo;
-        SetBehaviours();
+    }
 
-        ricetteCollezioni = new();
-        ricette = new();
-        categoria = new();
+    protected override void OnNavigatedTo(NavigatedToEventArgs args)
+    {
+        SetBehaviours();
+        ResetPage();
     }
 
     private void ResetPage()
@@ -33,7 +34,10 @@ public partial class CollectionCreationPage : ContentPage
         RecipesListView.ItemsSource = null;
         ricetteCollezioni = new();
         ricette = new();
-        categoria = new();
+        categoria = new Model.CategoriaNutrizionale()
+        {
+            IdCategoria = 1
+        };
         IdCollezione = 0;
     }
 
@@ -44,8 +48,9 @@ public partial class CollectionCreationPage : ContentPage
 
         MainScroll.HeightRequest = (screenHeight / screenDensity) - 150;
         CategoriesPicker.IsEnabled = false;
-        CategoriesPicker.ItemsSource = await _globals.GetNutritionalCategories();
+        CategoriesPicker.ItemsSource = await _globals.GetUnlockedNutritionalCategories();
         CategoriesPicker.SelectedIndex = 0;
+        IsDieta.IsEnabled = CategoriesPicker.ItemsSource.Count > 0;
     }
 
     private void AddRecipe(object sender, EventArgs e)

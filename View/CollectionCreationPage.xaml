@@ -17,11 +17,11 @@
                 <Border StrokeShape="RoundRectangle 10" StrokeThickness="2" Stroke="{StaticResource Palette2}">
                     <Entry x:Name="Descrizione" HorizontalOptions="FillAndExpand" Placeholder="Inserisci la descrizione" PlaceholderColor="{StaticResource Palette2}" TextColor="{StaticResource Palette2}" />
                 </Border>
-                <HorizontalStackLayout HorizontalOptions="Fill">
+                <HorizontalStackLayout>
                     <Label Text="Dieta:" FontSize="15" TextColor="{StaticResource Palette2}" VerticalTextAlignment="Center" />
                     <CheckBox x:Name="IsDieta" CheckedChanged="IsDiet" Color="{StaticResource Palette2}" />
                     <Border StrokeShape="RoundRectangle 10" StrokeThickness="2" Stroke="{StaticResource Palette2}">
-                        <Picker x:Name="CategoriesPicker" x:DataType="model:CategoriaNutrizionale" ItemDisplayBinding="{Binding Nome}" TextColor="{StaticResource Palette2}" FontAttributes="Bold" SelectedIndexChanged="SetCategoria" />
+                        <Picker x:Name="CategoriesPicker" x:DataType="model:CategoriaNutrizionale" ItemDisplayBinding="{Binding Nome}" TextColor="{StaticResource Palette2}" FontAttributes="Bold" WidthRequest="200" SelectedIndexChanged="SetCategoria" />
                     </Border>
                 </HorizontalStackLayout>
                 <VerticalStackLayout Spacing="20">
