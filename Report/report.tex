@@ -70,9 +70,17 @@ Secondo sottocapitolo
 
 
 \chapter{Progettazione applicazione}
-capitolo logica
-\section{Piattaforma di sviluppo}
-sezione
-\section{Architettura}
-sezione
+\section{Descrizione dell'architettura\\ dell'applicazione realizzata}
+Abbiamo sviluppato un'applicazione Social Media di ricette culinarie per dispositivi mobile in linguaggio C\# utilizzando il framework .NET MAUI (utilizzato per la creazione di applicazioni mobile).
+Per le connesioni al database viene utilizzata la libreria C\# MySQLConnector e il database risiede in un server MySQL.
+Per ogni tabella contenuta nel DB viene creata una corrispettiva classe che la rappresenta all'interno del
+model dell'applicazione. Inoltre abbiamo creato una classe DBService che gestisce le connessioni effettuate al database e presenta vari metodi:
+\begin{itemize}
+    \item TryConnection(DBCredentials dbc): prende in input le credenziali per accedere al database e restituisce un booleano sul risultato della connessione al database.
+    \item ExistInTable(string query): restituisce un booleano in base al numero di elementi che produce la query data (0 elementi prodotti = false)
+    \item GetData(string query): restituisce una lista di elementi generici in base alla tabella su cui viene effettuata la query e al tipo specificato.
+    \item InsertElement(List〈Tuple〈string, object〉〉 values, string query): inserisce gli elementi nella tabella specificata nella query inserendo nei valori della query non settati (?) il rispettivo valore contenuto nella lista di tuple.
+    \item RemoveOrUpdateElement(string query): rimuove o aggiorna la riga di una tabella seguendo la query data.
+\end{itemize}
+
 \end{document}
