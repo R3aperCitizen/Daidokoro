@@ -164,6 +164,9 @@
 	  <MauiXaml Update="View\Controls\ObjectiveMinimal.xaml">
 	    <Generator>MSBuild:Compile</Generator>
 	  </MauiXaml>
+	  <MauiXaml Update="View\Controls\RatingList.xaml">
+	    <Generator>MSBuild:Compile</Generator>
+	  </MauiXaml>
 	  <MauiXaml Update="View\Controls\RecipeFullList.xaml">
 	    <Generator>MSBuild:Compile</Generator>
 	  </MauiXaml>

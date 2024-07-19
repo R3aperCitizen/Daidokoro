@@ -2,24 +2,23 @@
 <ContentView xmlns="http://schemas.microsoft.com/dotnet/2021/maui"
              xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml"
              xmlns:converters="clr-namespace:Daidokoro.View.Converters"
-             xmlns:model="clr-namespace:Daidokoro.Model"
              x:Class="Daidokoro.View.Controls.ObjectiveMinimal"
-             x:DataType="model:Obiettivo">
+             x:Name="this">
 
     <ContentView.Resources>
-        <converters:DateConverter x:Key="date" />
+        <converters:DateConverter x:Key="date"/>
     </ContentView.Resources>
 
-    <Border x:Name="BorderObjective" BackgroundColor="{StaticResource NavBar}" StrokeShape="RoundRectangle 10" StrokeThickness="0" HeightRequest="100" Margin="0,15,0,15">
-        <HorizontalStackLayout VerticalOptions="Center" Padding="15" Spacing="20">
+    <Border x:Name="BorderObjective" BackgroundColor="{StaticResource NavBar}" StrokeShape="RoundRectangle 10" StrokeThickness="0" HeightRequest="100" >
+        <HorizontalStackLayout BindingContext="{x:Reference this}" VerticalOptions="Center" Padding="15" Spacing="20" >
             <Image x:Name="ImageIcon" Source="trophy.png" VerticalOptions="Center" />
             <VerticalStackLayout VerticalOptions="Center" WidthRequest="150">
-                <Label Text="{Binding Nome}" TextColor="white" FontSize="20" />
-                <Label Text="{Binding Descrizione}" TextColor="white" FontSize="15" />
+                <Label Text="{Binding Name}" TextColor="white" FontSize="20" />
+                <Label Text="{Binding Description}" TextColor="white" FontSize="15" />
             </VerticalStackLayout>
             <VerticalStackLayout VerticalOptions="Center">
-                <Label Text="{Binding Esperienza, StringFormat='EXP: {0}'}" TextColor="white" FontSize="20" />
-                <Label Text="{Binding DataOttenimento, Converter={StaticResource date}}" TextColor="white" FontSize="10" />
+                <Label Text="{Binding Experience, StringFormat='EXP: {0}'}" TextColor="white" FontSize="20" />
+                <Label Text="{Binding Data, Converter={StaticResource date}}" TextColor="white" FontSize="10" />
             </VerticalStackLayout>
         </HorizontalStackLayout>
     </Border>
