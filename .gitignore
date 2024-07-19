@@ -409,3 +409,4 @@ FodyWeavers.xsd
 *.synctex.gz
 *.toc
 /.~lock.DAIDOKORO.lun#
+/Report/report.pdf
