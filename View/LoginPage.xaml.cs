@@ -121,7 +121,8 @@ public partial class LoginPage : ContentPage
         });
 
         if (response.FileName.EndsWith("jpg", StringComparison.OrdinalIgnoreCase) ||
-            response.FileName.EndsWith("png", StringComparison.OrdinalIgnoreCase))
+            response.FileName.EndsWith("png", StringComparison.OrdinalIgnoreCase) ||
+            response.FileName.EndsWith("jpeg", StringComparison.OrdinalIgnoreCase))
         {
             var stream = await response.OpenReadAsync();
             selectedImage = new byte[stream.Length];
