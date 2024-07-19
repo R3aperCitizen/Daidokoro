@@ -1,49 +1,54 @@
-using Microsoft.Maui.Animations;
-using System.Collections;
+using System.Collections.ObjectModel;
 
 namespace Daidokoro.View.Controls;
 
 public class AsyncCollectionView : ContentView
 {
-    private SwitchView switcher;
+    private SwitchView switchView;
+    private CollectionView collectionView;
 
-    public Func<Task<IEnumerable>>? Supplier { get; set; }
-
+    public ObservableCollection<object> Source { get; private set; }
+    public Func<Task<IEnumerable<object>>>? Supplier { get; set; }
     public DataTemplate Template
     {
-        get => CollectionView.ItemTemplate;
-        set => CollectionView.ItemTemplate = value;
-    }
-
-    public CollectionView CollectionView
-    {
-        get => (CollectionView)switcher.Elements[1];
-        set => switcher.Elements[1] = value;
+        get => collectionView.ItemTemplate;
+        set => collectionView.ItemTemplate = value;
     }
 
     public AsyncCollectionView()
     {
-        switcher = new SwitchView();
-        switcher.Elements.Add(new ActivityIndicator { IsRunning = true });
-        switcher.Elements.Add(new CollectionView());
-        switcher.Index = 0;
+        Source = new ObservableCollection<object>();
 
-        Content = switcher;
+        collectionView = new CollectionView();
+        collectionView.SetBinding(ItemsView.ItemsSourceProperty, nameof(Source));
+        collectionView.BindingContext = this;
+        
+        switchView = new SwitchView();
+        switchView.Elements.Add(new ActivityIndicator { IsRunning = true });
+        switchView.Elements.Add(collectionView);
+
+        switchView.Index = 0;
+        Content = switchView;
     }
 
     public async void Refresh()
     {
         if (Supplier is not null)
         {
-            switcher.Index = 0;
-            CollectionView.ItemsSource = await Supplier.Invoke();
-            switcher.Index = 1;
+            switchView.Index = 0;
+
+            Source.Clear();
+            foreach(var item in await Supplier.Invoke())
+                Source.Add(item);
+
+            switchView.Index = 1;
         }
     }
 
-    public void RefreshOnce()
+    // Faster, but causes problems when using Images
+    public void CachedRefresh()
     {
-        if (CollectionView.ItemsSource is null)
+        if (Source.Count.Equals(0))
             Refresh();
     }
 }

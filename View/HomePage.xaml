@@ -11,7 +11,18 @@
             <Label Text="Ricette più popolari!" FontAttributes="Bold" FontSize="35" HorizontalTextAlignment="Center" TextColor="{StaticResource Palette3}" Padding="15" />
         </Border>
         <ScrollView x:Name="MainScroll">
-            <controls:RecipeFullList x:Name="MonthRecipe"/>
+            <controls:AsyncCollectionView x:Name="list">
+                <controls:AsyncCollectionView.Template>
+                    <DataTemplate x:DataType="model:Ricetta">
+                        <controls:RecipeFull Id="{Binding IdRicetta}"
+                                             Image="{Binding Foto}"
+                                             Title="{Binding Nome}"
+                                             Time="{Binding Tempo}"
+                                             Difficulty="{Binding Difficolta}"
+                                             Likes="{Binding NumeroLike}" />
+                    </DataTemplate>
+                </controls:AsyncCollectionView.Template>
+            </controls:AsyncCollectionView>
         </ScrollView>
     </VerticalStackLayout>
 

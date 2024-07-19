@@ -12,11 +12,12 @@ namespace Daidokoro.View
             InitializeComponent();
             _globals = globals;
             SetScrollBehaviour();
+            list.Supplier = async () => await _globals.GetMonthRecipes();
         }
 
         protected override void OnNavigatedTo(NavigatedToEventArgs args)
         {
-            MonthRecipe.AsyncSource = _globals.GetMonthRecipes();
+            list.Refresh();
         }
 
         private void SetScrollBehaviour()
