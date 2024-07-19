@@ -6,6 +6,8 @@
 \usepackage{hyperref}
 \usepackage[italian]{babel}
 \usepackage[italian]{cleveref}
+\usepackage{xcolor}
+\usepackage[dvipsnames]{xcolor}
 \title{Relazione su "Daidokoro" \\ Elaborato per il corso di Basi di Dati}
 
 \author
@@ -50,7 +52,7 @@ frammentati, separati in varie parti, per evitare un accesso non essenziale a gr
 \section{Schema scheletro}
 \begin{figure}[H]
     \centering
-    \includegraphics[width=0.8\textwidth]{image.png}  
+    %\includegraphics[width=0.8\textwidth]{image.png}  
     \label{fig:example}
 \end{figure}
 La prima versione dello schema evidenzia gli elementi chiave 
@@ -92,7 +94,7 @@ che aggiunge il commento, questa limitata da un obbiettivo.
 Il risultato finale è questo schema:
 \begin{figure}[H]
     \centering
-    \includegraphics[width=0.9\linewidth]{schema-concettuale.png}
+    %\includegraphics[width=0.9\linewidth]{schema-concettuale.png}
     \label{fig:enter-label}
 \end{figure}
 
@@ -101,7 +103,7 @@ Per rappresentare le valutazioni e critiche
 abbiamo optato per una gerarchia.
 \begin{figure}[H]
     \centering
-    \includegraphics[width=0.2\linewidth]{valutazione-concettuale.png}
+    %\includegraphics[width=0.2\linewidth]{valutazione-concettuale.png}
     \label{fig:enter-label}
 \end{figure}
 \subsection{Ingrediente}
@@ -139,5 +141,84 @@ model dell'applicazione. Inoltre abbiamo creato una classe DBService che gestisc
     \item InsertElement(List〈Tuple〈string, object〉〉 values, string query): inserisce gli elementi nella tabella specificata nella query inserendo nei valori della query non settati (?) il rispettivo valore contenuto nella lista di tuple.
     \item RemoveOrUpdateElement(string query): rimuove o aggiorna la riga di una tabella seguendo la query data.
 \end{itemize}
-
+All'avvio dell'applicazione, se si tratta del primo avvio, comparirà la schermata di Login e Registrazione.
+\begin{figure}[h!]
+    \begin{minipage}{.5\textwidth}
+        \centering
+        \includegraphics[width=0.9\linewidth]{app_images/Login.jpg}
+    \end{minipage}
+    \begin{minipage}{.5\textwidth}
+        \centering
+        \includegraphics[width=0.9\linewidth]{app_images/Register.jpg}
+    \end{minipage}
+\end{figure}
+\\Dopo essersi registrati e aver effettuato l'accesso verrà memorizzato nei dati dell'applicazione installata l'identificativo dell'utente che ha effettuato l'accesso in modo da poter reindirizzare l'utente sulla schermata principale ad ogni avvio successivo dell'app e caricare i suoi dati.
+\\\\\\\\\\\\\\Nella Home Page è possibile visualizzare le 3 ricette con più like.
+\\Clickando, invece, sull'icona centrale del menu di navigazione sovrastante, si potrà andare sulla pagina di navigazione delle ricette, collezioni e diete
+\begin{figure}[h!]
+    \begin{minipage}{.5\textwidth}
+        \centering
+        \includegraphics[width=0.9\linewidth]{app_images/HomePage.jpg}
+    \end{minipage}
+    \begin{minipage}{.5\textwidth}
+        \centering
+        \includegraphics[width=0.9\linewidth]{app_images/BrowsePage.jpg}
+    \end{minipage}
+\end{figure}
+\\Successivamente nella pagina di navigazione in base all'elemento clickato comparirà la pagina di visualizzazione della lista del rispetto elemento.
+\\\\\\\\Di seguito si ha a sinistra la pagina con la lista delle ricette di qualunque utente con la rispettiva barra di ricerca e filtri.
+Mentre a destra la pagina con la lista di collezioni di qualunque utente e la barra di ricerca.
+\begin{figure}[h!]
+    \begin{minipage}{.5\textwidth}
+        \centering
+        \includegraphics[width=0.9\linewidth]{app_images/RecipeList.jpg}
+    \end{minipage}
+    \begin{minipage}{.5\textwidth}
+        \centering
+        \includegraphics[width=0.9\linewidth]{app_images/CollectionList.jpg}
+    \end{minipage}
+\end{figure}
+\\\\Ogni ricetta nella lista presenta l'immagine, il nome, il tempo di preparazione, difficoltà rappresentata da 1 a 5 con l'emoji di un peperoncino e il numero di like ricevuti da utenti.
+Mentre le collezioni avranno come immagine quella della ricetta con più like nella collezione, la data di creazione e la categoria.
+\\\\La pagina delle diete è composta come quella delle collezioni ma presente un menu dei filtri come quello delle ricette oltre alla barra di ricerca.
+\begin{figure}[h!]
+    \begin{minipage}{.5\textwidth}
+        \centering
+        \includegraphics[width=0.9\linewidth]{app_images/Filter.jpg}
+    \end{minipage}
+    \begin{minipage}{.5\textwidth}
+        \centering
+        \includegraphics[width=0.9\linewidth]{app_images/Filter2.jpg}
+    \end{minipage}
+\end{figure}
+\\La barra di ricerca delle diete effettuerà la ricerca di una ricetta in base al nome, al nome degli ingredienti associati e al nome della categoria nutrizionale degli ingredienti, mentre quella delle collezioni e delle diete cercherà in base al nome della collezione/dieta e al nome delle ricette contenute.
+\\\\Per quanto riguarda le ricette, il menu dei filtri contiene uno slider per la difficoltà e uno per il tempo di preparazione, un selettore per la categoria nutrizionale e un selettore per l'ordinamento da effettuare sulle ricette filtrate.
+Mentre il menu dei filtri delle diete contiene un selettore per la data di creazione, uno slider per la difficoltà media delle ricette contenute nella dieta, uno slider per il numero massimo di ricette nella dieta e i due selettori per la categoria nutrizionale della dieta e l'ordinamento sulle diete filtrate.
+\\\\\\\\\\Quando si va su una delle pagine contenenti le liste di elementi, clickando su un elemento si andrà alla pagina del singolo elemento con tutte le informazioni specifiche. 
+Di seguito si ha la pagina di una ricetta.
+\begin{figure}[h!]
+    \begin{minipage}{.5\textwidth}
+        \centering
+        \includegraphics[width=0.9\linewidth]{app_images/Liked.jpg}
+    \end{minipage}
+    \begin{minipage}{.5\textwidth}
+        \centering
+        \includegraphics[width=0.9\linewidth]{app_images/RecipePage2.jpg}
+    \end{minipage}
+\end{figure}
+\\In questa pagina l'utente potrà visualizzare tutte le informazioni della ricetta come la descrizione, gli ingredienti e i passaggi.
+Inoltre potrà aggiungere la ricetta ai preferiti clickando sul pulsante con il cuore e potrà valutare la ricetta con un voto positivo (\colorbox{LimeGreen}{\textbf{Lime}}) o negativo (\colorbox{Tan}{\textbf{Cipolla}}).
+In fondo alla pagina l'utente troverà la sezione delle valutazioni dove compariranno tutte le valutazioni degli utenti e l'utente potrà aggiungere un commento alla valutazione effettuata in precedenza.
+\\\\\\Nella pagina della singola collezione/dieta, invece, si ha inizialmente una sezione con le informazioni principali, seguita dagli stessi bottoni per le valutazioni come nella pagina delle ricette e la lista delle ricette contenute nella collezione/dieta.
+In fondo alla pagina si ha la sezione delle valutazioni con la possibilità di inserire il commento come per le ricette, nella pagina di una dieta però il commento può essere inserito solo se si ha sbloccato l'obiettivo della categoria nutrizionale a cui appartiene la dieta.
+\begin{figure}[h!]
+    \begin{minipage}{.5\textwidth}
+        \centering
+        \includegraphics[width=0.9\linewidth]{app_images/CollectionPage.jpg}
+    \end{minipage}
+    \begin{minipage}{.5\textwidth}
+        \centering
+        \includegraphics[width=0.9\linewidth]{app_images/CollectionPage2.jpg}
+    \end{minipage}
+\end{figure}
 \end{document}
