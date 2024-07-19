@@ -23,7 +23,7 @@ public partial class SwitchView : ContentView
 
     public SwitchView()
     {
-        this.Elements = new();
+        this.Elements = [];
         this.Elements.CollectionChanged += OnElementsChanged;
     }
 

@@ -55,7 +55,7 @@ CREATE TABLE IF NOT EXISTS ingrediente(
     IdIngrediente INT NOT NULL AUTO_INCREMENT,
     Nome VARCHAR(50) NOT NULL,
     Descrizione VARCHAR(255) NOT NULL,
-    IdValoreNutrizionale INT NOT NULL,
+    IdValoreNutrizionale INT NULL,
     IdCategoria INT NOT NULL,
     PRIMARY KEY (IdIngrediente),
     FOREIGN KEY (IdCategoria) REFERENCES categoria_nutrizionale(IdCategoria)
