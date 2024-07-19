@@ -41,14 +41,71 @@ Secondo sottocapitolo
 
 
 \chapter{Progettazione concettuale}
+Per la progettazione concettuale abbiamo considerato diverse cose,
+tra cui, la organizzazione della applicazione e le capacità degli utenti,
+in primis, la app è di tipo client-server, quindi il database è unico e
+possiede tutti i dati del "ecosistema"(client e server), gli utenti sono potenzialmente tanti
+e hanno un frequente accesso al database, motivo per il cui i dati sono
+frammentati, separati in varie parti, per evitare un accesso non essenziale a grandi quantità di dati, e ridurre il carico sul database.    
 \section{Schema scheletro}
-Secondo sottocapitolo
+\begin{figure}[H]
+    \centering
+    \includegraphics[width=0.8\textwidth]{image.png}  
+    \label{fig:example}
+\end{figure}
+La prima versione dello schema evidenzia gli elementi chiave 
+che costruiscono le informazioni su cui si basa la applicazione:
+\begin{itemize}
+    \item Utente
+    \item Ricetta
+    \item Valutazione
+    \item Ingrediente
+    \item Dieta
+\end{itemize}
+
 \section{Raffinamenti proposti}
-Secondo sottocapitolo
+Analizzando meglio la possibile esperienza dell'utente
+sono molte le possibili aggiunte, abbiamo cercato
+dunque di rendere il database completo senza complicarlo eccessivamente:
+\subsection{Dieta}
+La dieta, corrisponde alla possibilità di raggruppare ricette
+per rendere più significativo il significato di essa abbiamo deciso di 
+imporre dei limiti, come la categoria, che limita la tipologia di ricette 
+inseribili, la creazione di essa è permessa all'utente solo dopo aver sbloccato un determinato obiettivo.
+\subsection{Collezione}
+Per non limitare le possibilità dell'utente abbiamo deciso di creare 
+una variante più generale della dieta, la collezione
+essa permette di salvare ricette indiscriminatamente.
+\subsection{Obiettivo}
+Per Dare più autorevolezza agli utenti esperti e
+filtrare utenti "troll" abbiamo deciso di implementare dei requisiti,
+per fare delle diete bisogna aver sbloccato un obbiettivo, 
+cosi per le critiche
+\subsection{Valutazione}
+Per le valutazioni abbiamo optato su 2 tipologie
+valutazione e critica, la prima consiste in un voto
+numerico, assegnabile da un utente generico, il secondo è una critica
+che aggiunge il commento, questa limitata da un obbiettivo.
+
+
 \section{Schema Concettuale}
-Secondo sottocapitolo
+Il risultato finale è questo schema:
+\begin{figure}[H]
+    \centering
+    \includegraphics[width=0.9\linewidth]{schema-concettuale.png}
+    \label{fig:enter-label}
+\end{figure}
 
-
+\subsection{Valutazione}
+Per rappresentare le valutazioni e critiche
+abbiamo optato per una gerarchia.
+\begin{figure}[H]
+    \centering
+    \includegraphics[width=0.2\linewidth]{valutazione-concettuale.png}
+    \label{fig:enter-label}
+\end{figure}
+\subsection{Ingrediente}
+Per rappresentare gli ingredienti abbiamo preferito separarlo in due entità, ingrediente e valori nutrizionali
 \chapter{Progettazione logica}
 capitolo logica
 \section{Volume dei dati}
