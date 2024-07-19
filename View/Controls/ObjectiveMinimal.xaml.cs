@@ -1,20 +1,39 @@
-using Daidokoro.Model;
+
 
 namespace Daidokoro.View.Controls;
 
 public partial class ObjectiveMinimal : ContentView
 {
-    public static readonly BindableProperty ModelProperty
-        = BindableProperty.Create(nameof(Model), typeof(Obiettivo), typeof(ObjectiveMinimal), propertyChanged: OnModelChanged);
-    private static void OnModelChanged(BindableObject bindable, object oldValue, object newValue)
+    public static readonly BindableProperty NameProperty =
+           BindableProperty.Create(nameof(Name), typeof(string), typeof(ObjectiveMinimal));
+    public string Name
     {
-        var control = (ObjectiveMinimal)bindable;
-        control.BindingContext = control.Model;
+        get => (string)GetValue(NameProperty);
+        set => SetValue(NameProperty, value);
     }
-    public Obiettivo Model
+
+    public static readonly BindableProperty DescriptionProperty =
+        BindableProperty.Create(nameof(Description), typeof(string), typeof(ObjectiveMinimal));
+    public string Description
     {
-        get => (Obiettivo)GetValue(ModelProperty);
-        set => SetValue(ModelProperty, value);
+        get => (string)GetValue(DescriptionProperty);
+        set => SetValue(DescriptionProperty, value);
+    }
+
+    public static readonly BindableProperty ExperienceProperty =
+    BindableProperty.Create(nameof(Experience), typeof(string), typeof(ObjectiveMinimal));
+    public string Experience
+    {
+        get => (string)GetValue(ExperienceProperty);
+        set => SetValue(ExperienceProperty, value);
+    }
+
+    public static readonly BindableProperty DataProperty =
+    BindableProperty.Create(nameof(Data), typeof(string), typeof(ObjectiveMinimal));
+    public string Data
+    {
+        get => (string)GetValue(DataProperty);
+        set => SetValue(DataProperty, value);
     }
 
     public ObjectiveMinimal()

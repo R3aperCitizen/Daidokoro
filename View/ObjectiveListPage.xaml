@@ -9,7 +9,16 @@
         <controls:NavigationBar />
         <ScrollView>
             <VerticalStackLayout Padding="15,25,15,25" Spacing="25">
-                <controls:AsyncListView x:TypeArguments="model:Obiettivo, controls:ObjectiveMinimal" x:Name="objectiveMinimalList" />
+                <controls:AsyncCollectionView x:Name="objectiveList">
+                    <controls:AsyncCollectionView.Template>
+                        <DataTemplate x:DataType="model:Obiettivo">
+                            <controls:ObjectiveMinimal Name="{Binding Nome}"
+                                                       Description="{Binding Descrizione}"
+                                                       Experience="{Binding Esperienza}"
+                                                       Data="{Binding DataOttenimento}" />
+                        </DataTemplate>
+                    </controls:AsyncCollectionView.Template>
+                </controls:AsyncCollectionView>
             </VerticalStackLayout>
         </ScrollView>
     </VerticalStackLayout>
