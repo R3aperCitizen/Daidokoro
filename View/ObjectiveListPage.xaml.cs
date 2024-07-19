@@ -26,6 +26,6 @@ public partial class ObjectiveListPage : ContentPage
 		$"WHERE IdUtente is null OR IdUtente = {idUtente}"
         );
 
-		objectiveList.RefreshOnce();
+		objectiveList.CachedRefresh();
     }
 }
