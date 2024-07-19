@@ -22,25 +22,39 @@
 \tableofcontents
 
 \chapter{Analisi dei requisiti}
-Si vuole realizzare un database a supporto di un social network di ricette.
-Questo dovrà immagazzinare dati relativi agli utenti registrati, alle ricette pubblicate, gli ingredienti disponibili, i valori nutrizionali, la categoria nutrizionale, i preferiti, le valutazioni, le collezioni e gli obiettivi.
-
-\section{Intervista}
-Si vuole tenere traccia degli \textbf{utenti} registrati salvandone il loro username, la foto profilo, l'email, la password, l'esperienza ed il livello, che vengono usati per premiare un maggiore utilizzo del social network, inoltre viene generato un codice univoco per identificarlo. Un utente, una volta registrato, potrà effettuare l'accesso ed utilizzare il social network osservando le ricette altrui, aggiungendole ai preferiti, salvandole in collezioni o in diete e valutandole con un voto ed un commento. Inoltre l'utente potrà pubblicare le proprie ricette e sbloccare obiettivi.
-Una \textbf{ricetta} è caratterizzata da un nome, una foto, una descrizione, una difficoltà e un tempo di realizzazione indicativo, oltre agli ingredienti che la compongono ed i passi necessari a prepararla.
-Un \textbf{ingrediente} è caratterizzato da un nome, una descrizione, dai suoi valori nutrizionali e dalla categoria nutrizionale a cui appartiene.
-Una \textbf{collezione} è caratterizzata da un nome, una descrizione, una data e le ricette che ne fanno parte. Lo stesso vale per una \textbf{dieta}, tuttavia questa deve anche aderire ad una categoria nutrizionale specifica, vincolando le ricette contenute. Ad esempio, la dieta per i celiaci aderirà alla categoria nutrizionale della celiachia e potrà comprendere solo ricette con ingredienti compatibili.
-Un \textbf{obiettivo} è caratterizzato da un nome, una descrizione e dalla quantità di esperienza da dare all'utente una volta sbloccato.
-
-[ SPIEGAZIONE SU COME SBLOCCARE E COSA LIMITANO GLI OBIETTIVI ]
-
-[ ANALISI DELLE VALUTAZIONI ]
-
-\section{Ambiguità}
-Secondo sottocapitolo
-\section{Definizioni}
-Secondo sottocapitolo
-
+\section{Requisiti in linguaggio naturale}
+Si vuole realizzare un database a supporto di un social network di ricette, questo dovrà tenere traccia degli \textbf{\textit{utenti}} registrati salvandone il loro username, la foto profilo, l'email, la password ed un codice univoco per identificarli. Inoltre, si vuole anche tenere traccia dell'esperienza e del livello, i quali rappresentano il progresso di un utente nello sblocco di \textbf{\textit{obiettivi}} che sono caratterizzati da un nome, una descrizione e dalla quantità di esperienza da dare all'utente una volta sbloccato. Questi vengono usati per incitare l'utente ad utilizzare tutte le diverse funzionalità del software, che possono anche essere limitate fino allo sblocco di un determinato obiettivo. L'utente, dopo aver effettuato l'accesso, potrà osservare le ricette altrui, aggiungerle ai preferiti, salvarle in collezioni o in diete e valutarle con un voto ed un commento. L'utente potrà anche pubblicare le proprie \textbf{\textit{ricette}} inserendone il nome, la foto, la descrizione, la difficoltà e il tempo di realizzazione indicativo, oltre agli ingredienti che la compongono ed ai passi necessari a prepararla. Gli \textbf{\textit{ingredienti}} sono composti da un nome, una descrizione, dai valori nutrizionali e dalla categoria nutrizionale a cui appartengono. Le \textbf{\textit{collezioni}} possiedono un nome, una descrizione, la data di creazione e la lista di ricette che ne fanno parte. Lo stesso vale per la \textbf{\textit{dieta}}, tuttavia questa deve anche aderire ad una categoria nutrizionale specifica, vincolando quindi le ricette che si possono aggiungere. Infine, le \textbf{\textit{valutazioni}} che gli utenti possono lasciare a ricette, collezioni o diete, consistono in un voto positivo o negativo, eventualmente accompagnato da un commento se l'utente ha sbloccato l'apposito obiettivo.
+\\
+\section{Analisi ed estrazione dei concetti}
+La descrizione fornisce una accurata descrizione delle entità chiave, tuttavia è abbastanza ambigua su come gli obiettivi
+\begin{table}[h!]
+    \centering
+    \begin{tabular}{ |c|c|c|c| }
+        \hline
+        \scriptsize{\textbf{Nome}} & \scriptsize{\textbf{Tipologia}} & \scriptsize{\textbf{Gerarchia}} \\
+        \hline
+        \scriptsize{Utente} & \scriptsize{Entità} & \scriptsize{-} \\
+        \hline
+        \scriptsize{Obiettivo} & \scriptsize{Entità} & \scriptsize{-} \\
+        \hline
+        \scriptsize{Ricetta} & \scriptsize{Entità} & \scriptsize{-} \\
+        \hline
+        \scriptsize{Ingrediente} & \scriptsize{Entità} & \scriptsize{-} \\
+        \hline
+        \scriptsize{Collezione} & \scriptsize{Entità genitore} & \scriptsize{Dieta} \\
+        \hline
+        \scriptsize{Dieta} & \scriptsize{Entità figlio} & \scriptsize{Collezione} \\
+        \hline
+        \scriptsize{Valutazione} & \scriptsize{Entità genitore} & \scriptsize{Critica} \\
+        \hline
+        \scriptsize{Critica} & \scriptsize{Entità figlio} & \scriptsize{Valutazione} \\
+        \hline
+        \scriptsize{Valore nutrizionale} & \scriptsize{Entità minore} & \scriptsize{-} \\
+        \hline
+        \scriptsize{Categoria nutrizionale} & \scriptsize{Entità} & \scriptsize{-} \\
+        \hline
+    \end{tabular}
+\end{table}
 
 \chapter{Progettazione concettuale}
 Per la progettazione concettuale abbiamo considerato diverse cose,
