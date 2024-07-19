@@ -18,7 +18,7 @@
                 <Border x:Name="ImageBorder" StrokeShape="RoundRectangle 10" StrokeThickness="0">
                     <VerticalStackLayout>
                         <controls:ImageBlob x:Name="Image" Aspect="AspectFill" BackgroundColor="{StaticResource Palette2}" HeightRequest="250" />
-                        <ImageButton Source="like.png" HeightRequest="50" BackgroundColor="{StaticResource Palette5}" CornerRadius="0" Clicked="AddToFavorites" />
+                        <ImageButton x:Name="LikeButton" HeightRequest="50" CornerRadius="0" Clicked="AddToFavorites" />
                     </VerticalStackLayout>
                 </Border>
                 <Border StrokeShape="RoundRectangle 10" StrokeThickness="0" HeightRequest="50">

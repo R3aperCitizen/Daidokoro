@@ -54,10 +54,10 @@
                         </ListView>
                     </Border>
                     <Border StrokeShape="RoundRectangle 10" StrokeThickness="2" Stroke="{StaticResource Palette2}">
-                        <Entry x:Name="Peso" Placeholder="Peso in grammi" PlaceholderColor="{StaticResource Palette2}" TextColor="{StaticResource Palette2}" />
-                    </Border>
-                    <Border StrokeShape="RoundRectangle 10" StrokeThickness="0">
-                        <ImageButton Source="add.png" HeightRequest="50" BackgroundColor="{StaticResource Palette2}" Clicked="AddIngredient" />
+                        <VerticalStackLayout HeightRequest="100">
+                            <Entry x:Name="Peso" Placeholder="Peso in grammi" HeightRequest="50" PlaceholderColor="{StaticResource Palette2}" TextColor="{StaticResource Palette2}" />
+                            <ImageButton Source="add.png" HeightRequest="50" BackgroundColor="{StaticResource Palette2}" Clicked="AddIngredient" />
+                        </VerticalStackLayout>
                     </Border>
                     <Border StrokeShape="RoundRectangle 10" StrokeThickness="0" BackgroundColor="{StaticResource Palette2}" Padding="15">
                         <Label x:Name="Ingredienti" Text="Lista degli ingredienti:" TextColor="{StaticResource Palette3}" />

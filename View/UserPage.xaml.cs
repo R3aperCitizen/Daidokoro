@@ -1,7 +1,4 @@
-using CommunityToolkit.Maui.Views;
-using Daidokoro.View.Controls;
 using Daidokoro.ViewModel;
-using Microsoft.Maui.Devices;
 
 namespace Daidokoro.View;
 
@@ -16,7 +13,7 @@ public partial class UserPage : ContentPage
         _globals = globals;
 
         var displayInfo = DeviceDisplay.MainDisplayInfo;
-        MainScroll.HeightRequest = (displayInfo.Height / displayInfo.Density) - 600;
+        MainScroll.HeightRequest = (displayInfo.Height / displayInfo.Density) - 150;
     }
 
     protected async override void OnAppearing()
@@ -32,18 +29,28 @@ public partial class UserPage : ContentPage
     {
         int userId = await _globals.GetCurrentUserId();
         recipes.AsyncSource = _globals.GetLikedRecipes(userId);
+        switchView.Index = 0;
     }
 
     private async void ReviewsInfoButton_Clicked(object sender, EventArgs e)
     {
         int userId = await _globals.GetCurrentUserId();
         recipes.AsyncSource = _globals.GetReviewedRecipes(userId);
+        switchView.Index = 0;
     }
 
     private async void RecipesInfoButton_Clicked(object sender, EventArgs e)
     {
         int userId = await _globals.GetCurrentUserId();
         recipes.AsyncSource = _globals.GetRecipesByUser(userId);
+        switchView.Index = 0;
+    }
+
+    private async void CollectionsInfoButton_Clicked(object sender, EventArgs e)
+    {
+        int userId = await _globals.GetCurrentUserId();
+        collections.AsyncSource = _globals.GetCollectionsByUser(userId);
+        switchView.Index = 1;
     }
 
     private async void GoToRecipeCreationPage(object sender, EventArgs e)

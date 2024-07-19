@@ -8,35 +8,41 @@
 
     <VerticalStackLayout BackgroundColor="{StaticResource Background}">
         <controls:NavigationBar />
-        <VerticalStackLayout Padding="40">
-            <VerticalStackLayout x:DataType="model:Utente" Spacing="10">
-                <VerticalStackLayout Spacing="20">
-                    <Border HeightRequest="150" WidthRequest="150" StrokeShape="Ellipse" StrokeThickness="0">
-                        <controls:ImageBlob BackgroundColor="{StaticResource Palette2}" Aspect="AspectFill" Source="{Binding Foto}"/>
-                    </Border>
-                    <Label TextColor="{StaticResource Palette2}" FontSize="30" HorizontalTextAlignment="Center" Text="{Binding Username}"/>
-                    <Button Text="Logout" BackgroundColor="{StaticResource Palette5}" TextColor="White" FontAttributes="Bold" Clicked="Logout" />
-                </VerticalStackLayout>
-                <BoxView HeightRequest="2" Color="White"/>
-                <HorizontalStackLayout HorizontalOptions="Center" Spacing="20">
-                    <controls:InfoButton InfoText="Ricette" ValueText="{Binding RecipeCount}" Clicked="RecipesInfoButton_Clicked" />
-                    <controls:InfoButton InfoText="Recensioni" ValueText="{Binding ReviewCount}" Clicked="ReviewsInfoButton_Clicked" />
-                    <controls:InfoButton InfoText="Likes" ValueText="{Binding Likes}" Clicked="LikesInfoButton_Clicked" />
-                    <controls:InfoButton InfoText="Obiettivi" ValueText="{Binding AchievementsCount}" Clicked="GoToAchievementPage" />
-                </HorizontalStackLayout>
-                <BoxView HeightRequest="2" Color="White"/>
-            </VerticalStackLayout>
-            <VerticalStackLayout Margin="0,10,0,0">
-                <HorizontalStackLayout HorizontalOptions="Center" Spacing="15">
-                    <Button WidthRequest="150" Text="Crea Ricetta" BackgroundColor="#e69d29" TextColor="White" FontAttributes="Bold" Clicked="GoToRecipeCreationPage" />
-                    <Button WidthRequest="150" Text="Crea Collezione" BackgroundColor="#82cf4e" TextColor="White" FontAttributes="Bold" Clicked="GoToCollectionCreationPage" />
-                </HorizontalStackLayout>
-                <ScrollView x:Name="MainScroll">
-                    <VerticalStackLayout>
-                        <controls:RecipeMinimalList x:Name="recipes"/>
+        <ScrollView x:Name="MainScroll">
+            <VerticalStackLayout Padding="40">
+                <VerticalStackLayout x:DataType="model:Utente" Spacing="10">
+                    <VerticalStackLayout Spacing="20">
+                        <Border HeightRequest="150" WidthRequest="150" StrokeShape="Ellipse" StrokeThickness="0">
+                            <controls:ImageBlob BackgroundColor="{StaticResource Palette2}" Aspect="AspectFill" Source="{Binding Foto}"/>
+                        </Border>
+                        <Label TextColor="{StaticResource Palette2}" FontSize="30" HorizontalTextAlignment="Center" Text="{Binding Username}"/>
+                        <Button Text="Logout" BackgroundColor="{StaticResource Palette5}" TextColor="White" FontAttributes="Bold" Clicked="Logout" />
                     </VerticalStackLayout>
-                </ScrollView>
+                    <BoxView HeightRequest="2" Color="White"/>
+                    <HorizontalStackLayout HorizontalOptions="Center" Spacing="50">
+                        <controls:InfoButton InfoText="Ricette" ValueText="{Binding RecipeCount}" Clicked="RecipesInfoButton_Clicked" />
+                        <controls:InfoButton InfoText="Collezioni" ValueText="{Binding CollectionCount}" Clicked="CollectionsInfoButton_Clicked" />
+                    </HorizontalStackLayout>
+                    <HorizontalStackLayout HorizontalOptions="Center" Spacing="50">
+                        <controls:InfoButton InfoText="Likes" ValueText="{Binding Likes}" Clicked="LikesInfoButton_Clicked" />
+                        <controls:InfoButton InfoText="Recensioni" ValueText="{Binding ReviewCount}" Clicked="ReviewsInfoButton_Clicked" />
+                        <controls:InfoButton InfoText="Obiettivi" ValueText="{Binding AchievementsCount}" Clicked="GoToAchievementPage" />
+                    </HorizontalStackLayout>
+                    <BoxView HeightRequest="2" Color="White"/>
+                </VerticalStackLayout>
+                <VerticalStackLayout Margin="0,10,0,0">
+                    <HorizontalStackLayout HorizontalOptions="Center" Spacing="15">
+                        <Button WidthRequest="150" Text="Crea Ricetta" BackgroundColor="#e69d29" TextColor="White" FontAttributes="Bold" Clicked="GoToRecipeCreationPage" />
+                        <Button WidthRequest="150" Text="Crea Collezione" BackgroundColor="#82cf4e" TextColor="White" FontAttributes="Bold" Clicked="GoToCollectionCreationPage" />
+                    </HorizontalStackLayout>
+                    <VerticalStackLayout>
+                        <controls:SwitchView x:Name="switchView">
+                            <controls:RecipeMinimalList x:Name="recipes" />
+                            <controls:CollectionMinimalList x:Name="collections" />
+                        </controls:SwitchView>
+                    </VerticalStackLayout>
+                </VerticalStackLayout>
             </VerticalStackLayout>
-        </VerticalStackLayout>
+        </ScrollView>
     </VerticalStackLayout>
 </ContentPage>

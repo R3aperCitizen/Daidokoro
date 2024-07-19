@@ -10,9 +10,10 @@
         public int Esperienza {  get; set; }
         public int Livello { get; set; }
         
+        public long RecipeCount {  get; set; }
+        public long CollectionCount { get; set; }
         public long Likes { get; set; }
         public long ReviewCount {  get; set; }
-        public long RecipeCount {  get; set; }
         public long AchievementsCount { get; set; }
     }
 }

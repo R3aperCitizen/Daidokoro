@@ -17,28 +17,28 @@
                 <Border StrokeShape="RoundRectangle 10" StrokeThickness="2" Stroke="{StaticResource Palette2}">
                     <Entry x:Name="Descrizione" HorizontalOptions="FillAndExpand" Placeholder="Inserisci la descrizione" PlaceholderColor="{StaticResource Palette2}" TextColor="{StaticResource Palette2}" />
                 </Border>
-                <HorizontalStackLayout HorizontalOptions="Fill">
+                <HorizontalStackLayout>
                     <Label Text="Dieta:" FontSize="15" TextColor="{StaticResource Palette2}" VerticalTextAlignment="Center" />
                     <CheckBox x:Name="IsDieta" CheckedChanged="IsDiet" Color="{StaticResource Palette2}" />
                     <Border StrokeShape="RoundRectangle 10" StrokeThickness="2" Stroke="{StaticResource Palette2}">
-                        <Picker x:Name="CategoriesPicker" x:DataType="model:CategoriaNutrizionale" ItemDisplayBinding="{Binding Nome}" TextColor="{StaticResource Palette2}" FontAttributes="Bold" SelectedIndexChanged="SetCategoria" />
+                        <Picker x:Name="CategoriesPicker" x:DataType="model:CategoriaNutrizionale" ItemDisplayBinding="{Binding Nome}" TextColor="{StaticResource Palette2}" FontAttributes="Bold" WidthRequest="200" SelectedIndexChanged="SetCategoria" />
                     </Border>
                 </HorizontalStackLayout>
                 <VerticalStackLayout Spacing="20">
                     <Border StrokeShape="RoundRectangle 10" StrokeThickness="0">
                         <SearchBar x:Name="SearchBar" Placeholder="Cerca Ricette da aggiungere..." BackgroundColor="{StaticResource Palette2}" PlaceholderColor="{StaticResource Palette3}" TextColor="{StaticResource Palette3}" TextChanged="SearchBar_TextChanged" />
                     </Border>
-                    <Border StrokeShape="RoundRectangle 10" StrokeThickness="2" Stroke="{StaticResource Palette2}" HeightRequest="150">
-                        <ListView x:Name="RecipesListView">
-                            <ListView.ItemTemplate>
-                                <DataTemplate x:DataType="model:Ricetta">
-                                    <TextCell Text="{Binding Nome}" TextColor="{StaticResource Palette2}" />
-                                </DataTemplate>
-                            </ListView.ItemTemplate>
-                        </ListView>
-                    </Border>
-                    <Border StrokeShape="RoundRectangle 10" StrokeThickness="0">
-                        <ImageButton Source="add.png" HeightRequest="50" BackgroundColor="{StaticResource Palette2}" Clicked="AddRecipe" />
+                    <Border StrokeShape="RoundRectangle 10" StrokeThickness="2" Stroke="{StaticResource Palette2}" HeightRequest="200">
+                        <VerticalStackLayout>
+                            <ListView x:Name="RecipesListView" HeightRequest="150">
+                                <ListView.ItemTemplate>
+                                    <DataTemplate x:DataType="model:Ricetta">
+                                        <TextCell Text="{Binding Nome}" TextColor="{StaticResource Palette2}" />
+                                    </DataTemplate>
+                                </ListView.ItemTemplate>
+                            </ListView>
+                            <ImageButton Source="add.png" HeightRequest="50" BackgroundColor="{StaticResource Palette2}" Clicked="AddRecipe" />
+                        </VerticalStackLayout>
                     </Border>
                     <ScrollView>
                         <VerticalStackLayout Spacing="25">

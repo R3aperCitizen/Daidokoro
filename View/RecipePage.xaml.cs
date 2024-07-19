@@ -168,7 +168,7 @@ public partial class RecipePage : ContentPage
         return formattedPassaggi;
     }
 
-    private void SetBehaviours()
+    private async void SetBehaviours()
     {
         var screenHeight = _displayInfo.Height;
         var screenWidth = _displayInfo.Width;
@@ -176,6 +176,14 @@ public partial class RecipePage : ContentPage
 
         MainScroll.HeightRequest = (screenHeight / screenDensity) - 150;
         ImageBorder.WidthRequest = (screenWidth / screenDensity) - (MainVSL.Padding.Right + MainVSL.Padding.Left);
+
+        RefreshHearth(await _globals.IsRecipeLikedByUser(ricetta.IdRicetta));
+    }
+
+    private void RefreshHearth(bool isLiked)
+    {
+        LikeButton.Source = isLiked ? "like_red.png" : "like_white.png";
+        LikeButton.BackgroundColor = isLiked ? Colors.White : Color.FromRgb(247, 108, 94);
     }
 
     private async Task RefreshAll()
@@ -186,6 +194,6 @@ public partial class RecipePage : ContentPage
 
     private async void AddToFavorites(object sender, EventArgs e)
     {
-        await _globals.AddOrRemoveRecipeFromLiked(ricetta.IdRicetta);
+        RefreshHearth(await _globals.AddOrRemoveRecipeFromLiked(ricetta.IdRicetta));
     }
 }
