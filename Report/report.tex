@@ -8,6 +8,7 @@
 \usepackage[italian]{cleveref}
 \usepackage{xcolor}
 \usepackage[dvipsnames]{xcolor}
+\usepackage{array}
 \title{Relazione su "Daidokoro" \\ Elaborato per il corso di Basi di Dati}
 
 \author
@@ -153,7 +154,27 @@ ma non disponibile immediatamente, abbiamo optato per una gerarchia.
 \chapter{Progettazione logica}
 capitolo logica
 \section{Volume dei dati}
-Secondo sottocapitolo
+\begingroup
+\renewcommand{\arraystretch}{1.5}  % Adjust row padding for this table only
+\setlength{\tabcolsep}{10pt}       % Adjust column padding for this table only
+\begin{table}[h!]
+    \centering   
+    \begin{tabular}{|>{\hspace{10pt}}c<{\hspace{10pt}}|>{\hspace{10pt}}c<{\hspace{10pt}}|>{\hspace{10pt}}c<{\hspace{10pt}}|}
+        \hline
+        Concetto  & Costrutto  & Volume \\
+        \hline
+        Utente   & Data 2   & Data 3   \\
+        Aggungere   & Data 5   & Data 6   \\
+        Valutazione   & Data 8   & Data 9   \\
+        Ottenere 
+        Obiettivo
+
+        \hline
+    \end{tabular}  
+\end{table}
+\endgroup
+\begingroup
+
 \section{Operazioni principali e frequenza}
 Secondo sottocapitolo
 \section{Tabelle degli accessi}
