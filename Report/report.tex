@@ -296,19 +296,106 @@ Infine si hanno i pulsanti per la creazione di ricette e collezioni e una lista 
     \includegraphics[width=0.5\linewidth]{app_images/CollectionCreation.jpg}
 \end{figure}
 \\\\\\\\\\\\Tutti i metodi che eseguono delle query sono contenuti dentro la classe MainViewModel che a sua volta utilizza un instanza globale di DBService per eseguire le query.
+\section{Elenco delle query utilizzate}
+\subsection{Query di selezione}
 \begin{table}[h!]
     \centering
     \begin{tabular}{ |p{3in}|p{2in}| }
         \hline
         \scriptsize{\textbf{Nome}} & \scriptsize{\textbf{Operazione}} \\
         \hline
-        \scriptsize{GetIngredients(int IdRicetta)} & \scriptsize{Restituisce tutti gli ingredienti appartenenti alla ricetta dell'id dato} \\
+        \scriptsize{GetIngredients(int IdRicetta)} & \scriptsize{Restituisce tutti gli ingredienti appartenenti alla ricetta dell'ID dato} \\
         \hline
         \scriptsize{GetRecipes()} & \scriptsize{Restituisce le prime 10 ricette dotate del numero di like} \\
         \hline
-        \scriptsize{GetRecipesByCollection(int IdCollezione)} & \scriptsize{Restituisce tutte le ricette appartenti alla collezione dell'id dato} \\
+        \scriptsize{GetRecipesByCollection(int IdCollezione)} & \scriptsize{Restituisce tutte le ricette appartenti alla collezione dell'ID dato} \\
         \hline
         \scriptsize{GetRecipesByDifficulty(int difficulty, string orderby)} & \scriptsize{Restituisce tutte le ricette con una data difficoltà e ordinate con il dato ordinamento} \\
+        \hline
+        \scriptsize{GetRecipesByTime(int time, string orderby)} & \scriptsize{Restituisce tutte le ricette con una dato tempo di preparazione e ordinate con il dato ordinamento} \\
+        \hline
+        \scriptsize{GetRecipesByUser(int userID)} & \scriptsize{Restituisce tutte le ricette appartenenti ad un dato utente} \\
+        \hline
+        \scriptsize{GetLikedRecipes(int userID)} & \scriptsize{Restituisce tutte le ricette aggiunte ai preferiti da un dato utente} \\
+        \hline
+        \scriptsize{GetReviewedRecipes(int userID)} & \scriptsize{Restituisce tutte le ricette valutate da un dato utente} \\
+        \hline
+        \scriptsize{GetRecipeById(int IdRicetta)} & \scriptsize{Restituisce la ricetta con il dato ID} \\
+        \hline
+        \scriptsize{GetCollectionById(int IdCollezione)} & \scriptsize{Restituisce la collezione con il dato ID compresa del nome della categoria nutrizionale a cui appartiene} \\
+        \hline
+        \scriptsize{GetCollectionsByUser(int userID)} & \scriptsize{Restituisce tutte le collezioni appartenenti ad un dato utente} \\
+        \hline
+        \scriptsize{GetCollectionsOrDiets(int Dieta)} & \scriptsize{Restituisce tutte le collezioni o diete, in base al parametro passato, comprese del nome della categoria nutrizionale a cui appartengono e della foto della ricetta con identificato meno recente che vi appartiene} \\
+        \hline
+        \scriptsize{GetUserById(int id)} & \scriptsize{Restituisce l'utente con ID dato compreso dei contatori di: ricette preferite, ricette valutate, ricette create, collezioni create e obiettivi ottenuti} \\
+        \hline
+        \scriptsize{GetMonthRecipes()} & \scriptsize{Restituisce le 3 ricette con più like} \\
+        \hline
+    \end{tabular}
+\end{table}
+\begin{table}[h!]
+    \centering
+    \begin{tabular}{ |p{3in}|p{2in}| }
+        \hline
+        \scriptsize{\textbf{Nome}} & \scriptsize{\textbf{Operazione}} \\
+        \hline
+        \scriptsize{GetNutritionalCategories(int IdRicetta)} & \scriptsize{Restituisce tutte le categorie nutrizionali a cui appartengono gli ingredienti di una ricetta} \\
+        \hline
+        \scriptsize{GetUnlockedNutritionalCategories()} & \scriptsize{Restituisce le categorie nutrizionali sbloccate dall'utente attraverso gli obiettivi} \\
+        \hline
+        \scriptsize{GetRatingsCountGroupByVoto(int id, bool isRecipe)} & \scriptsize{Restituisce il numero di voti positivi e negativi di una ricetta o di una collezione} \\
+        \hline
+        \scriptsize{GetRatingsById(int id, bool isRecipe)} & \scriptsize{Restituisce le valutazioni di una ricetta o di una collezione comprese dei nomi degli utenti e delle foto profilo} \\
+        \hline
+        \scriptsize{GetSearchedRecipes(string name, int IdCategoria)} & \scriptsize{Restituisce tutte le ricette con nome simile a quello dato e con tutti gli ingredienti appartenenti alla categoria nutrizionale data} \\
+        \hline
+        \scriptsize{GetSearchedIngredients(string text)} & \scriptsize{Restituisce tutti gli ingredienti con nome simile a quello dato} \\
+        \hline
+        \scriptsize{GetNutritionalCategories()} & \scriptsize{Restituisce tutte le categorie nutrizionali} \\
+        \hline
+        \scriptsize{GetFilteredRecipes(string difficulty, string time, string orderby, string category, string text)} & \scriptsize{Restituisce le ricette filtrate per difficoltà, tempo di preparazione, categoria nutrizionale degli ingredienti, nome e le ordina in base all'ordinamento dato} \\
+        \hline
+        \scriptsize{GetInsertedRecipeId()} & \scriptsize{Restituisce l'ID dell'ultima ricetta inserita dall'utente corrente} \\
+        \hline
+        \scriptsize{GetInsertedCollectionId()} & \scriptsize{Restituisce l'ID dell'ultima collezione inserita dall'utente corrente} \\
+        \hline
+        \scriptsize{CanUserLogin(string email, string password)} & \scriptsize{Restituisce un booleano in base al numero di occorrenze nella tabella utente con email e password pari a quelle date (0 = false)} \\
+        \hline
+        \scriptsize{GetLoggedUserId(string email)} & \scriptsize{Restituisce l'ID dell'utente che ha l'email pari a quella data} \\
+        \hline
+        \scriptsize{CanUserRegister(string email)} & \scriptsize{Restituisce un booleano in base al numero di occorrenze nella tabella utente con email pari a quella data (0 = true)} \\
+        \hline
+        \scriptsize{IsRecipeLikedByUser(int IdRicetta)} & \scriptsize{Restituisce un booleano in base al numero di occorrenze nella tabella likes ID della ricetta pari a quella dato (0 = false)} \\
+        \hline
+        \scriptsize{GetFilteredCollections(string text, string difficulty, string date, string orderby, string recipeNumber, int dieta, string nutritionalCategory)} & \scriptsize{Restituisce le collezioni o diete filtrate per difficoltà, data di creazione, categoria nutrizionale, nome, numero di ricette e le ordina in base all'ordinamento dato} \\
+        \hline
+        \scriptsize{GetObjectives(int IdUtente)} & \scriptsize{Restituisce gli obiettivi dell'utente corrente} \\
+        \hline
+    \end{tabular}
+\end{table}
+\subsection{Query di inserimento, aggiornamento e\\ rimozione}
+\begin{table}[h!]
+    \centering
+    \begin{tabular}{ |p{3in}|p{2in}| }
+        \hline
+        \scriptsize{InsertRating(List〈Tuple〈string, object〉〉 rating, bool isRecipe)} & \scriptsize{Inserisce una valutazione su una ricetta o su una collezione da parte dell'utente corrente. Se l'elemento è già stato valutato e la valutazione da voler inserire è l'opposto di quella corrente, verrà prima eliminata la vecchia valutazione e poi verrà inserita quella attuale} \\
+        \hline
+        \scriptsize{InsertNewRecipe(List〈Tuple〈string, object〉〉 recipe)} & \scriptsize{Inserisce una nuova ricetta da parte dell'utente corrente} \\
+        \hline
+        \scriptsize{InsertRecipeIngredient(List〈Tuple〈string, object〉〉 ingredientRecipe)} & \scriptsize{Collega gli ingredienti ad una ricetta appena creata con i relativi pesi} \\
+        \hline
+        \scriptsize{InsertNewCollection(List〈Tuple〈string, object〉〉 collection)} & \scriptsize{Inserisce una nuova collezione da parte dell'utente corrente} \\
+        \hline
+        \scriptsize{InsertCollectionRecipe(List〈Tuple〈string, object〉〉 recipeCollection)} & \scriptsize{Collega le ricette ad una collezione appena creata} \\
+        \hline
+        \scriptsize{RegisterUser(List<Tuple<string, object>> userData)} & \scriptsize{Inserisce un nuovo utente} \\
+        \hline
+        \scriptsize{InsertReviewIfRatedByUser(int id, string comment, bool isRecipe)} & \scriptsize{Aggiorna, se esistente, una valutazione su una ricetta o su una collezione, inserendo il commento scritto dall'utente corrente} \\
+        \hline
+        \scriptsize{GiveRegisterObjective()} & \scriptsize{Sblocca all'utente che si è appena registrato l'obiettivo iniziale per la registrazione} \\
+        \hline
+        \scriptsize{AddOrRemoveRecipeFromLiked(int IdRicetta)} & \scriptsize{Aggiunge o rimuove dai preferiti dell'utente corrente una ricetta in base allo stato attuale} \\
         \hline
     \end{tabular}
 \end{table}
