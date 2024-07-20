@@ -181,12 +181,10 @@ ma non disponibile immediatamente, abbiamo optato per una gerarchia.
 \chapter{Progettazione logica}
 capitolo logica
 \section{Volume dei dati}
-\begingroup
-\renewcommand{\arraystretch}{1.5}  % Adjust row padding for this table only
-\setlength{\tabcolsep}{10pt}       % Adjust column padding for this table only 
+      
 \begin{table}[H]
 \center
-    \begin{tabular}{|>{\hspace{10pt}}c<{\hspace{10pt}}|>{\hspace{10pt}}c<{\hspace{10pt}}|>{\hspace{10pt}}c<{\hspace{10pt}}|}
+    \begin{tabular}{ |p{1.7in}|p{0.8in}|p{1.4in}| }
         \hline
         Concetto  & Costrutto  & Volume \\
         \hline
@@ -220,11 +218,44 @@ capitolo logica
         \hline
     \end{tabular}  
 \end{table}
-\endgroup
-
 
 \section{Operazioni principali e frequenza}
-Secondo sottocapitolo
+\begin{table}[H]
+    \center
+        \begin{tabular}{ |p{1.7in}|p{0.8in}|p{1.4in}|p{1.4in}| }
+            \hline
+            Operazione  & Frequenza  & Accessi & Accessi-giornalieri\\
+            \hline
+            Aggiunta ricetta   & 20'000   & 1S & 20'000 \\
+            Aggiungere   &  & 1S   \\
+            Valutazione   & E   & 1'000'000    \\
+            Ottenere & R&  1'000'000 \\
+            Obiettivo & E& 20\\
+            Publicare & R& 10'000'000\\
+            Dieta & E& 1'000'000\\
+            Ricetta & E& 10'000'000 \\
+            Valutare\_ricetta & R& 30'000'000\\
+            Valutare\_dieta &R & 7'000'000\\
+            Preferire & R& 30'000'000\\
+            Appartenere & R& 10'000'000\\
+            Utilizzare & R& 60'000'000\\
+            Ingrediente & E& 3'000\\
+            Possedere & R& 3'000\\
+            Valore\_Nutrizionale & E& 3'000\\
+            Comporre & R& 100'000\\
+            Collezione & E& 100'000\\
+            Scrivere & R& 200'000 \\
+            Critica & E& 200'000\\
+            Criticare\_Dieta & R& 80'000 \\
+            Criticare\_Ricetta & R& 300'000\\
+            Riguardare & R& 20\\
+            Categoria\_nutrizionale & E&20 \\
+            Aderire\_dieta & R& 20\\
+            Comporre & R& 100'000\\
+            Contenere & R& 1'000'000\\
+            \hline
+        \end{tabular}  
+    \end{table}
 \section{Tabelle degli accessi}
 Secondo sottocapitolo
 \section{Raffinamento schema}
