@@ -39,6 +39,7 @@ Infine, le \textbf{\textit{valutazioni}} che gli utenti possono lasciare a ricet
 Il testo dei requisiti fornisce una accurata descrizione delle entità chiave, tuttavia è anche abbastanza ambigua sulla gestione dei vincoli generati dagli obiettivi, su dove memorizzare i valori nutrizionali degli ingredienti ed sui vincoli delle diete che accettano solo ricette con ingredienti di una certa categoria nutrizionale.
 \\\\
 Molti dei vincoli funzionali che dipendono dallo sblocco di un obiettivo non sono modellabili nel database e quindi saranno implementati nella programmazione, tuttavia per differenziare tra la valutazione senza commento e quella con il commento, si modifica l'entità valutazione spostando il commento in un suo subset denominato \textbf{\textit{critica}}. I \textbf{\textit{valori nutrizionali}} saranno memorizzati in una tabella separata che avrà una relazione 1 a 1 con la tabella degli ingredienti in modo da separare meglio dati non essenziali che non identificano direttamente l'ingrediente. Infine, le \textbf{\textit{diete}} sono un particolare tipo di collezione e quindi le si trasformano in un subset.
+\subsection{Entità individuate}
 \begin{table}[h!]
     \centering
     \begin{tabular}{ |p{1.2in}|p{1.2in}|p{2.4in}| }
@@ -65,6 +66,15 @@ Molti dei vincoli funzionali che dipendono dallo sblocco di un obiettivo non son
         \hline
         \scriptsize{Categoria nutrizionale} & \scriptsize{Entità} & \scriptsize{Rappresenta le categorie nutrizionali utilizzati negli ingredienti, nelle diete e negli obiettivi} \\
         \hline
+    \end{tabular}
+\end{table}
+\subsection{Relazioni individuate}
+\begin{table}[h!]
+    \centering
+    \begin{tabular}{ |p{1.2in}|p{1.2in}|p{2.4in}| }
+        \hline
+        \scriptsize{\textbf{Nome}} & \scriptsize{\textbf{Tipologia}} & \scriptsize{\textbf{Descrizione}} \\
+        \hline
         \scriptsize{Aggiungere} & \scriptsize{Relazione \newline \textit{Utente - Valutazione}} & \scriptsize{Rappresenta la creazione di una valutazione da parte di un utente} \\
         \hline
         \scriptsize{Pubblicare} & \scriptsize{Relazione \newline \textit{Utente - Dieta}} & \scriptsize{Rappresenta la creazione di una dieta da parte di un utente} \\
@@ -80,7 +90,6 @@ Molti dei vincoli funzionali che dipendono dallo sblocco di un obiettivo non son
         \scriptsize{Utilizzare} & \scriptsize{Relazione \newline \textit{Ricetta - Ingrediente}} & \scriptsize{Rappresenta l'utilizzo di un ingrediente in una ricetta} \\
         \hline
     \end{tabular}
-    \caption{Entità e relazioni principali}
 \end{table}
 
 \chapter{Progettazione concettuale}
