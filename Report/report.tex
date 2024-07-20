@@ -195,6 +195,9 @@ Secondo sottocapitolo
 \textbf{CATEGORIA\_NUTRIZIONALE}(\underline{IdCategoria}, Nome)\\\\
 \textbf{OBIETTIVO}(\underline{IdObiettivo}, Nome, Descrizione, Esperienza, IdCategoria)\\
 FK: IdCategoria REFERENCES \textbf{CATEGORIA\_NUTRIZIONALE}\\\\
+\textbf{OBIETTIVO\_OTTENUTO}(\underline{IdObiettivo}, \underline{IdUtente}, DataCreazione)\\
+FK: IdObiettivo REFERENCES \textbf{OBIETTIVO}\\
+FK: IdUtente REFERENCES \textbf{UTENTE}\\\\
 \textbf{RICETTA}(\underline{IdRicetta}, Nome, Descrizione, Passaggi, Foto, Difficoltà, Tempo, DataCreazione, IdUtente)\\
 FK: IdUtente REFERENCES \textbf{UTENTE}\\\\
 \textbf{COLLEZIONE}(\underline{IdCollezione}, Nome, Descrizione, Dieta, DataCreazione, IdUtente, IdCategoria)\\
@@ -208,8 +211,17 @@ FK: IdIngrediente REFERENCES \textbf{INGREDIENTE}\\\\
 \textbf{RICETTA\_COLLEZIONE}(\underline{IdRicetta}, \underline{IdCollezione})\\
 FK: IdRicetta REFERENCES \textbf{RICETTA}\\
 FK: IdCollezione REFERENCES \textbf{COLLEZIONE}\\\\
-\textbf{RICETTA\_COLLEZIONE}(\underline{IdRicetta}, \underline{IdCollezione})\\
-FK: IdRicetta REFERENCES \textbf{RICETTA}\\
+\textbf{INGREDIENTE\_RICETTA}(\underline{IdIngrediente}, \underline{IdRicetta}, PesoInGrammi)\\
+FK: IdIngrediente REFERENCES \textbf{INGREDIENTE}\\
+FK: IdRicetta REFERENCES \textbf{RICETTA}\\\\
+\textbf{LIKES}(\underline{IdUtente}, \underline{IdRicetta}, Data)\\
+FK: IdUtente REFERENCES \textbf{UTENTE}\\
+FK: IdRicetta REFERENCES \textbf{RICETTA}\\\\
+\textbf{VALUTAZIONE\_RICETTA}(\underline{IdRicetta}, \underline{IdUtente}, Voto,\\ DataValutazione, Commento)\\
+FK: IdUtente REFERENCES \textbf{UTENTE}\\
+FK: IdRicetta REFERENCES \textbf{RICETTA}\\\\
+\textbf{VALUTAZIONE\_COLLEZIONE}(\underline{IdCollezione}, \underline{IdUtente}, Voto,\\ DataValutazione, Commento)\\
+FK: IdUtente REFERENCES \textbf{UTENTE}\\
 FK: IdCollezione REFERENCES \textbf{COLLEZIONE}\\\\
 \section{Schema relazionale finale}
 Secondo sottocapitolo
@@ -343,8 +355,8 @@ Infine si hanno i pulsanti per la creazione di ricette e collezioni e una lista 
     \includegraphics[width=0.5\linewidth]{app_images/CollectionCreation.jpg}
 \end{figure}
 \\\\\\\\\\\\Tutti i metodi che eseguono delle query sono contenuti dentro la classe MainViewModel che a sua volta utilizza un instanza globale di DBService per eseguire le query.
-\section{Elenco delle query utilizzate}
-\subsection{Query di selezione}
+\section{Elenco delle operazioni}
+\subsection{Operazioni di selezione}
 \begin{table}[h!]
     \centering
     \begin{tabular}{ |p{3in}|p{2in}| }
@@ -421,7 +433,7 @@ Infine si hanno i pulsanti per la creazione di ricette e collezioni e una lista 
         \hline
     \end{tabular}
 \end{table}
-\subsection{Query di inserimento, aggiornamento e\\ rimozione}
+\subsection{Operazioni di inserimento, aggiornamento e\\ rimozione}
 \begin{table}[h!]
     \centering
     \begin{tabular}{ |p{3in}|p{2in}| }
