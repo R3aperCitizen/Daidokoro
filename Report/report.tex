@@ -30,13 +30,15 @@ L'utente, dopo aver effettuato l'accesso, potrà osservare le ricette altrui, ag
 L'utente potrà anche pubblicare le proprie \textbf{\textit{ricette}} inserendone il nome, la foto, la descrizione, la difficoltà e il tempo di realizzazione indicativo, oltre agli ingredienti che la compongono ed ai passi necessari a prepararla.
 Gli \textbf{\textit{ingredienti}} sono composti da un nome, una descrizione, dai valori nutrizionali e dalla categoria nutrizionale a cui appartengono.
 Le \textbf{\textit{collezioni}} possiedono un nome, una descrizione, la data di creazione e la lista di ricette che ne fanno parte.
-Ci sono anche le diete, che funzionano come le collezioni, ma differiscono nel fatto che devono aderire ad una categoria nutrizionale specifica, vincolando quindi le ricette che si possono aggiungere.
+Ci sono anche le diete, che funzionano come le collezioni, ma differiscono nel fatto che devono aderire ad una \textbf{\textit{categoria nutrizionale}} specifica, vincolando quindi le ricette che si possono aggiungere.
 Infine, le \textbf{\textit{valutazioni}} che gli utenti possono lasciare a ricette, collezioni o diete, consistono in un voto positivo o negativo, eventualmente accompagnato da un commento se l'utente ha sbloccato l'apposito obiettivo.
 \\
 \section{Analisi ed estrazione dei concetti}
-Il testo dei requisiti fornisce una accurata descrizione delle entità chiave, tuttavia è anche abbastanza ambigua sulla gestione dei vincoli generati dagli obiettivi, su dove memorizzare i valori nutrizionali degli ingredienti ed sui vincoli delle diete che accettano solo ricette con ingredienti di una certa categoria nutrizionale.
+Il testo dei requisiti fornisce una accurata descrizione delle entità chiave, tuttavia è anche abbastanza ambiguo sulla gestione dei vincoli generati dagli obiettivi, su dove memorizzare i valori nutrizionali degli ingredienti ed sui vincoli delle diete che accettano solo ricette con ingredienti di una certa categoria nutrizionale.
 \\\\
-Molti dei vincoli funzionali che dipendono dallo sblocco di un obiettivo non sono modellabili nel database e quindi saranno implementati nella programmazione, tuttavia per differenziare tra la valutazione senza commento e quella con il commento, si modifica l'entità valutazione spostando il commento in un suo subset denominato \textbf{\textit{critica}}. I \textbf{\textit{valori nutrizionali}} saranno memorizzati in una tabella separata che avrà una relazione 1 a 1 con la tabella degli ingredienti in modo da separare meglio dati non essenziali che non identificano direttamente l'ingrediente. Infine, le \textbf{\textit{diete}} sono un particolare tipo di collezione e quindi le si trasformano in un subset.
+Molti dei vincoli funzionali che dipendono dallo sblocco di un obiettivo non sono modellabili nel database e quindi saranno implementati nella programmazione, tuttavia per differenziare tra la valutazione senza commento e quella con il commento, si modifica l'entità valutazione spostando il commento in un suo subset denominato 
+\textbf{\textit{critica}}. I \textbf{\textit{valori nutrizionali}} saranno memorizzati in una tabella separata che avrà una relazione 1 a 1 con la tabella degli ingredienti in modo da separare meglio dati non essenziali che non identificano direttamente l'ingrediente. Infine, le 
+\textbf{\textit{diete}} sono un particolare tipo di collezione e quindi vengono trasformate in un subset.
 \subsection{Entità individuate}
 \begin{table}[h!]
     \centering
@@ -203,6 +205,9 @@ FK: IdCategoria REFERENCES \textbf{CATEGORIA\_NUTRIZIONALE}\\
 FK: IdValoreNutrizionale REFERENCES \textbf{VALORE\_NUTRIZIONALE}\\\\
 \textbf{VALORE\_NUTRIZIONALE}(\underline{IdValoreNutrizionale}, Calorie, Grassi,\\ Grassi\_Saturi, Carboidrati, Zucchero, Fibre, Proteine, Sale, IdIngrediente)\\
 FK: IdIngrediente REFERENCES \textbf{INGREDIENTE}\\\\
+\textbf{RICETTA\_COLLEZIONE}(\underline{IdRicetta}, \underline{IdCollezione})\\
+FK: IdRicetta REFERENCES \textbf{RICETTA}\\
+FK: IdCollezione REFERENCES \textbf{COLLEZIONE}\\\\
 \textbf{RICETTA\_COLLEZIONE}(\underline{IdRicetta}, \underline{IdCollezione})\\
 FK: IdRicetta REFERENCES \textbf{RICETTA}\\
 FK: IdCollezione REFERENCES \textbf{COLLEZIONE}\\\\
