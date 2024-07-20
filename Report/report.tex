@@ -71,7 +71,7 @@ Molti dei vincoli funzionali che dipendono dallo sblocco di un obiettivo non son
 \subsection{Relazioni individuate}
 \begin{table}[h!]
     \centering
-    \begin{tabular}{ |p{1.2in}|p{1.2in}|p{2.4in}| }
+    \begin{tabular}{ |p{0.7in}|p{1.9in}|p{2.4in}| }
         \hline
         \scriptsize{\textbf{Nome}} & \scriptsize{\textbf{Tipologia}} & \scriptsize{\textbf{Descrizione}} \\
         \hline
@@ -88,6 +88,14 @@ Molti dei vincoli funzionali che dipendono dallo sblocco di un obiettivo non son
         \scriptsize{Valutare} & \scriptsize{Relazione \newline \textit{Valutazione - Ricetta}} & \scriptsize{Rappresenta il collegamento tra una valutazione e la ricetta che valuta} \\
         \hline
         \scriptsize{Utilizzare} & \scriptsize{Relazione \newline \textit{Ricetta - Ingrediente}} & \scriptsize{Rappresenta l'utilizzo di un ingrediente in una ricetta} \\
+        \hline
+        \scriptsize{Sbloccare} & \scriptsize{Relazione \newline \textit{Utente - Obiettivo}} & \scriptsize{Rappresenta gli obiettivi sbloccati da un utente} \\
+        \hline
+        \scriptsize{Dipendere} & \scriptsize{Relazione \newline \textit{Obiettivo - Categoria nutrizionale}} & \scriptsize{Rappresenta la dipendenza tra l'obiettivo e la categoria nutrizionale} \\
+        \hline
+        \scriptsize{Vincolare} & \scriptsize{Relazione \newline \textit{Categoria nutrizionale - Dieta}} & \scriptsize{Rappresenta il vincolo della dieta di poter inserire solo ricette con ingredienti compatibili} \\
+        \hline
+        \scriptsize{Descrivere} & \scriptsize{Relazione \newline \textit{Categoria nutrizionale - Ingrediente}} & \scriptsize{Rappresenta la caratterizzazione di un ingrediente con delle categorie nutrizionali} \\
         \hline
     \end{tabular}
 \end{table}
