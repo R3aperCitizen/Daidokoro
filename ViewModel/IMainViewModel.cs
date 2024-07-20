@@ -26,7 +26,7 @@ namespace Daidokoro.ViewModel
         Task<List<Collezione>> GetCollectionsByUser(int userID);
         Task<List<Utente>> GetUserById(int id);
         Task<List<Ricetta>> GetMonthRecipes();
-        Task<List<Ricetta>> GetSearchedRecipes(string name, int IdCategoria);
+        Task<List<Ricetta>> GetSearchedRecipes(string name, bool isDiet, int IdCategoria);
         Task<List<Ricetta>> GetFilteredRecipes(string difficulty, string time, string orderby, string categories, string searchBarText);
         Task<List<Ingrediente>> GetSearchedIngredients(string text);
         Task<List<CategoriaNutrizionale>> GetNutritionalCategories();

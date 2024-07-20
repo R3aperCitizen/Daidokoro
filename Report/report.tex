@@ -259,7 +259,21 @@ capitolo logica
 \section{Tabelle degli accessi}
 Secondo sottocapitolo
 \section{Raffinamento schema}
-Secondo sottocapitolo
+\subsection{Eliminazione delle gerarchie}
+Nello schema E/R sono presenti 2 gerarchie da eliminare.\\
+Per la gerarchia COLLEZIONE(t, e), si decide di adottare come soluzione il collasso verso l'alto.
+Abbiamo, quindi, aggiunto un attributo, di tipo booleano, Dieta che indica se si tratta di una semplice collezione o di una dieta.
+La scelta è motivata dal fatto che le associazioni APPARTENERE e CONTENERE tra COLLEZIONE/DIETA e RICETTA sono del tipo 1-N, quindi si preferisce avere
+un'unica tabella che contiene tutte le collezioni piuttosto che due tabelle divise che non avrebbero alcuna utilità, poiché gli accessi all'entità padre e alle entità figlie sono contestuali.\\
+\begin{figure}[h!]
+    \centering
+    \includegraphics[width=0.5\linewidth]{app_images/gerarchia_collezione.png}
+\end{figure}
+\\Anche per la gerarchia VALUTAZIONE(t, e) si adotta la stessa soluzione, ma si aggiunge un attributo Commento che rende la valutazione una critica quando non è vuoto.\\
+\begin{figure}[h!]
+    \centering
+    \includegraphics[width=0.5\linewidth]{app_images/gerarchia_collezione.png}
+\end{figure}
 \section{Analisi rindondanze}
 Secondo sottocapitolo
 \section{Traduzione di entità e relazioni\\ in associazioni}

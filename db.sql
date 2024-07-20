@@ -56,9 +56,7 @@ CREATE TABLE IF NOT EXISTS ingrediente(
     Nome VARCHAR(50) NOT NULL,
     Descrizione VARCHAR(255) NOT NULL,
     IdValoreNutrizionale INT NULL,
-    IdCategoria INT NOT NULL,
-    PRIMARY KEY (IdIngrediente),
-    FOREIGN KEY (IdCategoria) REFERENCES categoria_nutrizionale(IdCategoria)
+    PRIMARY KEY (IdIngrediente)
 )AUTO_INCREMENT=1;
 
 CREATE TABLE IF NOT EXISTS ricetta(
@@ -112,6 +110,14 @@ CREATE TABLE IF NOT EXISTS ricetta_collezione(
     FOREIGN KEY (IdRicetta) REFERENCES ricetta(IdRicetta),
     FOREIGN KEY (IdCollezione) REFERENCES collezione(IdCollezione),
     PRIMARY KEY (IdRicetta, IdCollezione)
+);
+
+CREATE TABLE IF NOT EXISTS ingrediente_categoria (
+	IdIngrediente INT NOT NULL,
+	IdCategoria INT NOT NULL,
+	PRIMARY KEY (IdIngrediente, IdCategoria),
+	FOREIGN KEY (IdIngrediente) REFERENCES ingrediente(IdIngrediente),
+	FOREIGN KEY (IdCategoria) REFERENCES categoria_nutrizionale(IdCategoria)
 );
 
 CREATE TABLE IF NOT EXISTS valutazione_ricetta(

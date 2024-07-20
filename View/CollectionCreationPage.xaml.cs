@@ -34,10 +34,7 @@ public partial class CollectionCreationPage : ContentPage
         RecipesListView.ItemsSource = null;
         ricetteCollezioni = new();
         ricette = new();
-        categoria = new Model.CategoriaNutrizionale()
-        {
-            IdCategoria = 1
-        };
+        categoria = new Model.CategoriaNutrizionale(){ IdCategoria = 1 };
         IdCollezione = 0;
     }
 
@@ -107,15 +104,16 @@ public partial class CollectionCreationPage : ContentPage
         }
         else
         {
-            categoria = new();
+            categoria = new Model.CategoriaNutrizionale() { IdCategoria = 1 };
         }
+        RecipesList.Source = null!;
     }
 
     private async void SearchBar_TextChanged(object sender, TextChangedEventArgs e)
     {
         if (SearchBar.Text != null && SearchBar.Text != string.Empty)
         {
-            RecipesListView.ItemsSource = await _globals.GetSearchedRecipes(SearchBar.Text.ToLower(), categoria.IdCategoria);
+            RecipesListView.ItemsSource = await _globals.GetSearchedRecipes(SearchBar.Text.ToLower(), IsDieta.IsChecked, categoria.IdCategoria);
         }
     }
 

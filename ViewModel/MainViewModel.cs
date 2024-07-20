@@ -219,22 +219,32 @@ namespace Daidokoro.ViewModel
             );
         }
 
-        public async Task<List<Ricetta>> GetSearchedRecipes(string name, int IdCategoria)
+        public async Task<List<Ricetta>> GetSearchedRecipes(string name, bool isDiet, int IdCategoria)
         {
-            return await _dbService.GetData<Ricetta>(
-                $"WITH v1(IdRicetta,Nome,Descrizione,Passaggi,Foto,Difficolta,Tempo,DataCreazione,IdUtente,NumeroLike) AS(\r\n" +
-                $"SELECT ricetta.*, COUNT(likes.IdRicetta) AS NumeroLike\r\n" +
-                $"FROM ricetta\r\n" +
-                $"LEFT JOIN likes ON likes.IdRicetta = ricetta.IdRicetta\r\n" +
-                $"GROUP BY ricetta.IdRicetta)\r\n" +
-                $"SELECT DISTINCT v1.*\r\n" +
-                $"FROM v1\r\n" +
-                $"JOIN ingrediente_ricetta ON ingrediente_ricetta.IdRicetta=v1.IdRicetta\r\n" +
-                $"JOIN ingrediente ON ingrediente.IdIngrediente=ingrediente_ricetta.IdIngrediente\r\n" +
-                $"WHERE v1.Nome LIKE \"%{name}%\"\r\n" +
-                $"AND ingrediente.IdIngrediente IN (\r\n" +
-                $"SELECT IdIngrediente FROM ingrediente WHERE IdCategoria = {IdCategoria});"
-            );
+            string query = $"WITH v1(IdRicetta,Nome,Descrizione,Passaggi,Foto,Difficolta,Tempo,DataCreazione,IdUtente,NumeroLike) AS(\r\n" +
+                        $"SELECT ricetta.*, COUNT(likes.IdRicetta) AS NumeroLike\r\n" +
+                        $"FROM ricetta\r\n" +
+                        $"LEFT JOIN likes ON likes.IdRicetta = ricetta.IdRicetta\r\n" +
+                        $"GROUP BY ricetta.IdRicetta)\r\n" +
+                        $"SELECT DISTINCT v1.*\r\n" +
+                        $"FROM v1\r\n" +
+                        $"JOIN ingrediente_ricetta ON ingrediente_ricetta.IdRicetta=v1.IdRicetta\r\n" +
+                        $"JOIN ingrediente ON ingrediente.IdIngrediente=ingrediente_ricetta.IdIngrediente\r\n" +
+                        $"WHERE v1.Nome LIKE \"%{name}%\"\r\n" +
+                        $"AND ingrediente.IdIngrediente IN (\r\n" +
+                        $"SELECT ingrediente.IdIngrediente\r\n" +
+                        $"FROM ingrediente\r\n" +
+                        $"JOIN ingrediente_categoria ON ingrediente_categoria.IdIngrediente=ingrediente.IdIngrediente\r\n" +
+                        $"WHERE IdCategoria = {IdCategoria})\r\n";
+            if (isDiet)
+            {
+                query += $"AND ingrediente.IdIngrediente NOT IN (\r\n" +
+                        $"SELECT ingrediente.IdIngrediente\r\n" +
+                        $"FROM ingrediente\r\n" +
+                        $"JOIN ingrediente_categoria ON ingrediente_categoria.IdIngrediente=ingrediente.IdIngrediente\r\n" +
+                        $"WHERE IdCategoria != {IdCategoria});";
+            }
+            return await _dbService.GetData<Ricetta>(query);
         }
 
         public async Task<List<Ingrediente>> GetSearchedIngredients(string text)
@@ -259,8 +269,9 @@ namespace Daidokoro.ViewModel
             return await _dbService.GetData<CategoriaNutrizionale>(
                 $"SELECT DISTINCT categoria_nutrizionale.*\r\n" +
                 $"FROM categoria_nutrizionale\r\n" +
-                $"JOIN ingrediente ON categoria_nutrizionale.IdCategoria = ingrediente.IdCategoria\r\n" +
-                $"JOIN ingrediente_ricetta ON ingrediente_ricetta.IdIngrediente = ingrediente.IdIngrediente\r\n" +
+                $"JOIN ingrediente_categoria ON categoria_nutrizionale.IdCategoria = ingrediente_categoria.IdCategoria\r\n" +
+                $"JOIN ingrediente ON ingrediente_categoria.IdIngrediente = ingrediente.IdIngrediente\r\n" +
+                $"JOIN ingrediente_ricetta ON ingrediente_ricetta.IdIngrediente = ingrediente.IdIngrediente\r\n" + 
                 $"WHERE ingrediente_ricetta.IdRicetta = {IdRicetta};"
             );
         }
@@ -379,7 +390,8 @@ namespace Daidokoro.ViewModel
                     $"FROM v3\r\n" +
                     $"JOIN ingrediente_ricetta ON ingrediente_ricetta.IdRicetta = v3.IdRicetta\r\n" +
                     $"JOIN ingrediente ON ingrediente_ricetta.IdIngrediente = ingrediente.IdIngrediente\r\n" +
-                    $"JOIN categoria_nutrizionale ON ingrediente.IdCategoria=categoria_nutrizionale.IdCategoria\r\n" +
+                    $"JOIN ingrediente_categoria ON ingrediente.IdIngrediente = ingrediente_categoria.IdIngrediente\r\n" +
+                    $"JOIN categoria_nutrizionale ON categoria_nutrizionale.IdCategoria = ingrediente_categoria.IdCategoria\r\n" +
                     $"WHERE LOWER(categoria_nutrizionale.Nome) LIKE \"%{text}%\"\r\n" +
                     $"OR LOWER(ingrediente.Nome) LIKE \"%{text}%\"\r\n" +
                     $"OR LOWER(v3.Nome) LIKE \"%{text}%\"\r\n" +
@@ -422,7 +434,8 @@ namespace Daidokoro.ViewModel
                 query +=
                     $"JOIN ingrediente_ricetta ON ingrediente_ricetta.IdRicetta = v1.IdRicetta\r\n" +
                     $"JOIN ingrediente ON ingrediente.IdIngrediente = ingrediente_ricetta.IdIngrediente\r\n" +
-                    $"JOIN categoria_nutrizionale ON categoria_nutrizionale.IdCategoria = ingrediente.IdCategoria\r\n" +
+                    $"JOIN ingrediente_categoria ON ingrediente.IdIngrediente = ingrediente_categoria.IdIngrediente\r\n" +
+                    $"JOIN categoria_nutrizionale ON categoria_nutrizionale.IdCategoria = ingrediente_categoria.IdCategoria\r\n" +
                     $"WHERE categoria_nutrizionale.Nome IN (\'{category}\')\r\n";
             }
             
@@ -575,7 +588,7 @@ namespace Daidokoro.ViewModel
                     $"FROM collezione\r\n" +
                     $"JOIN categoria_nutrizionale ON categoria_nutrizionale.IdCategoria = collezione.IdCategoria\r\n" +
                     $"WHERE collezione.Dieta = {dieta}\r\n" +
-                    (date == null ? "" : $"AND collezione.DataCreazione = \'{date}\'\r\n") +      
+                    (date == null ? "" : $"AND collezione.DataCreazione = \'{date}\'\r\n") +
                     (nutritionalCategory == null ? "" : $"AND categoria_nutrizionale.Nome = \'{nutritionalCategory}\'\r\n") +
                 $")\r\n" +
                 $"SELECT v1.*, avg(ricetta.Difficolta) AS avDiff, COUNT(ricetta.Difficolta) AS num\r\n" +
