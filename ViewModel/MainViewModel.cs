@@ -599,5 +599,19 @@ namespace Daidokoro.ViewModel
             
             return await dbService.GetData<Collezione>(query);
         }
+
+        public async Task<List<Obiettivo>> GetObjectives(int IdUtente)
+        {
+            return await dbService.GetData<Obiettivo>(
+                $"WITH v1 AS(\r\n" +
+                $"SELECT DISTINCT obiettivo.*, obiettivo_ottenuto.DataOttenimento, obiettivo_ottenuto.IdUtente\r\n" +
+                $"FROM obiettivo\r\n" +
+                $"Left JOIN obiettivo_ottenuto\r\n" +
+                $"ON obiettivo_ottenuto.IdObiettivo = obiettivo.IdObiettivo)\r\n" +
+                $"SELECT v1.*\r\n" +
+                $"FROM v1\r\n" +
+                $"WHERE IdUtente is null OR IdUtente = {IdUtente};"
+            );
+        }
     }
 }

@@ -275,4 +275,21 @@ Infine si hanno i pulsanti per la creazione di ricette e collezioni e una lista 
     \centering
     \includegraphics[width=0.5\linewidth]{app_images/CollectionCreation.jpg}
 \end{figure}
+\\\\\\\\\\\\Tutti i metodi che eseguono delle query sono contenuti dentro la classe MainViewModel che a sua volta utilizza un instanza globale di DBService per eseguire le query.
+\begin{table}[h!]
+    \centering
+    \begin{tabular}{ |p{3in}|p{2in}| }
+        \hline
+        \scriptsize{\textbf{Nome}} & \scriptsize{\textbf{Operazione}} \\
+        \hline
+        \scriptsize{GetIngredients(int IdRicetta)} & \scriptsize{Restituisce tutti gli ingredienti appartenenti alla ricetta dell'id dato} \\
+        \hline
+        \scriptsize{GetRecipes()} & \scriptsize{Restituisce le prime 10 ricette dotate del numero di like} \\
+        \hline
+        \scriptsize{GetRecipesByCollection(int IdCollezione)} & \scriptsize{Restituisce tutte le ricette appartenti alla collezione dell'id dato} \\
+        \hline
+        \scriptsize{GetRecipesByDifficulty(int difficulty, string orderby)} & \scriptsize{Restituisce tutte le ricette con una data difficoltà e ordinate con il dato ordinamento} \\
+        \hline
+    \end{tabular}
+\end{table}
 \end{document}

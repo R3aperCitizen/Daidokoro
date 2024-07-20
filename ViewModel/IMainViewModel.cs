@@ -49,7 +49,8 @@ namespace Daidokoro.ViewModel
         Task GiveRegisterObjective();
         Task<bool> AddOrRemoveRecipeFromLiked(int IdRicetta);
         Task<bool> IsRecipeLikedByUser(int IdRicetta);
-        public Task<List<Collezione>> GetFilteredCollections(string text, string difficulty, string date, string orderby, string recipeNumber, int dieta, string nutritionalCategory);
+        Task<List<Collezione>> GetFilteredCollections(string text, string difficulty, string date, string orderby, string recipeNumber, int dieta, string nutritionalCategory);
+        Task<List<Obiettivo>> GetObjectives(int IdUtente);
 
         public static Dictionary<string, string> RecipeSortings = new()
         {
