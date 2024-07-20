@@ -21,6 +21,7 @@
 \maketitle
 \tableofcontents
 
+
 \chapter{Analisi dei requisiti}
 \section{Requisiti in linguaggio naturale}
 Si vuole realizzare un database a supporto di un social network di ricette, questo dovrà tenere traccia degli \textbf{\textit{utenti}} registrati salvandone il loro username, la foto profilo, l'email, la password ed un codice univoco per identificarli.
@@ -34,32 +35,58 @@ Lo stesso vale per la \textbf{\textit{dieta}}, tuttavia questa deve anche aderir
 Infine, le \textbf{\textit{valutazioni}} che gli utenti possono lasciare a ricette, collezioni o diete, consistono in un voto positivo o negativo, eventualmente accompagnato da un commento se l'utente ha sbloccato l'apposito obiettivo.
 \\
 \section{Analisi ed estrazione dei concetti}
-La descrizione fornisce una accurata descrizione delle entità chiave, tuttavia è abbastanza ambigua su come gli obiettivi
+Il testo dei requisiti fornisce una accurata descrizione delle entità chiave, tuttavia è anche abbastanza ambigua sulla gestione dei vincoli generati dagli obiettivi, su dove memorizzare i valori nutrizionali degli ingredienti ed sui vincoli delle diete che accettano solo ricette con ingredienti di una certa categoria nutrizionale.
+\\\\
+Molti dei vincoli funzionali che dipendono dallo sblocco di un obiettivo non sono modellabili nel database e quindi saranno implementati nella programmazione, tuttavia per differenziare tra la valutazione senza commento e quella con il commento, si modifica l'entità valutazione spostando il commento in un suo subset denominato \textbf{\textit{critica}}. I \textbf{\textit{valori nutrizionali}} saranno memorizzati in una tabella separata che avrà una relazione 1 a 1 con la tabella degli ingredienti in modo da separare meglio dati non essenziali che non identificano direttamente l'ingrediente. Infine, le \textbf{\textit{diete}} sono un particolare tipo di collezione e quindi le si trasformano in un subset.
+\subsection{Entità individuate}
 \begin{table}[h!]
     \centering
     \begin{tabular}{ |c|c|c|c| }
         \hline
         \scriptsize{\textbf{Nome}} & \scriptsize{\textbf{Tipologia}} & \scriptsize{\textbf{Gerarchia}} \\
         \hline
-        \scriptsize{Utente} & \scriptsize{Entità} & \scriptsize{-} \\
+        \scriptsize{Utente} & \scriptsize{Entità} & \scriptsize{Rappresenta gli utenti registrati al social network} \\
         \hline
-        \scriptsize{Obiettivo} & \scriptsize{Entità} & \scriptsize{-} \\
+        \scriptsize{Obiettivo} & \scriptsize{Entità} & \scriptsize{Rappresenta gli obiettivi sbloccabili dagli utenti} \\
         \hline
-        \scriptsize{Ricetta} & \scriptsize{Entità} & \scriptsize{-} \\
+        \scriptsize{Ricetta} & \scriptsize{Entità} & \scriptsize{Rappresenta le ricette pubblicate dagli utenti} \\
         \hline
-        \scriptsize{Ingrediente} & \scriptsize{Entità} & \scriptsize{-} \\
+        \scriptsize{Ingrediente} & \scriptsize{Entità} & \scriptsize{Rappresenta gli ingredienti utilizzabili nelle ricette} \\
         \hline
-        \scriptsize{Collezione} & \scriptsize{Entità genitore} & \scriptsize{Dieta} \\
+        \scriptsize{Valore nutrizionale} & \scriptsize{Entità debole} & \scriptsize{Rappresenta i valori nutrizionali degli ingredienti} \\
         \hline
-        \scriptsize{Dieta} & \scriptsize{Entità figlio} & \scriptsize{Collezione} \\
+        \scriptsize{Collezione} & \scriptsize{Entità} & \scriptsize{Rappresenta le collezioni di ricette create dagli utenti} \\
         \hline
-        \scriptsize{Valutazione} & \scriptsize{Entità genitore} & \scriptsize{Critica} \\
+        \scriptsize{Dieta} & \scriptsize{Entità \newline \textit{Subset di Collezione}} & \scriptsize{Rappresenta le collezioni vincolate dalla categoria nutrizionale} \\
         \hline
-        \scriptsize{Critica} & \scriptsize{Entità figlio} & \scriptsize{Valutazione} \\
+        \scriptsize{Valutazione} & \scriptsize{Entità} & \scriptsize{Rappresenta le valutazioni degli utenti alle ricette, collezioni e diete} \\
         \hline
-        \scriptsize{Valore nutrizionale} & \scriptsize{Entità minore} & \scriptsize{-} \\
+        \scriptsize{Critica} & \scriptsize{Entità \newline \textit{Subset di Valutazione}} & \scriptsize{Rappresenta le valutazioni che possiedono anche un commento} \\
         \hline
-        \scriptsize{Categoria nutrizionale} & \scriptsize{Entità} & \scriptsize{-} \\
+        \scriptsize{Categoria nutrizionale} & \scriptsize{Entità} & \scriptsize{Rappresenta le categorie nutrizionali utilizzati negli ingredienti, nelle diete e negli obiettivi} \\
+        \hline
+    \end{tabular}
+\end{table}
+\subsection{Relazioni individuate}
+\begin{table}[h!]
+    \centering
+    \begin{tabular}{ |p{1.2in}|p{1.2in}|p{2.4in}| }
+        \hline
+        \scriptsize{\textbf{Nome}} & \scriptsize{\textbf{Tipologia}} & \scriptsize{\textbf{Descrizione}} \\
+        \hline
+        \scriptsize{Aggiungere} & \scriptsize{Relazione \newline \textit{Utente - Valutazione}} & \scriptsize{Rappresenta la creazione di una valutazione da parte di un utente} \\
+        \hline
+        \scriptsize{Pubblicare} & \scriptsize{Relazione \newline \textit{Utente - Dieta}} & \scriptsize{Rappresenta la creazione di una dieta da parte di un utente} \\
+        \hline
+        \scriptsize{Assegnare} & \scriptsize{Relazione \newline \textit{Valutazione - Dieta}} & \scriptsize{Rappresenta il collegamento tra una valutazione e la dieta a cui si riferisce} \\
+        \hline
+        \scriptsize{Creare} & \scriptsize{Relazione \newline \textit{Utente - Ricetta}} & \scriptsize{Rappresenta la creazione di una ricetta da parte di un utente} \\
+        \hline
+        \scriptsize{Appartenere} & \scriptsize{Relazione \newline \textit{Ricetta - Dieta}} & \scriptsize{Rappresenta l'appartenenza di una ricetta ad una specifica dieta} \\
+        \hline
+        \scriptsize{Valutare} & \scriptsize{Relazione \newline \textit{Valutazione - Ricetta}} & \scriptsize{Rappresenta il collegamento tra una valutazione e la ricetta che valuta} \\
+        \hline
+        \scriptsize{Utilizzare} & \scriptsize{Relazione \newline \textit{Ricetta - Ingrediente}} & \scriptsize{Rappresenta l'utilizzo di un ingrediente in una ricetta} \\
         \hline
     \end{tabular}
 \end{table}
