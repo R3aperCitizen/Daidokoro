@@ -112,7 +112,7 @@ frammentati, separati in varie parti, per evitare un accesso non essenziale a gr
 \section{Schema scheletro}
 \begin{figure}[H]
     \centering
-   \includegraphics[width=0.9\textwidth]{app_images/schema-scheletro.png}  
+   \includegraphics[width=0.9\textwidth]{schema-scheletro.png}  
     \label{fig:example}
 \end{figure}
 La prima versione dello schema evidenzia gli elementi chiave 
@@ -152,7 +152,7 @@ che aggiunge il commento, questa limitata da un obbiettivo.\\
 Il risultato finale è questo schema:
 \begin{figure}[H]
     \centering
-    \includegraphics[width=1\linewidth]{app_images/schema-concettuale.png}
+    \includegraphics[width=1\linewidth]{schema-concettuale.png}
 \end{figure}
 
 \subsection{Valutazione}
@@ -160,14 +160,14 @@ Essendo critica una forma avanzata di valutazione
 abbiamo optato per una Gerarchia
 \begin{figure}[H]
     \centering
-    \includegraphics[width=0.2\linewidth]{app_images/valutazione-concettuale.png}
+    \includegraphics[width=0.2\linewidth]{valutazione-concettuale.png}
 \end{figure}
 \subsection{Obiettivo}
 La necessità di imporre vincoli all'utente precendentemente espressa
 è implementata attraverso l'uso di obiettivi
 \begin{figure}[H]
     \centering
-    \includegraphics[width=0.5\linewidth]{app_images/obiettivo-concettuale.png}
+    \includegraphics[width=0.5\linewidth]{obiettivo-concettuale.png}
 \end{figure}
 \subsection{Categoria}
 Un altro limite atto a rendere la ricerca di ricette
@@ -176,7 +176,7 @@ che si relaziona con gli ingredienti da cui indirettamente si ricavano le catego
 per una ricetta.
 \begin{figure}[H]
     \centering
-    \includegraphics[width=0.8\linewidth]{app_images/categoria-nutrizionale.png}
+    \includegraphics[width=0.8\linewidth]{categoria-nutrizionale.png}
 \end{figure}
 \subsection{Collezione}
 Molto similmente alle valutazioni, per ottenere una versione limitata
@@ -184,10 +184,13 @@ ma libera a tutti gli utenti e una versione di collezione completa( la dieta )
 ma non disponibile immediatamente, abbiamo optato per una gerarchia.
 \begin{figure}[H]
     \centering
-    \includegraphics[width=0.5\linewidth]{app_images/collezione-concettuale.png}
+    \includegraphics[width=0.5\linewidth]{collezione-concettuale.png}
 \end{figure}
 \chapter{Progettazione logica}
-capitolo logica
+\begin{figure}[H]
+    \centering
+    \includegraphics[width=1\linewidth]{schema-logico.png}
+\end{figure}
 \section{Volume dei dati}
       
 \begin{table}[H]
@@ -227,45 +230,27 @@ capitolo logica
     \end{tabular}  
 \end{table}
 
-\section{Operazioni principali e frequenza}
+\section{Operazioni principali, Accessi e frequenza}
 \begin{table}[H]
     \center
         \begin{tabular}{ |p{1.7in}|p{0.8in}|p{1.4in}|p{1.4in}| }
             \hline
-            Operazione  & Frequenza  & Accessi & Accessi-giornalieri\\
+            Operazione  & Frequenza-giornaliera  & Accessi per operazione & Accessi-giornalieri\\
             \hline
-            Aggiunta ricetta   & 20'000   & 1S & 20'000 \\
-            Aggiungere   &  & 1S   \\
-            Valutazione   & E   & 1'000'000    \\
-            Ottenere & R&  1'000'000 \\
-            Obiettivo & E& 20\\
-            Publicare & R& 10'000'000\\
-            Dieta & E& 1'000'000\\
-            Ricetta & E& 10'000'000 \\
-            Valutare\_ricetta & R& 30'000'000\\
-            Valutare\_dieta &R & 7'000'000\\
-            Preferire & R& 30'000'000\\
-            Appartenere & R& 10'000'000\\
-            Utilizzare & R& 60'000'000\\
-            Ingrediente & E& 3'000\\
-            Possedere & R& 3'000\\
-            Valore\_Nutrizionale & E& 3'000\\
-            Comporre & R& 100'000\\
-            Collezione & E& 100'000\\
-            Scrivere & R& 200'000 \\
-            Critica & E& 200'000\\
-            Criticare\_Dieta & R& 80'000 \\
-            Criticare\_Ricetta & R& 300'000\\
-            Riguardare & R& 20\\
-            Categoria\_nutrizionale & E&20 \\
-            Aderire\_dieta & R& 20\\
-            Comporre & R& 100'000\\
-            Contenere & R& 1'000'000\\
+            Pubblicare ricetta   & 20'000   & 1S & 40'000 \\
+            Aggiungere valutazione  &100'000  & 1S & 200'000   \\
+            Ricerca-Ricetta   & 1'000'000  & 4L & 4'000'000    \\
+            Ricerca-Dieta  & 10'000 & 5L &  50'000\\
+            Inserimento Utente & 10& 1S & 60\\
+            Ottenere Obbiettivo & 30 & 1S & 60\\
+            Vedere Tendenze & 3'000& 4L &12'000\\
+            Pubblicare Collezione & 7'000& 1S &14'000 \\
+            Visualizzare recensioni & 700 & 2L & 1400 \\
+            Visualizzare obiettivi & 1500 & 2L & 3000 \\
+            Visualizzare preferiti & 30'000 & 2L & 60'000 \\
             \hline
         \end{tabular}  
     \end{table}
-\section{Tabelle degli accessi}
-Secondo sottocapitolo
 \section{Raffinamento schema}
 \subsection{Eliminazione delle gerarchie}
 Nello schema E/R sono presenti 2 gerarchie da eliminare.\\
@@ -275,16 +260,37 @@ La scelta è motivata dal fatto che le associazioni APPARTENERE e CONTENERE tra 
 un'unica tabella che contiene tutte le collezioni piuttosto che due tabelle divise che non avrebbero alcuna utilità, poiché gli accessi all'entità padre e alle entità figlie sono contestuali.\\
 \begin{figure}[h!]
     \centering
-    \includegraphics[width=0.6\linewidth]{app_images/gerarchia_collezione.png}
+    \includegraphics[width=0.6\linewidth]{gerarchia_collezione.png}
 \end{figure}
-\\\\\\\\Anche per la gerarchia VALUTAZIONE(t, e) si adotta la stessa soluzione, ma si aggiunge un attributo Commento che rende la valutazione una critica quando non è vuoto.\\
+\\\\\\\\Anche per la gerarchia VALUTAZIONE(t, e) si adotta una soluzione simile, viene aggiunto l'attributo Commento 
+che rende la valutazione una critica quando non è vuoto, mentre per la questione delle due chiavi opzionali, in quanto abbiamo bisogno di 
+una chiave o l'altra, abbiamo preferito separare la nuova entità valutazione/critica in 2 entità valutazione-collezione e valutazione-ricetta \\
 \begin{figure}[h!]
     \centering
-    \includegraphics[width=0.3\linewidth]{app_images/gerarchia_valutazione.png}
+    \includegraphics[width=0.3\linewidth]{gerarchia_valutazione.png}
 \end{figure}
 \subsection{Eliminazione degli attributi composti}
+Nel nostro schema non sono presenti attributi composti o multipli per nostra scelta,
+tuttavia se volessimo individuare un possibile caso, quello sarebbe valore nutrizionale
+come campo multiplo di ingrediente.
 \subsection{Scelta delle chiavi primarie}
+Data la natura del nostro dominio, non presentando innatamente un forte sistema di identificazione
+Ogni entità possiederà una chiave unica.
 \subsection{Chiavi Esterne}
+Le relazioni sono state risolte in base alla loro cardinalità rispetto
+alle entità connesse, non essendoci casi particolari, le relazioni si sono risolte
+importando una chiave esterna nella rispettiva entità , oppure creando una tabella 
+dedicata, nel caso di relazioni N-N:
+\begin{itemize}
+    \item \textbf{Obiettivo ottenuto da utente}, 3 Entità 2 Relazioni,
+    Vengono importate le chiavi di utente e obiettivo in obiettivo-ottenuto
+    \item \textbf{Utente pubblica collezione}, 2 Entità 1 Relazione, viene importata la chiave di utente dentro collezione
+    \item \textbf{Collezione possiede ricetta} 3 Entità 2 Relazioni,In ricetta-collezione vengono salvate le chiavi di Collezione e ricetta
+    \item \textbf{Ricetta possiede ingrediente} 3 Entità 2 Relazioni, in ingrediente-ricetta vengono importate le chiavi di ingrediente e ricetta
+    \item \textbf{Ingrediente aderisce a categoria nutrizionale} 3 Entità 2 Relazioni, viene importato in ingrediente-categoria le chiavi di ingrediente e categoria
+    \item \textbf{Utente Valuta collezione} 3 Entità 2 Relazioni,dentro valutazione-collezione vengono salvate le chiavi di valutazione e collezione
+    
+\end{itemize}
 \section{Traduzione di entità e relazioni\\ in associazioni}
 \textbf{UTENTE}(\underline{IdUtente}, Username, Foto, Pwd, Email, Esperienza, Livello)\\\\
 \textbf{CATEGORIA\_NUTRIZIONALE}(\underline{IdCategoria}, Nome)\\\\
@@ -318,582 +324,581 @@ FK: IdRicetta REFERENCES \textbf{RICETTA}\\\\
 \textbf{VALUTAZIONE\_COLLEZIONE}(\underline{IdCollezione}, \underline{IdUtente}, Voto,\\ DataValutazione, Commento)\\
 FK: IdUtente REFERENCES \textbf{UTENTE}\\
 FK: IdCollezione REFERENCES \textbf{COLLEZIONE}\\\\
-\section{Schema relazionale finale}
 \begin{sidewaysfigure}[h!]
     \centering
-    \includegraphics[width=1\linewidth]{app_images/schema_relazionale.png}
+    \includegraphics[width=1\linewidth]{schema_relazionale.png}
 \end{sidewaysfigure}
 
 \section{Traduzione delle operazioni in query SQL}
 \subsection{Query di creazione}
+
 \begin{minted}[fontsize=\scriptsize]{sql}
-CREATE DATABASE IF NOT EXISTS daidokoro;
-USE daidokoro;
-
-CREATE TABLE IF NOT EXISTS utente(
-    IdUtente INT NOT NULL AUTO_INCREMENT,
-    Username VARCHAR(20) NOT NULL,
-    Foto MEDIUMBLOB NOT NULL,
-    Pwd VARCHAR(30) NOT NULL,
-    Email VARCHAR(30) NOT NULL,
-    Esperienza INT DEFAULT 0,
-    Livello INT DEFAULT 1,
-    PRIMARY KEY (IdUtente)
-)AUTO_INCREMENT=1;
-
-CREATE TABLE IF NOT EXISTS categoria_nutrizionale(
-    IdCategoria INT NOT NULL AUTO_INCREMENT,
-    Nome VARCHAR(30) NOT NULL,
-    PRIMARY KEY (IdCategoria)
-)AUTO_INCREMENT=1;
-
-CREATE TABLE IF NOT EXISTS obiettivo(
-    IdObiettivo INT NOT NULL AUTO_INCREMENT,
-    Nome VARCHAR(30) NOT NULL,
-    Descrizione VARCHAR(255) NOT NULL,
-    Esperienza INT NOT NULL,
-    IdCategoria INT NOT NULL,
-    PRIMARY KEY (IdObiettivo),
-    FOREIGN KEY (IdCategoria) REFERENCES categoria_nutrizionale(IdCategoria)
-)AUTO_INCREMENT=1;
-
-CREATE TABLE IF NOT EXISTS obiettivo_ottenuto(
-    IdObiettivo INT NOT NULL,
-    IdUtente INT NOT NULL,
-    DataOttenimento DATE NOT NULL,
-    FOREIGN KEY (IdObiettivo) REFERENCES obiettivo(IdObiettivo),
-    FOREIGN KEY (IdUtente) REFERENCES utente(IdUtente),
-    PRIMARY KEY (IdObiettivo, IdUtente)
-);
-
-CREATE TABLE IF NOT EXISTS valore_nutrizionale(
-    IdValoreNutrizionale INT NOT NULL AUTO_INCREMENT,
-    Calorie FLOAT NOT NULL,
-    Grassi FLOAT NOT NULL,
-    Grassi_Saturi FLOAT NOT NULL,
-    Carboidrati FLOAT NOT NULL,
-    Zucchero FLOAT NOT NULL,
-    Fibre FLOAT NOT NULL,
-    Proteine FLOAT NOT NULL,
-    Sale FLOAT NOT NULL,
-    IdIngrediente INT NOT NULL,
-    PRIMARY KEY (IdValoreNutrizionale)
-)AUTO_INCREMENT=1;
-
-CREATE TABLE IF NOT EXISTS ingrediente(
-    IdIngrediente INT NOT NULL AUTO_INCREMENT,
-    Nome VARCHAR(50) NOT NULL,
-    Descrizione VARCHAR(255) NOT NULL,
-    IdValoreNutrizionale INT NULL,
-    IdCategoria INT NOT NULL,
-    PRIMARY KEY (IdIngrediente),
-    FOREIGN KEY (IdCategoria) REFERENCES categoria_nutrizionale(IdCategoria)
-)AUTO_INCREMENT=1;
-
-CREATE TABLE IF NOT EXISTS ricetta(
-    IdRicetta INT NOT NULL AUTO_INCREMENT,
-    Nome VARCHAR(50) NOT NULL,
-    Descrizione VARCHAR(255) NOT NULL,
-    Passaggi JSON NOT NULL,
-    Foto MEDIUMBLOB NOT NULL,
-    Difficolta INT NOT NULL,
-    Tempo INT NOT NULL,
-    DataCreazione DATE NOT NULL,
-    IdUtente INT NOT NULL,
-    PRIMARY KEY (IdRicetta),
-    FOREIGN KEY (IdUtente) REFERENCES utente(IdUtente)
-)AUTO_INCREMENT=1;
-
-CREATE TABLE IF NOT EXISTS likes (
-	IdUtente INT NOT NULL,
-	IdRicetta INT NOT NULL,
-	Data DATE NOT NULL,
-	FOREIGN KEY (IdUtente) REFERENCES utente(IdUtente),
-	FOREIGN KEY (IdRicetta) REFERENCES ricetta(IdRicetta),
-	PRIMARY KEY (IdUtente, IdRicetta)
-);
-
-CREATE TABLE IF NOT EXISTS ingrediente_ricetta(
-    IdIngrediente INT NOT NULL,
-    IdRicetta INT NOT NULL,
-    PesoInGrammi INT NOT NULL,
-    FOREIGN KEY (IdIngrediente) REFERENCES ingrediente(IdIngrediente),
-    FOREIGN KEY (IdRicetta) REFERENCES ricetta(IdRicetta),
-    PRIMARY KEY (IdIngrediente, IdRicetta)
-);
-
-CREATE TABLE IF NOT EXISTS collezione(
-    IdCollezione INT NOT NULL AUTO_INCREMENT,
-    Nome VARCHAR(50) NOT NULL,
-    Descrizione VARCHAR(255) NOT NULL,
-    Dieta TINYINT(1) NOT NULL,
-    DataCreazione DATE NOT NULL,
-    IdUtente INT NOT NULL,
-    IdCategoria INT NOT NULL,
-    PRIMARY KEY (IdCollezione),
-    FOREIGN KEY (IdUtente) REFERENCES utente(IdUtente),
-    FOREIGN KEY (IdCategoria) REFERENCES categoria_nutrizionale(IdCategoria)
-)AUTO_INCREMENT=1;
-
-CREATE TABLE IF NOT EXISTS ricetta_collezione(
-    IdRicetta INT NOT NULL,
-    IdCollezione INT NOT NULL,
-    FOREIGN KEY (IdRicetta) REFERENCES ricetta(IdRicetta),
-    FOREIGN KEY (IdCollezione) REFERENCES collezione(IdCollezione),
-    PRIMARY KEY (IdRicetta, IdCollezione)
-);
-
-CREATE TABLE IF NOT EXISTS valutazione_ricetta(
-    IdRicetta INT NOT NULL,
-    IdUtente INT NOT NULL,
-    Voto TINYINT(1) NOT NULL,
-    DataValutazione DATETIME NOT NULL,
-    Commento VARCHAR(255) DEFAULT '',
-    PRIMARY KEY (IdUtente, IdRicetta),
-    FOREIGN KEY (IdUtente) REFERENCES utente(IdUtente),
-    FOREIGN KEY (IdRicetta) REFERENCES ricetta(IdRicetta)
-);
-
-CREATE TABLE IF NOT EXISTS valutazione_collezione(
-    IdCollezione INT NOT NULL,
-    IdUtente INT NOT NULL,
-    Voto TINYINT(1) NOT NULL,
-    DataValutazione DATETIME NOT NULL,
-    Commento VARCHAR(255) DEFAULT '',
-    PRIMARY KEY (IdUtente, IdCollezione),
-    FOREIGN KEY (IdUtente) REFERENCES utente(IdUtente),
-    FOREIGN KEY (IdCollezione) REFERENCES collezione(IdCollezione)
-);
-
-ALTER TABLE ingrediente
-ADD FOREIGN KEY (IdValoreNutrizionale)
-REFERENCES valore_nutrizionale(IdValoreNutrizionale);
-
-ALTER TABLE valore_nutrizionale
-ADD FOREIGN KEY (IdIngrediente)
-REFERENCES ingrediente(IdIngrediente);
-
-INSERT INTO categoria_nutrizionale (Nome)
-VALUES ("Generico");
-
-INSERT INTO obiettivo (Nome, Descrizione, Esperienza, IdCategoria)
-VALUES ("Benvenuto", "Ti sei registrato a Daidokoro!", 100, 1);
-\end{minted}
-
-\subsection{Query di selezione}
-\begin{minted}[fontsize=\scriptsize]{sql}
-SELECT ingrediente.*, ingrediente_ricetta.PesoInGrammi AS Peso
-FROM ingrediente JOIN ingrediente_ricetta
-ON ingrediente.IdIngrediente = ingrediente_ricetta.IdIngrediente
-WHERE ingrediente_ricetta.IdRicetta = ?;
-
-WITH v1(IdRicetta, Nome, Descrizione, Passaggi, Foto,
-Difficolta, Tempo, DataCreazione, IdUtente, NumeroLike) AS(
-    SELECT ricetta.*, COUNT(likes.IdRicetta) AS NumeroLike
-    FROM ricetta
-    LEFT JOIN likes
-    ON likes.IdRicetta = ricetta.IdRicetta
-    GROUP BY ricetta.IdRicetta
-    LIMIT 10)
-SELECT DISTINCT v1.* FROM v1
-JOIN ingrediente_ricetta
-ON ingrediente_ricetta.IdRicetta = v1.IdRicetta
-JOIN ingrediente
-ON ingrediente_ricetta.IdIngrediente = ingrediente.IdIngrediente
-ORDER BY NumeroLike DESC;
-
-WITH v1(IdRicetta, Nome, Descrizione, Passaggi, Foto,
-Difficolta, Tempo, DataCreazione, IdUtente, NumeroLike) AS(
-    SELECT ricetta.*, COUNT(likes.IdRicetta) AS NumeroLike
-    FROM ricetta
-    LEFT JOIN likes
-    ON likes.IdRicetta = ricetta.IdRicetta
-    JOIN ricetta_collezione
-    ON ricetta_collezione.IdRicetta=ricetta.IdRicetta
-    WHERE ricetta_collezione.IdCollezione = ?
-    GROUP BY ricetta.IdRicetta)
-SELECT DISTINCT v1.*
-FROM v1
-JOIN ingrediente_ricetta
-ON ingrediente_ricetta.IdRicetta = v1.IdRicetta
-JOIN ingrediente
-ON ingrediente_ricetta.IdIngrediente = ingrediente.IdIngrediente
-ORDER BY NumeroLike DESC;
-
-SELECT * FROM ricetta
-WHERE ricetta.Difficolta = ?
-ORDER BY ?;
-
-SELECT * FROM ricetta
-WHERE ricetta.Tempo = ?
-ORDER BY ?;
-
-SELECT * FROM ricetta
-WHERE ricetta.IdUtente = ?;
-
-SELECT ricetta.* FROM ricetta
-JOIN likes ON ricetta.IdRicetta = likes.IdRicetta
-WHERE likes.IdUtente = ?;
-
-SELECT * FROM ricetta
-JOIN valutazione_ricetta
-ON ricetta.IdRicetta = valutazione_ricetta.IdRicetta
-WHERE valutazione_ricetta.IdUtente = ?;
-
-SELECT ricetta.* FROM ricetta
-WHERE ricetta.IdRicetta = ?;
-
-SELECT collezione.*, categoria_nutrizionale.Nome AS NomeCategoria
-FROM collezione
-JOIN categoria_nutrizionale
-ON categoria_nutrizionale.IdCategoria=collezione.IdCategoria
-WHERE IdCollezione = ?;
-
-SELECT * FROM collezione
-WHERE collezione.IdUtente = ?;
-
-SELECT c1.*, categoria_nutrizionale.Nome AS NomeCategoria,
-ricetta.Foto AS FotoRicetta FROM collezione AS c1
-JOIN categoria_nutrizionale 
-ON categoria_nutrizionale.IdCategoria = c1.IdCategoria
-JOIN ricetta_collezione 
-ON ricetta_collezione.IdCollezione = c1.IdCollezione
-JOIN ricetta 
-ON ricetta.IdRicetta = ricetta_collezione.IdRicetta
-WHERE Dieta = ? AND ricetta.IdRicetta = (
-    SELECT MIN(ricetta.IdRicetta)
-    FROM ricetta
-    JOIN ricetta_collezione
-    ON ricetta_collezione.IdRicetta = ricetta.IdRicetta
-    WHERE ricetta_collezione.IdCollezione = c1.IdCollezione);
-
-SELECT utente.*,
-       IFNULL(temp_likes.count, 0) AS Likes,
-       IFNULL(temp_reviews.count, 0) AS ReviewCount,
-       IFNULL(temp_recipes.count, 0) AS RecipeCount,
-       IFNULL(temp_collections.count, 0) AS CollectionCount,
-       IFNULL(temp_achievements.count, 0) AS AchievementsCount
-FROM utente
-LEFT JOIN (
-    SELECT utente.IdUtente, COUNT(*) AS count
-    FROM utente JOIN likes
-    ON likes.IdUtente = utente.IdUtente
-    GROUP BY likes.IdUtente) AS temp_likes
-ON utente.IdUtente = temp_likes.IdUtente
-LEFT JOIN (
-    SELECT utente.IdUtente, COUNT(*) AS count
-    FROM utente JOIN valutazione_ricetta
-    ON valutazione_ricetta.IdUtente = utente.IdUtente
-    GROUP BY valutazione_ricetta.IdUtente) AS temp_reviews
-ON utente.IdUtente = temp_reviews.IdUtente
-LEFT JOIN (
-    SELECT utente.IdUtente, COUNT(*) AS count
-    FROM utente JOIN ricetta
-    ON ricetta.IdUtente = utente.IdUtente
-    GROUP BY ricetta.IdUtente) AS temp_recipes
-ON utente.IdUtente = temp_recipes.IdUtente
-LEFT JOIN (
-    SELECT utente.IdUtente, COUNT(*) AS count
-    FROM utente JOIN collezione
-    ON collezione.IdUtente = utente.IdUtente
-    GROUP BY collezione.IdUtente) AS temp_collections
-ON utente.IdUtente = temp_collections.IdUtente
-LEFT JOIN (
-    SELECT utente.IdUtente, COUNT(*) AS count
-    FROM utente JOIN obiettivo_ottenuto
-    ON obiettivo_ottenuto.IdUtente = utente.IdUtente
-    GROUP BY obiettivo_ottenuto.IdUtente) AS temp_achievements
-ON utente.IdUtente = temp_achievements.IdUtente
-WHERE utente.IdUtente = ?;
-
-WITH v1(IdRicetta, Nome, Descrizione, Passaggi, Foto,
-Difficolta, Tempo, DataCreazione, IdUtente, NumeroLike) AS(
-    SELECT ricetta.*, COUNT(likes.IdRicetta) AS NumeroLike
-    FROM ricetta LEFT JOIN likes
-    ON likes.IdRicetta = ricetta.IdRicetta
-    GROUP BY ricetta.IdRicetta)
-SELECT DISTINCT v1.* FROM v1
-JOIN ingrediente_ricetta
-ON ingrediente_ricetta.IdRicetta = v1.IdRicetta
-JOIN ingrediente
-ON ingrediente_ricetta.IdIngrediente = ingrediente.IdIngrediente
-ORDER BY NumeroLike DESC
-LIMIT 3;
-
-WITH v1(IdRicetta, Nome, Descrizione, Passaggi, Foto, 
-Difficolta, Tempo, DataCreazione, IdUtente, NumeroLike) AS(
-    SELECT ricetta.*, COUNT(likes.IdRicetta) AS NumeroLike
-    FROM ricetta LEFT JOIN likes
-    ON likes.IdRicetta = ricetta.IdRicetta
-    GROUP BY ricetta.IdRicetta)
-SELECT DISTINCT v1.* FROM v1
-JOIN ingrediente_ricetta
-ON ingrediente_ricetta.IdRicetta=v1.IdRicetta
-JOIN ingrediente
-ON ingrediente.IdIngrediente=ingrediente_ricetta.IdIngrediente
-WHERE v1.Nome LIKE "%?%"
-AND ingrediente.IdIngrediente IN (
-    SELECT IdIngrediente FROM ingrediente WHERE IdCategoria = ?);
-
-WITH v1(IdRicetta, Nome, Descrizione, Passaggi, Foto, 
-Difficolta, Tempo, DataCreazione, IdUtente, NumeroLike) AS(
-    SELECT ricetta.*, COUNT(likes.IdRicetta) AS NumeroLike
-    FROM ricetta LEFT JOIN likes
-    ON likes.IdRicetta = ricetta.IdRicetta
-    GROUP BY ricetta.IdRicetta)
-SELECT DISTINCT v1.* FROM v1
-JOIN ingrediente_ricetta
-ON ingrediente_ricetta.IdRicetta=v1.IdRicetta
-JOIN ingrediente
-ON ingrediente.IdIngrediente=ingrediente_ricetta.IdIngrediente
-WHERE v1.Nome LIKE "%?%"
-AND ingrediente.IdIngrediente IN (
-    SELECT IdIngrediente FROM ingrediente WHERE IdCategoria = ?)
-AND ingrediente.IdIngrediente NOT IN (
-    SELECT ingrediente.IdIngrediente
-    FROM ingrediente
-    JOIN ingrediente_categoria
-    ON ingrediente_categoria.IdIngrediente=ingrediente.IdIngrediente
-    WHERE IdCategoria != ?);
-
-SELECT * FROM ingrediente
-WHERE LOWER(Nome) LIKE "%?%";
-
-SELECT categoria_nutrizionale.*
-FROM categoria_nutrizionale
-
-SELECT DISTINCT categoria_nutrizionale.*
-FROM categoria_nutrizionale
-JOIN ingrediente_categoria
-ON categoria_nutrizionale.IdCategoria = ingrediente_categoria.IdCategoria
-JOIN ingrediente
-ON ingrediente_categoria.IdIngrediente = ingrediente.IdIngrediente
-JOIN ingrediente_ricetta
-ON ingrediente_ricetta.IdIngrediente = ingrediente.IdIngrediente
-WHERE ingrediente_ricetta.IdRicetta = ?;
-
-SELECT categoria_nutrizionale.*
-FROM categoria_nutrizionale
-JOIN obiettivo
-ON obiettivo.IdCategoria=categoria_nutrizionale.IdCategoria
-JOIN obiettivo_ottenuto
-ON obiettivo_ottenuto.IdObiettivo=obiettivo.IdObiettivo
-WHERE categoria_nutrizionale.IdCategoria != 1
-AND IdUtente = ?;
-
-SELECT IFNULL(SUM(CASE WHEN Voto = 1 THEN 1 ELSE 0 END), 0)
-       AS VotiPositivi,
-       IFNULL(SUM(CASE WHEN Voto = 0 THEN 1 ELSE 0 END), 0)
-       AS VotiNegativi
-FROM valutazione_ricetta
-WHERE IdRicetta = ?;
-
-SELECT IFNULL(SUM(CASE WHEN Voto = 1 THEN 1 ELSE 0 END), 0)
-       AS VotiPositivi,
-       IFNULL(SUM(CASE WHEN Voto = 0 THEN 1 ELSE 0 END), 0)
-       AS VotiNegativi
-FROM valutazione_collezione
-WHERE IdCollezione = ?;
-
-SELECT valutazione_ricetta.IdUtente, IdRicetta, Voto, DataValutazione,
-Commento, utente.Username AS NomeUtente, utente.Foto AS FotoUtente
-FROM valutazione_ricetta
-JOIN utente ON utente.IdUtente=valutazione_ricetta.IdUtente
-WHERE IdRicetta = ?
-ORDER BY DataValutazione DESC;
-
-SELECT valutazione_collezione.IdUtente, IdCollezione, Voto, DataValutazione, 
-Commento, utente.Username AS NomeUtente, utente.Foto AS FotoUtente
-FROM valutazione_collezione
-JOIN utente ON utente.IdUtente=valutazione_collezione.IdUtente
-WHERE IdCollezione = ?
-ORDER BY DataValutazione DESC;
-
-
-SELECT * FROM valutazione_ricetta
-WHERE IdUtente = ? AND IdRicetta = ? AND Voto = ?;
-
-SELECT * FROM valutazione_ricetta
-WHERE IdUtente = ? AND IdRicetta = ? AND Voto != ?;
-
-DELETE FROM valutazione_ricetta
-WHERE IdUtente = ? AND IdRicetta = ?;
-
-INSERT INTO valutazione_ricetta
-(IdUtente, IdRicetta, Voto, DataValutazione, Commento)
-VALUES (?, ?, ?, NOW(), '');
-
-
-SELECT * FROM valutazione_collezione
-WHERE IdUtente = ? AND IdCollezione = ? AND Voto = ?;
-
-SELECT * FROM valutazione_collezione
-WHERE IdUtente = ? AND IdCollezione = ? AND Voto != ?;
-
-DELETE FROM valutazione_collezione
-WHERE IdUtente = ? AND IdCollezione = ?;
-
-INSERT INTO valutazione_collezione
-(IdUtente, IdCollezione, Voto, DataValutazione, Commento)
-VALUES (?, ?, ?, NOW(), '');
-
-
-SELECT * FROM valutazione_ricetta
-WHERE IdUtente = ? AND IdRicetta = ?;
-
-SELECT * FROM obiettivo JOIN obiettivo_ottenuto
-ON obiettivo.IdObiettivo = obiettivo_ottenuto.IdObiettivo
-JOIN collezione
-ON collezione.IdCategoria = obiettivo.IdCategoria
-WHERE obiettivo_ottenuto.IdUtente = ?
-AND collezione.IdCollezione = ?
-AND collezione.IdCategoria = obiettivo.IdCategoria;
-
-UPDATE valutazione_ricetta
-SET Commento = ?
-WHERE IdUtente = ? AND IdRicetta = ?;
-
-
-SELECT * FROM valutazione_collezione
-WHERE IdUtente = ? AND IdCollezione = ?;
-
-UPDATE valutazione_collezione
-SET Commento = ?
-WHERE IdUtente = ? AND IdCollezione = ?;
-
-
-WITH v1(IdRicetta, Nome, Descrizione, Passaggi, Foto,
-Difficolta, Tempo, DataCreazione, IdUtente, NumeroLike) AS(
-    WITH v2(IdRicetta, Nome, Descrizione, Passaggi, Foto, 
+    CREATE DATABASE IF NOT EXISTS daidokoro;
+    USE daidokoro;
+    
+    CREATE TABLE IF NOT EXISTS utente(
+        IdUtente INT NOT NULL AUTO_INCREMENT,
+        Username VARCHAR(20) NOT NULL,
+        Foto MEDIUMBLOB NOT NULL,
+        Pwd VARCHAR(30) NOT NULL,
+        Email VARCHAR(30) NOT NULL,
+        Esperienza INT DEFAULT 0,
+        Livello INT DEFAULT 1,
+        PRIMARY KEY (IdUtente)
+    )AUTO_INCREMENT=1;
+    
+    CREATE TABLE IF NOT EXISTS categoria_nutrizionale(
+        IdCategoria INT NOT NULL AUTO_INCREMENT,
+        Nome VARCHAR(30) NOT NULL,
+        PRIMARY KEY (IdCategoria)
+    )AUTO_INCREMENT=1;
+    
+    CREATE TABLE IF NOT EXISTS obiettivo(
+        IdObiettivo INT NOT NULL AUTO_INCREMENT,
+        Nome VARCHAR(30) NOT NULL,
+        Descrizione VARCHAR(255) NOT NULL,
+        Esperienza INT NOT NULL,
+        IdCategoria INT NOT NULL,
+        PRIMARY KEY (IdObiettivo),
+        FOREIGN KEY (IdCategoria) REFERENCES categoria_nutrizionale(IdCategoria)
+    )AUTO_INCREMENT=1;
+    
+    CREATE TABLE IF NOT EXISTS obiettivo_ottenuto(
+        IdObiettivo INT NOT NULL,
+        IdUtente INT NOT NULL,
+        DataOttenimento DATE NOT NULL,
+        FOREIGN KEY (IdObiettivo) REFERENCES obiettivo(IdObiettivo),
+        FOREIGN KEY (IdUtente) REFERENCES utente(IdUtente),
+        PRIMARY KEY (IdObiettivo, IdUtente)
+    );
+    
+    CREATE TABLE IF NOT EXISTS valore_nutrizionale(
+        IdValoreNutrizionale INT NOT NULL AUTO_INCREMENT,
+        Calorie FLOAT NOT NULL,
+        Grassi FLOAT NOT NULL,
+        Grassi_Saturi FLOAT NOT NULL,
+        Carboidrati FLOAT NOT NULL,
+        Zucchero FLOAT NOT NULL,
+        Fibre FLOAT NOT NULL,
+        Proteine FLOAT NOT NULL,
+        Sale FLOAT NOT NULL,
+        IdIngrediente INT NOT NULL,
+        PRIMARY KEY (IdValoreNutrizionale)
+    )AUTO_INCREMENT=1;
+    
+    CREATE TABLE IF NOT EXISTS ingrediente(
+        IdIngrediente INT NOT NULL AUTO_INCREMENT,
+        Nome VARCHAR(50) NOT NULL,
+        Descrizione VARCHAR(255) NOT NULL,
+        IdValoreNutrizionale INT NULL,
+        IdCategoria INT NOT NULL,
+        PRIMARY KEY (IdIngrediente),
+        FOREIGN KEY (IdCategoria) REFERENCES categoria_nutrizionale(IdCategoria)
+    )AUTO_INCREMENT=1;
+    
+    CREATE TABLE IF NOT EXISTS ricetta(
+        IdRicetta INT NOT NULL AUTO_INCREMENT,
+        Nome VARCHAR(50) NOT NULL,
+        Descrizione VARCHAR(255) NOT NULL,
+        Passaggi JSON NOT NULL,
+        Foto MEDIUMBLOB NOT NULL,
+        Difficolta INT NOT NULL,
+        Tempo INT NOT NULL,
+        DataCreazione DATE NOT NULL,
+        IdUtente INT NOT NULL,
+        PRIMARY KEY (IdRicetta),
+        FOREIGN KEY (IdUtente) REFERENCES utente(IdUtente)
+    )AUTO_INCREMENT=1;
+    
+    CREATE TABLE IF NOT EXISTS likes (
+        IdUtente INT NOT NULL,
+        IdRicetta INT NOT NULL,
+        Data DATE NOT NULL,
+        FOREIGN KEY (IdUtente) REFERENCES utente(IdUtente),
+        FOREIGN KEY (IdRicetta) REFERENCES ricetta(IdRicetta),
+        PRIMARY KEY (IdUtente, IdRicetta)
+    );
+    
+    CREATE TABLE IF NOT EXISTS ingrediente_ricetta(
+        IdIngrediente INT NOT NULL,
+        IdRicetta INT NOT NULL,
+        PesoInGrammi INT NOT NULL,
+        FOREIGN KEY (IdIngrediente) REFERENCES ingrediente(IdIngrediente),
+        FOREIGN KEY (IdRicetta) REFERENCES ricetta(IdRicetta),
+        PRIMARY KEY (IdIngrediente, IdRicetta)
+    );
+    
+    CREATE TABLE IF NOT EXISTS collezione(
+        IdCollezione INT NOT NULL AUTO_INCREMENT,
+        Nome VARCHAR(50) NOT NULL,
+        Descrizione VARCHAR(255) NOT NULL,
+        Dieta TINYINT(1) NOT NULL,
+        DataCreazione DATE NOT NULL,
+        IdUtente INT NOT NULL,
+        IdCategoria INT NOT NULL,
+        PRIMARY KEY (IdCollezione),
+        FOREIGN KEY (IdUtente) REFERENCES utente(IdUtente),
+        FOREIGN KEY (IdCategoria) REFERENCES categoria_nutrizionale(IdCategoria)
+    )AUTO_INCREMENT=1;
+    
+    CREATE TABLE IF NOT EXISTS ricetta_collezione(
+        IdRicetta INT NOT NULL,
+        IdCollezione INT NOT NULL,
+        FOREIGN KEY (IdRicetta) REFERENCES ricetta(IdRicetta),
+        FOREIGN KEY (IdCollezione) REFERENCES collezione(IdCollezione),
+        PRIMARY KEY (IdRicetta, IdCollezione)
+    );
+    
+    CREATE TABLE IF NOT EXISTS valutazione_ricetta(
+        IdRicetta INT NOT NULL,
+        IdUtente INT NOT NULL,
+        Voto TINYINT(1) NOT NULL,
+        DataValutazione DATETIME NOT NULL,
+        Commento VARCHAR(255) DEFAULT '',
+        PRIMARY KEY (IdUtente, IdRicetta),
+        FOREIGN KEY (IdUtente) REFERENCES utente(IdUtente),
+        FOREIGN KEY (IdRicetta) REFERENCES ricetta(IdRicetta)
+    );
+    
+    CREATE TABLE IF NOT EXISTS valutazione_collezione(
+        IdCollezione INT NOT NULL,
+        IdUtente INT NOT NULL,
+        Voto TINYINT(1) NOT NULL,
+        DataValutazione DATETIME NOT NULL,
+        Commento VARCHAR(255) DEFAULT '',
+        PRIMARY KEY (IdUtente, IdCollezione),
+        FOREIGN KEY (IdUtente) REFERENCES utente(IdUtente),
+        FOREIGN KEY (IdCollezione) REFERENCES collezione(IdCollezione)
+    );
+    
+    ALTER TABLE ingrediente
+    ADD FOREIGN KEY (IdValoreNutrizionale)
+    REFERENCES valore_nutrizionale(IdValoreNutrizionale);
+    
+    ALTER TABLE valore_nutrizionale
+    ADD FOREIGN KEY (IdIngrediente)
+    REFERENCES ingrediente(IdIngrediente);
+    
+    INSERT INTO categoria_nutrizionale (Nome)
+    VALUES ("Generico");
+    
+    INSERT INTO obiettivo (Nome, Descrizione, Esperienza, IdCategoria)
+    VALUES ("Benvenuto", "Ti sei registrato a Daidokoro!", 100, 1);
+    \end{minted}
+    
+    \subsection{Query di selezione}
+    \begin{minted}[fontsize=\scriptsize]{sql}
+    SELECT ingrediente.*, ingrediente_ricetta.PesoInGrammi AS Peso
+    FROM ingrediente JOIN ingrediente_ricetta
+    ON ingrediente.IdIngrediente = ingrediente_ricetta.IdIngrediente
+    WHERE ingrediente_ricetta.IdRicetta = ?;
+    
+    WITH v1(IdRicetta, Nome, Descrizione, Passaggi, Foto,
     Difficolta, Tempo, DataCreazione, IdUtente, NumeroLike) AS(
-        WITH v3(IdRicetta, Nome, Descrizione, Passaggi, Foto, 
-        Difficolta, Tempo, DataCreazione, IdUtente, NumeroLike) AS(
-            SELECT ricetta.*, COUNT(likes.IdRicetta) AS NumeroLike
-            FROM ricetta
-            LEFT JOIN likes ON likes.IdRicetta = ricetta.IdRicetta
-            GROUP BY ricetta.IdRicetta)
-        SELECT DISTINCT v3.* FROM v3
-        JOIN ingrediente_ricetta
-        ON ingrediente_ricetta.IdRicetta = v3.IdRicetta
-        JOIN ingrediente
-        ON ingrediente_ricetta.IdIngrediente = ingrediente.IdIngrediente
-        JOIN ingrediente_categoria
-        ON ingrediente.IdIngrediente = ingrediente_categoria.IdIngrediente
-        JOIN categoria_nutrizionale 
-        ON categoria_nutrizionale.IdCategoria = ingrediente_categoria.IdCategoria
-        WHERE LOWER(categoria_nutrizionale.Nome) LIKE "%?%"
-        OR LOWER(ingrediente.Nome) LIKE "%?%"
-        OR LOWER(v3.Nome) LIKE "%?%"
+        SELECT ricetta.*, COUNT(likes.IdRicetta) AS NumeroLike
+        FROM ricetta
+        LEFT JOIN likes
+        ON likes.IdRicetta = ricetta.IdRicetta
+        GROUP BY ricetta.IdRicetta
         LIMIT 10)
-    SELECT v2.* FROM v2
-    WHERE v2.Difficolta = 1
-    AND FLOOR(v2.Tempo / 10) * 10 = FLOOR(5 / 10) * 10 
-    GROUP BY v2.IdRicetta)
-SELECT DISTINCT v1.* FROM v1
-JOIN ingrediente_ricetta
-ON ingrediente_ricetta.IdRicetta = v1.IdRicetta
-JOIN ingrediente
-ON ingrediente.IdIngrediente = ingrediente_ricetta.IdIngrediente
-JOIN ingrediente_categoria
-ON ingrediente.IdIngrediente = ingrediente_categoria.IdIngrediente
-JOIN categoria_nutrizionale
-ON categoria_nutrizionale.IdCategoria = ingrediente_categoria.IdCategoria
-WHERE categoria_nutrizionale.Nome IN ('Generico')
-
-
-INSERT INTO ricetta (Nome, Descrizione, Passaggi, Foto,
-                     Difficolta, Tempo, DataCreazione, IdUtente)
-VALUES (?, ?, ?, ?, ?, ?, NOW(), ?);
-
-INSERT INTO ingrediente_ricetta
-(IdIngrediente, IdRicetta, PesoInGrammi)
-VALUES (?, ?, ?);
-
-SELECT MAX(IdRicetta) AS IdRicetta
-FROM ricetta WHERE IdUtente = ?;
-
-INSERT INTO collezione
-(Nome, Descrizione, Dieta, DataCreazione, IdUtente, IdCategoria)
-VALUES (?, ?, ?, NOW(), ?, ?);
-
-INSERT INTO ricetta_collezione (IdRicetta, IdCollezione)
-VALUES (?, ?);
-
-SELECT MAX(IdCollezione) AS IdCollezione
-FROM collezione
-WHERE IdUtente = ?;
-
-SELECT * FROM utente WHERE Email = ? AND Pwd = ?;
-
-SELECT * FROM utente WHERE Email = ?;
-
-INSERT INTO utente
-(Username, Pwd, Email, Foto, Esperienza, Livello)
-VALUES (?, ?, ?, ?, 100, 1);
-
-INSERT INTO obiettivo_ottenuto
-(IdObiettivo, IdUtente, DataOttenimento)
-VALUES (1, ?, CURDATE());
-
-SELECT * FROM likes
-WHERE IdRicetta = ? AND IdUtente = ?;
-
-DELETE FROM likes
-WHERE IdRicetta = ? AND IdUtente = ?
-
-INSERT INTO likes
-(IdRicetta, IdUtente, Data)
-VALUES (?, ?, CURDATE());
-
-SELECT * FROM ricetta
-JOIN likes ON likes.IdRicetta = ricetta.IdRicetta
-WHERE likes.IdUtente = ? AND ricetta.IdRicetta = ?;
-
-WITH v2 AS (
-    WITH v1 AS (
-        SELECT collezione.*,
-               categoria_nutrizionale.Nome AS NomeCategoria
-        FROM collezione JOIN categoria_nutrizionale
-        ON categoria_nutrizionale.IdCategoria = collezione.IdCategoria
-        WHERE collezione.Dieta = ?
-        AND collezione.DataCreazione = ?
-        AND categoria_nutrizionale.Nome = ?)
-    SELECT v1.*,
-           avg(ricetta.Difficolta) AS avDiff,
-           COUNT(ricetta.Difficolta) AS num
+    SELECT DISTINCT v1.* FROM v1
+    JOIN ingrediente_ricetta
+    ON ingrediente_ricetta.IdRicetta = v1.IdRicetta
+    JOIN ingrediente
+    ON ingrediente_ricetta.IdIngrediente = ingrediente.IdIngrediente
+    ORDER BY NumeroLike DESC;
+    
+    WITH v1(IdRicetta, Nome, Descrizione, Passaggi, Foto,
+    Difficolta, Tempo, DataCreazione, IdUtente, NumeroLike) AS(
+        SELECT ricetta.*, COUNT(likes.IdRicetta) AS NumeroLike
+        FROM ricetta
+        LEFT JOIN likes
+        ON likes.IdRicetta = ricetta.IdRicetta
+        JOIN ricetta_collezione
+        ON ricetta_collezione.IdRicetta=ricetta.IdRicetta
+        WHERE ricetta_collezione.IdCollezione = ?
+        GROUP BY ricetta.IdRicetta)
+    SELECT DISTINCT v1.*
     FROM v1
+    JOIN ingrediente_ricetta
+    ON ingrediente_ricetta.IdRicetta = v1.IdRicetta
+    JOIN ingrediente
+    ON ingrediente_ricetta.IdIngrediente = ingrediente.IdIngrediente
+    ORDER BY NumeroLike DESC;
+    
+    SELECT * FROM ricetta
+    WHERE ricetta.Difficolta = ?
+    ORDER BY ?;
+    
+    SELECT * FROM ricetta
+    WHERE ricetta.Tempo = ?
+    ORDER BY ?;
+    
+    SELECT * FROM ricetta
+    WHERE ricetta.IdUtente = ?;
+    
+    SELECT ricetta.* FROM ricetta
+    JOIN likes ON ricetta.IdRicetta = likes.IdRicetta
+    WHERE likes.IdUtente = ?;
+    
+    SELECT * FROM ricetta
+    JOIN valutazione_ricetta
+    ON ricetta.IdRicetta = valutazione_ricetta.IdRicetta
+    WHERE valutazione_ricetta.IdUtente = ?;
+    
+    SELECT ricetta.* FROM ricetta
+    WHERE ricetta.IdRicetta = ?;
+    
+    SELECT collezione.*, categoria_nutrizionale.Nome AS NomeCategoria
+    FROM collezione
+    JOIN categoria_nutrizionale
+    ON categoria_nutrizionale.IdCategoria=collezione.IdCategoria
+    WHERE IdCollezione = ?;
+    
+    SELECT * FROM collezione
+    WHERE collezione.IdUtente = ?;
+    
+    SELECT c1.*, categoria_nutrizionale.Nome AS NomeCategoria,
+    ricetta.Foto AS FotoRicetta FROM collezione AS c1
+    JOIN categoria_nutrizionale 
+    ON categoria_nutrizionale.IdCategoria = c1.IdCategoria
+    JOIN ricetta_collezione 
+    ON ricetta_collezione.IdCollezione = c1.IdCollezione
+    JOIN ricetta 
+    ON ricetta.IdRicetta = ricetta_collezione.IdRicetta
+    WHERE Dieta = ? AND ricetta.IdRicetta = (
+        SELECT MIN(ricetta.IdRicetta)
+        FROM ricetta
+        JOIN ricetta_collezione
+        ON ricetta_collezione.IdRicetta = ricetta.IdRicetta
+        WHERE ricetta_collezione.IdCollezione = c1.IdCollezione);
+    
+    SELECT utente.*,
+           IFNULL(temp_likes.count, 0) AS Likes,
+           IFNULL(temp_reviews.count, 0) AS ReviewCount,
+           IFNULL(temp_recipes.count, 0) AS RecipeCount,
+           IFNULL(temp_collections.count, 0) AS CollectionCount,
+           IFNULL(temp_achievements.count, 0) AS AchievementsCount
+    FROM utente
+    LEFT JOIN (
+        SELECT utente.IdUtente, COUNT(*) AS count
+        FROM utente JOIN likes
+        ON likes.IdUtente = utente.IdUtente
+        GROUP BY likes.IdUtente) AS temp_likes
+    ON utente.IdUtente = temp_likes.IdUtente
+    LEFT JOIN (
+        SELECT utente.IdUtente, COUNT(*) AS count
+        FROM utente JOIN valutazione_ricetta
+        ON valutazione_ricetta.IdUtente = utente.IdUtente
+        GROUP BY valutazione_ricetta.IdUtente) AS temp_reviews
+    ON utente.IdUtente = temp_reviews.IdUtente
+    LEFT JOIN (
+        SELECT utente.IdUtente, COUNT(*) AS count
+        FROM utente JOIN ricetta
+        ON ricetta.IdUtente = utente.IdUtente
+        GROUP BY ricetta.IdUtente) AS temp_recipes
+    ON utente.IdUtente = temp_recipes.IdUtente
+    LEFT JOIN (
+        SELECT utente.IdUtente, COUNT(*) AS count
+        FROM utente JOIN collezione
+        ON collezione.IdUtente = utente.IdUtente
+        GROUP BY collezione.IdUtente) AS temp_collections
+    ON utente.IdUtente = temp_collections.IdUtente
+    LEFT JOIN (
+        SELECT utente.IdUtente, COUNT(*) AS count
+        FROM utente JOIN obiettivo_ottenuto
+        ON obiettivo_ottenuto.IdUtente = utente.IdUtente
+        GROUP BY obiettivo_ottenuto.IdUtente) AS temp_achievements
+    ON utente.IdUtente = temp_achievements.IdUtente
+    WHERE utente.IdUtente = ?;
+    
+    WITH v1(IdRicetta, Nome, Descrizione, Passaggi, Foto,
+    Difficolta, Tempo, DataCreazione, IdUtente, NumeroLike) AS(
+        SELECT ricetta.*, COUNT(likes.IdRicetta) AS NumeroLike
+        FROM ricetta LEFT JOIN likes
+        ON likes.IdRicetta = ricetta.IdRicetta
+        GROUP BY ricetta.IdRicetta)
+    SELECT DISTINCT v1.* FROM v1
+    JOIN ingrediente_ricetta
+    ON ingrediente_ricetta.IdRicetta = v1.IdRicetta
+    JOIN ingrediente
+    ON ingrediente_ricetta.IdIngrediente = ingrediente.IdIngrediente
+    ORDER BY NumeroLike DESC
+    LIMIT 3;
+    
+    WITH v1(IdRicetta, Nome, Descrizione, Passaggi, Foto, 
+    Difficolta, Tempo, DataCreazione, IdUtente, NumeroLike) AS(
+        SELECT ricetta.*, COUNT(likes.IdRicetta) AS NumeroLike
+        FROM ricetta LEFT JOIN likes
+        ON likes.IdRicetta = ricetta.IdRicetta
+        GROUP BY ricetta.IdRicetta)
+    SELECT DISTINCT v1.* FROM v1
+    JOIN ingrediente_ricetta
+    ON ingrediente_ricetta.IdRicetta=v1.IdRicetta
+    JOIN ingrediente
+    ON ingrediente.IdIngrediente=ingrediente_ricetta.IdIngrediente
+    WHERE v1.Nome LIKE "%?%"
+    AND ingrediente.IdIngrediente IN (
+        SELECT IdIngrediente FROM ingrediente WHERE IdCategoria = ?);
+    
+    WITH v1(IdRicetta, Nome, Descrizione, Passaggi, Foto, 
+    Difficolta, Tempo, DataCreazione, IdUtente, NumeroLike) AS(
+        SELECT ricetta.*, COUNT(likes.IdRicetta) AS NumeroLike
+        FROM ricetta LEFT JOIN likes
+        ON likes.IdRicetta = ricetta.IdRicetta
+        GROUP BY ricetta.IdRicetta)
+    SELECT DISTINCT v1.* FROM v1
+    JOIN ingrediente_ricetta
+    ON ingrediente_ricetta.IdRicetta=v1.IdRicetta
+    JOIN ingrediente
+    ON ingrediente.IdIngrediente=ingrediente_ricetta.IdIngrediente
+    WHERE v1.Nome LIKE "%?%"
+    AND ingrediente.IdIngrediente IN (
+        SELECT IdIngrediente FROM ingrediente WHERE IdCategoria = ?)
+    AND ingrediente.IdIngrediente NOT IN (
+        SELECT ingrediente.IdIngrediente
+        FROM ingrediente
+        JOIN ingrediente_categoria
+        ON ingrediente_categoria.IdIngrediente=ingrediente.IdIngrediente
+        WHERE IdCategoria != ?);
+    
+    SELECT * FROM ingrediente
+    WHERE LOWER(Nome) LIKE "%?%";
+    
+    SELECT categoria_nutrizionale.*
+    FROM categoria_nutrizionale
+    
+    SELECT DISTINCT categoria_nutrizionale.*
+    FROM categoria_nutrizionale
+    JOIN ingrediente_categoria
+    ON categoria_nutrizionale.IdCategoria = ingrediente_categoria.IdCategoria
+    JOIN ingrediente
+    ON ingrediente_categoria.IdIngrediente = ingrediente.IdIngrediente
+    JOIN ingrediente_ricetta
+    ON ingrediente_ricetta.IdIngrediente = ingrediente.IdIngrediente
+    WHERE ingrediente_ricetta.IdRicetta = ?;
+    
+    SELECT categoria_nutrizionale.*
+    FROM categoria_nutrizionale
+    JOIN obiettivo
+    ON obiettivo.IdCategoria=categoria_nutrizionale.IdCategoria
+    JOIN obiettivo_ottenuto
+    ON obiettivo_ottenuto.IdObiettivo=obiettivo.IdObiettivo
+    WHERE categoria_nutrizionale.IdCategoria != 1
+    AND IdUtente = ?;
+    
+    SELECT IFNULL(SUM(CASE WHEN Voto = 1 THEN 1 ELSE 0 END), 0)
+           AS VotiPositivi,
+           IFNULL(SUM(CASE WHEN Voto = 0 THEN 1 ELSE 0 END), 0)
+           AS VotiNegativi
+    FROM valutazione_ricetta
+    WHERE IdRicetta = ?;
+    
+    SELECT IFNULL(SUM(CASE WHEN Voto = 1 THEN 1 ELSE 0 END), 0)
+           AS VotiPositivi,
+           IFNULL(SUM(CASE WHEN Voto = 0 THEN 1 ELSE 0 END), 0)
+           AS VotiNegativi
+    FROM valutazione_collezione
+    WHERE IdCollezione = ?;
+    
+    SELECT valutazione_ricetta.IdUtente, IdRicetta, Voto, DataValutazione,
+    Commento, utente.Username AS NomeUtente, utente.Foto AS FotoUtente
+    FROM valutazione_ricetta
+    JOIN utente ON utente.IdUtente=valutazione_ricetta.IdUtente
+    WHERE IdRicetta = ?
+    ORDER BY DataValutazione DESC;
+    
+    SELECT valutazione_collezione.IdUtente, IdCollezione, Voto, DataValutazione, 
+    Commento, utente.Username AS NomeUtente, utente.Foto AS FotoUtente
+    FROM valutazione_collezione
+    JOIN utente ON utente.IdUtente=valutazione_collezione.IdUtente
+    WHERE IdCollezione = ?
+    ORDER BY DataValutazione DESC;
+    
+    
+    SELECT * FROM valutazione_ricetta
+    WHERE IdUtente = ? AND IdRicetta = ? AND Voto = ?;
+    
+    SELECT * FROM valutazione_ricetta
+    WHERE IdUtente = ? AND IdRicetta = ? AND Voto != ?;
+    
+    DELETE FROM valutazione_ricetta
+    WHERE IdUtente = ? AND IdRicetta = ?;
+    
+    INSERT INTO valutazione_ricetta
+    (IdUtente, IdRicetta, Voto, DataValutazione, Commento)
+    VALUES (?, ?, ?, NOW(), '');
+    
+    
+    SELECT * FROM valutazione_collezione
+    WHERE IdUtente = ? AND IdCollezione = ? AND Voto = ?;
+    
+    SELECT * FROM valutazione_collezione
+    WHERE IdUtente = ? AND IdCollezione = ? AND Voto != ?;
+    
+    DELETE FROM valutazione_collezione
+    WHERE IdUtente = ? AND IdCollezione = ?;
+    
+    INSERT INTO valutazione_collezione
+    (IdUtente, IdCollezione, Voto, DataValutazione, Commento)
+    VALUES (?, ?, ?, NOW(), '');
+    
+    
+    SELECT * FROM valutazione_ricetta
+    WHERE IdUtente = ? AND IdRicetta = ?;
+    
+    SELECT * FROM obiettivo JOIN obiettivo_ottenuto
+    ON obiettivo.IdObiettivo = obiettivo_ottenuto.IdObiettivo
+    JOIN collezione
+    ON collezione.IdCategoria = obiettivo.IdCategoria
+    WHERE obiettivo_ottenuto.IdUtente = ?
+    AND collezione.IdCollezione = ?
+    AND collezione.IdCategoria = obiettivo.IdCategoria;
+    
+    UPDATE valutazione_ricetta
+    SET Commento = ?
+    WHERE IdUtente = ? AND IdRicetta = ?;
+    
+    
+    SELECT * FROM valutazione_collezione
+    WHERE IdUtente = ? AND IdCollezione = ?;
+    
+    UPDATE valutazione_collezione
+    SET Commento = ?
+    WHERE IdUtente = ? AND IdCollezione = ?;
+    
+    
+    WITH v1(IdRicetta, Nome, Descrizione, Passaggi, Foto,
+    Difficolta, Tempo, DataCreazione, IdUtente, NumeroLike) AS(
+        WITH v2(IdRicetta, Nome, Descrizione, Passaggi, Foto, 
+        Difficolta, Tempo, DataCreazione, IdUtente, NumeroLike) AS(
+            WITH v3(IdRicetta, Nome, Descrizione, Passaggi, Foto, 
+            Difficolta, Tempo, DataCreazione, IdUtente, NumeroLike) AS(
+                SELECT ricetta.*, COUNT(likes.IdRicetta) AS NumeroLike
+                FROM ricetta
+                LEFT JOIN likes ON likes.IdRicetta = ricetta.IdRicetta
+                GROUP BY ricetta.IdRicetta)
+            SELECT DISTINCT v3.* FROM v3
+            JOIN ingrediente_ricetta
+            ON ingrediente_ricetta.IdRicetta = v3.IdRicetta
+            JOIN ingrediente
+            ON ingrediente_ricetta.IdIngrediente = ingrediente.IdIngrediente
+            JOIN ingrediente_categoria
+            ON ingrediente.IdIngrediente = ingrediente_categoria.IdIngrediente
+            JOIN categoria_nutrizionale 
+            ON categoria_nutrizionale.IdCategoria = ingrediente_categoria.IdCategoria
+            WHERE LOWER(categoria_nutrizionale.Nome) LIKE "%?%"
+            OR LOWER(ingrediente.Nome) LIKE "%?%"
+            OR LOWER(v3.Nome) LIKE "%?%"
+            LIMIT 10)
+        SELECT v2.* FROM v2
+        WHERE v2.Difficolta = 1
+        AND FLOOR(v2.Tempo / 10) * 10 = FLOOR(5 / 10) * 10 
+        GROUP BY v2.IdRicetta)
+    SELECT DISTINCT v1.* FROM v1
+    JOIN ingrediente_ricetta
+    ON ingrediente_ricetta.IdRicetta = v1.IdRicetta
+    JOIN ingrediente
+    ON ingrediente.IdIngrediente = ingrediente_ricetta.IdIngrediente
+    JOIN ingrediente_categoria
+    ON ingrediente.IdIngrediente = ingrediente_categoria.IdIngrediente
+    JOIN categoria_nutrizionale
+    ON categoria_nutrizionale.IdCategoria = ingrediente_categoria.IdCategoria
+    WHERE categoria_nutrizionale.Nome IN ('Generico')
+    
+    
+    INSERT INTO ricetta (Nome, Descrizione, Passaggi, Foto,
+                         Difficolta, Tempo, DataCreazione, IdUtente)
+    VALUES (?, ?, ?, ?, ?, ?, NOW(), ?);
+    
+    INSERT INTO ingrediente_ricetta
+    (IdIngrediente, IdRicetta, PesoInGrammi)
+    VALUES (?, ?, ?);
+    
+    SELECT MAX(IdRicetta) AS IdRicetta
+    FROM ricetta WHERE IdUtente = ?;
+    
+    INSERT INTO collezione
+    (Nome, Descrizione, Dieta, DataCreazione, IdUtente, IdCategoria)
+    VALUES (?, ?, ?, NOW(), ?, ?);
+    
+    INSERT INTO ricetta_collezione (IdRicetta, IdCollezione)
+    VALUES (?, ?);
+    
+    SELECT MAX(IdCollezione) AS IdCollezione
+    FROM collezione
+    WHERE IdUtente = ?;
+    
+    SELECT * FROM utente WHERE Email = ? AND Pwd = ?;
+    
+    SELECT * FROM utente WHERE Email = ?;
+    
+    INSERT INTO utente
+    (Username, Pwd, Email, Foto, Esperienza, Livello)
+    VALUES (?, ?, ?, ?, 100, 1);
+    
+    INSERT INTO obiettivo_ottenuto
+    (IdObiettivo, IdUtente, DataOttenimento)
+    VALUES (1, ?, CURDATE());
+    
+    SELECT * FROM likes
+    WHERE IdRicetta = ? AND IdUtente = ?;
+    
+    DELETE FROM likes
+    WHERE IdRicetta = ? AND IdUtente = ?
+    
+    INSERT INTO likes
+    (IdRicetta, IdUtente, Data)
+    VALUES (?, ?, CURDATE());
+    
+    SELECT * FROM ricetta
+    JOIN likes ON likes.IdRicetta = ricetta.IdRicetta
+    WHERE likes.IdUtente = ? AND ricetta.IdRicetta = ?;
+    
+    WITH v2 AS (
+        WITH v1 AS (
+            SELECT collezione.*,
+                   categoria_nutrizionale.Nome AS NomeCategoria
+            FROM collezione JOIN categoria_nutrizionale
+            ON categoria_nutrizionale.IdCategoria = collezione.IdCategoria
+            WHERE collezione.Dieta = ?
+            AND collezione.DataCreazione = ?
+            AND categoria_nutrizionale.Nome = ?)
+        SELECT v1.*,
+               avg(ricetta.Difficolta) AS avDiff,
+               COUNT(ricetta.Difficolta) AS num
+        FROM v1
+        JOIN ricetta_collezione
+        ON ricetta_collezione.IdCollezione = v1.IdCollezione
+        JOIN ricetta
+        ON ricetta.IdRicetta = ricetta_collezione.IdRicetta
+        WHERE LOWER(ricetta.Nome) LIKE "%?%" OR v1.Nome LIKE "%?%"
+        GROUP BY v1.IdCollezione
+        ORDER BY ?)
+    SELECT v2.*, ricetta.Foto AS FotoRicetta
+    FROM v2
     JOIN ricetta_collezione
-    ON ricetta_collezione.IdCollezione = v1.IdCollezione
+    ON ricetta_collezione.IdCollezione = v2.IdCollezione
     JOIN ricetta
     ON ricetta.IdRicetta = ricetta_collezione.IdRicetta
-    WHERE LOWER(ricetta.Nome) LIKE "%?%" OR v1.Nome LIKE "%?%"
-    GROUP BY v1.IdCollezione
-    ORDER BY ?)
-SELECT v2.*, ricetta.Foto AS FotoRicetta
-FROM v2
-JOIN ricetta_collezione
-ON ricetta_collezione.IdCollezione = v2.IdCollezione
-JOIN ricetta
-ON ricetta.IdRicetta = ricetta_collezione.IdRicetta
-WHERE ricetta_collezione.IdRicetta = (
-    SELECT MIN(ricetta.IdRicetta)
-    FROM ricetta JOIN ricetta_collezione
-    ON ricetta_collezione.IdRicetta = ricetta.IdRicetta
-    WHERE ricetta_collezione.IdCollezione = v2.IdCollezione)
-AND v2.num = ? AND v2.avDiff = ?;
-
-WITH v1 AS(
-    SELECT DISTINCT obiettivo.*,
-                    obiettivo_ottenuto.DataOttenimento,
-                    obiettivo_ottenuto.IdUtente
-    FROM obiettivo
-    LEFT JOIN obiettivo_ottenuto
-    ON obiettivo_ottenuto.IdObiettivo = obiettivo.IdObiettivo)
-SELECT v1.* FROM v1
-WHERE IdUtente is null OR IdUtente = ?;
-
-\end{minted}
-
+    WHERE ricetta_collezione.IdRicetta = (
+        SELECT MIN(ricetta.IdRicetta)
+        FROM ricetta JOIN ricetta_collezione
+        ON ricetta_collezione.IdRicetta = ricetta.IdRicetta
+        WHERE ricetta_collezione.IdCollezione = v2.IdCollezione)
+    AND v2.num = ? AND v2.avDiff = ?;
+    
+    WITH v1 AS(
+        SELECT DISTINCT obiettivo.*,
+                        obiettivo_ottenuto.DataOttenimento,
+                        obiettivo_ottenuto.IdUtente
+        FROM obiettivo
+        LEFT JOIN obiettivo_ottenuto
+        ON obiettivo_ottenuto.IdObiettivo = obiettivo.IdObiettivo)
+    SELECT v1.* FROM v1
+    WHERE IdUtente is null OR IdUtente = ?;
+    
+    \end{minted}
 
 \chapter{Progettazione applicazione}
 \section{Descrizione dell'architettura\\ dell'applicazione realizzata}
@@ -912,11 +917,11 @@ All'avvio dell'applicazione, se si tratta del primo avvio, comparirà la scherma
 \begin{figure}[h!]
     \begin{minipage}{.5\textwidth}
         \centering
-        \includegraphics[width=0.9\linewidth]{app_images/Login.jpg}
+        \includegraphics[width=0.9\linewidth]{Login.jpg}
     \end{minipage}
     \begin{minipage}{.5\textwidth}
         \centering
-        \includegraphics[width=0.9\linewidth]{app_images/Register.jpg}
+        \includegraphics[width=0.9\linewidth]{Register.jpg}
     \end{minipage}
 \end{figure}
 \\Dopo essersi registrati e aver effettuato l'accesso verrà memorizzato nei dati dell'applicazione installata l'identificativo dell'utente che ha effettuato l'accesso in modo da poter reindirizzare l'utente sulla schermata principale ad ogni avvio successivo dell'app e caricare i suoi dati.
@@ -925,11 +930,11 @@ All'avvio dell'applicazione, se si tratta del primo avvio, comparirà la scherma
 \begin{figure}[h!]
     \begin{minipage}{.5\textwidth}
         \centering
-        \includegraphics[width=0.9\linewidth]{app_images/HomePage.jpg}
+        \includegraphics[width=0.9\linewidth]{HomePage.jpg}
     \end{minipage}
     \begin{minipage}{.5\textwidth}
         \centering
-        \includegraphics[width=0.9\linewidth]{app_images/BrowsePage.jpg}
+        \includegraphics[width=0.9\linewidth]{BrowsePage.jpg}
     \end{minipage}
 \end{figure}
 \\Successivamente nella pagina di navigazione in base all'elemento clickato comparirà la pagina di visualizzazione della lista del rispetto elemento.
@@ -938,11 +943,11 @@ Mentre a destra la pagina con la lista di collezioni di qualunque utente e la ba
 \begin{figure}[h!]
     \begin{minipage}{.5\textwidth}
         \centering
-        \includegraphics[width=0.9\linewidth]{app_images/RecipeList.jpg}
+        \includegraphics[width=0.9\linewidth]{RecipeList.jpg}
     \end{minipage}
     \begin{minipage}{.5\textwidth}
         \centering
-        \includegraphics[width=0.9\linewidth]{app_images/CollectionList.jpg}
+        \includegraphics[width=0.9\linewidth]{CollectionList.jpg}
     \end{minipage}
 \end{figure}
 \\\\Ogni ricetta nella lista presenta l'immagine, il nome, il tempo di preparazione, difficoltà rappresentata da 1 a 5 con l'emoji di un peperoncino e il numero di like ricevuti da utenti.
@@ -951,11 +956,11 @@ Mentre le collezioni avranno come immagine quella della ricetta con più like ne
 \begin{figure}[h!]
     \begin{minipage}{.5\textwidth}
         \centering
-        \includegraphics[width=0.9\linewidth]{app_images/Filter.jpg}
+        \includegraphics[width=0.9\linewidth]{Filter.jpg}
     \end{minipage}
     \begin{minipage}{.5\textwidth}
         \centering
-        \includegraphics[width=0.9\linewidth]{app_images/Filter2.jpg}
+        \includegraphics[width=0.9\linewidth]{Filter2.jpg}
     \end{minipage}
 \end{figure}
 \\La barra di ricerca delle diete effettuerà la ricerca di una ricetta in base al nome, al nome degli ingredienti associati e al nome della categoria nutrizionale degli ingredienti, mentre quella delle collezioni e delle diete cercherà in base al nome della collezione/dieta e al nome delle ricette contenute.
@@ -966,11 +971,11 @@ Di seguito si ha la pagina di una ricetta.
 \begin{figure}[h!]
     \begin{minipage}{.5\textwidth}
         \centering
-        \includegraphics[width=0.9\linewidth]{app_images/Liked.jpg}
+        \includegraphics[width=0.9\linewidth]{Liked.jpg}
     \end{minipage}
     \begin{minipage}{.5\textwidth}
         \centering
-        \includegraphics[width=0.9\linewidth]{app_images/RecipePage2.jpg}
+        \includegraphics[width=0.9\linewidth]{RecipePage2.jpg}
     \end{minipage}
 \end{figure}
 \\In questa pagina l'utente potrà visualizzare tutte le informazioni della ricetta come la descrizione, gli ingredienti e i passaggi.
@@ -981,11 +986,11 @@ In fondo alla pagina si ha la sezione delle valutazioni con la possibilità di i
 \begin{figure}[h!]
     \begin{minipage}{.5\textwidth}
         \centering
-        \includegraphics[width=0.9\linewidth]{app_images/CollectionPage.jpg}
+        \includegraphics[width=0.9\linewidth]{CollectionPage.jpg}
     \end{minipage}
     \begin{minipage}{.5\textwidth}
         \centering
-        \includegraphics[width=0.9\linewidth]{app_images/CollectionPage2.jpg}
+        \includegraphics[width=0.9\linewidth]{CollectionPage2.jpg}
     \end{minipage}
 \end{figure}
 \\\\\\\\Tornando sul menu sovrastante di navigazione, clickando sull'icona a destra si andrà sulla propria pagina utente.
@@ -1000,25 +1005,25 @@ In fondo alla pagina si ha la sezione delle valutazioni con la possibilità di i
 Infine si hanno i pulsanti per la creazione di ricette e collezioni e una lista dove, al click di un contatore, compariranno gli elementi a cui fa riferimento quel contatore.
 \begin{figure}[h!]
     \centering
-    \includegraphics[width=0.4\linewidth]{app_images/UserPage.jpg}
+    \includegraphics[width=0.4\linewidth]{UserPage.jpg}
 \end{figure}
 \\Clickando sul pulsante per la creazione di una ricetta comparirà la suddetta pagina con i vari campi da completare: 
 \textbf{nome}, \textbf{descrizione}, \textbf{foto} (selezionandola dal proprio dispositivo), \textbf{lista dei passaggi} (scrivendo un passaggio alla volta e aggiungendolo alla lista), \textbf{difficoltà}, \textbf{tempo} e la \textbf{lista degli ingredienti} con la relativa quantità in grammi.\\
 \begin{figure}[h!]
     \begin{minipage}{.5\textwidth}
         \centering
-        \includegraphics[width=0.9\linewidth]{app_images/RecipeCreation.jpg}
+        \includegraphics[width=0.9\linewidth]{RecipeCreation.jpg}
     \end{minipage}
     \begin{minipage}{.5\textwidth}
         \centering
-        \includegraphics[width=0.9\linewidth]{app_images/RecipeCreation2.jpg}
+        \includegraphics[width=0.9\linewidth]{RecipeCreation2.jpg}
     \end{minipage}
 \end{figure}
 \\\\\\\\\\\\\\Mentre clickando su quello per la creazione di collezioni/diete comparirà la pagina con i seguenti campi da completare:
 \textbf{nome}, \textbf{descrizione}, checkbox per segnalare se si sta creando una \textbf{dieta} e scegliere la categoria nutrizionale e la \textbf{lista delle ricette} da aggiungere.
 \begin{figure}[h!]
     \centering
-    \includegraphics[width=0.5\linewidth]{app_images/CollectionCreation.jpg}
+    \includegraphics[width=0.5\linewidth]{CollectionCreation.jpg}
 \end{figure}
 \\\\\\\\\\\\Tutti i metodi che eseguono delle query sono contenuti dentro la classe MainViewModel che a sua volta utilizza un instanza globale di DBService per eseguire le query.
 \section{Elenco delle operazioni}
