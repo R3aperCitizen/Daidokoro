@@ -259,14 +259,35 @@ un'unica tabella che contiene tutte le collezioni piuttosto che due tabelle divi
     \centering
     \includegraphics[width=0.6\linewidth]{app_images/gerarchia_collezione.png}
 \end{figure}
-\\\\\\\\Anche per la gerarchia VALUTAZIONE(t, e) si adotta la stessa soluzione, ma si aggiunge un attributo Commento che rende la valutazione una critica quando non è vuoto.\\
+\\\\\\\\Anche per la gerarchia VALUTAZIONE(t, e) si adotta una soluzione simile, viene aggiunto l'attributo Commento 
+che rende la valutazione una critica quando non è vuoto, mentre per la questione delle due chiavi opzionali, in quanto abbiamo bisogno di 
+una chiave o l'altra, abbiamo preferito separare la nuova entità valutazione/critica in 2 entità valutazione-collezione e valutazione-ricetta \\
 \begin{figure}[h!]
     \centering
     \includegraphics[width=0.3\linewidth]{app_images/gerarchia_valutazione.png}
 \end{figure}
 \subsection{Eliminazione degli attributi composti}
+Nel nostro schema non sono presenti attributi composti o multipli per nostra scelta,
+tuttavia se volessimo individuare un possibile caso, quello sarebbe valore nutrizionale
+come campo multiplo di ingrediente.
 \subsection{Scelta delle chiavi primarie}
+Data la natura del nostro dominio, non presentando innatamente un forte sistema di identificazione
+Ogni entità possiederà una chiave unica.
 \subsection{Chiavi Esterne}
+Le relazioni sono state risolte in base alla loro cardinalità rispetto
+alle entità connesse, non essendoci casi particolari, le relazioni si sono risolte
+importando una chiave esterna nella rispettiva entità , oppure creando una tabella 
+dedicata, nel caso di relazioni N-N:
+\begin{itemize}
+    \item \textbf{Obiettivo ottenuto da utente}, 3 Entità 2 Relazioni,
+    Vengono importate le chiavi di utente e obiettivo in obiettivo-ottenuto
+    \item \textbf{Utente pubblica collezione}, 2 Entità 1 Relazione, viene importata la chiave di utente dentro collezione
+    \item \textbf{Collezione possiede ricetta} 3 Entità 2 Relazioni,In ricetta-collezione vengono salvate le chiavi di Collezione e ricetta
+    \item \textbf{Ricetta possiede ingrediente} 3 Entità 2 Relazioni, in ingrediente-ricetta vengono importate le chiavi di ingrediente e ricetta
+    \item \textbf{Ingrediente aderisce a categoria nutrizionale} 3 Entità 2 Relazioni, viene importato in ingrediente-categoria le chiavi di ingrediente e categoria
+    \item \textbf{Utente Valuta collezione} 3 Entità 2 Relazioni,dentro valutazione-collezione vengono salvate le chiavi di valutazione e collezione
+    
+\end{itemize}
 \section{Traduzione di entità e relazioni\\ in associazioni}
 \textbf{UTENTE}(\underline{IdUtente}, Username, Foto, Pwd, Email, Esperienza, Livello)\\\\
 \textbf{CATEGORIA\_NUTRIZIONALE}(\underline{IdCategoria}, Nome)\\\\
