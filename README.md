@@ -1,3 +1,3 @@
 # Daidokoro
 Daidokoro is a social network to share cooking recipes
-<img src="./Daidokoro-ER.png">
+<img src="./Report/app_images/schema-concettuale.png">
