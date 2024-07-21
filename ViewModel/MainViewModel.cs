@@ -376,6 +376,7 @@ namespace Daidokoro.ViewModel
             // and after v1 there is the last filter and data retrieval
 
             string query =
+                $"SET sort_buffer_size = 256000000;\r\n" +
                 $"WITH v1(IdRicetta,Nome,Descrizione,Passaggi,Foto,Difficolta,Tempo,DataCreazione,IdUtente,NumeroLike) AS(\r\n" +
                 $"WITH v2(IdRicetta,Nome,Descrizione,Passaggi,Foto,Difficolta,Tempo,DataCreazione,IdUtente,NumeroLike) AS(\r\n" +
                 $"WITH v3(IdRicetta,Nome,Descrizione,Passaggi,Foto,Difficolta,Tempo,DataCreazione,IdUtente,NumeroLike) AS(\r\n";
@@ -582,6 +583,7 @@ namespace Daidokoro.ViewModel
         public async Task<List<Collezione>> GetFilteredCollections(string text, string difficulty, string date, string orderby, string recipeNumber, int dieta, string nutritionalCategory)
         {
             string query =
+            $"SET sort_buffer_size = 256000000;\r\n" +
             $"WITH v2 AS (\r\n" +
                 $"WITH v1 AS (\r\n" +
                     $"SELECT collezione.*, categoria_nutrizionale.Nome as NomeCategoria\r\n" +
