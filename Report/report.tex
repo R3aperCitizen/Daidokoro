@@ -112,7 +112,7 @@ frammentati, separati in varie parti, per evitare un accesso non essenziale a gr
 \section{Schema scheletro}
 \begin{figure}[H]
     \centering
-   \includegraphics[width=0.9\textwidth]{app_images/schema-scheletro.png}  
+   \includegraphics[width=0.9\textwidth]{schema-scheletro.png}  
     \label{fig:example}
 \end{figure}
 La prima versione dello schema evidenzia gli elementi chiave 
@@ -152,7 +152,7 @@ che aggiunge il commento, questa limitata da un obbiettivo.\\
 Il risultato finale è questo schema:
 \begin{figure}[H]
     \centering
-    \includegraphics[width=1\linewidth]{app_images/schema-concettuale.png}
+    \includegraphics[width=1\linewidth]{schema-concettuale.png}
 \end{figure}
 
 \subsection{Valutazione}
@@ -160,14 +160,14 @@ Essendo critica una forma avanzata di valutazione
 abbiamo optato per una Gerarchia
 \begin{figure}[H]
     \centering
-    \includegraphics[width=0.2\linewidth]{app_images/valutazione-concettuale.png}
+    \includegraphics[width=0.2\linewidth]{valutazione-concettuale.png}
 \end{figure}
 \subsection{Obiettivo}
 La necessità di imporre vincoli all'utente precendentemente espressa
 è implementata attraverso l'uso di obiettivi
 \begin{figure}[H]
     \centering
-    \includegraphics[width=0.5\linewidth]{app_images/obiettivo-concettuale.png}
+    \includegraphics[width=0.5\linewidth]{obiettivo-concettuale.png}
 \end{figure}
 \subsection{Categoria}
 Un altro limite atto a rendere la ricerca di ricette
@@ -176,7 +176,7 @@ che si relaziona con gli ingredienti da cui indirettamente si ricavano le catego
 per una ricetta.
 \begin{figure}[H]
     \centering
-    \includegraphics[width=0.8\linewidth]{app_images/categoria-nutrizionale.png}
+    \includegraphics[width=0.8\linewidth]{categoria-nutrizionale.png}
 \end{figure}
 \subsection{Collezione}
 Molto similmente alle valutazioni, per ottenere una versione limitata
@@ -184,10 +184,13 @@ ma libera a tutti gli utenti e una versione di collezione completa( la dieta )
 ma non disponibile immediatamente, abbiamo optato per una gerarchia.
 \begin{figure}[H]
     \centering
-    \includegraphics[width=0.5\linewidth]{app_images/collezione-concettuale.png}
+    \includegraphics[width=0.5\linewidth]{collezione-concettuale.png}
 \end{figure}
 \chapter{Progettazione logica}
-capitolo logica
+\begin{figure}[H]
+    \centering
+    \includegraphics[width=1\linewidth]{schema-logico.png}
+\end{figure}
 \section{Volume dei dati}
       
 \begin{table}[H]
@@ -227,7 +230,7 @@ capitolo logica
     \end{tabular}  
 \end{table}
 
-\section{Operazioni principali e frequenza}
+\section{Operazioni principali, Accessi e frequenza}
 \begin{table}[H]
     \center
         \begin{tabular}{ |p{1.7in}|p{0.8in}|p{1.4in}|p{1.4in}| }
@@ -257,14 +260,14 @@ La scelta è motivata dal fatto che le associazioni APPARTENERE e CONTENERE tra 
 un'unica tabella che contiene tutte le collezioni piuttosto che due tabelle divise che non avrebbero alcuna utilità, poiché gli accessi all'entità padre e alle entità figlie sono contestuali.\\
 \begin{figure}[h!]
     \centering
-    \includegraphics[width=0.6\linewidth]{app_images/gerarchia_collezione.png}
+    \includegraphics[width=0.6\linewidth]{gerarchia_collezione.png}
 \end{figure}
 \\\\\\\\Anche per la gerarchia VALUTAZIONE(t, e) si adotta una soluzione simile, viene aggiunto l'attributo Commento 
 che rende la valutazione una critica quando non è vuoto, mentre per la questione delle due chiavi opzionali, in quanto abbiamo bisogno di 
 una chiave o l'altra, abbiamo preferito separare la nuova entità valutazione/critica in 2 entità valutazione-collezione e valutazione-ricetta \\
 \begin{figure}[h!]
     \centering
-    \includegraphics[width=0.3\linewidth]{app_images/gerarchia_valutazione.png}
+    \includegraphics[width=0.3\linewidth]{gerarchia_valutazione.png}
 \end{figure}
 \subsection{Eliminazione degli attributi composti}
 Nel nostro schema non sono presenti attributi composti o multipli per nostra scelta,
@@ -321,10 +324,9 @@ FK: IdRicetta REFERENCES \textbf{RICETTA}\\\\
 \textbf{VALUTAZIONE\_COLLEZIONE}(\underline{IdCollezione}, \underline{IdUtente}, Voto,\\ DataValutazione, Commento)\\
 FK: IdUtente REFERENCES \textbf{UTENTE}\\
 FK: IdCollezione REFERENCES \textbf{COLLEZIONE}\\\\
-\section{Schema relazionale finale}
 \begin{sidewaysfigure}[h!]
     \centering
-    \includegraphics[width=1\linewidth]{app_images/schema_relazionale.png}
+    \includegraphics[width=1\linewidth]{schema_relazionale.png}
 \end{sidewaysfigure}
 
 \section{Traduzione delle operazioni in query SQL}
@@ -915,11 +917,11 @@ All'avvio dell'applicazione, se si tratta del primo avvio, comparirà la scherma
 \begin{figure}[h!]
     \begin{minipage}{.5\textwidth}
         \centering
-        \includegraphics[width=0.9\linewidth]{app_images/Login.jpg}
+        \includegraphics[width=0.9\linewidth]{Login.jpg}
     \end{minipage}
     \begin{minipage}{.5\textwidth}
         \centering
-        \includegraphics[width=0.9\linewidth]{app_images/Register.jpg}
+        \includegraphics[width=0.9\linewidth]{Register.jpg}
     \end{minipage}
 \end{figure}
 \\Dopo essersi registrati e aver effettuato l'accesso verrà memorizzato nei dati dell'applicazione installata l'identificativo dell'utente che ha effettuato l'accesso in modo da poter reindirizzare l'utente sulla schermata principale ad ogni avvio successivo dell'app e caricare i suoi dati.
@@ -928,11 +930,11 @@ All'avvio dell'applicazione, se si tratta del primo avvio, comparirà la scherma
 \begin{figure}[h!]
     \begin{minipage}{.5\textwidth}
         \centering
-        \includegraphics[width=0.9\linewidth]{app_images/HomePage.jpg}
+        \includegraphics[width=0.9\linewidth]{HomePage.jpg}
     \end{minipage}
     \begin{minipage}{.5\textwidth}
         \centering
-        \includegraphics[width=0.9\linewidth]{app_images/BrowsePage.jpg}
+        \includegraphics[width=0.9\linewidth]{BrowsePage.jpg}
     \end{minipage}
 \end{figure}
 \\Successivamente nella pagina di navigazione in base all'elemento clickato comparirà la pagina di visualizzazione della lista del rispetto elemento.
@@ -941,11 +943,11 @@ Mentre a destra la pagina con la lista di collezioni di qualunque utente e la ba
 \begin{figure}[h!]
     \begin{minipage}{.5\textwidth}
         \centering
-        \includegraphics[width=0.9\linewidth]{app_images/RecipeList.jpg}
+        \includegraphics[width=0.9\linewidth]{RecipeList.jpg}
     \end{minipage}
     \begin{minipage}{.5\textwidth}
         \centering
-        \includegraphics[width=0.9\linewidth]{app_images/CollectionList.jpg}
+        \includegraphics[width=0.9\linewidth]{CollectionList.jpg}
     \end{minipage}
 \end{figure}
 \\\\Ogni ricetta nella lista presenta l'immagine, il nome, il tempo di preparazione, difficoltà rappresentata da 1 a 5 con l'emoji di un peperoncino e il numero di like ricevuti da utenti.
@@ -954,11 +956,11 @@ Mentre le collezioni avranno come immagine quella della ricetta con più like ne
 \begin{figure}[h!]
     \begin{minipage}{.5\textwidth}
         \centering
-        \includegraphics[width=0.9\linewidth]{app_images/Filter.jpg}
+        \includegraphics[width=0.9\linewidth]{Filter.jpg}
     \end{minipage}
     \begin{minipage}{.5\textwidth}
         \centering
-        \includegraphics[width=0.9\linewidth]{app_images/Filter2.jpg}
+        \includegraphics[width=0.9\linewidth]{Filter2.jpg}
     \end{minipage}
 \end{figure}
 \\La barra di ricerca delle diete effettuerà la ricerca di una ricetta in base al nome, al nome degli ingredienti associati e al nome della categoria nutrizionale degli ingredienti, mentre quella delle collezioni e delle diete cercherà in base al nome della collezione/dieta e al nome delle ricette contenute.
@@ -969,11 +971,11 @@ Di seguito si ha la pagina di una ricetta.
 \begin{figure}[h!]
     \begin{minipage}{.5\textwidth}
         \centering
-        \includegraphics[width=0.9\linewidth]{app_images/Liked.jpg}
+        \includegraphics[width=0.9\linewidth]{Liked.jpg}
     \end{minipage}
     \begin{minipage}{.5\textwidth}
         \centering
-        \includegraphics[width=0.9\linewidth]{app_images/RecipePage2.jpg}
+        \includegraphics[width=0.9\linewidth]{RecipePage2.jpg}
     \end{minipage}
 \end{figure}
 \\In questa pagina l'utente potrà visualizzare tutte le informazioni della ricetta come la descrizione, gli ingredienti e i passaggi.
@@ -984,11 +986,11 @@ In fondo alla pagina si ha la sezione delle valutazioni con la possibilità di i
 \begin{figure}[h!]
     \begin{minipage}{.5\textwidth}
         \centering
-        \includegraphics[width=0.9\linewidth]{app_images/CollectionPage.jpg}
+        \includegraphics[width=0.9\linewidth]{CollectionPage.jpg}
     \end{minipage}
     \begin{minipage}{.5\textwidth}
         \centering
-        \includegraphics[width=0.9\linewidth]{app_images/CollectionPage2.jpg}
+        \includegraphics[width=0.9\linewidth]{CollectionPage2.jpg}
     \end{minipage}
 \end{figure}
 \\\\\\\\Tornando sul menu sovrastante di navigazione, clickando sull'icona a destra si andrà sulla propria pagina utente.
@@ -1003,25 +1005,25 @@ In fondo alla pagina si ha la sezione delle valutazioni con la possibilità di i
 Infine si hanno i pulsanti per la creazione di ricette e collezioni e una lista dove, al click di un contatore, compariranno gli elementi a cui fa riferimento quel contatore.
 \begin{figure}[h!]
     \centering
-    \includegraphics[width=0.4\linewidth]{app_images/UserPage.jpg}
+    \includegraphics[width=0.4\linewidth]{UserPage.jpg}
 \end{figure}
 \\Clickando sul pulsante per la creazione di una ricetta comparirà la suddetta pagina con i vari campi da completare: 
 \textbf{nome}, \textbf{descrizione}, \textbf{foto} (selezionandola dal proprio dispositivo), \textbf{lista dei passaggi} (scrivendo un passaggio alla volta e aggiungendolo alla lista), \textbf{difficoltà}, \textbf{tempo} e la \textbf{lista degli ingredienti} con la relativa quantità in grammi.\\
 \begin{figure}[h!]
     \begin{minipage}{.5\textwidth}
         \centering
-        \includegraphics[width=0.9\linewidth]{app_images/RecipeCreation.jpg}
+        \includegraphics[width=0.9\linewidth]{RecipeCreation.jpg}
     \end{minipage}
     \begin{minipage}{.5\textwidth}
         \centering
-        \includegraphics[width=0.9\linewidth]{app_images/RecipeCreation2.jpg}
+        \includegraphics[width=0.9\linewidth]{RecipeCreation2.jpg}
     \end{minipage}
 \end{figure}
 \\\\\\\\\\\\\\Mentre clickando su quello per la creazione di collezioni/diete comparirà la pagina con i seguenti campi da completare:
 \textbf{nome}, \textbf{descrizione}, checkbox per segnalare se si sta creando una \textbf{dieta} e scegliere la categoria nutrizionale e la \textbf{lista delle ricette} da aggiungere.
 \begin{figure}[h!]
     \centering
-    \includegraphics[width=0.5\linewidth]{app_images/CollectionCreation.jpg}
+    \includegraphics[width=0.5\linewidth]{CollectionCreation.jpg}
 \end{figure}
 \\\\\\\\\\\\Tutti i metodi che eseguono delle query sono contenuti dentro la classe MainViewModel che a sua volta utilizza un instanza globale di DBService per eseguire le query.
 \section{Elenco delle operazioni}
